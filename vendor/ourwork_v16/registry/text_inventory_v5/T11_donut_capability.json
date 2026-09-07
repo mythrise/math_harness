@@ -1,0 +1,659 @@
+{
+  "template_id": "T11_donut_capability",
+  "reference_page": 13,
+  "raw_items": [
+    {
+      "raw_id": "r000",
+      "text": "D&A",
+      "x0": 448.87,
+      "y0": 237.08,
+      "x1": 505.03,
+      "y1": 272.02,
+      "font_size": 27.95,
+      "fill": "#ffffff",
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r001",
+      "text": "system",
+      "x0": 430.47,
+      "y0": 270.68,
+      "x1": 517.23,
+      "y1": 305.62,
+      "font_size": 27.95,
+      "fill": "#ffffff",
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r002",
+      "text": "Collection",
+      "x0": 502.85,
+      "y0": 51.6,
+      "x1": 573.45,
+      "y1": 71.54,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r003",
+      "text": "efficiency",
+      "x0": 504.65,
+      "y0": 70.8,
+      "x1": 572.6,
+      "y1": 90.74,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r004",
+      "text": "Responing",
+      "x0": 591.26,
+      "y0": 116.04,
+      "x1": 668.12,
+      "y1": 135.98,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r005",
+      "text": "speed",
+      "x0": 607.72,
+      "y0": 135.24,
+      "x1": 651.67,
+      "y1": 155.18,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r006",
+      "text": "Storage",
+      "x0": 651.19,
+      "y0": 231.33,
+      "x1": 707.59,
+      "y1": 251.27,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r007",
+      "text": "Position",
+      "x0": 630.93,
+      "y0": 343.59,
+      "x1": 688.18,
+      "y1": 363.52,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r008",
+      "text": "Process",
+      "x0": 560.29,
+      "y0": 415.74,
+      "x1": 619.34,
+      "y1": 435.68,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r009",
+      "text": "visualization",
+      "x0": 545.59,
+      "y0": 434.94,
+      "x1": 633.09,
+      "y1": 454.88,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r010",
+      "text": "Process",
+      "x0": 451.0,
+      "y0": 452.61,
+      "x1": 510.05,
+      "y1": 472.55,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r011",
+      "text": "Reengineering",
+      "x0": 427.85,
+      "y0": 471.81,
+      "x1": 532.3,
+      "y1": 491.75,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r012",
+      "text": "Process",
+      "x0": 344.42,
+      "y0": 419.02,
+      "x1": 403.47,
+      "y1": 438.96,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r013",
+      "text": "coverage",
+      "x0": 340.42,
+      "y0": 438.22,
+      "x1": 406.62,
+      "y1": 458.16,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r014",
+      "text": "Number",
+      "x0": 264.81,
+      "y0": 324.54,
+      "x1": 325.66,
+      "y1": 344.48,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r015",
+      "text": "Of people",
+      "x0": 258.56,
+      "y0": 343.75,
+      "x1": 328.32,
+      "y1": 363.68,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r016",
+      "text": "IT",
+      "x0": 274.37,
+      "y0": 219.83,
+      "x1": 288.07,
+      "y1": 239.77,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r017",
+      "text": "capability",
+      "x0": 248.12,
+      "y0": 239.03,
+      "x1": 316.07,
+      "y1": 258.97,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r018",
+      "text": "Cost",
+      "x0": 308.72,
+      "y0": 119.34,
+      "x1": 346.42,
+      "y1": 139.28,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r019",
+      "text": "Educational",
+      "x0": 383.78,
+      "y0": 48.41,
+      "x1": 473.08,
+      "y1": 68.35,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r020",
+      "text": "background",
+      "x0": 383.78,
+      "y0": 67.61,
+      "x1": 467.78,
+      "y1": 87.55,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    }
+  ],
+  "blocks": [
+    {
+      "block_id": "b000",
+      "text": "D&A",
+      "raw_ids": [
+        "r000"
+      ],
+      "x0": 448.87,
+      "y0": 237.08,
+      "x1": 505.03,
+      "y1": 272.02,
+      "font_size": 27.95,
+      "fill": "#ffffff",
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b001",
+      "text": "system",
+      "raw_ids": [
+        "r001"
+      ],
+      "x0": 430.47,
+      "y0": 270.68,
+      "x1": 517.23,
+      "y1": 305.62,
+      "font_size": 27.95,
+      "fill": "#ffffff",
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b002",
+      "text": "Collection",
+      "raw_ids": [
+        "r002"
+      ],
+      "x0": 502.85,
+      "y0": 51.6,
+      "x1": 573.45,
+      "y1": 71.54,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b003",
+      "text": "efficiency",
+      "raw_ids": [
+        "r003"
+      ],
+      "x0": 504.65,
+      "y0": 70.8,
+      "x1": 572.6,
+      "y1": 90.74,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b004",
+      "text": "Responing",
+      "raw_ids": [
+        "r004"
+      ],
+      "x0": 591.26,
+      "y0": 116.04,
+      "x1": 668.12,
+      "y1": 135.98,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b005",
+      "text": "speed",
+      "raw_ids": [
+        "r005"
+      ],
+      "x0": 607.72,
+      "y0": 135.24,
+      "x1": 651.67,
+      "y1": 155.18,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b006",
+      "text": "Storage",
+      "raw_ids": [
+        "r006"
+      ],
+      "x0": 651.19,
+      "y0": 231.33,
+      "x1": 707.59,
+      "y1": 251.27,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b007",
+      "text": "Position",
+      "raw_ids": [
+        "r007"
+      ],
+      "x0": 630.93,
+      "y0": 343.59,
+      "x1": 688.18,
+      "y1": 363.52,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b008",
+      "text": "Process",
+      "raw_ids": [
+        "r008"
+      ],
+      "x0": 560.29,
+      "y0": 415.74,
+      "x1": 619.34,
+      "y1": 435.68,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b009",
+      "text": "visualization",
+      "raw_ids": [
+        "r009"
+      ],
+      "x0": 545.59,
+      "y0": 434.94,
+      "x1": 633.09,
+      "y1": 454.88,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b010",
+      "text": "Process",
+      "raw_ids": [
+        "r010"
+      ],
+      "x0": 451.0,
+      "y0": 452.61,
+      "x1": 510.05,
+      "y1": 472.55,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b011",
+      "text": "Reengineering",
+      "raw_ids": [
+        "r011"
+      ],
+      "x0": 427.85,
+      "y0": 471.81,
+      "x1": 532.3,
+      "y1": 491.75,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b012",
+      "text": "Process",
+      "raw_ids": [
+        "r012"
+      ],
+      "x0": 344.42,
+      "y0": 419.02,
+      "x1": 403.47,
+      "y1": 438.96,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b013",
+      "text": "coverage",
+      "raw_ids": [
+        "r013"
+      ],
+      "x0": 340.42,
+      "y0": 438.22,
+      "x1": 406.62,
+      "y1": 458.16,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b014",
+      "text": "Number",
+      "raw_ids": [
+        "r014"
+      ],
+      "x0": 264.81,
+      "y0": 324.54,
+      "x1": 325.66,
+      "y1": 344.48,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b015",
+      "text": "Of people",
+      "raw_ids": [
+        "r015"
+      ],
+      "x0": 258.56,
+      "y0": 343.75,
+      "x1": 328.32,
+      "y1": 363.68,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b016",
+      "text": "IT",
+      "raw_ids": [
+        "r016"
+      ],
+      "x0": 274.37,
+      "y0": 219.83,
+      "x1": 288.07,
+      "y1": 239.77,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b017",
+      "text": "capability",
+      "raw_ids": [
+        "r017"
+      ],
+      "x0": 248.12,
+      "y0": 239.03,
+      "x1": 316.07,
+      "y1": 258.97,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b018",
+      "text": "Cost",
+      "raw_ids": [
+        "r018"
+      ],
+      "x0": 308.72,
+      "y0": 119.34,
+      "x1": 346.42,
+      "y1": 139.28,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b019",
+      "text": "Educational",
+      "raw_ids": [
+        "r019"
+      ],
+      "x0": 383.78,
+      "y0": 48.41,
+      "x1": 473.08,
+      "y1": 68.35,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b020",
+      "text": "background",
+      "raw_ids": [
+        "r020"
+      ],
+      "x0": 383.78,
+      "y0": 67.61,
+      "x1": 467.78,
+      "y1": 87.55,
+      "font_size": 15.95,
+      "fill": "#ffffff",
+      "font_family": "ArialMT",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    }
+  ]
+}

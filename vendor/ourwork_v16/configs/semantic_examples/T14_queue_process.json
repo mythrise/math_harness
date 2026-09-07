@@ -1,0 +1,14 @@
+{
+  "slots": {
+    "queue_1": "Stream 1",
+    "queue_2": "Stream 2",
+    "input_label": "Video process",
+    "stage_1": "Load frames",
+    "stage_2": "Decode batch",
+    "stage_3": "Run encoder",
+    "stage_4": "Predict pose",
+    "stage_5": "Pass quality gate",
+    "stage_6": "Wait for export",
+    "process_label": "Pipeline"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "selected": "no_uncertainty_linear",
+  "mean_auc_gate": true,
+  "worst_instance_gate": true,
+  "significance_gate": true,
+  "final_gap_delta": -0.00224900996468412,
+  "default_mainline": "fast_v10",
+  "final_gap_gate": true,
+  "confirmation_quality_gate": true,
+  "median_serial_ratio": 2.134304458788831,
+  "serial_gate": false,
+  "full_gate": false,
+  "extra_objective_seconds_per_call_to_meet_1_8x_median_pair_threshold": 0.0003653779218750485
+}

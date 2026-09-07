@@ -1,0 +1,130 @@
+{
+  "T01_policy_timeline": {
+    "image_slots": [
+      {
+        "name": "overview_figure",
+        "x": 69.12,
+        "y": 32.4,
+        "width": 492.0,
+        "height": 183.6,
+        "fit": "contain",
+        "clip": "rect"
+      },
+      {
+        "name": "input_photo",
+        "x": 134.1,
+        "y": 305.0,
+        "width": 77.35,
+        "height": 50.45,
+        "fit": "cover",
+        "clip": "rounded_rect",
+        "radius": 6
+      },
+      {
+        "name": "output_photo",
+        "x": 784.25,
+        "y": 305.0,
+        "width": 77.35,
+        "height": 50.45,
+        "fit": "cover",
+        "clip": "rounded_rect",
+        "radius": 6
+      },
+      {
+        "name": "identify_icon",
+        "x": 182.4,
+        "y": 393.0,
+        "width": 51.48,
+        "height": 51.48,
+        "fit": "contain",
+        "clip": "rect"
+      },
+      {
+        "name": "process_icon",
+        "x": 232.8,
+        "y": 444.36,
+        "width": 30.96,
+        "height": 30.96,
+        "fit": "contain",
+        "clip": "rect"
+      },
+      {
+        "name": "artifact_icon",
+        "x": 279.6,
+        "y": 480.0,
+        "width": 43.08,
+        "height": 41.4,
+        "fit": "contain",
+        "clip": "rect"
+      }
+    ]
+  },
+  "T02_two_stage_pipeline": {
+    "image_slots": [
+      {
+        "name": "panel_a",
+        "x": 338.0,
+        "y": 134.0,
+        "width": 246.0,
+        "height": 118.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2
+      },
+      {
+        "name": "panel_b",
+        "x": 635.0,
+        "y": 134.0,
+        "width": 250.0,
+        "height": 118.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2
+      },
+      {
+        "name": "panel_e",
+        "x": 96.0,
+        "y": 339.0,
+        "width": 240.0,
+        "height": 95.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2
+      },
+      {
+        "name": "panel_d",
+        "x": 360.0,
+        "y": 339.0,
+        "width": 255.0,
+        "height": 95.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2
+      },
+      {
+        "name": "panel_c",
+        "x": 635.0,
+        "y": 339.0,
+        "width": 250.0,
+        "height": 95.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2
+      }
+    ]
+  },
+  "T03_composite_pipeline": {
+    "image_slots": [
+      {
+        "name": "heritage_photo",
+        "x": 545.0,
+        "y": 448.0,
+        "width": 92.0,
+        "height": 82.0,
+        "fit": "cover",
+        "clip": "rect",
+        "padding": 0
+      }
+    ]
+  }
+}

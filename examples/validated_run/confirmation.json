@@ -1,0 +1,606 @@
+{
+  "inference": {
+    "ci95": [
+      0.03707035445757254,
+      0.08476100966702467
+    ],
+    "decision": "KEEP_CANDIDATE",
+    "mean_improvement": 0.06703813104189041,
+    "n": 5,
+    "reason": "percentile paired bootstrap; applies only to declared replication unit, not a universal claim",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "winner_selected_before_confirmation": "c0"
+  },
+  "rows": [
+    {
+      "candidate": "baseline",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 0.9273630504833513
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 31.7
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 0.9273630504833513,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "4c4bb1b11ef462f04053c8dc59f770e094ac0d766b160d9533134ca12005f9c4",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 701,
+      "variant": "baseline"
+    },
+    {
+      "candidate": "baseline",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 0.9142722878625136
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 31.7
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 0.9142722878625136,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "95cd71e01788d440442ff443b42bc182c50360abcfb7834b9521f9b988397e89",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 702,
+      "variant": "baseline"
+    },
+    {
+      "candidate": "baseline",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 0.9169575725026854
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 31.7
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 0.9169575725026854,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "7c2ab68c9248e7bd1f2a199cd1d8439a025b7cbc8b0cab20ca407be82786a82c",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 703,
+      "variant": "baseline"
+    },
+    {
+      "candidate": "baseline",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 0.9146750805585391
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 31.7
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 0.9146750805585391,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "844ee5faffe77c52b66d19c59081ed4ede1ac83fb5bf09ec2ed3d843c721a414",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 704,
+      "variant": "baseline"
+    },
+    {
+      "candidate": "baseline",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 0.9908700322234156
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 31.6
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 18.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 0.9908700322234156,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "be22552a24c95485523b9132b8356aa8d13d86de4a135b6908bf210010f497fe",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 705,
+      "variant": "baseline"
+    },
+    {
+      "candidate": "c0",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 1.0
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 32.0
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 1.0,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "b9d03e11ad9cb576c9db3ed97082866f4646d55714dbf1284c748f3d09bf1deb",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 701,
+      "variant": "full"
+    },
+    {
+      "candidate": "c0",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 0.999328678839957
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 32.0
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 0.999328678839957,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "83671c4b0e9c975c08a28c3e512aa3747b006ff045760b676955caa7c9bb9951",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 702,
+      "variant": "full"
+    },
+    {
+      "candidate": "c0",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 1.0
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 32.0
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 1.0,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 703,
+      "variant": "full"
+    },
+    {
+      "candidate": "c0",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 1.0
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 32.0
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 1.0,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "9a05a9324855790ed4f28de829333b53f86bad878d736ad68a853b3477680aac",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 704,
+      "variant": "full"
+    },
+    {
+      "candidate": "c0",
+      "code_digest": "a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72",
+      "evaluation": {
+        "checks": [
+          {
+            "detail": "all paid objective vectors recomputed in independent Python implementation",
+            "name": "independent_objective_recompute",
+            "passed": true
+          },
+          {
+            "detail": "FE count and paid-observation archive validated",
+            "name": "budget_and_archive",
+            "passed": true
+          },
+          {
+            "detail": "enumerated 1956 feasible nonempty ordered subsets; not a global domain claim",
+            "name": "exact_finite_domain",
+            "passed": true
+          }
+        ],
+        "measurements": [
+          {
+            "description": "normalized dominated hypervolume",
+            "id": "hv",
+            "question_id": "q1",
+            "unit": "ratio",
+            "value": 1.0
+          },
+          {
+            "description": "reward of representative selected schedule",
+            "id": "reward",
+            "question_id": "q2",
+            "unit": "reward_units",
+            "value": 32.0
+          },
+          {
+            "description": "duration of representative selected schedule",
+            "id": "duration",
+            "question_id": "q2",
+            "unit": "minutes",
+            "value": 17.0
+          }
+        ],
+        "metric": "normalized_hv",
+        "question_coverage": [
+          "q1",
+          "q2"
+        ],
+        "score": 1.0,
+        "valid": true
+      },
+      "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+      "job_id": "12a7726c8cb41cdf239bd539026f95ba31c73da4f57044a0654597eb16de8301",
+      "phase": "confirmation",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "seed": 705,
+      "variant": "full"
+    }
+  ]
+}

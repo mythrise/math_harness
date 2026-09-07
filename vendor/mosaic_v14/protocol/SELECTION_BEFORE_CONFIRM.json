@@ -1,0 +1,32 @@
+{
+  "created_utc": "2026-09-05T11:06:39.808628+00:00",
+  "source_hashes": {
+    "mosaic14/nsga.py": "774b15f496e1966ec0768ffebf77098e0e62c24cb6ca76da6800009d0a663c1b",
+    "mosaic14/fast.py": "674e4cb96173126b3f962ff0edc0dcb03bc78fbd3a89ec33ca390373580b725c",
+    "mosaic14/bootstrap.py": "001b0cc1431a1c42ef21c841be2edcd7dc4dd29b32211b66f4e6c284add3d3e6",
+    "mosaic14/variants.py": "324bd1617cbd3b501a875efe9b08b04548ab3e393b5252bb42902505b7cbde06",
+    "mosaic14/__init__.py": "a98e0580a35cc67c13e26bece800e931e99c7eabd5537dc944c5fe2fbbc67524",
+    "mosaic14/engine.py": "6040f00bc1a572bbf27f10e350ae6138770b349899e26a7ca793b6d0292dd373"
+  },
+  "engineering_candidate": "fast_h0",
+  "quality_candidate": "refit32",
+  "quality_development_pass": false,
+  "quality_confirmation_is_diagnostic": true,
+  "efficiency_secondary": "local24",
+  "efficiency_secondary_reason": "Before confirmation, freeze a separate cost-first hypothesis: local cached candidate generation preserves development mean AUC within 1% of H0 and improves final gap. It is not a development-passed quality-upgrade candidate.",
+  "confirm_algs": [
+    "fast_v10",
+    "nsga2_typed",
+    "h0",
+    "fast_h0",
+    "local24",
+    "refit32",
+    "local24_random",
+    "nsga_local24"
+  ],
+  "primary_statistics": "Instance means, two-sided paired differences where parity; one-sided improvements Holm across candidate-vs-H0/Fast/typed comparisons. Quality candidate cannot retroactively bypass failed development gate.",
+  "incumbent_rule": "fast_h0 may replace H0 implementation only after exact trace parity and median cost <=0.8 H0; promote H0 vs Fast-v10 within scope only if same-epoch quality/cost gates pass. local24/refit32 remain opt-in diagnostic if they did not pass prespecified development improvement.",
+  "rejected_development": {
+    "dual24_refit32": "3.32% AUC improvement but final gap increase exceeds .001; do not promote."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "seed_level_comparison_vs_fast": {
+    "wins": 129,
+    "ties": 0,
+    "losses": 15,
+    "worst_auc_ratio": 1.1523195129228623
+  },
+  "front_gap_reduction_pct": 51.74822087033271,
+  "igd_reduction_pct": 58.27034473809986
+}

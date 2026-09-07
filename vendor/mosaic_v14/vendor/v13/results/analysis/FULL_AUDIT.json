@@ -1,0 +1,71 @@
+{
+  "full_traces_checked": 2112,
+  "counts": {
+    "dev": {
+      "runs": 176,
+      "FE": 90112
+    },
+    "dev2": {
+      "runs": 160,
+      "FE": 81920
+    },
+    "dev3": {
+      "runs": 144,
+      "FE": 73728
+    },
+    "confirm": {
+      "runs": 1296,
+      "FE": 1327104
+    },
+    "original": {
+      "runs": 120,
+      "FE": 122880
+    },
+    "stress": {
+      "runs": 96,
+      "FE": 196608
+    },
+    "serial": {
+      "runs": 60,
+      "FE": 61440
+    },
+    "serial_contended": {
+      "runs": 60,
+      "FE": 61440
+    }
+  },
+  "registered_runs": 2112,
+  "registered_search_FE": 2015232,
+  "source_freeze_matches": true,
+  "source_hashes": {
+    "harnesslab/engine.py": true,
+    "harnesslab/model.py": true,
+    "harnesslab/problems.py": true,
+    "harnesslab/residual.py": true,
+    "harnesslab/bootstrap.py": true,
+    "harnesslab/metrics.py": true,
+    "harnesslab/__init__.py": true,
+    "harnesslab/efficient.py": true,
+    "harnesslab/residual_engine.py": true,
+    "harnesslab/nsga_residual.py": true,
+    "harnesslab/efficient_engine.py": true,
+    "run_experiments.py": true,
+    "protocol/PLAN.json": true,
+    "protocol/instances.json": true
+  },
+  "initialization_groups_compared": 264,
+  "forecast_records_checked": 1191936,
+  "prefix_model_replay_checks": 36,
+  "max_replay_error": 4.440892098500626e-16,
+  "full_parity_pairs": 32,
+  "all_full_parity": true,
+  "finite_reference_instances": 18,
+  "finite_reference_FE": 1972800,
+  "warmup_process_records": 27,
+  "discarded_warmup_calls": 81,
+  "notes": [
+    "Formal matrix counts exclude debugging smoke runs, cProfile, unit tests, and prior-round data.",
+    "Search never uses reference files; this is source/flow isolation, not a hostile-code sandbox.",
+    "Forecast audit is temporal and numerical, not a calibrated coverage or no-regret theorem."
+  ]
+}

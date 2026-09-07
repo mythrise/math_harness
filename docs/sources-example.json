@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cumcm2026format",
+    "title": "全国大学生数学建模竞赛论文格式规范（2026年修订稿）",
+    "url": "https://www.mcm.edu.cn/html_cn/node/4cd596519c9eb9fbd866398f6df0caa3.html",
+    "verified": true,
+    "verification_note": "2026-09-05查阅全国组委会官方全文；仅支持格式要求，不作为具体数学模型有效性的证据。"
+  },
+  {
+    "id": "cumcm2026ai",
+    "title": "全国大学生数学建模竞赛人工智能工具使用规定（2026年试行）",
+    "url": "https://www.mcm.edu.cn/html_cn/node/fef94648f2836ab6cc81586f4c38512b.html",
+    "verified": true,
+    "verification_note": "2026-09-05查阅官方全文；适用AI披露与人工核验，不支持算法性能主张。"
+  }
+]

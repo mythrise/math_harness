@@ -1,0 +1,24 @@
+{
+  "slots": {
+    "headline": "Ultimately improving embodied AI in the real world"
+  },
+  "slot_groups": {
+    "nodes": [
+      "Data",
+      "Memory",
+      "Model",
+      "Eval",
+      "Safety",
+      "Audit",
+      "Deploy",
+      "City",
+      "Energy",
+      "Ocean",
+      "Water",
+      "Education",
+      "Land",
+      "Resource",
+      "Climate"
+    ]
+  }
+}

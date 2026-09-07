@@ -1,0 +1,80 @@
+{
+  "round": "MOSAIC-v14-Efficiency-Lab",
+  "created_utc": "2026-09-05T11:01:20.854122+00:00",
+  "engineering": "Same RNG, policies, objectives, model fit and HVI. Cache codec, semantic features and front decomposition. Preserve entire evaluated X/F sequences.",
+  "development": {
+    "tasks": [
+      "rgv_g1",
+      "rgv_dev",
+      "tour_dev",
+      "job_dev"
+    ],
+    "seeds": [
+      74101,
+      74102,
+      74103,
+      74104
+    ],
+    "budget": 512,
+    "population": 32,
+    "variants": [
+      "fast_v10",
+      "nsga2_typed",
+      "fast_h0",
+      "bounded24",
+      "pool4",
+      "local24",
+      "local48",
+      "local_all",
+      "refit32",
+      "local24_refit32"
+    ]
+  },
+  "confirmation": {
+    "tasks": [
+      "rgv_new1",
+      "rgv_new2",
+      "rgv_new3",
+      "rgv_new4",
+      "tour_new1",
+      "tour_new2",
+      "tour_new3",
+      "tour_new4",
+      "job_new1",
+      "job_new2",
+      "job_new3",
+      "job_new4"
+    ],
+    "seeds": [
+      74501,
+      74502,
+      74503,
+      74504,
+      74505,
+      74506,
+      74507,
+      74508,
+      74509,
+      74510,
+      74511,
+      74512
+    ],
+    "budget": 1024,
+    "population": 32
+  },
+  "selection": "Freeze single minimum equal-instance mean AUC candidate among variants with development mean final_gap <= fast_h0+.001; require >=3% improvement over fast_h0 to promote quality candidate. Otherwise only diagnostic confirmation. Engineering fast_h0 retained independently on trace parity.",
+  "quality_gate": {
+    "auc_improvement_vs_h0": 0.03,
+    "auc_improvement_vs_fast_v10": 0.05,
+    "worst_instance_ratio_vs_h0": 1.2,
+    "mean_final_gap_increase_vs_h0": 0.001,
+    "instance_holm_p": 0.05
+  },
+  "cost_gate": {
+    "engineering_median_ratio_vs_h0": 0.8,
+    "median_ratio_vs_fast_v10": 1.8
+  },
+  "reference": "n=8 full finite deterministic strategy fronts scored after search only; numerical tolerance inherited. New parameters in same 3 known model families, not new domains.",
+  "serial": "3 domains x4 seeds; randomized order; all imports/JIT warmup outside timer and disclosed. No concurrency during timing.",
+  "claim": "No official/universal SOTA. Original v13 immutable. No evaluator modifications or precomputed objectives injected. Error runs not scored."
+}

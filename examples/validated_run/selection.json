@@ -1,0 +1,10 @@
+{
+  "confirmation_seen": false,
+  "development_means": {
+    "baseline": 0.9332706766917295,
+    "c0": 0.9997762262799856,
+    "c1": 0.9996419620479772
+  },
+  "protocol_digest": "83b4c2e62d406280446774cf89be9a841207378cfc83f75d6ae96760538e648b",
+  "winner": "c0"
+}

@@ -1,0 +1,6 @@
+{
+  "structures": {
+    "pipeline_blocks": ["Input", "Encoder", "Temporal", "World", "Root", "Output"],
+    "pipeline_years": ["2026", "2027", "2028", "2029", "2030"]
+  }
+}

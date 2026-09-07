@@ -1,0 +1,8 @@
+{
+  "auto_images": [
+    "assets/demo_images/tall_focus.png",
+    "assets/demo_images/wide_system.png",
+    "assets/demo_images/square_panel.png"
+  ],
+  "auto_image_options": {"assignment":"aspect"}
+}

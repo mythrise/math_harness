@@ -1,0 +1,60 @@
+{
+  "created_utc": "2026-09-05T11:14:54.262856+00:00",
+  "files": {
+    "mosaic14/__init__.py": "a98e0580a35cc67c13e26bece800e931e99c7eabd5537dc944c5fe2fbbc67524",
+    "mosaic14/bootstrap.py": "001b0cc1431a1c42ef21c841be2edcd7dc4dd29b32211b66f4e6c284add3d3e6",
+    "mosaic14/engine.py": "6040f00bc1a572bbf27f10e350ae6138770b349899e26a7ca793b6d0292dd373",
+    "mosaic14/fast.py": "674e4cb96173126b3f962ff0edc0dcb03bc78fbd3a89ec33ca390373580b725c",
+    "mosaic14/nsga.py": "774b15f496e1966ec0768ffebf77098e0e62c24cb6ca76da6800009d0a663c1b",
+    "mosaic14/variants.py": "324bd1617cbd3b501a875efe9b08b04548ab3e393b5252bb42902505b7cbde06",
+    "run_experiments.py": "73a8cd2cc121365cb1206c53e19f20093f6dfded2c75f82fc7537a889ca8bc0b",
+    "protocol/instances.json": "ad78b62b54ad07cfd8b8b471a61b957d81cbc82a87e08992994db8f7dee1727d"
+  },
+  "algorithms": [
+    "local7"
+  ],
+  "seeds": [
+    74501,
+    74502,
+    74503,
+    74504,
+    74505,
+    74506
+  ],
+  "budget": 1024,
+  "tasks": [
+    "rgv_new1",
+    "rgv_new2",
+    "rgv_new3",
+    "rgv_new4",
+    "tour_new1",
+    "tour_new2",
+    "tour_new3",
+    "tour_new4",
+    "job_new1",
+    "job_new2",
+    "job_new3",
+    "job_new4"
+  ],
+  "configs": {
+    "local7": {
+      "model": "linear",
+      "guarded": true,
+      "enabled": true,
+      "pool": 8,
+      "warmup": 64,
+      "refit": 64,
+      "exploration": 0.2,
+      "uncertainty": 0.0,
+      "rank_threshold": 0.35,
+      "error_threshold": 0.25,
+      "acquisition": "hvi",
+      "raw_features": false,
+      "proposal_mode": "local",
+      "trial_cap": 24,
+      "local_cap": 7
+    }
+  },
+  "script_sha256": "46df43c50e9e86ab7287eaef08bb3013f361dfe1c818472ecdbc2c3a00c96f58",
+  "designation": "Supplementary matched-cap ablation; cannot change selected confirmation candidate. Compare to same-seed fast_h0 and local24 confirmation traces."
+}

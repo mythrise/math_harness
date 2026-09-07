@@ -1,0 +1,19 @@
+{
+  "slot_groups": {
+    "primary_nodes": [
+      "Core",
+      "Human",
+      "Tech",
+      "Process"
+    ],
+    "outer_nodes": [
+      "Personal",
+      "Team",
+      "Efficiency",
+      "Data",
+      "Convenience",
+      "Accuracy",
+      "Security"
+    ]
+  }
+}

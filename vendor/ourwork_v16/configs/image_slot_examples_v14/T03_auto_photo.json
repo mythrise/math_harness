@@ -1,0 +1,23 @@
+{
+  "slot_groups": {
+    "models": [
+      "UD Model I",
+      "REDE Model II",
+      "CBC Model III"
+    ],
+    "panels": [
+      "(a) Underwriting Decision",
+      "(b) Development Evaluation",
+      "(c) Community Conservation",
+      "(d) Guardian Protection"
+    ]
+  },
+  "images": {
+    "heritage_photo": {
+      "path": "assets/demo_images/ruins_photo_demo.jpg",
+      "fit": "cover",
+      "focus_x": 0.55,
+      "focus_y": 0.5
+    }
+  }
+}

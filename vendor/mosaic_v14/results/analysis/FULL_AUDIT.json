@@ -1,0 +1,23 @@
+{
+  "complete_runs": 1884,
+  "search_FE": 1843200,
+  "initialization_matches": 1688,
+  "output_truth_checks": 31513,
+  "forecast_temporal_checks": 1035776,
+  "baseline_source_unchanged": true,
+  "stage_source_freezes": {
+    "stress": true,
+    "dev2": true,
+    "original": true,
+    "serial": true,
+    "dev": true,
+    "baseline_codec_audit": true,
+    "cap_ablation": true,
+    "confirm": true
+  },
+  "recorded_discarded_warmup_calls": 48,
+  "reference_vector_evaluations": 1972800,
+  "reference_instance_count": 18,
+  "all_audits_pass": true,
+  "scope": "Only registered complete runs. Profiles, quick parity smoke and unit tests are excluded from benchmark counts."
+}

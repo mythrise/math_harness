@@ -1,0 +1,8 @@
+*
+!Dockerfile
+!pyproject.toml
+!cumcm_harness/**
+!vendor/mosaic_v14/**
+!vendor/MANIFEST.json
+**/__pycache__
+**/*.pyc

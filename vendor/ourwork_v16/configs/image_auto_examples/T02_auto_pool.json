@@ -1,0 +1,13 @@
+{
+  "structures": {
+    "header_blocks": ["Review", "Data", "Pose", "Flow", "World", "Root", "Calib", "Eval", "Deploy", "Paper"]
+  },
+  "auto_images": [
+    {"path":"assets/demo_images/white_margin_figure.png","trim":"auto"},
+    "assets/demo_images/tall_focus.png",
+    "assets/demo_images/overview_stage.png",
+    "assets/demo_images/panel_detail.png",
+    "assets/demo_images/square_panel.png"
+  ],
+  "auto_image_options": {"assignment":"reading_order"}
+}

@@ -1,0 +1,292 @@
+{
+  "ci_high": {
+    "description": "paired percentile bootstrap ci_high",
+    "evidence": [
+      {
+        "evaluation_digest": "1e1d8b86b5bf0ace1b313362950a230354c456bb92194ed79a720dff9d32a487",
+        "job_id": "4c4bb1b11ef462f04053c8dc59f770e094ac0d766b160d9533134ca12005f9c4",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "b0b76297f02b99c93e2ed56aed7cbed539d18ec43d47e065ffeee4308f81f257",
+        "job_id": "95cd71e01788d440442ff443b42bc182c50360abcfb7834b9521f9b988397e89",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "2607819f6f41c505fe57ff9a26de4c37a57bd567a8226c55fc4d9f0c232df1fb",
+        "job_id": "7c2ab68c9248e7bd1f2a199cd1d8439a025b7cbc8b0cab20ca407be82786a82c",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "363978ee3eab7aa2772afa29b03e905d305c5045e37dc5b6c6094aaf90d24593",
+        "job_id": "844ee5faffe77c52b66d19c59081ed4ede1ac83fb5bf09ec2ed3d843c721a414",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "17dd8eae9e2e17b2ae3ecbabba97113e7237ec4e2f5703ffa7e41317b61893ca",
+        "job_id": "be22552a24c95485523b9132b8356aa8d13d86de4a135b6908bf210010f497fe",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "b9d03e11ad9cb576c9db3ed97082866f4646d55714dbf1284c748f3d09bf1deb",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "7f17577aa5f3c45e383acaa3a6bea1223876db4adf7f4172fd1a1d36c46a14c1",
+        "job_id": "83671c4b0e9c975c08a28c3e512aa3747b006ff045760b676955caa7c9bb9951",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "9a05a9324855790ed4f28de829333b53f86bad878d736ad68a853b3477680aac",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "12a7726c8cb41cdf239bd539026f95ba31c73da4f57044a0654597eb16de8301",
+        "selector": "score"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "normalized_hv",
+    "value": 0.08476100966702467
+  },
+  "ci_low": {
+    "description": "paired percentile bootstrap ci_low",
+    "evidence": [
+      {
+        "evaluation_digest": "1e1d8b86b5bf0ace1b313362950a230354c456bb92194ed79a720dff9d32a487",
+        "job_id": "4c4bb1b11ef462f04053c8dc59f770e094ac0d766b160d9533134ca12005f9c4",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "b0b76297f02b99c93e2ed56aed7cbed539d18ec43d47e065ffeee4308f81f257",
+        "job_id": "95cd71e01788d440442ff443b42bc182c50360abcfb7834b9521f9b988397e89",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "2607819f6f41c505fe57ff9a26de4c37a57bd567a8226c55fc4d9f0c232df1fb",
+        "job_id": "7c2ab68c9248e7bd1f2a199cd1d8439a025b7cbc8b0cab20ca407be82786a82c",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "363978ee3eab7aa2772afa29b03e905d305c5045e37dc5b6c6094aaf90d24593",
+        "job_id": "844ee5faffe77c52b66d19c59081ed4ede1ac83fb5bf09ec2ed3d843c721a414",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "17dd8eae9e2e17b2ae3ecbabba97113e7237ec4e2f5703ffa7e41317b61893ca",
+        "job_id": "be22552a24c95485523b9132b8356aa8d13d86de4a135b6908bf210010f497fe",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "b9d03e11ad9cb576c9db3ed97082866f4646d55714dbf1284c748f3d09bf1deb",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "7f17577aa5f3c45e383acaa3a6bea1223876db4adf7f4172fd1a1d36c46a14c1",
+        "job_id": "83671c4b0e9c975c08a28c3e512aa3747b006ff045760b676955caa7c9bb9951",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "9a05a9324855790ed4f28de829333b53f86bad878d736ad68a853b3477680aac",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "12a7726c8cb41cdf239bd539026f95ba31c73da4f57044a0654597eb16de8301",
+        "selector": "score"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "normalized_hv",
+    "value": 0.03707035445757254
+  },
+  "mean_baseline": {
+    "description": "Confirmation mean for baseline",
+    "evidence": [
+      {
+        "evaluation_digest": "1e1d8b86b5bf0ace1b313362950a230354c456bb92194ed79a720dff9d32a487",
+        "job_id": "4c4bb1b11ef462f04053c8dc59f770e094ac0d766b160d9533134ca12005f9c4",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "b0b76297f02b99c93e2ed56aed7cbed539d18ec43d47e065ffeee4308f81f257",
+        "job_id": "95cd71e01788d440442ff443b42bc182c50360abcfb7834b9521f9b988397e89",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "2607819f6f41c505fe57ff9a26de4c37a57bd567a8226c55fc4d9f0c232df1fb",
+        "job_id": "7c2ab68c9248e7bd1f2a199cd1d8439a025b7cbc8b0cab20ca407be82786a82c",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "363978ee3eab7aa2772afa29b03e905d305c5045e37dc5b6c6094aaf90d24593",
+        "job_id": "844ee5faffe77c52b66d19c59081ed4ede1ac83fb5bf09ec2ed3d843c721a414",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "17dd8eae9e2e17b2ae3ecbabba97113e7237ec4e2f5703ffa7e41317b61893ca",
+        "job_id": "be22552a24c95485523b9132b8356aa8d13d86de4a135b6908bf210010f497fe",
+        "selector": "score"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "normalized_hv",
+    "value": 0.932827604726101
+  },
+  "mean_c0": {
+    "description": "Confirmation mean for c0",
+    "evidence": [
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "b9d03e11ad9cb576c9db3ed97082866f4646d55714dbf1284c748f3d09bf1deb",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "7f17577aa5f3c45e383acaa3a6bea1223876db4adf7f4172fd1a1d36c46a14c1",
+        "job_id": "83671c4b0e9c975c08a28c3e512aa3747b006ff045760b676955caa7c9bb9951",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "9a05a9324855790ed4f28de829333b53f86bad878d736ad68a853b3477680aac",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "12a7726c8cb41cdf239bd539026f95ba31c73da4f57044a0654597eb16de8301",
+        "selector": "score"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "normalized_hv",
+    "value": 0.9998657357679914
+  },
+  "mean_improvement": {
+    "description": "paired candidate minus baseline in improvement direction",
+    "evidence": [
+      {
+        "evaluation_digest": "1e1d8b86b5bf0ace1b313362950a230354c456bb92194ed79a720dff9d32a487",
+        "job_id": "4c4bb1b11ef462f04053c8dc59f770e094ac0d766b160d9533134ca12005f9c4",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "b0b76297f02b99c93e2ed56aed7cbed539d18ec43d47e065ffeee4308f81f257",
+        "job_id": "95cd71e01788d440442ff443b42bc182c50360abcfb7834b9521f9b988397e89",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "2607819f6f41c505fe57ff9a26de4c37a57bd567a8226c55fc4d9f0c232df1fb",
+        "job_id": "7c2ab68c9248e7bd1f2a199cd1d8439a025b7cbc8b0cab20ca407be82786a82c",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "363978ee3eab7aa2772afa29b03e905d305c5045e37dc5b6c6094aaf90d24593",
+        "job_id": "844ee5faffe77c52b66d19c59081ed4ede1ac83fb5bf09ec2ed3d843c721a414",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "17dd8eae9e2e17b2ae3ecbabba97113e7237ec4e2f5703ffa7e41317b61893ca",
+        "job_id": "be22552a24c95485523b9132b8356aa8d13d86de4a135b6908bf210010f497fe",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "b9d03e11ad9cb576c9db3ed97082866f4646d55714dbf1284c748f3d09bf1deb",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "7f17577aa5f3c45e383acaa3a6bea1223876db4adf7f4172fd1a1d36c46a14c1",
+        "job_id": "83671c4b0e9c975c08a28c3e512aa3747b006ff045760b676955caa7c9bb9951",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "9a05a9324855790ed4f28de829333b53f86bad878d736ad68a853b3477680aac",
+        "selector": "score"
+      },
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "12a7726c8cb41cdf239bd539026f95ba31c73da4f57044a0654597eb16de8301",
+        "selector": "score"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "normalized_hv",
+    "value": 0.06703813104189041
+  },
+  "result_duration": {
+    "description": "duration of representative selected schedule",
+    "evidence": [
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+        "selector": "measurements.duration"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "question_id": "q2",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "minutes",
+    "value": 17.0
+  },
+  "result_hv": {
+    "description": "normalized dominated hypervolume",
+    "evidence": [
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+        "selector": "measurements.hv"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "question_id": "q1",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "ratio",
+    "value": 1.0
+  },
+  "result_reward": {
+    "description": "reward of representative selected schedule",
+    "evidence": [
+      {
+        "evaluation_digest": "4d55f5a726bc8e1f76c4866950cccef41595f8a5915ca61e31a2ef9ca1a4c640",
+        "job_id": "058585d4c9776e12a7f184e2379dbe352e697865fba38e07e1bcf9e9e5620b5e",
+        "selector": "measurements.reward"
+      }
+    ],
+    "maturity": "MEASURED_SCOPE_ONLY",
+    "question_id": "q2",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "unit": "reward_units",
+    "value": 32.0
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "MOSAIC-v13-Harness-Lab",
+  "default_mainline": "Fast-v10",
+  "opt_in_candidate": "audited_infill / no_uncertainty_linear",
+  "quality_gate_passed": true,
+  "all_cost_quality_gates_passed": false,
+  "default_replacement": false,
+  "registered_runs": 2112,
+  "registered_search_FE": 2015232,
+  "finite_reference_evaluations": 1972800,
+  "discarded_warmup_calls": 81,
+  "audited_forecasts": 1191936,
+  "independent_prefix_model_replays": 36,
+  "source_freeze_matches": true,
+  "normal_confirm_h0_audit_fallback_count": 0,
+  "relative_AUC_improvement_vs_fast_pct": 16.03721757545452,
+  "relative_AUC_improvement_vs_nsga_pct": 32.47347779011329,
+  "holm_p_vs_both": 0.00048828125,
+  "median_serial_time_ratio_vs_fast": 2.134304458788831,
+  "own_and_inherited_tests": 61,
+  "official_sota": false,
+  "universal_sota": false,
+  "neural_LLM_agent_trained": false,
+  "scope": [
+    "Deterministic bi-objective ordered subsets only",
+    "2018 CUMCM B restricted no-fault single-process cyclic RGV simulation",
+    "Synthetic discounted-reward tours and due-date jobs",
+    "12 new n=8 parameter instances; only three model families",
+    "n=12/16 synthetic stress uses pooled reference, not exact frontier"
+  ],
+  "limitations": [
+    "No normal-distribution quality benefit isolated for audit gate; selected H0 gate did not close in primary confirmation",
+    "CPU ratio exceeds preregistered 1.8 limit",
+    "15 of 144 seed pairs regress on AUC despite all 12 instance means improving",
+    "Same-harness NSGA-II has better aggregate terminal accuracy",
+    "Basic surrogate-assisted preselection is established prior art, not claimed invented",
+    "Not full original contest dynamic/fault tasks; no official CEC benchmark",
+    "No run-internal checkpoint/resume or formal no-regret guarantee"
+  ]
+}

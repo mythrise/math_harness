@@ -1,0 +1,29 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.nb[ci]
+.pytest_cache/
+*.egg-info/
+.runtime/
+workspaces/
+.env
+*.key
+
+# Local credentials, caches and generated runs are not source distribution.
+.DS_Store
+node_modules/
+.env.*
+!.env.example
+*.pem
+*.sqlite3*
+
+# Contest inputs and original downloaded archives stay on the local machine.
+/inputs/
+/测试/
+/*.zip
+/math_modeling_official_pack_2015_2026/
+
+# Raw CLI logs may contain private prompts or provider diagnostics.
+/reports/**
+!/reports/TEST_REPORT_CN.md
+!/reports/GITHUB_SNAPSHOT_CN.md

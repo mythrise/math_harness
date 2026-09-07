@@ -1,0 +1,224 @@
+{
+  "version": "MOSAIC-v14-Efficiency-Lab",
+  "default_strategy": "incumbent (unchanged Fast-v10)",
+  "recommended_execution_options": {
+    "incumbent_cached": {
+      "scope": "same two validated ordered-subset codecs",
+      "trajectory_pairs": 156,
+      "all_equal": true,
+      "median_runtime_ratio_to_original": 0.3807123390436791,
+      "quality_change": false
+    },
+    "fast_h0": {
+      "trajectory_pairs": 180,
+      "all_equal": true,
+      "median_runtime_ratio_to_original_h0": 0.5196889834638867,
+      "engineering_gate": true,
+      "original_v13_cost_gate": true,
+      "median_runtime_ratio_to_codec_optimized_incumbent": 3.187687183506405,
+      "independent_quality_improvement_over_h0": false
+    }
+  },
+  "experimental_options": {
+    "local24": {
+      "preselected_role": "cost-first diagnostic secondary, not a development-passed quality candidate",
+      "development_quality_pass": false,
+      "confirmation_numeric_quality_pass": true,
+      "confirmation_auc_improvement_over_h0_pct": 3.323880150054004,
+      "median_runtime_ratio_to_fast_h0": 0.5506813401992179,
+      "median_runtime_ratio_to_optimized_incumbent": 1.6328119440772888,
+      "default_merge": false,
+      "original_rgv_full_front_hits": "10/12 versus H0 12/12"
+    },
+    "refit32": {
+      "development_quality_pass": false,
+      "confirmation_auc_improvement_over_h0_pct": 1.925149140538052,
+      "confirmation_3percent_quality_gate": false,
+      "default_merge": false
+    }
+  },
+  "audit": {
+    "complete_runs": 1884,
+    "search_FE": 1843200,
+    "initialization_matches": 1688,
+    "output_truth_checks": 31513,
+    "forecast_temporal_checks": 1035776,
+    "baseline_source_unchanged": true,
+    "stage_source_freezes": {
+      "stress": true,
+      "dev2": true,
+      "original": true,
+      "serial": true,
+      "dev": true,
+      "baseline_codec_audit": true,
+      "cap_ablation": true,
+      "confirm": true
+    },
+    "recorded_discarded_warmup_calls": 48,
+    "reference_vector_evaluations": 1972800,
+    "reference_instance_count": 18,
+    "all_audits_pass": true,
+    "scope": "Only registered complete runs. Profiles, quick parity smoke and unit tests are excluded from benchmark counts."
+  },
+  "trace_pair_groups": [
+    {
+      "candidate": "fast_h0",
+      "baseline": "h0",
+      "pairs": 180
+    },
+    {
+      "candidate": "fast_v10_codec",
+      "baseline": "fast_v10",
+      "pairs": 156
+    },
+    {
+      "candidate": "local24_no_cache",
+      "baseline": "local24",
+      "pairs": 12
+    }
+  ],
+  "tests_passed": 42,
+  "quality_table": [
+    {
+      "algorithm": "fast_h0",
+      "auc": 0.0949429111322235,
+      "final_gap": 0.0015106178269666,
+      "igd": 0.0005159023028046,
+      "recall": 0.9586133215312156,
+      "seconds": 3.222512026631952,
+      "extra_pure_proposals": 37310.77777777778,
+      "neighbor_builds": 0.0,
+      "neighbor_filter_checks": 0.0,
+      "predictions": 4812.194444444444,
+      "overrides": 83.41666666666667,
+      "runs": 144,
+      "front_hits": 86
+    },
+    {
+      "algorithm": "fast_v10",
+      "auc": 0.1098976240457644,
+      "final_gap": 0.0027803965699068,
+      "igd": 0.0011133752525977,
+      "recall": 0.922072322019734,
+      "seconds": 2.5358709618819324,
+      "extra_pure_proposals": 0.0,
+      "neighbor_builds": 0.0,
+      "neighbor_filter_checks": 0.0,
+      "predictions": 0.0,
+      "overrides": 0.0,
+      "runs": 144,
+      "front_hits": 61
+    },
+    {
+      "algorithm": "h0",
+      "auc": 0.0949429111322235,
+      "final_gap": 0.0015106178269666,
+      "igd": 0.0005159023028046,
+      "recall": 0.9586133215312156,
+      "seconds": 5.735360283125005,
+      "extra_pure_proposals": 37310.77777777778,
+      "neighbor_builds": 0.0,
+      "neighbor_filter_checks": 0.0,
+      "predictions": 4812.194444444444,
+      "overrides": 83.41666666666667,
+      "runs": 144,
+      "front_hits": 86
+    },
+    {
+      "algorithm": "local24",
+      "auc": 0.0917871225552161,
+      "final_gap": 0.0011337981828849,
+      "igd": 0.0004270272165611,
+      "recall": 0.9581583888035502,
+      "seconds": 1.9652154552152796,
+      "extra_pure_proposals": 0.0,
+      "neighbor_builds": 44.451388888888886,
+      "neighbor_filter_checks": 31227.729166666668,
+      "predictions": 9980.020833333334,
+      "overrides": 74.02777777777779,
+      "runs": 144,
+      "front_hits": 90
+    },
+    {
+      "algorithm": "local24_random",
+      "auc": 0.1086140392049156,
+      "final_gap": 0.002407105758416,
+      "igd": 0.0010765447642081,
+      "recall": 0.9233133426215232,
+      "seconds": 0.9982540280208516,
+      "extra_pure_proposals": 0.0,
+      "neighbor_builds": 47.25,
+      "neighbor_filter_checks": 30177.6875,
+      "predictions": 0.0,
+      "overrides": 429.5555555555556,
+      "runs": 144,
+      "front_hits": 61
+    },
+    {
+      "algorithm": "nsga2_typed",
+      "auc": 0.14253351505362,
+      "final_gap": 0.0046266780037741,
+      "igd": 0.0028424924712752,
+      "recall": 0.8638413514811697,
+      "seconds": 1.976581893569436,
+      "extra_pure_proposals": 0.0,
+      "neighbor_builds": 0.0,
+      "neighbor_filter_checks": 0.0,
+      "predictions": 0.0,
+      "overrides": 0.0,
+      "runs": 144,
+      "front_hits": 32
+    },
+    {
+      "algorithm": "nsga_local24",
+      "auc": 0.112534831698226,
+      "final_gap": 0.0022156723152506,
+      "igd": 0.0015319934901029,
+      "recall": 0.9257278121114508,
+      "seconds": 1.692038594784721,
+      "extra_pure_proposals": 0.0,
+      "neighbor_builds": 84.96527777777779,
+      "neighbor_filter_checks": 31863.79861111111,
+      "predictions": 12386.680555555557,
+      "overrides": 122.3263888888889,
+      "runs": 144,
+      "front_hits": 73
+    },
+    {
+      "algorithm": "refit32",
+      "auc": 0.0931151184945597,
+      "final_gap": 0.0013369293499791,
+      "igd": 0.0004877922057456,
+      "recall": 0.9605292699517084,
+      "seconds": 4.118934791076395,
+      "extra_pure_proposals": 37241.28472222223,
+      "neighbor_builds": 0.0,
+      "neighbor_filter_checks": 0.0,
+      "predictions": 4817.451388888889,
+      "overrides": 81.95833333333333,
+      "runs": 144,
+      "front_hits": 86
+    }
+  ],
+  "runtime_environment_note": "One benchmark run at a time for serial stage; not a single-CPU claim. Recreated import state shows NumPy OpenBLAS 5 threads, SciPy OpenBLAS 1 despite environment variables set to 1. All methods share this state. No post-hoc threading change is called an equivalent speedup.",
+  "SOTA": {
+    "official": false,
+    "universal": false,
+    "new_continuous_quality": false
+  },
+  "scope": [
+    "Deterministic bi-objective ordered subsets",
+    "12 new n=8 parameter instances from three known model families",
+    "2018 CUMCM B restricted cyclic/no-fault/single-process simulation; other two families synthetic",
+    "12/16-entity stress uses pooled observed reference, not exact",
+    "Original current-run RGV check has only four seeds per group"
+  ],
+  "limitations": [
+    "No automatic promotion of failed-development quality branches",
+    "Fast-H0 still slower than equally codec-optimized incumbent",
+    "Local24 regressions remain on individual runs and original RGV groups",
+    "NSGA-II comparisons use inherited local implementation; no claim of fastest optimized NSGA-II",
+    "Pure caches grow with generated policy diversity",
+    "One-machine runtime and finite parity tests are not platform-independent guarantees"
+  ]
+}

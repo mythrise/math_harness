@@ -1,0 +1,11 @@
+{
+  "slots": {
+    "problem_1_title": "Problem 1: Predict world MPJPE",
+    "problem_2_title": "Problem 2: Forecast future pose",
+    "problem_3_title": "Problem 3: Classify failure modes",
+    "problem_4_title": "Problem 4: Analyze robust cues",
+    "model_1": "MobileNetV4",
+    "model_2": "Causal TSM + GRU",
+    "cluster_method": "K-Means"
+  }
+}

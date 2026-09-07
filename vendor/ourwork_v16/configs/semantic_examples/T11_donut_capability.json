@@ -1,0 +1,21 @@
+{
+  "slot_groups": {
+    "center": [
+      "Agent",
+      "System"
+    ],
+    "outer_segments": [
+      "Education",
+      "Collection efficiency",
+      "Response speed",
+      "Storage",
+      "Position",
+      "Process visualization",
+      "Process redesign",
+      "Process coverage",
+      "User count",
+      "IT capability",
+      "Cost"
+    ]
+  }
+}

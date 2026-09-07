@@ -1,0 +1,53 @@
+         3713923 function calls (3713881 primitive calls) in 6.676 seconds
+
+   Ordered by: cumulative time
+   List reduced from 407 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.221    0.221    6.676    6.676 efficient_engine.py:15(run_efficient)
+    65922    1.329    0.000    4.498    0.000 rgv.py:68(mutate)
+      992    0.277    0.000    3.236    0.003 residual.py:76(intervene)
+    41825    0.042    0.000    1.706    0.000 efficient.py:30(mutate)
+    25208    0.452    0.000    1.181    0.000 rgv.py:61(encode)
+    51927    0.398    0.000    0.953    0.000 rgv.py:54(decode)
+     1732    0.252    0.000    0.595    0.000 model.py:6(features)
+   109333    0.102    0.000    0.555    0.000 fromnumeric.py:2477(any)
+    56548    0.084    0.000    0.495    0.000 fromnumeric.py:3328(prod)
+   181109    0.494    0.000    0.494    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+   113066    0.185    0.000    0.474    0.000 fromnumeric.py:89(_wrapreduction_any_all)
+   138085    0.194    0.000    0.417    0.000 efficient.py:22(decode)
+    56773    0.150    0.000    0.416    0.000 fromnumeric.py:69(_wrapreduction)
+    25209    0.056    0.000    0.370    0.000 _arraysetops_impl.py:145(unique)
+    25209    0.123    0.000    0.290    0.000 _arraysetops_impl.py:348(_unique1d)
+    14124    0.200    0.000    0.290    0.000 _index_tricks_impl.py:344(__getitem__)
+    42582    0.116    0.000    0.268    0.000 residual.py:73(<lambda>)
+    52979    0.054    0.000    0.225    0.000 fromnumeric.py:1129(argsort)
+    49258    0.170    0.000    0.213    0.000 numeric.py:324(full)
+    41825    0.077    0.000    0.182    0.000 efficient.py:26(encode)
+    54723    0.057    0.000    0.178    0.000 fromnumeric.py:51(_wrapfunc)
+       15    0.005    0.000    0.150    0.010 residual.py:43(fit)
+   251315    0.133    0.000    0.133    0.000 {built-in method numpy.asarray}
+   186604    0.129    0.000    0.129    0.000 {method 'copy' of 'numpy.ndarray' objects}
+      993    0.026    0.000    0.123    0.000 api.py:28(evaluate)
+      757    0.040    0.000    0.115    0.000 model.py:43(hypervolume_improvement)
+    27785    0.060    0.000    0.110    0.000 efficient_engine.py:18(key)
+       30    0.000    0.000    0.104    0.003 base.py:1319(wrapper)
+    52980    0.103    0.000    0.103    0.000 {method 'argsort' of 'numpy.ndarray' objects}
+       30    0.002    0.000    0.090    0.003 _ridge.py:1231(fit)
+   137093    0.079    0.000    0.079    0.000 {built-in method builtins.getattr}
+       30    0.001    0.000    0.075    0.002 _ridge.py:925(fit)
+   347599    0.074    0.000    0.074    0.000 {built-in method builtins.len}
+   165870    0.067    0.000    0.067    0.000 {method 'tobytes' of 'numpy.ndarray' objects}
+      993    0.027    0.000    0.062    0.000 rgv.py:108(evaluate)
+    25208    0.053    0.000    0.053    0.000 {built-in method numpy._core._multiarray_umath._unique_hash}
+     1717    0.029    0.000    0.053    0.000 efficient.py:34(predict)
+     1972    0.009    0.000    0.052    0.000 fromnumeric.py:3735(mean)
+     2062    0.016    0.000    0.049    0.000 _methods.py:117(_mean)
+    52047    0.049    0.000    0.049    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       30    0.001    0.000    0.046    0.002 _ridge.py:612(_ridge_regression)
+    58074    0.044    0.000    0.045    0.000 {built-in method numpy.array}
+   169899    0.044    0.000    0.044    0.000 {method 'items' of 'dict' objects}
+      992    0.015    0.000    0.042    0.000 residual.py:122(observe)
+       27    0.001    0.000    0.040    0.001 _ridge.py:216(_solve_cholesky)
+
+

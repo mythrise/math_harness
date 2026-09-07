@@ -1,0 +1,220 @@
+{
+  "T01_policy_timeline": {
+    "reference_page": 1,
+    "regions": []
+  },
+  "T02_two_stage_pipeline": {
+    "reference_page": 2,
+    "regions": [
+      {
+        "name": "panel_a",
+        "caption": "(a) Coupling Analysis Model",
+        "x": 345.965,
+        "y": 137.61,
+        "width": 243.32,
+        "height": 126.74,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "a"
+      },
+      {
+        "name": "panel_b",
+        "caption": "(b) Rasterization of MMNR Area",
+        "x": 628.814,
+        "y": 137.61,
+        "width": 272.272,
+        "height": 126.74,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "b"
+      },
+      {
+        "name": "panel_c",
+        "caption": "(c) Strategy Selection Model",
+        "x": 632.764,
+        "y": 344.95,
+        "width": 272.272,
+        "height": 97.65,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "c"
+      },
+      {
+        "name": "panel_d",
+        "caption": "(d) Multiple-objective Optimization",
+        "x": 350.799,
+        "y": 344.95,
+        "width": 308.952,
+        "height": 97.65,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "d"
+      },
+      {
+        "name": "panel_e",
+        "caption": "(e) Prediction Results Analysis",
+        "x": 84.949,
+        "y": 344.95,
+        "width": 308.952,
+        "height": 97.65,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "e"
+      }
+    ]
+  },
+  "T03_composite_pipeline": {
+    "reference_page": 3,
+    "regions": [
+      {
+        "name": "panel_a",
+        "caption": "(a) Coupling Analysis Model",
+        "x": 345.965,
+        "y": 142.38,
+        "width": 223.535,
+        "height": 121.97,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "a"
+      },
+      {
+        "name": "panel_c",
+        "caption": "(c) Community Building Conservation Model",
+        "x": 622.568,
+        "y": 356.425,
+        "width": 380.464,
+        "height": 167.275,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "c"
+      },
+      {
+        "name": "panel_d",
+        "caption": "(d) Protecting the Guardians of Easter Island: Moai Statues",
+        "x": 71.808,
+        "y": 356.425,
+        "width": 479.584,
+        "height": 167.275,
+        "fit": "contain",
+        "trim": "auto",
+        "padding": 4,
+        "clip": "rect",
+        "background": "#ffffff",
+        "role": "caption_region",
+        "replaceable": true,
+        "source": "pptx_caption_auto",
+        "caption_label": "d"
+      }
+    ]
+  },
+  "T04_four_problem_panel": {
+    "reference_page": 4,
+    "regions": []
+  },
+  "T05_dual_column_model": {
+    "reference_page": 5,
+    "regions": []
+  },
+  "T06_literature_review_matrix": {
+    "reference_page": 6,
+    "regions": []
+  },
+  "T07_three_phase_board": {
+    "reference_page": 7,
+    "regions": []
+  },
+  "T08_task_chain": {
+    "reference_page": 8,
+    "regions": []
+  },
+  "T09_supervision_state": {
+    "reference_page": 11,
+    "regions": []
+  },
+  "T10_taxonomy_matrix": {
+    "reference_page": 12,
+    "regions": []
+  },
+  "T11_donut_capability": {
+    "reference_page": 13,
+    "regions": []
+  },
+  "T12_network_views": {
+    "reference_page": 14,
+    "regions": []
+  },
+  "T13_trend_ribbon": {
+    "reference_page": 17,
+    "regions": []
+  },
+  "T14_queue_process": {
+    "reference_page": 18,
+    "regions": []
+  },
+  "T15_comparison_bars": {
+    "reference_page": 19,
+    "regions": []
+  },
+  "T16_radial_bubble": {
+    "reference_page": 20,
+    "regions": []
+  },
+  "T17_cube_ray": {
+    "reference_page": 21,
+    "regions": []
+  },
+  "T18_sdg_network": {
+    "reference_page": 28,
+    "regions": []
+  },
+  "T19_lstm_architecture": {
+    "reference_page": 32,
+    "regions": []
+  },
+  "T20_milestone_timeline": {
+    "reference_page": 33,
+    "regions": []
+  }
+}

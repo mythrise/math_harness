@@ -1,0 +1,12 @@
+{
+  "structures": {
+    "header_blocks": ["Review", "Data", "Pose", "Flow", "World", "Root", "Calib", "Eval", "Deploy", "Paper"]
+  },
+  "images": {
+    "panel_a": {"path": "assets/demo_images/white_margin_figure.png", "fit": "auto", "trim": "auto", "padding": 5},
+    "panel_b": {"path": "assets/demo_images/tall_focus.png", "fit": "contain", "padding": 7},
+    "panel_c": {"path": "assets/demo_images/square_panel.png", "fit": "contain", "padding": 5},
+    "panel_d": {"path": "assets/demo_images/panel_detail.png", "fit": "contain", "padding": 5},
+    "panel_e": {"path": "assets/demo_images/overview_stage.png", "fit": "contain", "padding": 5}
+  }
+}

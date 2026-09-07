@@ -1,0 +1,91 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "abstract": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "citation_ids": {
+      "items": {
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+        "type": "string"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "figure_caption": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "keywords": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "sections": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_ids": {
+            "items": {
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+              "type": "string"
+            },
+            "minItems": 0,
+            "type": "array"
+          },
+          "equations": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 0,
+            "type": "array"
+          },
+          "heading": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "text": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "heading",
+          "text",
+          "equations",
+          "claim_ids"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "title": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "abstract",
+    "keywords",
+    "sections",
+    "limitations",
+    "figure_caption",
+    "citation_ids"
+  ],
+  "type": "object"
+}

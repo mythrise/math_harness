@@ -1,0 +1,15 @@
+{
+  "structures": {
+    "pipeline_blocks": ["Input", "Encoder", "Temporal", "World", "Root", "Output"],
+    "pipeline_years": ["2026", "2027", "2028", "2029", "2030"]
+  },
+  "auto_images": [
+    {"path":"assets/demo_images/white_margin_figure.png","trim":"auto"},
+    {"path":"assets/demo_images/tall_focus.png","focus_y":0.35},
+    "assets/demo_images/wide_system.png",
+    "assets/demo_images/square_panel.png",
+    "assets/demo_images/panel_detail.png",
+    "assets/demo_images/square_panel.png"
+  ],
+  "auto_image_options": {"assignment":"reading_order"}
+}

@@ -1,0 +1,28 @@
+{
+  "slot_groups": {
+    "years": [
+      "2026",
+      "2027",
+      "2028",
+      "2029",
+      "2030",
+      "2031",
+      "2032",
+      "2033",
+      "2034",
+      "2035",
+      "2036"
+    ],
+    "headline": [
+      "Embodied AI goals",
+      "in 10 years"
+    ],
+    "milestones": [
+      "Release robust ego pose datasets",
+      "Build lightweight real-time models",
+      "Sustain reproducible training infrastructure",
+      "Reduce environment pollution in benchmarks",
+      "Restore degraded data and evaluation"
+    ]
+  }
+}

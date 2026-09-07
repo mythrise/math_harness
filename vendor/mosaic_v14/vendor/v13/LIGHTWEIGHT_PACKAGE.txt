@@ -1,0 +1,1 @@
+Source and summary only. Per-run X/F NPZ and full forecast logs are in MOSAIC_v13_HARNESS_LAB.zip. The full-file manifest is intentionally not included in this partial package.

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="960" height="540" viewBox="0 0 960 540">
+<defs>
+<clipPath id="clip_1">
+<path d="M0 0H960V540H0Z" clip-rule="evenodd"/>
+</clipPath>
+</defs>
+<g clip-path="url(#clip_1)">
+<path d="M0 0H960V540H0Z" fill="#ffffff" fill-rule="evenodd"/>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="27.95" font-family="HelveticaNeue" font-weight="bold"><tspan y="170.936" x="431.155 451.905 471.105 490.30503">D&#x0026;A </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="27.95" font-family="PingFangSC" font-weight="bold"><tspan y="198.009" x="219.08 240.78 251.23 258.88 275.68 283.33 299.53 315.53">Original</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="27.95" font-family="PingFangSC" font-weight="bold"><tspan y="198.009" x="219.08 240.78 251.23 258.88 275.68 283.33 299.53 315.53">Original</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="27.95" font-family="PingFangSC" font-weight="bold"><tspan y="196.935" x="514.647 535.147 551.19699 567.19699 583.397 600.19699 616.04696">Changed</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="27.95" font-family="PingFangSC" font-weight="bold"><tspan y="196.935" x="514.647 535.147 551.19699 567.19699 583.397 600.19699 616.04696">Changed</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="24" font-family="HelveticaNeue" font-weight="bold"><tspan y="292.815" x="394.359 410.359 424.159 438.809 453.45899 459.659">People</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="24" font-family="HelveticaNeue" font-weight="bold"><tspan y="330.735" x="367.701 382.35099 396.15098 409.95097 424.20097 438.45097 453.10096 459.30097 473.95097 488.60096">Technology</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="24" font-family="HelveticaNeue" font-weight="bold"><tspan y="374.299" x="387.209 403.209 412.55903 427.209 441.009 454.809 467.70899">Process</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="24" font-family="HelveticaNeue" font-weight="bold"><tspan y="250.263" x="386.873 408.623 422.42298 430.873 445.123 454.473 460.673 469.12303">Maturity</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="24" font-family="HelveticaNeue" font-weight="bold"><tspan y="419.415" x="377.859 393.409 401.409 409.409 415.609 429.409 435.609 449.409 463.659 477.45899">Efficiency</tspan></text>
+<path d="M118.92 231.24H349.2V254.40001H118.92Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M118.92 269.76H349.2V292.92H118.92Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M118.92 310.08H349.2V333.24H118.92Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M118.92 352.8H349.2V376.08H118.92Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M118.92 397.68H349.2V420.96H118.92Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M512.76 231.96H743.04006V255.24H512.76Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M512.76 269.76H743.04006V292.92H512.76Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M512.76 310.08H743.04006V333.24H512.76Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M512.76 352.8H743.04006V376.08H512.76Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M512.16 397.68H742.43997V420.96H512.16Z" fill="#f5f5f5" fill-rule="evenodd"/>
+<path d="M246.84 232.32H349.2V255.84001H246.84Z" fill="#02489d" fill-rule="evenodd"/>
+<path d="M258.84 308.88H349.2V334.44H258.84Z" fill="#02489d" fill-rule="evenodd"/>
+<path d="M214.68 268.8H349.2V293.87998H214.68Z" fill="#02489d" fill-rule="evenodd"/>
+<path d="M237 352.56H349.2V376.32H237Z" fill="#02489d" fill-rule="evenodd"/>
+<path d="M288.36 397.44H349.19999V421.2H288.36Z" fill="#02489d" fill-rule="evenodd"/>
+<path d="M512.76 230.64H666.12V255H512.76Z" fill="#568036" fill-rule="evenodd"/>
+<path d="M512.76 269.04H659.88V293.76H512.76Z" fill="#568036" fill-rule="evenodd"/>
+<path d="M512.76 309.36H701.28V334.08H512.76Z" fill="#568036" fill-rule="evenodd"/>
+<path d="M512.76 352.08H688.68V376.8H512.76Z" fill="#568036" fill-rule="evenodd"/>
+<path d="M512.76 396.96H651.12V421.68H512.76Z" fill="#568036" fill-rule="evenodd"/>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="249.854" x="252.163 262.163 267.163 277.163">0.43</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="286.948" x="220.699 230.699 235.699 245.699">0.58</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="328.164" x="267.898 277.898 282.898 292.898">0.40</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="369.644" x="242.906 252.906 257.906 267.906">0.49</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="416.781" x="293.56 303.56 308.56">0.3</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="438.381" x="293.56">0</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="249.158" x="626.526 636.526 641.526 651.526">0.71</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="288.005" x="620.059 630.059 635.059 645.059">0.68</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="329.442" x="661.037 671.037 676.037 686.037">0.81</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="371.978" x="648.016 658.016 663.016 673.016">0.76</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 0 1 0 0)" font-size="18" font-family="HelveticaNeue"><tspan y="415.181" x="613.7 623.7 628.7 638.7">0.65</tspan></text>
+<path d="M422.644 172.465C422.559 172.296 422.418 172.18 422.223 172.115L414.805 169.643C414.495 169.54 414.24 169.609 414.033 169.855 413.833 170.083 413.8 170.347 413.935 170.641L415.339 173.449C413.972 174.412 412.282 175.048 410.271 175.351 408.255 175.656 406.157 175.599 403.969 175.184L408.512 161.552 412.559 162.901C412.922 163.022 413.284 162.995 413.639 162.815 413.996 162.639 414.234 162.368 414.356 162.002L415.255 159.306C415.376 158.941 415.349 158.581 415.17 158.223 414.993 157.869 414.722 157.631 414.356 157.509L410.309 156.161 411.454 152.725C412.427 152.518 413.299 152.087 414.064 151.432 414.828 150.772 415.377 149.952 415.704 148.97 416.201 147.48 416.096 146.033 415.394 144.629 414.692 143.225 413.597 142.274 412.107 141.777 410.618 141.281 409.17 141.385 407.767 142.087 406.363 142.789 405.414 143.885 404.918 145.375 404.59 146.357 404.534 147.341 404.753 148.328 404.969 149.311 405.407 150.178 406.062 150.928L404.917 154.364 400.87 153.015C400.508 152.894 400.145 152.921 399.791 153.098 399.433 153.277 399.195 153.548 399.073 153.914L398.175 156.609C398.053 156.975 398.08 157.335 398.26 157.69 398.436 158.047 398.711 158.286 399.073 158.407L403.12 159.755 398.577 173.388C396.577 172.406 394.864 171.193 393.438 169.741 392.007 168.291 391.037 166.768 390.521 165.178L393.329 163.774C393.617 163.617 393.746 163.388 393.722 163.085 393.705 162.765 393.541 162.557 393.232 162.453L385.816 159.982C385.619 159.916 385.436 159.924 385.267 160.009 385.101 160.094 384.982 160.235 384.917 160.429L382.445 167.847C382.343 168.154 382.413 168.413 382.656 168.619 382.759 168.683 382.84 168.726 382.896 168.745 383.091 168.81 383.274 168.802 383.443 168.717L386.055 167.409C387.058 169.975 388.763 172.312 391.175 174.417 393.586 176.525 396.407 178.117 399.637 179.194 402.867 180.27 406.08 180.689 409.273 180.449 412.466 180.212 415.232 179.364 417.574 177.913L418.879 180.527C418.979 180.698 419.117 180.816 419.3 180.877 419.356 180.896 419.446 180.91 419.567 180.92 419.885 180.902 420.097 180.737 420.199 180.43L422.671 173.012C422.736 172.817 422.728 172.635 422.644 172.465ZM410.941 148.434C410.586 148.614 410.226 148.642 409.86 148.52 409.494 148.398 409.223 148.16 409.047 147.803 408.867 147.448 408.841 147.085 408.961 146.723 409.083 146.357 409.321 146.085 409.679 145.907 410.033 145.73 410.393 145.702 410.759 145.824 411.124 145.946 411.396 146.184 411.573 146.538 411.752 146.896 411.779 147.255 411.657 147.621 411.536 147.984 411.298 148.258 410.941 148.434" fill-rule="evenodd"/>
+</g>
+</svg>

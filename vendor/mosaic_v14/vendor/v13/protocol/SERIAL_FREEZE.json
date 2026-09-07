@@ -1,0 +1,36 @@
+{
+  "created_utc": "2026-09-05T09:39:43.985631+00:00",
+  "files": {
+    "harnesslab/__init__.py": "798ba60251bb57f33ac6df032710a38797ceff9025ba6b2f6bb3b348f381e46f",
+    "harnesslab/bootstrap.py": "4c04a86867d46c602a346684179e11951aaea59825bcaaa52df3b7155886f607",
+    "harnesslab/efficient.py": "2bb03289c8533438cafaf5954462116871e10a1dc2fd99e00582505cb221f496",
+    "harnesslab/efficient_engine.py": "e91f4f7f6daf53fd4c940cd52e82a1af0d7f6c60c3f512cd1ef4c01e20ff52c2",
+    "harnesslab/engine.py": "916635d2ca9a97829596d7eeff84f9c653b6cad3ea7d187597be852cb7f2b3fa",
+    "harnesslab/metrics.py": "cc2ea2ca6f6cf011483fec902d57bfbf8a70f5e389bae15851355e4ea8691b89",
+    "harnesslab/model.py": "f7313839bfc496a59fe7c6cda90abd60163348d9c947191e41583f353764212f",
+    "harnesslab/nsga_residual.py": "1e72cfe18f321c6d6937d5c1e4d84c40ed22b924e9f84b7162e6ca3ed2af0561",
+    "harnesslab/problems.py": "d43170245c5e0b0a6929e052de5c40aa89e96d1641a8f8ac03af685d17c25448",
+    "harnesslab/residual.py": "c058dcd9ee013f55661e325c514f2335ec13fa85c9cf8e245803c69ee109fbd7",
+    "harnesslab/residual_engine.py": "7ccb7815e6f9e15059c9a0782027ffb3f944438c8ac21b0b9a08c84c5db0a828",
+    "protocol/instances.json": "ae4913090d954e77f7662eea0f66644af012907468bf7e5a9493bc07dd5faa6a"
+  },
+  "algorithms": [
+    "fast_v10",
+    "nsga2_typed",
+    "no_uncertainty_linear",
+    "guarded_linear",
+    "nsga2_guarded"
+  ],
+  "seeds": [
+    13701,
+    13702,
+    13703,
+    13704
+  ],
+  "budget": 1024,
+  "tasks": [
+    "rgv_h1",
+    "tour_h1",
+    "job_h1"
+  ]
+}

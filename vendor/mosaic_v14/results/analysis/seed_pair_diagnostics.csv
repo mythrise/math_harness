@@ -1,0 +1,4 @@
+candidate,baseline,wins,ties,losses,worst_ratio
+local24,fast_h0,98,0,46,1.200360618837472
+refit32,fast_h0,82,4,58,1.3819974117196714
+fast_h0,fast_v10,128,0,16,1.3358492625351042

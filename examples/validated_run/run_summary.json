@@ -1,0 +1,111 @@
+{
+  "auto_submission": false,
+  "confirmation_cells": 10,
+  "development_cells": 21,
+  "inference": {
+    "ci95": [
+      0.03707035445757254,
+      0.08476100966702467
+    ],
+    "decision": "KEEP_CANDIDATE",
+    "mean_improvement": 0.06703813104189041,
+    "n": 5,
+    "reason": "percentile paired bootstrap; applies only to declared replication unit, not a universal claim",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "winner_selected_before_confirmation": "c0"
+  },
+  "live_llm_calls": false,
+  "package": {
+    "contest_mode": false,
+    "file_count": 221,
+    "official_submission_sent": false,
+    "paper": "deliverables/paper.pdf",
+    "paper_bytes": 540612,
+    "paper_sha256": "11f36c0ec564a6616383a4c50ce76d38e9aa32ff421f1a5fec4859647d7024f0",
+    "support": "deliverables/support.zip",
+    "support_bytes": 1059769,
+    "support_sha256": "87188f757938e864a50d84526de3f758c919a719aac132d6ca02f3304b0dc6e0"
+  },
+  "paper": {
+    "build": {
+      "compiler_version": "XeTeX 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian)",
+      "engine": "XeLaTeX",
+      "overfull_boxes": 0,
+      "passes": 2,
+      "pdf_sha256": "11f36c0ec564a6616383a4c50ce76d38e9aa32ff421f1a5fec4859647d7024f0",
+      "shell_escape": false,
+      "source_sha256": "bb95228f92f2f2b8ea6c164e321b53d27d58112f33ec438fdc3c18a063cc381c"
+    },
+    "claims_digest": "58969b2871dab03629ce6964f767e399e906bd2578a5cc8d6002c353dead4e12",
+    "paper_sha256": "11f36c0ec564a6616383a4c50ce76d38e9aa32ff421f1a5fec4859647d7024f0",
+    "preflight": {
+      "anonymity": "denylist/metadata checks do not prove complete anonymity",
+      "body_pages": 3,
+      "bytes": 540612,
+      "failures": [],
+      "pages": 160,
+      "pdf_sha256": "11f36c0ec564a6616383a4c50ce76d38e9aa32ff421f1a5fec4859647d7024f0",
+      "status": "PASS",
+      "visual_check": "REQUIRED_SEPARATELY",
+      "warnings": []
+    },
+    "source_inventory": [
+      "code/baseline/main.py",
+      "code/c0/main.py",
+      "code/c1/main.py",
+      "code/dependencies/cumcm_harness/__init__.py",
+      "code/dependencies/cumcm_harness/algorithms.py",
+      "code/dependencies/cumcm_harness/common.py",
+      "code/dependencies/cumcm_harness/worker.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/engine.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/fast.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/variants.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic_solve.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient_engine.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/metrics.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/model.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/problems.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/residual.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/data/rgv2018_parameters.json",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/moo_core.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_lqmoe.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_sqmoe_v9.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extended_core.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extensions.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/final.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/graph_search.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/rgv.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/typed_baseline.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_v10.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/problems.py",
+      "code/reproduce.py",
+      "code/verifier/evaluate.py",
+      "code/verifier/test_solver.py"
+    ]
+  },
+  "plan_digest": "f5e251626e11821e3cca61992fec5a9a01de47ad12cff0abfd3b993a92514338",
+  "selection": {
+    "confirmation_seen": false,
+    "development_means": {
+      "baseline": 0.9332706766917295,
+      "c0": 0.9997762262799856,
+      "c1": 0.9996419620479772
+    },
+    "protocol_digest": "83b4c2e62d406280446774cf89be9a841207378cfc83f75d6ae96760538e648b",
+    "winner": "c0"
+  },
+  "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+  "verifier_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+  "world_best_claim": "NOT_ESTABLISHED"
+}

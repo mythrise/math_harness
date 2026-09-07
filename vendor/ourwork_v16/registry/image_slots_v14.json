@@ -1,0 +1,469 @@
+{
+  "T01_policy_timeline": {
+    "reference_page": 1,
+    "image_slots": [
+      {
+        "x": 69.1,
+        "y": 32.4,
+        "width": 492.05,
+        "height": 183.6,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "图片 3",
+        "descr": "",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "figure",
+        "fit": "contain",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "overview_figure",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      },
+      {
+        "x": 134.1,
+        "y": 305.0,
+        "width": 77.35,
+        "height": 50.45,
+        "rotation": 0.0,
+        "kind": "picture_fill",
+        "pptx_name": "圆角矩形 15",
+        "descr": "日出时分，玻利维亚乌尤尼盐滩",
+        "clip": "rounded_rect",
+        "radius": 6,
+        "depth": 0,
+        "role": "photo",
+        "fit": "cover",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "input_photo",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff"
+      },
+      {
+        "x": 784.25,
+        "y": 305.0,
+        "width": 77.35,
+        "height": 50.45,
+        "rotation": 0.0,
+        "kind": "picture_fill",
+        "pptx_name": "圆角矩形 16",
+        "descr": "废墟……",
+        "clip": "rounded_rect",
+        "radius": 6,
+        "depth": 0,
+        "role": "photo",
+        "fit": "cover",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "output_photo",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff"
+      },
+      {
+        "x": 182.45,
+        "y": 392.95,
+        "width": 51.45,
+        "height": 51.45,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "https://img8.file.cache.docer.com/storage/1596803174462656000/a09f49062d66972ccba400482bc64c4d.png",
+        "descr": "春天的小树林",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "icon",
+        "fit": "contain",
+        "replaceable": false,
+        "source": "pptx_auto",
+        "name": "identify_icon",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      },
+      {
+        "x": 232.85,
+        "y": 444.4,
+        "width": 30.9,
+        "height": 30.9,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "https://img8.file.cache.docer.com/storage/1636687852030335374/57dee926-baac-4c64-a756-320447bbf5f0tjwjv2.png",
+        "descr": "1540028878_草.png",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "icon",
+        "fit": "contain",
+        "replaceable": false,
+        "source": "pptx_auto",
+        "auto_label_hint": "1540028878_png",
+        "name": "process_icon",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      },
+      {
+        "x": 279.65,
+        "y": 480.05,
+        "width": 43.1,
+        "height": 41.35,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "https://img8.file.cache.docer.com/storage/1596802891412451000/7c42bc49ccdd6616ad1ddfa963b30971.png",
+        "descr": "小清新风格树桩",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "icon",
+        "fit": "contain",
+        "replaceable": false,
+        "source": "pptx_auto",
+        "name": "artifact_icon",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      }
+    ],
+    "auto_discovered_total": 6,
+    "slot_count": 6
+  },
+  "T02_two_stage_pipeline": {
+    "reference_page": 2,
+    "image_slots": [
+      {
+        "name": "panel_a",
+        "x": 338.0,
+        "y": 134.0,
+        "width": 246.0,
+        "height": 118.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2,
+        "source": "curated_semantic_region",
+        "role": "semantic_region",
+        "replaceable": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      },
+      {
+        "name": "panel_b",
+        "x": 635.0,
+        "y": 134.0,
+        "width": 250.0,
+        "height": 118.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2,
+        "source": "curated_semantic_region",
+        "role": "semantic_region",
+        "replaceable": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      },
+      {
+        "name": "panel_e",
+        "x": 96.0,
+        "y": 339.0,
+        "width": 240.0,
+        "height": 95.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2,
+        "source": "curated_semantic_region",
+        "role": "semantic_region",
+        "replaceable": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      },
+      {
+        "name": "panel_d",
+        "x": 360.0,
+        "y": 339.0,
+        "width": 255.0,
+        "height": 95.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2,
+        "source": "curated_semantic_region",
+        "role": "semantic_region",
+        "replaceable": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      },
+      {
+        "name": "panel_c",
+        "x": 635.0,
+        "y": 339.0,
+        "width": 250.0,
+        "height": 95.0,
+        "fit": "contain",
+        "clip": "rect",
+        "padding": 2,
+        "source": "curated_semantic_region",
+        "role": "semantic_region",
+        "replaceable": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      }
+    ],
+    "auto_discovered_total": 8,
+    "slot_count": 5
+  },
+  "T03_composite_pipeline": {
+    "reference_page": 3,
+    "image_slots": [
+      {
+        "x": 472.65,
+        "y": 402.95,
+        "width": 217.2,
+        "height": 217.2,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "http://photo-static-api.fotomore.com/creative/vcg/400/new/VCG211274363132.jpg?uid=386&timestamp=1707156649&sign=db51122de54a0202e9d72d48bbfee86d",
+        "descr": "复活节岛上的摩艾石像彩色图标",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 1,
+        "role": "figure",
+        "fit": "cover",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "heritage_photo",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto",
+        "padding": 0
+      }
+    ],
+    "auto_discovered_total": 10,
+    "slot_count": 1
+  },
+  "T04_four_problem_panel": {
+    "reference_page": 4,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T05_dual_column_model": {
+    "reference_page": 5,
+    "image_slots": [
+      {
+        "x": 0.828,
+        "y": 6.645,
+        "width": 149.145,
+        "height": 98.106,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "图片 4",
+        "descr": "",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "content_image",
+        "fit": "contain",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "illustration",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      }
+    ],
+    "auto_discovered_total": 1,
+    "slot_count": 1
+  },
+  "T06_literature_review_matrix": {
+    "reference_page": 6,
+    "image_slots": [
+      {
+        "x": 13.52,
+        "y": 15.364,
+        "width": 156.28,
+        "height": 82.115,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "图片 3",
+        "descr": "",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "content_image",
+        "fit": "contain",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "reference_figure",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      }
+    ],
+    "auto_discovered_total": 1,
+    "slot_count": 1
+  },
+  "T07_three_phase_board": {
+    "reference_page": 7,
+    "image_slots": [
+      {
+        "x": 0.0,
+        "y": 2.846,
+        "width": 167.472,
+        "height": 108.783,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "图片 5",
+        "descr": "",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "content_image",
+        "fit": "contain",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "reference_figure",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      }
+    ],
+    "auto_discovered_total": 1,
+    "slot_count": 1
+  },
+  "T08_task_chain": {
+    "reference_page": 8,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T09_supervision_state": {
+    "reference_page": 11,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T10_taxonomy_matrix": {
+    "reference_page": 12,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T11_donut_capability": {
+    "reference_page": 13,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T12_network_views": {
+    "reference_page": 14,
+    "image_slots": [
+      {
+        "x": 665.15,
+        "y": 79.2,
+        "width": 244.05,
+        "height": 136.028,
+        "rotation": 0.0,
+        "kind": "picture",
+        "pptx_name": "图片 8",
+        "descr": "",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "figure",
+        "fit": "contain",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "detail_view",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      }
+    ],
+    "auto_discovered_total": 2,
+    "slot_count": 1
+  },
+  "T13_trend_ribbon": {
+    "reference_page": 17,
+    "image_slots": [
+      {
+        "x": 142.038,
+        "y": 55.011,
+        "width": 653.817,
+        "height": 365.792,
+        "rotation": 356.917,
+        "kind": "picture",
+        "pptx_name": "图片 3",
+        "descr": "",
+        "clip": "rect",
+        "radius": 0.0,
+        "depth": 0,
+        "role": "figure",
+        "fit": "contain",
+        "replaceable": true,
+        "source": "pptx_auto",
+        "name": "trend_figure",
+        "native": true,
+        "replace_original": true,
+        "background": "#ffffff",
+        "trim": "auto"
+      }
+    ],
+    "auto_discovered_total": 1,
+    "slot_count": 1
+  },
+  "T14_queue_process": {
+    "reference_page": 18,
+    "image_slots": [],
+    "auto_discovered_total": 10,
+    "slot_count": 0
+  },
+  "T15_comparison_bars": {
+    "reference_page": 19,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T16_radial_bubble": {
+    "reference_page": 20,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T17_cube_ray": {
+    "reference_page": 21,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T18_sdg_network": {
+    "reference_page": 28,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T19_lstm_architecture": {
+    "reference_page": 32,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  },
+  "T20_milestone_timeline": {
+    "reference_page": 33,
+    "image_slots": [],
+    "auto_discovered_total": 0,
+    "slot_count": 0
+  }
+}

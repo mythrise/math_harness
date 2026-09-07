@@ -1,0 +1,67 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "algorithm_usage": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "skill": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "strategy": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "skill",
+          "strategy",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "files": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "path": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "content"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "notes": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 0,
+      "type": "array"
+    }
+  },
+  "required": [
+    "files",
+    "notes",
+    "algorithm_usage"
+  ],
+  "type": "object"
+}

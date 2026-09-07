@@ -1,0 +1,64 @@
+{
+  "version": "v16",
+  "no_edit_regression": {
+    "templates": 20,
+    "byte_identity_pass": 20,
+    "templates_with_image_slots": 8,
+    "total_image_slots": 20
+  },
+  "native_pptx_discovery": {
+    "total": 40,
+    "pass": 39,
+    "warn": 0,
+    "mismatch": 0,
+    "skip_rotated": 1,
+    "no_query_image": 0
+  },
+  "caption_region_discovery": {
+    "slots": 5,
+    "mean_iou": 0.7656,
+    "min_iou": 0.6764,
+    "max_iou": 0.8343
+  },
+  "sample_validation": {
+    "T01_auto_pool": true,
+    "T02_auto_pool": true,
+    "T03_auto_photo": true
+  },
+  "auto_assignment_counts": {
+    "T01_auto_pool": 6,
+    "T02_auto_pool": 5
+  },
+  "smart_focus_test": {
+    "center_crop_placement_x": 97.1,
+    "smart_crop_placement_x": 75.158,
+    "estimated_focus": [
+      0.7965,
+      0.5121
+    ],
+    "smart_focus_used": true
+  },
+  "final_capabilities": [
+    "20-template no-edit byte identity",
+    "PPTX native picture/picture-fill auto discovery",
+    "nested group coordinate recovery",
+    "caption-guided semantic panel discovery",
+    "named image slots",
+    "auto_images reading-order assignment",
+    "auto_images aspect-ratio assignment",
+    "cover/contain/stretch/auto fit",
+    "white/transparent margin trim",
+    "focus_x/focus_y manual crop control",
+    "smart_focus saliency crop control",
+    "automatic image downsampling for compact SVG",
+    "rotation-aware replacement",
+    "rounded/rect/ellipse clipPath",
+    "Inkscape PNG/PDF export",
+    "strict config lint + output guard"
+  ],
+  "production_package_smoke": {
+    "T01": true,
+    "T02": true,
+    "T03": true
+  }
+}

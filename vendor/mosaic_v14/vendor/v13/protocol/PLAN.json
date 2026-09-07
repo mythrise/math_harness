@@ -1,0 +1,81 @@
+{
+  "round": "MOSAIC-v13-Harness-Lab",
+  "date": "2026-09-05",
+  "created_utc": "2026-09-05T09:17:25.083861+00:00",
+  "research": "Beyond routing: bounded missions, surrogate preselection, verified model-authority gate",
+  "dev": {
+    "tasks": [
+      "rgv_g1",
+      "rgv_dev",
+      "tour_dev",
+      "job_dev"
+    ],
+    "seeds": [
+      13101,
+      13102,
+      13103,
+      13104
+    ],
+    "budget": 512,
+    "population": 32
+  },
+  "confirm": {
+    "tasks": [
+      "rgv_h1",
+      "rgv_h2",
+      "rgv_h3",
+      "rgv_h4",
+      "tour_h1",
+      "tour_h2",
+      "tour_h3",
+      "tour_h4",
+      "job_h1",
+      "job_h2",
+      "job_h3",
+      "job_h4"
+    ],
+    "seeds": [
+      13501,
+      13502,
+      13503,
+      13504,
+      13505,
+      13506,
+      13507,
+      13508,
+      13509,
+      13510,
+      13511,
+      13512
+    ],
+    "budget": 1024,
+    "population": 32
+  },
+  "primary": "Equal-instance mean of normalized hypervolume-gap AUC over log2 FE checkpoints",
+  "checkpoints": [
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024
+  ],
+  "thresholds": {
+    "mean_auc_improvement_vs_each_baseline_pct": 5,
+    "worst_task_auc_ratio": 1.2,
+    "final_mean_gap_increase": 0.001,
+    "serial_median_time_ratio_vs_fast": 1.8,
+    "holm_p": 0.05
+  },
+  "selection": "One candidate with lowest development equal-task mean AUC among those meeting mean final-gap guard. Both baselines and mandatory same-pool random, no-gate, no-uncertainty, scalar acquisition, raw-feature and same-harness NSGA controls remain diagnostic regardless. Do not retune on confirmation.",
+  "baselines": [
+    "fast_v10",
+    "nsga2_typed"
+  ],
+  "claim_boundary": "No neural LLM inside loop. Frozen v10 mainline retained unless full gate passes. No official or universal SOTA.",
+  "references": "Complete n=8 finite fronts for scoring only, not imported by optimizer. Models train only on this run paid evaluations. No prior-run training.",
+  "real_problem": "2018 CUMCM B one-process no-fault cyclic nonempty ordered subsets; inherited assumptions unchanged. Added travel-time objective.",
+  "runtime": "True FE and model training/prediction/proposal CPU reported separately; parallel elapsed not serial speed.",
+  "stress": "n=12/16 synthetic instances only; independent pooled reference approximation, NOT exact front. Separate from primary significance.",
+  "warmup": "At most one discarded physical model call per domain per process, logged and unavailable to search."
+}

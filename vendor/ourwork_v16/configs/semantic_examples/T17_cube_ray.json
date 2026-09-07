@@ -1,0 +1,13 @@
+{
+  "slot_groups": {
+    "axes": [
+      "Ease of Use",
+      "Accuracy",
+      "Safety"
+    ],
+    "layers": [
+      "Upper Tier",
+      "Lower Tier"
+    ]
+  }
+}

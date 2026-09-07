@@ -1,0 +1,9 @@
+{
+  "slots": {
+    "input_layer": "Video Input",
+    "dropout_layer": "Dropout Layer",
+    "fully_connected": "Linear Head",
+    "regression_layer": "Pose Loss",
+    "recurrent_layer": "GRU Layer"
+  }
+}

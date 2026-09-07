@@ -1,0 +1,18 @@
+{
+  "slot_groups": {
+    "years": [
+      "2026",
+      "2027",
+      "2028",
+      "2029"
+    ],
+    "stages": [
+      "Observe",
+      "Train",
+      "Deploy"
+    ]
+  },
+  "slots": {
+    "final_label": "EgoLite-PWM"
+  }
+}

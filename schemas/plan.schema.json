@@ -1,0 +1,270 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "ablations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "change": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "change"
+        ],
+        "type": "object"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "assumptions": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "baseline": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "constraints": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "direction": {
+      "enum": [
+        "minimize",
+        "maximize"
+      ]
+    },
+    "equations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "evaluator_spec": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "min_effect": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "primary_metric": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "questions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "acceptance": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "metric": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "question": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "unit": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "question",
+          "metric",
+          "unit",
+          "acceptance"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "resources": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpointing": {
+          "type": "boolean"
+        },
+        "cpu_threads": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "expected_seconds": {
+          "minimum": 0.001,
+          "type": "number"
+        },
+        "fold_invariant_precompute": {
+          "type": "boolean"
+        },
+        "memory_mb": {
+          "minimum": 64,
+          "type": "integer"
+        },
+        "row_sharding": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cpu_threads",
+        "memory_mb",
+        "expected_seconds",
+        "row_sharding",
+        "checkpointing",
+        "fold_invariant_precompute"
+      ],
+      "type": "object"
+    },
+    "sensitivity": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "change": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "change"
+        ],
+        "type": "object"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "summary": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "tasks": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "algorithm_skill": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "depends_on": {
+            "items": {
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+              "type": "string"
+            },
+            "minItems": 0,
+            "type": "array"
+          },
+          "goal": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "outputs": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "depends_on",
+          "goal",
+          "algorithm_skill",
+          "outputs"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "variables": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "meaning": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "symbol": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "unit": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "symbol",
+          "meaning",
+          "unit"
+        ],
+        "type": "object"
+      },
+      "minItems": 0,
+      "type": "array"
+    }
+  },
+  "required": [
+    "summary",
+    "assumptions",
+    "questions",
+    "tasks",
+    "variables",
+    "equations",
+    "constraints",
+    "baseline",
+    "ablations",
+    "sensitivity",
+    "limitations",
+    "primary_metric",
+    "direction",
+    "min_effect",
+    "evaluator_spec",
+    "resources"
+  ],
+  "type": "object"
+}

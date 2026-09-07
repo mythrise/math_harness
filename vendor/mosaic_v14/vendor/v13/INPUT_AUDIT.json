@@ -1,0 +1,31 @@
+{
+  "source": "MOSAIC_v11_BRANCH_LAB.zip",
+  "sha256": "a77654a02312830eca04a14c3823c790f9c5207c3f6306c47b693c5bde051e44",
+  "selected_files": [
+    "baseline_v10/data/rgv2018_parameters.json",
+    "baseline_v10/docs/R1_FROZEN_PROTOCOL.json",
+    "baseline_v10/legacy/moo_core.py",
+    "baseline_v10/legacy/mosaic_lqmoe.py",
+    "baseline_v10/legacy/mosaic_sqmoe_v9.py",
+    "baseline_v10/mosaic/__init__.py",
+    "baseline_v10/mosaic/api.py",
+    "baseline_v10/mosaic/build_extension.py",
+    "baseline_v10/mosaic/extended_core.py",
+    "baseline_v10/mosaic/extensions.py",
+    "baseline_v10/mosaic/final.py",
+    "baseline_v10/mosaic/graph_search.py",
+    "baseline_v10/mosaic/metrics.py",
+    "baseline_v10/mosaic/rgv.py",
+    "baseline_v10/mosaic/typed_baseline.py",
+    "baseline_v10/run_rgv_bench.py",
+    "baseline_v10/tests/test_release.py",
+    "protocol/instances.json",
+    "src/__init__.py",
+    "src/bootstrap.py",
+    "src/branch_graph.py",
+    "src/branch_hooks.py",
+    "src/fast_api.py",
+    "src/fast_v10.py",
+    "src/problems.py"
+  ]
+}

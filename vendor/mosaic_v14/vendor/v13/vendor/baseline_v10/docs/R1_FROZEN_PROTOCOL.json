@@ -1,0 +1,64 @@
+{
+  "created_utc": "2026-09-05T04:38:25.560077+00:00",
+  "version": "MOSAIC-v10-R1",
+  "status": "frozen_before_confirmatory_new_seeds",
+  "selection_reason": "Behavior retention not consistently useful in 640-run holdout; remove it. Quantile router rejected on development.",
+  "design_seen_groups": [
+    1,
+    2,
+    3
+  ],
+  "test_interpretation": "Fresh-seed confirmation on known parameter groups, NOT unseen-task generalization",
+  "groups": [
+    1,
+    2,
+    3
+  ],
+  "seeds": [
+    9001,
+    9002,
+    9003,
+    9004,
+    9005,
+    9006,
+    9007,
+    9008,
+    9009,
+    9010,
+    9011,
+    9012,
+    9013,
+    9014,
+    9015,
+    9016,
+    9017,
+    9018,
+    9019,
+    9020
+  ],
+  "budgets": [
+    2080
+  ],
+  "algorithms": [
+    "v10_r1",
+    "typed_nsga2_unique",
+    "v9"
+  ],
+  "scope": "same restricted deterministic cyclic scheduling model",
+  "sources": {
+    "legacy/moo_core.py": "e4d0e73524822f1d3ea3a80cf8daee83c761fe3a69675be5c6f66c462de27c2e",
+    "legacy/mosaic_lqmoe.py": "6e1f769385ac0ef6f894963b928b09aa52d2281c85dff3dc1bff41e8bbbd2e4b",
+    "legacy/mosaic_sqmoe_v9.py": "53b711dbd949335466ccc6af09f6b57dbd7eb6cdb2593fb5b383eccb6ec96b84",
+    "mosaic/__init__.py": "cf4386e7f00f7517b6e928c6bc0b4b8c0e3e39bc39177d93f8fa3f0dc42b6978",
+    "mosaic/api.py": "da0c98c69ea60b2d02edd21e36e7fa63ac3d80373f22077dba985cf780f461d6",
+    "mosaic/build_extension.py": "9b2bcdf3e60c5a55ef126f1e56d6adfe57dfbe967c5fda52c70e068a0a4940e8",
+    "mosaic/extended_core.py": "9f4bb7bec1e8102fb23a8be2b98b7f00c1fee7351da3c1d5b9618e7fcbf03ae0",
+    "mosaic/extensions.py": "1b4f9918ea8c37c6ccacf25d49b340be44b1f618c1d90fc162c55731d11963ef",
+    "mosaic/final.py": "0fb647dd289a1293e7cba18548b8483984246c438f99e529252bfba8fe215262",
+    "mosaic/graph_search.py": "37dc28811e8b1cfa570f7a81f28d500faadb3ea03cd99bac60247a9b11ebb6d2",
+    "mosaic/metrics.py": "b65910b5865cdb662e74c7e8b596ff1182261b39fb4e7fcb1fd808b59fbe627f",
+    "mosaic/rgv.py": "f78beb2fba81c6308c15313871dc3de0143cbed68923e3d9ffa3d59673c3281e",
+    "mosaic/typed_baseline.py": "0423a8341733d8dec8d8835096951d6a11995db282dea7f720419148c8a50bf6",
+    "run_rgv_bench.py": "47a7b2ca3381b97cbd86a1ce2c4a9895ce9e0ca2a4e1261ca41e36ca0db0caf9"
+  }
+}

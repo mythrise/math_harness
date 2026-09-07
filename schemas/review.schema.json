@@ -1,0 +1,80 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "evidence": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "issue": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "location": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "required_fix": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "P0",
+              "P1",
+              "P2"
+            ]
+          }
+        },
+        "required": [
+          "severity",
+          "location",
+          "issue",
+          "required_fix"
+        ],
+        "type": "object"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "scope": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "target_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "unverified": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "verdict": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED"
+      ]
+    }
+  },
+  "required": [
+    "target_digest",
+    "verdict",
+    "scope",
+    "findings",
+    "evidence",
+    "unverified"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,14 @@
+{
+  "slots": {
+    "main_title": "Research of Light Pollution",
+    "section_data_space": "Determination of Data Space",
+    "dim_2d": "2-D",
+    "dim_3d": "3-D",
+    "sample_independent": "Sample Independent",
+    "sample_dependent": "Dependent on Device Performance",
+    "composition": "Composition of Light Pollution",
+    "strengths_label": "Strengths",
+    "weaknesses_label": "Weaknesses",
+    "review_framework": "Literature Review Framework"
+  }
+}

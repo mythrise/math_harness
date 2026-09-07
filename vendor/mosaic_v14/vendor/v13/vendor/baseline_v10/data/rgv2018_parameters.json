@@ -1,0 +1,16 @@
+{
+  "source_official_page": "https://www.mcm.edu.cn/html_cn/node/7cec7725b9a0ea07b4dfd175e8042c33.html",
+  "source_transcription": "https://github.com/zouwx2cs/2018_CUMCM_B/blob/master/README.md",
+  "source_blob_sha": "b459d2ea2de21d099287b5689c1bd1ee9fb4921a",
+  "units": "seconds",
+  "shift_duration": 28800,
+  "station_positions": [0,0,1,1,2,2,3,3],
+  "groups": [
+    {"id":1,"travel":[0,20,33,46],"process":560,"odd_load":28,"even_load":31,"wash":25},
+    {"id":2,"travel":[0,23,41,59],"process":580,"odd_load":30,"even_load":35,"wash":30},
+    {"id":3,"travel":[0,18,32,46],"process":545,"odd_load":27,"even_load":32,"wash":25}
+  ],
+  "scope": "Official case (1): single-process, no failure. Restrict policies to a repeated ordered nonempty subset of CNCs, with no repeated CNC within a cycle. This is not the complete space of dynamic policies.",
+  "extension": "Minimize (-completed washed products, total RGV travel seconds). The travel objective is our transparent multi-objective extension, not a separately required original contest objective.",
+  "explicit_model_assumptions": ["RGV begins at the first track position; all CNCs are initially empty.", "A load/unload service occupies the RGV and a CNC for the stated service time. A new part starts processing at the end of service.", "An unloaded completed part is washed immediately, before the next RGV move; no washing is needed after the initial empty-CNC load.", "A product is counted only when washing finishes by the shift horizon.", "Only complete move/service/wash blocks finishing within the horizon are executed; no terminal travel or partial operation is charged.", "No process failures, two-stage processing, or noncyclic adaptive policy is included."]
+}

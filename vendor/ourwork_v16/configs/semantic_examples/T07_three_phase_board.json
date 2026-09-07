@@ -1,0 +1,16 @@
+{
+  "slot_groups": {
+    "phase_titles": [
+      "Data Preparation",
+      "Model Construction",
+      "Application of Model"
+    ]
+  },
+  "slots": {
+    "module_1": "Network",
+    "module_2": "Data Correlation Adjacency",
+    "module_3": "Priority Selection System",
+    "module_4": "Row Parameter Score Method",
+    "footer_note": "Promote to other organizations"
+  }
+}

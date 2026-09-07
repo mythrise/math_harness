@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+CUMCM_PROJECT_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ ! -x "$CUMCM_PROJECT_ROOT/.venv/bin/python" ]; then
+  printf '%s\n' 'Missing project .venv; see docs/LOCAL_CODEX_SETUP_CN.md.' >&2
+  exit 1
+fi
+exec "$CUMCM_PROJECT_ROOT/.venv/bin/python" -m cumcm_harness "$@"

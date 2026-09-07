@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "objective": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "priorities": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "research_focus": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "stop_rules": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "objective",
+    "priorities",
+    "research_focus",
+    "stop_rules"
+  ],
+  "type": "object"
+}

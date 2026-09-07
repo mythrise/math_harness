@@ -1,0 +1,8 @@
+{
+  "structures": {
+    "milestones": [
+      "Dataset", "Pretrain", "Pose", "Forecast",
+      "Calibration", "Benchmark", "Deployment", "Paper"
+    ]
+  }
+}

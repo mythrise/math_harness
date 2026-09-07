@@ -1,0 +1,129 @@
+{
+  "confirmation": {
+    "problem.json": "a998652a4b63be7360a3a3d97d73cb91b05516c4275f40a875d611eab5debb2b"
+  },
+  "confirmation_scope": "SEED_REPLICATION_SAME_INSTANCE",
+  "development": {
+    "problem.json": "a998652a4b63be7360a3a3d97d73cb91b05516c4275f40a875d611eab5debb2b"
+  },
+  "eval_confirmation": {
+    "public/problem.json": "a998652a4b63be7360a3a3d97d73cb91b05516c4275f40a875d611eab5debb2b"
+  },
+  "eval_development": {
+    "public/problem.json": "a998652a4b63be7360a3a3d97d73cb91b05516c4275f40a875d611eab5debb2b"
+  },
+  "private_schema": [],
+  "problem_original_sha256": "a16270e7c5e8d3df5391f3c953637e1e65ae75d1eded189358b126000436abd1",
+  "problem_sha256": "a16270e7c5e8d3df5391f3c953637e1e65ae75d1eded189358b126000436abd1",
+  "profiles": [
+    {
+      "bytes": 903,
+      "content": {
+        "dues": [
+          14.0,
+          9.0,
+          18.0,
+          6.0,
+          16.0,
+          5.0
+        ],
+        "id": "synthetic_job6",
+        "kind": "job",
+        "penalty": [
+          1.1,
+          0.8,
+          1.2,
+          1.0,
+          0.9,
+          0.5
+        ],
+        "process": [
+          4.0,
+          3.0,
+          5.0,
+          2.0,
+          4.0,
+          1.0
+        ],
+        "setup": [
+          [
+            0.0,
+            3.0,
+            5.0,
+            2.0,
+            4.0,
+            1.0
+          ],
+          [
+            4.0,
+            0.0,
+            3.0,
+            5.0,
+            2.0,
+            4.0
+          ],
+          [
+            2.0,
+            4.0,
+            0.0,
+            3.0,
+            5.0,
+            2.0
+          ],
+          [
+            5.0,
+            2.0,
+            4.0,
+            0.0,
+            3.0,
+            5.0
+          ],
+          [
+            3.0,
+            5.0,
+            2.0,
+            4.0,
+            0.0,
+            3.0
+          ],
+          [
+            1.0,
+            3.0,
+            5.0,
+            2.0,
+            4.0,
+            0.0
+          ],
+          [
+            4.0,
+            1.0,
+            3.0,
+            5.0,
+            2.0,
+            4.0
+          ]
+        ],
+        "values": [
+          15.0,
+          9.0,
+          12.0,
+          7.0,
+          11.0,
+          6.0
+        ]
+      },
+      "name": "problem.json",
+      "sha256": "a998652a4b63be7360a3a3d97d73cb91b05516c4275f40a875d611eab5debb2b",
+      "structure": [
+        "dues",
+        "id",
+        "kind",
+        "penalty",
+        "process",
+        "setup",
+        "values"
+      ],
+      "type": ".json"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Preserve byte-for-byte hashes of supplied dependencies and archived fixtures.
+vendor/** -text linguist-vendored=true
+examples/validated_run/** -text linguist-generated=true

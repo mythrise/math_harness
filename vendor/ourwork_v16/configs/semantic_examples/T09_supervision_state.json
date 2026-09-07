@@ -1,0 +1,14 @@
+{
+  "slots": {
+    "title": "Monitoring System",
+    "operation_label": "Operation",
+    "continue_monitoring": "Keep monitoring",
+    "warning_action": "Warning\nAnalyze logs",
+    "pass_label": "Normal",
+    "coordination_action": "Coordinate sensors",
+    "planning_action": "Plan deployment",
+    "feedback_label": "Feedback",
+    "abnormal_state": "At least one anomaly",
+    "normal_state": "All normal"
+  }
+}

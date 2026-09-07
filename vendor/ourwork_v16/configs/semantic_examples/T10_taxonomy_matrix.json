@@ -1,0 +1,17 @@
+{
+  "slot_groups": {
+    "categories": [
+      "RGB",
+      "Pose",
+      "Flow"
+    ],
+    "metrics": [
+      "latency",
+      "fps",
+      "mpjpe",
+      "memory",
+      "params",
+      "robustness"
+    ]
+  }
+}

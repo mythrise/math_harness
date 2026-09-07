@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-09-05T09:18:02.358240+00:00",
+  "files": {
+    "harnesslab/__init__.py": "798ba60251bb57f33ac6df032710a38797ceff9025ba6b2f6bb3b348f381e46f",
+    "harnesslab/bootstrap.py": "4c04a86867d46c602a346684179e11951aaea59825bcaaa52df3b7155886f607",
+    "harnesslab/engine.py": "916635d2ca9a97829596d7eeff84f9c653b6cad3ea7d187597be852cb7f2b3fa",
+    "harnesslab/metrics.py": "cc2ea2ca6f6cf011483fec902d57bfbf8a70f5e389bae15851355e4ea8691b89",
+    "harnesslab/model.py": "f7313839bfc496a59fe7c6cda90abd60163348d9c947191e41583f353764212f",
+    "harnesslab/problems.py": "d43170245c5e0b0a6929e052de5c40aa89e96d1641a8f8ac03af685d17c25448",
+    "protocol/instances.json": "ae4913090d954e77f7662eea0f66644af012907468bf7e5a9493bc07dd5faa6a"
+  },
+  "algorithms": [
+    "fast_v10",
+    "nsga2_typed",
+    "pool_random",
+    "surrogate_scalar",
+    "surrogate_hvi",
+    "harness",
+    "harness_no_uncertainty",
+    "harness_raw",
+    "mission",
+    "mission_one_step",
+    "nsga2_harness"
+  ],
+  "seeds": [
+    13101,
+    13102,
+    13103,
+    13104
+  ],
+  "budget": 512,
+  "tasks": [
+    "rgv_g1",
+    "rgv_dev",
+    "tour_dev",
+    "job_dev"
+  ]
+}

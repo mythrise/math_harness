@@ -1,0 +1,11 @@
+{
+  "anonymity": "denylist/metadata checks do not prove complete anonymity",
+  "body_pages": 3,
+  "bytes": 540612,
+  "failures": [],
+  "pages": 160,
+  "pdf_sha256": "11f36c0ec564a6616383a4c50ce76d38e9aa32ff421f1a5fec4859647d7024f0",
+  "status": "PASS",
+  "visual_check": "REQUIRED_SEPARATELY",
+  "warnings": []
+}

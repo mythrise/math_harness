@@ -1,0 +1,33 @@
+{
+  "bootstrap_replicates": 5000,
+  "bootstrap_seed": 41821,
+  "config_digest": "bad57c6cd66715029252b34280f139e01db2111ea30d96aea2eb7f71a10e9d41",
+  "confirmation_seeds": [
+    701,
+    702,
+    703,
+    704,
+    705
+  ],
+  "development_seeds": [
+    101,
+    202,
+    303
+  ],
+  "direction": "maximize",
+  "evaluator_digest": "48f3ec8ff17e129440d4da842aa940fdefadc976b382b7907e239cc71c1fd33f",
+  "fe_budget": 192,
+  "inference": "one pre-registered selected-vs-baseline confirmation; other variants descriptive",
+  "intake_digest": "d70a90fef8deae899f91e6883323d03d02621d1197274bfb75fc5281b9872ade",
+  "max_candidates": 2,
+  "metric": "normalized_hv",
+  "min_effect": 0.0,
+  "plan_digest": "f5e251626e11821e3cca61992fec5a9a01de47ad12cff0abfd3b993a92514338",
+  "scope": "SEED_REPLICATION_SAME_INSTANCE",
+  "selection": "development only; baseline remains immutable",
+  "variants": [
+    "full",
+    "no_infill",
+    "population16"
+  ]
+}

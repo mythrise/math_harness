@@ -1,0 +1,17 @@
+{
+  "mode": "practice",
+  "workers": 2,
+  "cpu_threads": 1,
+  "total_cpu_threads": 2,
+  "memory_mb": 2048,
+  "total_memory_mb": 4096,
+  "trial_timeout": 900,
+  "fe_budget": 192,
+  "development_seeds": [101, 202, 303],
+  "confirmation_seeds": [701, 702, 703, 704, 705],
+  "max_candidates": 2,
+  "repair_attempts": 2,
+  "max_model_calls": 90,
+  "model_timeout": 600,
+  "claude_call_budget_usd": null
+}

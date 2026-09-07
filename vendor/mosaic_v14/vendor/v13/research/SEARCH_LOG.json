@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-05",
+  "engine": "Exa plus primary-page verification with web",
+  "queries": [
+    {"query":"category:research paper 2025 2026 agent harness framework reliable long horizon execution planning verification state machine memory bounded budget model based optimization", "requested_results":8},
+    {"query":"category:research paper 2025 2026 AAAI ICLR multi objective surrogate preselection expensive optimization model management error controlled candidate selection", "requested_results":7},
+    {"query":"category:research paper ICLR ICML 2026 Agentic Context Engineering agent harness validation failure reflection test time adaptation independent verification", "requested_results":6}
+  ],
+  "requested_result_items":21,
+  "note":"Items include duplicates and nonselected work; not 21 complete papers or verified independent sources. Selected primary sources and venue/preprint status are in SOURCES.md."
+}

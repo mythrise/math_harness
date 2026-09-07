@@ -1,0 +1,8 @@
+{
+  "comparison_status": "NOT_RUN",
+  "live_codex_claude_status": "NOT_RUN",
+  "full_historical_cumcm_problem_status": "NOT_RUN",
+  "claim_outperforms_all_agents": false,
+  "reason": "No installed/authenticated Codex or Claude CLI and no Docker daemon in this build environment. Numerical fixtures and protocol tests are not head-to-head modeling benchmarks.",
+  "baselines": ["XiaoMaColtAI/math-modeling-skill", "jihe520/MathModelAgent", "qiancheng0/ModelingAgent", "usail-hkust/LLM-MM-Agent"]
+}

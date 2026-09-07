@@ -1,0 +1,12 @@
+{
+  "slots": {
+    "title": "Pose Flow Analysis",
+    "subtitle": "Metric Selection",
+    "team_name": "Research Team",
+    "input_label": "Input Video Data",
+    "target_action": "Target and Output",
+    "task_1": "Task A",
+    "task_2": "Task B",
+    "task_3": "Task C"
+  }
+}

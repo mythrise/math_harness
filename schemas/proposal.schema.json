@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "change_request": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "expected_effect": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "falsification": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "hypothesis": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "mechanism": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "stop": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "hypothesis",
+    "mechanism",
+    "expected_effect",
+    "change_request",
+    "falsification",
+    "stop"
+  ],
+  "type": "object"
+}

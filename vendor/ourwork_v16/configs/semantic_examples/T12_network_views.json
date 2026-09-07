@@ -1,0 +1,15 @@
+{
+  "slots": {
+    "structure_title": "Detailed Structure",
+    "legend_title": "Edge of Network"
+  },
+  "slot_groups": {
+    "legend_bins": [
+      "[0,2]",
+      "[2,4]",
+      "[4,6]",
+      "[6,8]",
+      "[8,10]"
+    ]
+  }
+}

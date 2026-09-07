@@ -1,0 +1,28 @@
+{
+  "slots": {
+    "literature_review": "Literature Review",
+    "data_collection": "Data Collection",
+    "data_processing": "Data Processing",
+    "model_1": "UD Model I",
+    "model_2": "REDE Model II",
+    "model_3": "CBC Model III",
+    "our_work": "Our Work",
+    "panel_a": "(a) Coupling Analysis Model",
+    "panel_b": "(b) Real Estate Development Eval",
+    "panel_c": "(c) Community Conservation Model",
+    "panel_d": "(d) Guardian Protection Model"
+  },
+  "slot_groups": {
+    "models": [
+      "UD Model I",
+      "REDE Model II",
+      "CBC Model III"
+    ],
+    "panels": [
+      "(a) Underwriting Decision",
+      "(b) Development Evaluation",
+      "(c) Community Conservation",
+      "(d) Guardian Protection"
+    ]
+  }
+}

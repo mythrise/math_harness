@@ -1,0 +1,37 @@
+{
+  "allow_research_algorithms": true,
+  "bootstrap_seed": 41821,
+  "claude_call_budget_usd": 3.0,
+  "claude_model": null,
+  "codex_model": null,
+  "confirmation_seeds": [
+    701,
+    702,
+    703,
+    704,
+    705
+  ],
+  "cpu_threads": 1,
+  "deadline_iso": null,
+  "development_seeds": [
+    101,
+    202,
+    303
+  ],
+  "docker_image": "cumcm-egoharness:0.1.0",
+  "fe_budget": 192,
+  "identity_denylist": [],
+  "input_data_origin": "include-in-support",
+  "max_candidates": 2,
+  "max_model_calls": 90,
+  "memory_mb": 2048,
+  "mode": "practice",
+  "model_timeout": 600,
+  "network_policy": "LOCAL_EVIDENCE_ONLY",
+  "paper_reserve_seconds": 7200,
+  "repair_attempts": 2,
+  "total_cpu_threads": 2,
+  "total_memory_mb": 4096,
+  "trial_timeout": 120,
+  "workers": 2
+}

@@ -1,0 +1,32 @@
+{
+  "slots": {
+    "literature_review": "Literature Review",
+    "data_collection": "Data Collection",
+    "data_processing": "Data Processing",
+    "model_1": "Pose Model I",
+    "model_2": "Forecast Model II",
+    "model_3": "Policy Model III",
+    "our_work": "Our Work",
+    "stage_1_title": "Stage I: Lightweight Ego Pose",
+    "stage_2_title": "Stage II: Future Pose Forecasting",
+    "figure_a": "(a) Coupling Analysis",
+    "figure_b": "(b) Rasterized Area",
+    "figure_c": "(c) Strategy Selection",
+    "figure_d": "(d) Multi-objective Optimization",
+    "figure_e": "(e) Prediction Results"
+  },
+  "slot_groups": {
+    "models": [
+      "Pose Model I",
+      "Forecast Model II",
+      "Policy Model III"
+    ],
+    "figure_captions": [
+      "(a) Coupling Analysis",
+      "(b) Rasterization",
+      "(c) Strategy Selection",
+      "(d) Multi-objective Optimization",
+      "(e) Prediction Results"
+    ]
+  }
+}

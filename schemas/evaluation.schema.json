@@ -1,0 +1,94 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checks": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "detail": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "passed",
+          "detail"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "measurements": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "question_id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "unit": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "value",
+          "unit",
+          "question_id",
+          "description"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "metric": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "question_coverage": {
+      "items": {
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "score": {
+      "type": "number"
+    },
+    "valid": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "score",
+    "valid",
+    "metric",
+    "checks",
+    "question_coverage",
+    "measurements"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-09-05T09:29:55.502541+00:00",
+  "selected": "no_uncertainty_linear",
+  "reason": "Lowest equal-task development AUC among same-budget candidates satisfying final-gap guard, as PLAN specified. No confirmation result used.",
+  "development": {
+    "algorithm": "no_uncertainty_linear",
+    "mean_auc": 0.0986133477755348,
+    "improvement_vs_fast_pct": 14.307951511775684,
+    "improvement_vs_nsga_pct": 35.60743760430889,
+    "worst_instance_ratio": 0.9633126906867472,
+    "final_gap_increase": -0.005381542597410031,
+    "development_concurrent_time_ratio": 2.355621196142783,
+    "quality_gate": true
+  },
+  "runtime_eligibility": "Unresolved; mandatory independent serial gate remains 1.8x. Development concurrent times are not serial evidence.",
+  "hypotheses": [
+    "selected vs frozen fast_v10",
+    "selected vs same-operator nsga2_typed"
+  ],
+  "secondary": [
+    "uncertainty on vs off",
+    "gate on vs off (guarded_linear vs unguarded_linear)",
+    "raw vs semantic encoding",
+    "scalar vs hypervolume acquisition",
+    "same-pool random vs predictor",
+    "same harness on NSGA-II"
+  ],
+  "files": {
+    "harnesslab/engine.py": "916635d2ca9a97829596d7eeff84f9c653b6cad3ea7d187597be852cb7f2b3fa",
+    "harnesslab/model.py": "f7313839bfc496a59fe7c6cda90abd60163348d9c947191e41583f353764212f",
+    "harnesslab/problems.py": "d43170245c5e0b0a6929e052de5c40aa89e96d1641a8f8ac03af685d17c25448",
+    "harnesslab/residual.py": "c058dcd9ee013f55661e325c514f2335ec13fa85c9cf8e245803c69ee109fbd7",
+    "harnesslab/bootstrap.py": "4c04a86867d46c602a346684179e11951aaea59825bcaaa52df3b7155886f607",
+    "harnesslab/metrics.py": "cc2ea2ca6f6cf011483fec902d57bfbf8a70f5e389bae15851355e4ea8691b89",
+    "harnesslab/__init__.py": "798ba60251bb57f33ac6df032710a38797ceff9025ba6b2f6bb3b348f381e46f",
+    "harnesslab/efficient.py": "2bb03289c8533438cafaf5954462116871e10a1dc2fd99e00582505cb221f496",
+    "harnesslab/residual_engine.py": "7ccb7815e6f9e15059c9a0782027ffb3f944438c8ac21b0b9a08c84c5db0a828",
+    "harnesslab/nsga_residual.py": "1e72cfe18f321c6d6937d5c1e4d84c40ed22b924e9f84b7162e6ca3ed2af0561",
+    "harnesslab/efficient_engine.py": "e91f4f7f6daf53fd4c940cd52e82a1af0d7f6c60c3f512cd1ef4c01e20ff52c2",
+    "run_experiments.py": "8a65485b1495351b22451c7fc1c07e41dd8c71fc941eafca44ea30155e4761d3",
+    "protocol/PLAN.json": "715b378d9541be2a0c74abaa0a80eb6f03d7c71a971570243d3302e64b1b82d9",
+    "protocol/instances.json": "ae4913090d954e77f7662eea0f66644af012907468bf7e5a9493bc07dd5faa6a"
+  }
+}

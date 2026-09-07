@@ -1,0 +1,9 @@
+{
+  "compiler_version": "XeTeX 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian)",
+  "engine": "XeLaTeX",
+  "overfull_boxes": 0,
+  "passes": 2,
+  "pdf_sha256": "11f36c0ec564a6616383a4c50ce76d38e9aa32ff421f1a5fec4859647d7024f0",
+  "shell_escape": false,
+  "source_sha256": "bb95228f92f2f2b8ea6c164e321b53d27d58112f33ec438fdc3c18a063cc381c"
+}

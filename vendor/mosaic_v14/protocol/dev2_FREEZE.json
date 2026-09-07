@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-09-05T11:04:43.657136+00:00",
+  "files": {
+    "mosaic14/__init__.py": "a98e0580a35cc67c13e26bece800e931e99c7eabd5537dc944c5fe2fbbc67524",
+    "mosaic14/bootstrap.py": "001b0cc1431a1c42ef21c841be2edcd7dc4dd29b32211b66f4e6c284add3d3e6",
+    "mosaic14/engine.py": "6040f00bc1a572bbf27f10e350ae6138770b349899e26a7ca793b6d0292dd373",
+    "mosaic14/fast.py": "674e4cb96173126b3f962ff0edc0dcb03bc78fbd3a89ec33ca390373580b725c",
+    "mosaic14/variants.py": "324bd1617cbd3b501a875efe9b08b04548ab3e393b5252bb42902505b7cbde06",
+    "protocol/instances.json": "ad78b62b54ad07cfd8b8b471a61b957d81cbc82a87e08992994db8f7dee1727d"
+  },
+  "algorithms": [
+    "fast_v10",
+    "nsga2_typed",
+    "fast_h0",
+    "local24",
+    "dual24",
+    "dual48",
+    "dual24_refit32",
+    "local24_refit128"
+  ],
+  "seeds": [
+    74101,
+    74102,
+    74103,
+    74104
+  ],
+  "budget": 512,
+  "tasks": [
+    "rgv_g1",
+    "rgv_dev",
+    "tour_dev",
+    "job_dev"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "structures": {
+    "header_blocks": ["Review", "Data", "Pose", "Flow", "World", "Root", "Calib", "Eval", "Deploy", "Paper"]
+  }
+}

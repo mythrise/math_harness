@@ -1,0 +1,3033 @@
+{
+  "T01_policy_timeline": {
+    "template_id": "T01_policy_timeline",
+    "slot_count": 8,
+    "editable_text_detected": 30,
+    "aliases": {
+      "years": [
+        "year_1",
+        "year_2",
+        "year_3",
+        "year_4"
+      ],
+      "stages": [
+        "stage_left",
+        "stage_mid",
+        "stage_right"
+      ]
+    },
+    "slots": [
+      {
+        "name": "year_1",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "top timeline year 1",
+        "default_text": "1992"
+      },
+      {
+        "name": "year_2",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "top timeline year 2",
+        "default_text": "1992"
+      },
+      {
+        "name": "year_3",
+        "target": {
+          "raw_id": "r002"
+        },
+        "description": "top timeline year 3",
+        "default_text": "1992"
+      },
+      {
+        "name": "year_4",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "top timeline year 4",
+        "default_text": "1992"
+      },
+      {
+        "name": "stage_left",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "left action label",
+        "default_text": "Identify"
+      },
+      {
+        "name": "stage_mid",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "middle action label",
+        "default_text": "Evaluate"
+      },
+      {
+        "name": "stage_right",
+        "target": {
+          "raw_id": "r008"
+        },
+        "description": "right action label",
+        "default_text": "Combine"
+      },
+      {
+        "name": "final_label",
+        "target": {
+          "raw_id": "r029"
+        },
+        "description": "final result label",
+        "default_text": "Our Work"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T02_two_stage_pipeline": {
+    "template_id": "T02_two_stage_pipeline",
+    "slot_count": 14,
+    "editable_text_detected": 55,
+    "aliases": {
+      "models": [
+        "model_1",
+        "model_2",
+        "model_3"
+      ],
+      "figure_captions": [
+        "figure_a",
+        "figure_b",
+        "figure_c",
+        "figure_d",
+        "figure_e"
+      ]
+    },
+    "slots": [
+      {
+        "name": "literature_review",
+        "target": {
+          "raw_ids": [
+            "r000",
+            "r001",
+            "r002"
+          ]
+        },
+        "description": "literature review header",
+        "default_text": "Literature\nR\neview"
+      },
+      {
+        "name": "data_collection",
+        "target": {
+          "raw_ids": [
+            "r003",
+            "r005"
+          ]
+        },
+        "description": "data collection header",
+        "default_text": "Data\nCollection"
+      },
+      {
+        "name": "data_processing",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "data processing header",
+        "default_text": "Data Processing"
+      },
+      {
+        "name": "model_1",
+        "target": {
+          "raw_ids": [
+            "r007",
+            "r008"
+          ]
+        },
+        "description": "first model label",
+        "default_text": "HRCA Model\nI"
+      },
+      {
+        "name": "model_2",
+        "target": {
+          "raw_ids": [
+            "r009",
+            "r010",
+            "r011"
+          ]
+        },
+        "description": "second model label",
+        "default_text": "MSS\nModel\nII"
+      },
+      {
+        "name": "model_3",
+        "target": {
+          "raw_ids": [
+            "r018",
+            "r019",
+            "r021"
+          ]
+        },
+        "description": "third model label",
+        "default_text": "LTP\nModel\nIII"
+      },
+      {
+        "name": "our_work",
+        "target": {
+          "raw_ids": [
+            "r022",
+            "r023"
+          ]
+        },
+        "description": "our work header",
+        "default_text": "O\nur Work"
+      },
+      {
+        "name": "stage_1_title",
+        "target": {
+          "raw_ids": [
+            "r024",
+            "r025"
+          ]
+        },
+        "description": "stage 1 title",
+        "default_text": "Stage-I:\nInsurance and Real Estate Development Site Selection"
+      },
+      {
+        "name": "stage_2_title",
+        "target": {
+          "raw_ids": [
+            "r026",
+            "r027",
+            "r028"
+          ]
+        },
+        "description": "stage 2 title",
+        "default_text": "Stage-\nII\n: Decisions on Preservation and Protection"
+      },
+      {
+        "name": "figure_a",
+        "target": {
+          "raw_id": "r047"
+        },
+        "description": "bottom figure a caption",
+        "default_text": "(a) Coupling Analysis Model"
+      },
+      {
+        "name": "figure_b",
+        "target": {
+          "raw_id": "r048"
+        },
+        "description": "bottom figure b caption",
+        "default_text": "(b) Rasterization of MMNR Area"
+      },
+      {
+        "name": "figure_c",
+        "target": {
+          "raw_id": "r049"
+        },
+        "description": "bottom figure c caption",
+        "default_text": "(c) Strategy Selection Model"
+      },
+      {
+        "name": "figure_d",
+        "target": {
+          "raw_id": "r050"
+        },
+        "description": "bottom figure d caption",
+        "default_text": "(d) Multiple-objective Optimization"
+      },
+      {
+        "name": "figure_e",
+        "target": {
+          "raw_id": "r051"
+        },
+        "description": "bottom figure e caption",
+        "default_text": "(e) Prediction Results Analysis"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T03_composite_pipeline": {
+    "template_id": "T03_composite_pipeline",
+    "slot_count": 11,
+    "editable_text_detected": 123,
+    "aliases": {
+      "models": [
+        "model_1",
+        "model_2",
+        "model_3"
+      ],
+      "panels": [
+        "panel_a",
+        "panel_b",
+        "panel_c",
+        "panel_d"
+      ]
+    },
+    "slots": [
+      {
+        "name": "literature_review",
+        "target": {
+          "raw_ids": [
+            "r000",
+            "r001",
+            "r002"
+          ]
+        },
+        "description": "literature review header",
+        "default_text": "Literature\nR\neview"
+      },
+      {
+        "name": "data_collection",
+        "target": {
+          "raw_ids": [
+            "r003",
+            "r005"
+          ]
+        },
+        "description": "data collection header",
+        "default_text": "Data\nCollection"
+      },
+      {
+        "name": "data_processing",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "data processing header",
+        "default_text": "Data Processing"
+      },
+      {
+        "name": "model_1",
+        "target": {
+          "raw_ids": [
+            "r007",
+            "r008",
+            "r009"
+          ]
+        },
+        "description": "first model label",
+        "default_text": "UD\nModel\nI"
+      },
+      {
+        "name": "model_2",
+        "target": {
+          "raw_ids": [
+            "r010",
+            "r011",
+            "r012"
+          ]
+        },
+        "description": "second model label",
+        "default_text": "REDE\nModel\nII"
+      },
+      {
+        "name": "model_3",
+        "target": {
+          "raw_ids": [
+            "r019",
+            "r020",
+            "r021"
+          ]
+        },
+        "description": "third model label",
+        "default_text": "CBC\nModel\nIII"
+      },
+      {
+        "name": "our_work",
+        "target": {
+          "raw_ids": [
+            "r022",
+            "r023"
+          ]
+        },
+        "description": "our work header",
+        "default_text": "O\nur Work"
+      },
+      {
+        "name": "panel_a",
+        "target": {
+          "raw_id": "r038"
+        },
+        "description": "panel a title",
+        "default_text": "(a) Coupling Analysis Model"
+      },
+      {
+        "name": "panel_b",
+        "target": {
+          "raw_ids": [
+            "r069",
+            "r070",
+            "r071"
+          ]
+        },
+        "description": "panel b title",
+        "default_text": "(\nb\n) Real Estate Development Evaluation Model"
+      },
+      {
+        "name": "panel_c",
+        "target": {
+          "raw_id": "r042"
+        },
+        "description": "panel c title",
+        "default_text": "(c) Community Building Conservation Model"
+      },
+      {
+        "name": "panel_d",
+        "target": {
+          "raw_id": "r043"
+        },
+        "description": "panel d title",
+        "default_text": "(d) Protecting the Guardians of Easter Island: Moai Statues"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T04_four_problem_panel": {
+    "template_id": "T04_four_problem_panel",
+    "slot_count": 7,
+    "editable_text_detected": 55,
+    "aliases": {},
+    "slots": [
+      {
+        "name": "problem_1_title",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "panel 1 title",
+        "default_text": "Problem1:Predict the number of the reported results"
+      },
+      {
+        "name": "problem_2_title",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "panel 2 title",
+        "default_text": "Problem2:Predict the distribution of the reported results"
+      },
+      {
+        "name": "problem_3_title",
+        "target": {
+          "raw_id": "r002"
+        },
+        "description": "panel 3 title",
+        "default_text": "Problem3:Classify words by difficulty"
+      },
+      {
+        "name": "problem_4_title",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "panel 4 title",
+        "default_text": "Problem4:Some interesting features"
+      },
+      {
+        "name": "model_1",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "model name 1",
+        "default_text": "ARIMA model"
+      },
+      {
+        "name": "model_2",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "model name 2",
+        "default_text": "LSTM model"
+      },
+      {
+        "name": "cluster_method",
+        "target": {
+          "raw_id": "r023"
+        },
+        "description": "cluster method label",
+        "default_text": "GMM"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": false,
+    "overlay_based": false
+  },
+  "T05_dual_column_model": {
+    "template_id": "T05_dual_column_model",
+    "slot_count": 9,
+    "editable_text_detected": 36,
+    "aliases": {},
+    "slots": [
+      {
+        "name": "year_left",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "left year marker",
+        "default_text": "2"
+      },
+      {
+        "name": "year_mid",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "middle year marker",
+        "default_text": "2"
+      },
+      {
+        "name": "year_right",
+        "target": {
+          "raw_id": "r002"
+        },
+        "description": "right year marker",
+        "default_text": "2"
+      },
+      {
+        "name": "main_title_1",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "main title line 1",
+        "default_text": "Plant Community Succession"
+      },
+      {
+        "name": "main_title_2",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "main title line 2",
+        "default_text": "Model Based on Ecological"
+      },
+      {
+        "name": "main_title_3",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "main title line 3",
+        "default_text": "Niche"
+      },
+      {
+        "name": "left_section",
+        "target": {
+          "raw_ids": [
+            "r020",
+            "r021"
+          ]
+        },
+        "description": "left section header",
+        "default_text": "Application of the\nModel"
+      },
+      {
+        "name": "right_section",
+        "target": {
+          "raw_ids": [
+            "r033",
+            "r034"
+          ]
+        },
+        "description": "right section header",
+        "default_text": "Sensitivity\nAnalysis"
+      },
+      {
+        "name": "footer",
+        "target": {
+          "raw_id": "r035"
+        },
+        "description": "footer note",
+        "default_text": "Strengths and Weaknesses"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": false,
+    "overlay_based": false
+  },
+  "T06_literature_review_matrix": {
+    "template_id": "T06_literature_review_matrix",
+    "slot_count": 10,
+    "editable_text_detected": 44,
+    "aliases": {
+      "strengths_weaknesses": [
+        "strengths_label",
+        "weaknesses_label"
+      ]
+    },
+    "slots": [
+      {
+        "name": "main_title",
+        "target": {
+          "raw_ids": [
+            "r000",
+            "r001"
+          ]
+        },
+        "description": "main title",
+        "default_text": "Research of Light\nPollution"
+      },
+      {
+        "name": "section_data_space",
+        "target": {
+          "raw_ids": [
+            "r002",
+            "r003"
+          ]
+        },
+        "description": "data space section",
+        "default_text": "Determination of the\nData Space"
+      },
+      {
+        "name": "dim_2d",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "2-D label",
+        "default_text": "2-D"
+      },
+      {
+        "name": "dim_3d",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "3-D label",
+        "default_text": "3-D"
+      },
+      {
+        "name": "sample_independent",
+        "target": {
+          "raw_ids": [
+            "r006",
+            "r007"
+          ]
+        },
+        "description": "sample independent label",
+        "default_text": "Sample\nIndependent"
+      },
+      {
+        "name": "sample_dependent",
+        "target": {
+          "raw_ids": [
+            "r008",
+            "r009",
+            "r010"
+          ]
+        },
+        "description": "sample dependent label",
+        "default_text": "Dependent on\nDevice\nPerformance"
+      },
+      {
+        "name": "composition",
+        "target": {
+          "raw_ids": [
+            "r011",
+            "r012",
+            "r013"
+          ]
+        },
+        "description": "composition section",
+        "default_text": "Comprehensive\nComposition of\nLight Pollution"
+      },
+      {
+        "name": "strengths_label",
+        "target": {
+          "raw_id": "r038"
+        },
+        "description": "strengths label",
+        "default_text": "Strengths"
+      },
+      {
+        "name": "weaknesses_label",
+        "target": {
+          "raw_id": "r040"
+        },
+        "description": "weaknesses label",
+        "default_text": "Weaknesses"
+      },
+      {
+        "name": "review_framework",
+        "target": {
+          "raw_ids": [
+            "r041",
+            "r042",
+            "r043"
+          ]
+        },
+        "description": "literature review framework footer",
+        "default_text": "Literature\nReview\nFramework"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T07_three_phase_board": {
+    "template_id": "T07_three_phase_board",
+    "slot_count": 8,
+    "editable_text_detected": 54,
+    "aliases": {
+      "phase_titles": [
+        "phase_1",
+        "phase_2",
+        "phase_3"
+      ]
+    },
+    "slots": [
+      {
+        "name": "phase_1",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "phase 1 title",
+        "default_text": "Data Preparation & Processing"
+      },
+      {
+        "name": "phase_2",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "phase 2 title",
+        "default_text": "Model Constructing"
+      },
+      {
+        "name": "phase_3",
+        "target": {
+          "raw_ids": [
+            "r017",
+            "r018",
+            "r019"
+          ]
+        },
+        "description": "phase 3 title",
+        "default_text": "Application of the model\nNetwork in\nDifferent regions"
+      },
+      {
+        "name": "module_1",
+        "target": {
+          "raw_ids": [
+            "r002",
+            "r003"
+          ]
+        },
+        "description": "top-left module",
+        "default_text": "Network\nSingle G-T-I-D"
+      },
+      {
+        "name": "module_2",
+        "target": {
+          "raw_ids": [
+            "r004",
+            "r005",
+            "r006"
+          ]
+        },
+        "description": "data correlation module",
+        "default_text": "Data\ncorrelation\nAdjacency"
+      },
+      {
+        "name": "module_3",
+        "target": {
+          "raw_ids": [
+            "r009",
+            "r010",
+            "r011"
+          ]
+        },
+        "description": "priority selection/system dynamics",
+        "default_text": "Priority\nSelection\nSystem"
+      },
+      {
+        "name": "module_4",
+        "target": {
+          "raw_ids": [
+            "r013",
+            "r014",
+            "r015",
+            "r016"
+          ]
+        },
+        "description": "row parameter score method",
+        "default_text": "Row\nParameter\nscore\nMethod"
+      },
+      {
+        "name": "footer_note",
+        "target": {
+          "raw_ids": [
+            "r053",
+            "r054"
+          ]
+        },
+        "description": "footer note",
+        "default_text": "UN\nPromote to other organizations"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T08_task_chain": {
+    "template_id": "T08_task_chain",
+    "slot_count": 8,
+    "editable_text_detected": 57,
+    "aliases": {},
+    "slots": [
+      {
+        "name": "title",
+        "target": {
+          "raw_ids": [
+            "r000",
+            "r001",
+            "r002"
+          ]
+        },
+        "description": "top title block",
+        "default_text": "Grey\nCorrelation\nAnalysis"
+      },
+      {
+        "name": "subtitle",
+        "target": {
+          "raw_ids": [
+            "r003",
+            "r004"
+          ]
+        },
+        "description": "subtitle block",
+        "default_text": "Indicator\nselection"
+      },
+      {
+        "name": "team_name",
+        "target": {
+          "raw_ids": [
+            "r005",
+            "r006"
+          ]
+        },
+        "description": "team name",
+        "default_text": "Huskie\nteam"
+      },
+      {
+        "name": "input_label",
+        "target": {
+          "raw_ids": [
+            "r007",
+            "r008",
+            "r009"
+          ]
+        },
+        "description": "input phrase",
+        "default_text": "Give\nn\nData"
+      },
+      {
+        "name": "target_action",
+        "target": {
+          "raw_ids": [
+            "r010",
+            "r011",
+            "r012"
+          ]
+        },
+        "description": "target/action label",
+        "default_text": "Target\nand\nAction"
+      },
+      {
+        "name": "task_1",
+        "target": {
+          "raw_id": "r013"
+        },
+        "description": "task 1 header",
+        "default_text": "TASK 1"
+      },
+      {
+        "name": "task_2",
+        "target": {
+          "raw_id": "r016"
+        },
+        "description": "task 2 header",
+        "default_text": "TASK 2"
+      },
+      {
+        "name": "task_3",
+        "target": {
+          "raw_id": "r020"
+        },
+        "description": "task 3 header",
+        "default_text": "TASK 3"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": false,
+    "overlay_based": false
+  },
+  "T09_supervision_state": {
+    "template_id": "T09_supervision_state",
+    "slot_count": 10,
+    "editable_text_detected": 23,
+    "aliases": {},
+    "slots": [
+      {
+        "name": "title",
+        "target": {
+          "raw_ids": [
+            "r002",
+            "r003"
+          ]
+        },
+        "description": "title block",
+        "default_text": "Supervision\nsystem"
+      },
+      {
+        "name": "operation_label",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "operation label",
+        "default_text": "Operation"
+      },
+      {
+        "name": "continue_monitoring",
+        "target": {
+          "raw_ids": [
+            "r006",
+            "r007"
+          ]
+        },
+        "description": "continue monitoring box",
+        "default_text": "Continue\nmonitoring"
+      },
+      {
+        "name": "warning_action",
+        "target": {
+          "raw_ids": [
+            "r008",
+            "r009"
+          ]
+        },
+        "description": "warning action box",
+        "default_text": "Warning\nAnalyze data"
+      },
+      {
+        "name": "pass_label",
+        "target": {
+          "raw_id": "r010"
+        },
+        "description": "pass label",
+        "default_text": "Pass"
+      },
+      {
+        "name": "coordination_action",
+        "target": {
+          "raw_ids": [
+            "r012",
+            "r013"
+          ]
+        },
+        "description": "coordination action",
+        "default_text": "Coordinate personnel\nassignments"
+      },
+      {
+        "name": "planning_action",
+        "target": {
+          "raw_ids": [
+            "r015",
+            "r016"
+          ]
+        },
+        "description": "planning action",
+        "default_text": "Reasonable site\nplanning"
+      },
+      {
+        "name": "feedback_label",
+        "target": {
+          "raw_id": "r017"
+        },
+        "description": "feedback label",
+        "default_text": "Feedback"
+      },
+      {
+        "name": "abnormal_state",
+        "target": {
+          "raw_ids": [
+            "r018",
+            "r019",
+            "r020"
+          ]
+        },
+        "description": "abnormal state",
+        "default_text": "At least\none\nabnormal"
+      },
+      {
+        "name": "normal_state",
+        "target": {
+          "raw_ids": [
+            "r021",
+            "r022"
+          ]
+        },
+        "description": "normal state",
+        "default_text": "All\nnormal"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": false,
+    "overlay_based": false
+  },
+  "T10_taxonomy_matrix": {
+    "template_id": "T10_taxonomy_matrix",
+    "slot_count": 9,
+    "editable_text_detected": 51,
+    "aliases": {
+      "categories": [
+        "category_1",
+        "category_2",
+        "category_3"
+      ],
+      "metrics": [
+        "metric_1",
+        "metric_2",
+        "metric_3",
+        "metric_4",
+        "metric_5",
+        "metric_6"
+      ]
+    },
+    "slots": [
+      {
+        "name": "category_1",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "top category 1",
+        "default_text": "Pop/Rock"
+      },
+      {
+        "name": "category_2",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "top category 2",
+        "default_text": "R&b"
+      },
+      {
+        "name": "category_3",
+        "target": {
+          "raw_id": "r002"
+        },
+        "description": "top category 3",
+        "default_text": "Jazz"
+      },
+      {
+        "name": "metric_1",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "row metric 1",
+        "default_text": "danceability"
+      },
+      {
+        "name": "metric_2",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "row metric 2",
+        "default_text": "energy"
+      },
+      {
+        "name": "metric_3",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "row metric 3",
+        "default_text": "valence"
+      },
+      {
+        "name": "metric_4",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "row metric 4",
+        "default_text": "tempo"
+      },
+      {
+        "name": "metric_5",
+        "target": {
+          "raw_id": "r007"
+        },
+        "description": "row metric 5",
+        "default_text": "loudness"
+      },
+      {
+        "name": "metric_6",
+        "target": {
+          "raw_id": "r008"
+        },
+        "description": "row metric 6",
+        "default_text": "mode"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T11_donut_capability": {
+    "template_id": "T11_donut_capability",
+    "slot_count": 13,
+    "editable_text_detected": 21,
+    "aliases": {
+      "center": [
+        "center_line_1",
+        "center_line_2"
+      ],
+      "outer_segments": [
+        "outer_1",
+        "outer_2",
+        "outer_3",
+        "outer_4",
+        "outer_5",
+        "outer_6",
+        "outer_7",
+        "outer_8",
+        "outer_9",
+        "outer_10",
+        "outer_11"
+      ]
+    },
+    "slots": [
+      {
+        "name": "center_line_1",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "center title line 1",
+        "default_text": "D&A"
+      },
+      {
+        "name": "center_line_2",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "center title line 2",
+        "default_text": "system"
+      },
+      {
+        "name": "outer_1",
+        "target": {
+          "raw_ids": [
+            "r019",
+            "r020"
+          ]
+        },
+        "description": "educational background",
+        "default_text": "Educational\nbackground"
+      },
+      {
+        "name": "outer_2",
+        "target": {
+          "raw_ids": [
+            "r002",
+            "r003"
+          ]
+        },
+        "description": "collection efficiency",
+        "default_text": "Collection\nefficiency"
+      },
+      {
+        "name": "outer_3",
+        "target": {
+          "raw_ids": [
+            "r004",
+            "r005"
+          ]
+        },
+        "description": "response speed",
+        "default_text": "Responing\nspeed"
+      },
+      {
+        "name": "outer_4",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "storage",
+        "default_text": "Storage"
+      },
+      {
+        "name": "outer_5",
+        "target": {
+          "raw_id": "r007"
+        },
+        "description": "position",
+        "default_text": "Position"
+      },
+      {
+        "name": "outer_6",
+        "target": {
+          "raw_ids": [
+            "r008",
+            "r009"
+          ]
+        },
+        "description": "process visualization",
+        "default_text": "Process\nvisualization"
+      },
+      {
+        "name": "outer_7",
+        "target": {
+          "raw_ids": [
+            "r010",
+            "r011"
+          ]
+        },
+        "description": "process reengineering",
+        "default_text": "Process\nReengineering"
+      },
+      {
+        "name": "outer_8",
+        "target": {
+          "raw_ids": [
+            "r012",
+            "r013"
+          ]
+        },
+        "description": "process coverage",
+        "default_text": "Process\ncoverage"
+      },
+      {
+        "name": "outer_9",
+        "target": {
+          "raw_ids": [
+            "r014",
+            "r015"
+          ]
+        },
+        "description": "number of people",
+        "default_text": "Number\nOf people"
+      },
+      {
+        "name": "outer_10",
+        "target": {
+          "raw_ids": [
+            "r016",
+            "r017"
+          ]
+        },
+        "description": "IT capability",
+        "default_text": "IT\ncapability"
+      },
+      {
+        "name": "outer_11",
+        "target": {
+          "raw_id": "r018"
+        },
+        "description": "cost",
+        "default_text": "Cost"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T12_network_views": {
+    "template_id": "T12_network_views",
+    "slot_count": 7,
+    "editable_text_detected": 7,
+    "aliases": {
+      "legend_bins": [
+        "bin_1",
+        "bin_2",
+        "bin_3",
+        "bin_4",
+        "bin_5"
+      ]
+    },
+    "slots": [
+      {
+        "name": "structure_title",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "detailed structure title",
+        "default_text": "Detailed Structure"
+      },
+      {
+        "name": "legend_title",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "edge legend title",
+        "default_text": "Edge Of Network"
+      },
+      {
+        "name": "bin_1",
+        "target": {
+          "raw_id": "r002"
+        },
+        "description": "legend bin 1",
+        "default_text": "[0,2.0]"
+      },
+      {
+        "name": "bin_2",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "legend bin 2",
+        "default_text": "[2.0,4.0]"
+      },
+      {
+        "name": "bin_3",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "legend bin 3",
+        "default_text": "[4.0,6.0]"
+      },
+      {
+        "name": "bin_4",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "legend bin 4",
+        "default_text": "[6.0,8.0]"
+      },
+      {
+        "name": "bin_5",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "legend bin 5",
+        "default_text": "[8.0,10.0]"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T13_trend_ribbon": {
+    "template_id": "T13_trend_ribbon",
+    "slot_count": 20,
+    "editable_text_detected": 30,
+    "aliases": {
+      "periods": [
+        "period_1",
+        "period_2",
+        "period_3",
+        "period_4",
+        "period_5",
+        "period_6",
+        "period_7",
+        "period_8",
+        "period_9",
+        "period_10"
+      ],
+      "artists": [
+        "artist_1",
+        "artist_2",
+        "artist_3",
+        "artist_4",
+        "artist_5",
+        "artist_6",
+        "artist_7",
+        "artist_8",
+        "artist_9",
+        "artist_10"
+      ]
+    },
+    "slots": [
+      {
+        "name": "period_1",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "period 1",
+        "default_text": "1960-1971"
+      },
+      {
+        "name": "artist_1",
+        "target": {
+          "raw_ids": [
+            "r001",
+            "r002"
+          ]
+        },
+        "description": "artist 1",
+        "default_text": "Moody\nBlues"
+      },
+      {
+        "name": "period_2",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "period 2",
+        "default_text": "1963-1971"
+      },
+      {
+        "name": "artist_2",
+        "target": {
+          "raw_ids": [
+            "r004",
+            "r005"
+          ]
+        },
+        "description": "artist 2",
+        "default_text": "The\nBeatles"
+      },
+      {
+        "name": "period_3",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "period 3",
+        "default_text": "1965-1967"
+      },
+      {
+        "name": "artist_3",
+        "target": {
+          "raw_ids": [
+            "r007",
+            "r008"
+          ]
+        },
+        "description": "artist 3",
+        "default_text": "The\nByrds"
+      },
+      {
+        "name": "period_4",
+        "target": {
+          "raw_ids": [
+            "r009",
+            "r010"
+          ]
+        },
+        "description": "period 4",
+        "default_text": "1969-\n1982"
+      },
+      {
+        "name": "artist_4",
+        "target": {
+          "raw_ids": [
+            "r011",
+            "r012"
+          ]
+        },
+        "description": "artist 4",
+        "default_text": "Led\nZeppelin"
+      },
+      {
+        "name": "period_5",
+        "target": {
+          "raw_id": "r013"
+        },
+        "description": "period 5",
+        "default_text": "1972-1980"
+      },
+      {
+        "name": "artist_5",
+        "target": {
+          "raw_id": "r014"
+        },
+        "description": "artist 5",
+        "default_text": "Eagles"
+      },
+      {
+        "name": "period_6",
+        "target": {
+          "raw_id": "r015"
+        },
+        "description": "period 6",
+        "default_text": "1975-1989"
+      },
+      {
+        "name": "artist_6",
+        "target": {
+          "raw_id": "r016"
+        },
+        "description": "artist 6",
+        "default_text": "Rush"
+      },
+      {
+        "name": "period_7",
+        "target": {
+          "raw_id": "r017"
+        },
+        "description": "period 7",
+        "default_text": "1973-1992"
+      },
+      {
+        "name": "artist_7",
+        "target": {
+          "raw_id": "r018"
+        },
+        "description": "artist 7",
+        "default_text": "Queen"
+      },
+      {
+        "name": "period_8",
+        "target": {
+          "raw_ids": [
+            "r019",
+            "r020"
+          ]
+        },
+        "description": "period 8",
+        "default_text": "2006-\n2019"
+      },
+      {
+        "name": "artist_8",
+        "target": {
+          "raw_ids": [
+            "r021",
+            "r022"
+          ]
+        },
+        "description": "artist 8",
+        "default_text": "Taylor\nSwift"
+      },
+      {
+        "name": "period_9",
+        "target": {
+          "raw_ids": [
+            "r023",
+            "r024"
+          ]
+        },
+        "description": "period 9",
+        "default_text": "2010-\n2016"
+      },
+      {
+        "name": "artist_9",
+        "target": {
+          "raw_id": "r025"
+        },
+        "description": "artist 9",
+        "default_text": "Rihanna"
+      },
+      {
+        "name": "period_10",
+        "target": {
+          "raw_ids": [
+            "r026",
+            "r027"
+          ]
+        },
+        "description": "period 10",
+        "default_text": "2000-\n2007"
+      },
+      {
+        "name": "artist_10",
+        "target": {
+          "raw_ids": [
+            "r028",
+            "r029"
+          ]
+        },
+        "description": "artist 10",
+        "default_text": "Lincoln\nPark"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T14_queue_process": {
+    "template_id": "T14_queue_process",
+    "slot_count": 10,
+    "editable_text_detected": 19,
+    "aliases": {},
+    "slots": [
+      {
+        "name": "queue_1",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "queue label 1",
+        "default_text": "Queue 1"
+      },
+      {
+        "name": "queue_2",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "queue label 2",
+        "default_text": "Queue 2"
+      },
+      {
+        "name": "input_label",
+        "target": {
+          "raw_ids": [
+            "r002",
+            "r003"
+          ]
+        },
+        "description": "input/process title",
+        "default_text": "Input\nprocess"
+      },
+      {
+        "name": "stage_1",
+        "target": {
+          "raw_ids": [
+            "r004",
+            "r005"
+          ]
+        },
+        "description": "queue through customs",
+        "default_text": "Queue through\ncustoms"
+      },
+      {
+        "name": "stage_2",
+        "target": {
+          "raw_ids": [
+            "r006",
+            "r007"
+          ]
+        },
+        "description": "discharge container 1",
+        "default_text": "Discharge\ncontainer"
+      },
+      {
+        "name": "stage_3",
+        "target": {
+          "raw_ids": [
+            "r008",
+            "r009"
+          ]
+        },
+        "description": "discharge container 2",
+        "default_text": "Discharge\ncontainer"
+      },
+      {
+        "name": "stage_4",
+        "target": {
+          "raw_ids": [
+            "r010",
+            "r011"
+          ]
+        },
+        "description": "discharge container 3",
+        "default_text": "Discharge\ncontainer"
+      },
+      {
+        "name": "stage_5",
+        "target": {
+          "raw_ids": [
+            "r012",
+            "r013",
+            "r014"
+          ]
+        },
+        "description": "discharge/through customs",
+        "default_text": "Discharge\ncontainer\nThrough"
+      },
+      {
+        "name": "stage_6",
+        "target": {
+          "raw_ids": [
+            "r015",
+            "r016",
+            "r017"
+          ]
+        },
+        "description": "waiting for unloading",
+        "default_text": "customs\nWaiting for\nunloading"
+      },
+      {
+        "name": "process_label",
+        "target": {
+          "raw_id": "r018"
+        },
+        "description": "bottom process label",
+        "default_text": "Process"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": false,
+    "overlay_based": false
+  },
+  "T15_comparison_bars": {
+    "template_id": "T15_comparison_bars",
+    "slot_count": 18,
+    "editable_text_detected": 21,
+    "aliases": {
+      "headers": [
+        "left_header",
+        "right_header"
+      ],
+      "categories": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5"
+      ],
+      "left_values": [
+        "left_value_1",
+        "left_value_2",
+        "left_value_3",
+        "left_value_4",
+        "left_value_5"
+      ],
+      "right_values": [
+        "right_value_1",
+        "right_value_2",
+        "right_value_3",
+        "right_value_4",
+        "right_value_5"
+      ],
+      "values": [
+        "left_value_1",
+        "left_value_2",
+        "left_value_3",
+        "left_value_4",
+        "left_value_5",
+        "right_value_1",
+        "right_value_2",
+        "right_value_3",
+        "right_value_4",
+        "right_value_5"
+      ]
+    },
+    "slots": [
+      {
+        "name": "center_title",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "center title",
+        "default_text": "D&A"
+      },
+      {
+        "name": "left_header",
+        "target": {
+          "raw_ids": [
+            "r001",
+            "r002"
+          ]
+        },
+        "description": "left comparison header",
+        "default_text": "Original\nOriginal"
+      },
+      {
+        "name": "right_header",
+        "target": {
+          "raw_ids": [
+            "r003",
+            "r004"
+          ]
+        },
+        "description": "right comparison header",
+        "default_text": "Changed\nChanged"
+      },
+      {
+        "name": "category_1",
+        "target": {
+          "raw_id": "r008"
+        },
+        "description": "Maturity",
+        "default_text": "Maturity"
+      },
+      {
+        "name": "category_2",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "People",
+        "default_text": "People"
+      },
+      {
+        "name": "category_3",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "Technology",
+        "default_text": "Technology"
+      },
+      {
+        "name": "category_4",
+        "target": {
+          "raw_id": "r007"
+        },
+        "description": "Process",
+        "default_text": "Process"
+      },
+      {
+        "name": "category_5",
+        "target": {
+          "raw_id": "r009"
+        },
+        "description": "Efficiency",
+        "default_text": "Efficiency"
+      },
+      {
+        "name": "left_value_1",
+        "target": {
+          "raw_id": "r010"
+        },
+        "description": "left value 1",
+        "default_text": "0.43"
+      },
+      {
+        "name": "left_value_2",
+        "target": {
+          "raw_id": "r011"
+        },
+        "description": "left value 2",
+        "default_text": "0.58"
+      },
+      {
+        "name": "left_value_3",
+        "target": {
+          "raw_id": "r012"
+        },
+        "description": "left value 3",
+        "default_text": "0.40"
+      },
+      {
+        "name": "left_value_4",
+        "target": {
+          "raw_id": "r013"
+        },
+        "description": "left value 4",
+        "default_text": "0.49"
+      },
+      {
+        "name": "left_value_5",
+        "target": {
+          "raw_id": "r014"
+        },
+        "description": "left value 5",
+        "default_text": "0.3"
+      },
+      {
+        "name": "right_value_1",
+        "target": {
+          "raw_id": "r016"
+        },
+        "description": "right value 1",
+        "default_text": "0.71"
+      },
+      {
+        "name": "right_value_2",
+        "target": {
+          "raw_id": "r017"
+        },
+        "description": "right value 2",
+        "default_text": "0.68"
+      },
+      {
+        "name": "right_value_3",
+        "target": {
+          "raw_id": "r018"
+        },
+        "description": "right value 3",
+        "default_text": "0.81"
+      },
+      {
+        "name": "right_value_4",
+        "target": {
+          "raw_id": "r019"
+        },
+        "description": "right value 4",
+        "default_text": "0.76"
+      },
+      {
+        "name": "right_value_5",
+        "target": {
+          "raw_id": "r020"
+        },
+        "description": "right value 5",
+        "default_text": "0.65"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T16_radial_bubble": {
+    "template_id": "T16_radial_bubble",
+    "slot_count": 11,
+    "editable_text_detected": 0,
+    "aliases": {
+      "primary_nodes": [
+        "center",
+        "people",
+        "technology",
+        "process"
+      ],
+      "outer_nodes": [
+        "personal",
+        "team",
+        "processing_efficiency",
+        "data_surplus",
+        "convenience",
+        "accuracy",
+        "security"
+      ]
+    },
+    "slots": [
+      {
+        "name": "center",
+        "description": "Maturity",
+        "default_text": "Maturity",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              396.117,
+              262.782,
+              95.244,
+              72.567
+            ],
+            "font_size": 20.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27
+            ],
+            "remove_image_indexes": [
+              34
+            ],
+            "ellipse_ref": [
+              387.046,
+              242.372,
+              113.386,
+              113.386
+            ]
+          }
+        }
+      },
+      {
+        "name": "people",
+        "description": "People",
+        "default_text": "People",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              380.941,
+              124.969,
+              90.482,
+              68.939
+            ],
+            "font_size": 20.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39
+            ],
+            "remove_image_indexes": [
+              45
+            ],
+            "ellipse_ref": [
+              372.324,
+              105.58,
+              107.717,
+              107.717
+            ]
+          }
+        }
+      },
+      {
+        "name": "technology",
+        "description": "Technology",
+        "default_text": "Technology",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              523.489,
+              292.152,
+              90.482,
+              68.939
+            ],
+            "font_size": 20.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59
+            ],
+            "remove_image_indexes": [
+              39
+            ],
+            "ellipse_ref": [
+              514.872,
+              272.763,
+              107.717,
+              107.717
+            ]
+          }
+        }
+      },
+      {
+        "name": "process",
+        "description": "Process",
+        "default_text": "Process",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              272.107,
+              297.579,
+              90.482,
+              68.939
+            ],
+            "font_size": 20.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73
+            ],
+            "remove_image_indexes": [
+              30
+            ],
+            "ellipse_ref": [
+              263.49,
+              278.19,
+              107.717,
+              107.717
+            ]
+          }
+        }
+      },
+      {
+        "name": "personal",
+        "description": "Personal",
+        "default_text": "Personal",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              272.463,
+              86.256,
+              85.72,
+              65.31
+            ],
+            "font_size": 18.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89
+            ],
+            "ellipse_ref": [
+              264.299,
+              67.888,
+              102.047,
+              102.047
+            ]
+          }
+        }
+      },
+      {
+        "name": "team",
+        "description": "Team",
+        "default_text": "Team",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              491.84,
+              57.551,
+              85.72,
+              65.31
+            ],
+            "font_size": 18.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97
+            ],
+            "ellipse_ref": [
+              483.676,
+              39.183,
+              102.047,
+              102.047
+            ]
+          }
+        }
+      },
+      {
+        "name": "processing_efficiency",
+        "description": "Processing efficiency",
+        "default_text": "Processing efficiency",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              180.062,
+              225.496,
+              85.72,
+              65.31
+            ],
+            "font_size": 18.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104,
+              105,
+              106,
+              107,
+              108,
+              109,
+              110,
+              111,
+              112,
+              113,
+              114,
+              115,
+              116,
+              117,
+              118,
+              119,
+              120,
+              121,
+              122,
+              123,
+              124,
+              125,
+              126,
+              127,
+              128,
+              129,
+              130,
+              131,
+              132,
+              133,
+              134,
+              135,
+              136,
+              137
+            ],
+            "remove_image_indexes": [
+              42
+            ],
+            "ellipse_ref": [
+              171.899,
+              207.127,
+              102.047,
+              102.047
+            ]
+          }
+        }
+      },
+      {
+        "name": "data_surplus",
+        "description": "Data surplus",
+        "default_text": "Data surplus",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              183.319,
+              377.992,
+              85.72,
+              65.31
+            ],
+            "font_size": 18.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              138,
+              139,
+              140,
+              141,
+              142,
+              143,
+              144,
+              145,
+              146,
+              147,
+              148,
+              149,
+              150,
+              151,
+              152,
+              153,
+              154,
+              155,
+              156,
+              157,
+              158,
+              159
+            ],
+            "ellipse_ref": [
+              175.155,
+              359.624,
+              102.047,
+              102.047
+            ]
+          }
+        }
+      },
+      {
+        "name": "convenience",
+        "description": "Convenience",
+        "default_text": "Convenience",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              609.246,
+              196.241,
+              85.72,
+              65.31
+            ],
+            "font_size": 18.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              160,
+              161,
+              162,
+              163,
+              164,
+              165,
+              166,
+              167,
+              168,
+              169,
+              170,
+              171,
+              172,
+              173,
+              174,
+              175,
+              176,
+              177,
+              178,
+              179,
+              180,
+              181
+            ],
+            "ellipse_ref": [
+              601.082,
+              177.873,
+              102.047,
+              102.047
+            ]
+          }
+        }
+      },
+      {
+        "name": "accuracy",
+        "description": "Accuracy",
+        "default_text": "Accuracy",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              670.599,
+              342.999,
+              85.72,
+              65.31
+            ],
+            "font_size": 18.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              182,
+              183,
+              184,
+              185,
+              186,
+              187,
+              188,
+              189,
+              190,
+              191,
+              192,
+              193,
+              194,
+              195,
+              196,
+              197
+            ],
+            "remove_image_indexes": [
+              49
+            ],
+            "ellipse_ref": [
+              662.435,
+              324.631,
+              102.047,
+              102.047
+            ]
+          }
+        }
+      },
+      {
+        "name": "security",
+        "description": "Security",
+        "default_text": "Security",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              588.369,
+              408.865,
+              85.72,
+              65.31
+            ],
+            "font_size": 18.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              198,
+              199,
+              200,
+              201,
+              202,
+              203,
+              204,
+              205,
+              206,
+              207,
+              208,
+              209,
+              210,
+              211,
+              212,
+              213
+            ],
+            "ellipse_ref": [
+              580.205,
+              390.496,
+              102.047,
+              102.047
+            ]
+          }
+        }
+      }
+    ],
+    "path_based_text_removal": true,
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": true
+  },
+  "T17_cube_ray": {
+    "template_id": "T17_cube_ray",
+    "slot_count": 5,
+    "editable_text_detected": 0,
+    "aliases": {
+      "axes": [
+        "axis_convenience",
+        "axis_accuracy",
+        "axis_security"
+      ],
+      "layers": [
+        "upper_layer",
+        "lower_layer"
+      ]
+    },
+    "slots": [
+      {
+        "name": "axis_convenience",
+        "description": "Convenience",
+        "default_text": "Convenience",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              62.741,
+              427.779,
+              164.461,
+              41.198
+            ],
+            "font_size": 28.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              29,
+              40
+            ]
+          }
+        }
+      },
+      {
+        "name": "axis_accuracy",
+        "description": "Accuracy",
+        "default_text": "Accuracy",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              389.702,
+              335.975,
+              119.314,
+              41.198
+            ],
+            "font_size": 28.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              41,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58
+            ]
+          }
+        }
+      },
+      {
+        "name": "axis_security",
+        "description": "Security",
+        "default_text": "Security",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              53.985,
+              38.217,
+              109.459,
+              41.198
+            ],
+            "font_size": 28.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              42,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74
+            ]
+          }
+        }
+      },
+      {
+        "name": "upper_layer",
+        "description": "Upper layer",
+        "default_text": "Upper layer",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              432.386,
+              98.803,
+              150.738,
+              41.198
+            ],
+            "font_size": 28.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104,
+              105,
+              106,
+              107,
+              108,
+              109
+            ]
+          }
+        }
+      },
+      {
+        "name": "lower_layer",
+        "description": "Lower layer",
+        "default_text": "Lower layer",
+        "target": {
+          "overlay": {
+            "type": "path_text",
+            "text_box": [
+              426.921,
+              432.837,
+              151.142,
+              41.198
+            ],
+            "font_size": 28.0,
+            "font_family": "Calibri",
+            "font_weight": "bold",
+            "fill_text": "#000000",
+            "remove_path_indexes": [
+              110,
+              111,
+              112,
+              113,
+              114,
+              115,
+              116,
+              117,
+              118,
+              119,
+              120,
+              121,
+              122,
+              123,
+              124,
+              125,
+              126,
+              127,
+              128,
+              129
+            ]
+          }
+        }
+      }
+    ],
+    "path_based_text_removal": true,
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": true
+  },
+  "T18_sdg_network": {
+    "template_id": "T18_sdg_network",
+    "slot_count": 16,
+    "editable_text_detected": 59,
+    "aliases": {
+      "nodes": [
+        "node_1",
+        "node_2",
+        "node_3",
+        "node_4",
+        "node_5",
+        "node_6",
+        "node_7",
+        "node_8",
+        "node_9",
+        "node_10",
+        "node_11",
+        "node_12",
+        "node_13",
+        "node_14",
+        "node_15"
+      ]
+    },
+    "slots": [
+      {
+        "name": "headline",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "main headline",
+        "default_text": "Ultimately improving the lives of many people around the world"
+      },
+      {
+        "name": "node_1",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "node 1",
+        "default_text": "SDG 1"
+      },
+      {
+        "name": "node_2",
+        "target": {
+          "raw_id": "r002"
+        },
+        "description": "node 2",
+        "default_text": "SDG 5"
+      },
+      {
+        "name": "node_3",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "node 3",
+        "default_text": "SDG 9"
+      },
+      {
+        "name": "node_4",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "node 4",
+        "default_text": "SDG 3"
+      },
+      {
+        "name": "node_5",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "node 5",
+        "default_text": "SDG 10"
+      },
+      {
+        "name": "node_6",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "node 6",
+        "default_text": "SDG 16"
+      },
+      {
+        "name": "node_7",
+        "target": {
+          "raw_id": "r007"
+        },
+        "description": "node 7",
+        "default_text": "SDG 17"
+      },
+      {
+        "name": "node_8",
+        "target": {
+          "raw_id": "r008"
+        },
+        "description": "node 8",
+        "default_text": "SDG 11"
+      },
+      {
+        "name": "node_9",
+        "target": {
+          "raw_id": "r009"
+        },
+        "description": "node 9",
+        "default_text": "SDG 7"
+      },
+      {
+        "name": "node_10",
+        "target": {
+          "raw_id": "r010"
+        },
+        "description": "node 10",
+        "default_text": "SDG 14"
+      },
+      {
+        "name": "node_11",
+        "target": {
+          "raw_id": "r011"
+        },
+        "description": "node 11",
+        "default_text": "SDG 6"
+      },
+      {
+        "name": "node_12",
+        "target": {
+          "raw_id": "r012"
+        },
+        "description": "node 12",
+        "default_text": "SDG 4"
+      },
+      {
+        "name": "node_13",
+        "target": {
+          "raw_id": "r013"
+        },
+        "description": "node 13",
+        "default_text": "SDG 15"
+      },
+      {
+        "name": "node_14",
+        "target": {
+          "raw_id": "r014"
+        },
+        "description": "node 14",
+        "default_text": "SDG 12"
+      },
+      {
+        "name": "node_15",
+        "target": {
+          "raw_id": "r015"
+        },
+        "description": "node 15",
+        "default_text": "SDG 13"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  },
+  "T19_lstm_architecture": {
+    "template_id": "T19_lstm_architecture",
+    "slot_count": 5,
+    "editable_text_detected": 58,
+    "aliases": {},
+    "slots": [
+      {
+        "name": "input_layer",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "input layer label",
+        "default_text": "SequenceInputLayer"
+      },
+      {
+        "name": "dropout_layer",
+        "target": {
+          "raw_ids": [
+            "r001",
+            "r002",
+            "r003"
+          ]
+        },
+        "description": "dropout layer label",
+        "default_text": "D\nropout\nLayer"
+      },
+      {
+        "name": "fully_connected",
+        "target": {
+          "raw_ids": [
+            "r004",
+            "r005",
+            "r006"
+          ]
+        },
+        "description": "fully connected layer label",
+        "default_text": "F\nullyConnecte\ndLayer"
+      },
+      {
+        "name": "regression_layer",
+        "target": {
+          "raw_ids": [
+            "r007",
+            "r008"
+          ]
+        },
+        "description": "regression layer label",
+        "default_text": "R\negressionLayer"
+      },
+      {
+        "name": "recurrent_layer",
+        "target": {
+          "raw_ids": [
+            "r009",
+            "r010"
+          ]
+        },
+        "description": "recurrent layer label",
+        "default_text": "L\nstmLayer"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": false,
+    "overlay_based": false
+  },
+  "T20_milestone_timeline": {
+    "template_id": "T20_milestone_timeline",
+    "slot_count": 18,
+    "editable_text_detected": 20,
+    "aliases": {
+      "years": [
+        "year_1",
+        "year_2",
+        "year_3",
+        "year_4",
+        "year_5",
+        "year_6",
+        "year_7",
+        "year_8",
+        "year_9",
+        "year_10",
+        "year_11"
+      ],
+      "headline": [
+        "headline_line_1",
+        "headline_line_2"
+      ],
+      "milestones": [
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4",
+        "milestone_5"
+      ]
+    },
+    "slots": [
+      {
+        "name": "year_1",
+        "target": {
+          "raw_id": "r000"
+        },
+        "description": "timeline year 1",
+        "default_text": "2024"
+      },
+      {
+        "name": "year_2",
+        "target": {
+          "raw_id": "r001"
+        },
+        "description": "timeline year 2",
+        "default_text": "2025"
+      },
+      {
+        "name": "year_3",
+        "target": {
+          "raw_id": "r002"
+        },
+        "description": "timeline year 3",
+        "default_text": "2026"
+      },
+      {
+        "name": "year_4",
+        "target": {
+          "raw_id": "r003"
+        },
+        "description": "timeline year 4",
+        "default_text": "2027"
+      },
+      {
+        "name": "year_5",
+        "target": {
+          "raw_id": "r004"
+        },
+        "description": "timeline year 5",
+        "default_text": "2028"
+      },
+      {
+        "name": "year_6",
+        "target": {
+          "raw_id": "r005"
+        },
+        "description": "timeline year 6",
+        "default_text": "2029"
+      },
+      {
+        "name": "year_7",
+        "target": {
+          "raw_id": "r006"
+        },
+        "description": "timeline year 7",
+        "default_text": "2030"
+      },
+      {
+        "name": "year_8",
+        "target": {
+          "raw_id": "r008"
+        },
+        "description": "timeline year 8",
+        "default_text": "2031"
+      },
+      {
+        "name": "year_9",
+        "target": {
+          "raw_id": "r007"
+        },
+        "description": "timeline year 9",
+        "default_text": "2032"
+      },
+      {
+        "name": "year_10",
+        "target": {
+          "raw_id": "r010"
+        },
+        "description": "timeline year 10",
+        "default_text": "2033"
+      },
+      {
+        "name": "year_11",
+        "target": {
+          "raw_id": "r009"
+        },
+        "description": "timeline year 11",
+        "default_text": "2034"
+      },
+      {
+        "name": "headline_line_1",
+        "target": {
+          "raw_id": "r011"
+        },
+        "description": "headline first line",
+        "default_text": "SDG 13 Goals to be achieved in 10"
+      },
+      {
+        "name": "headline_line_2",
+        "target": {
+          "raw_id": "r012"
+        },
+        "description": "headline second line",
+        "default_text": "years"
+      },
+      {
+        "name": "milestone_1",
+        "target": {
+          "raw_ids": [
+            "r013",
+            "r014"
+          ]
+        },
+        "description": "milestone 1 text",
+        "default_text": "SDG 6 People have equitable access to safe drinking\nwater"
+      },
+      {
+        "name": "milestone_2",
+        "target": {
+          "raw_ids": [
+            "r015",
+            "r016"
+          ]
+        },
+        "description": "milestone 2 text",
+        "default_text": "SDG 7 Significantly increase the share of renewable energy in the global energy\nmix"
+      },
+      {
+        "name": "milestone_3",
+        "target": {
+          "raw_id": "r017"
+        },
+        "description": "milestone 3 text",
+        "default_text": "SDG 12 Sustainable management and efficient use of natural resources"
+      },
+      {
+        "name": "milestone_4",
+        "target": {
+          "raw_id": "r018"
+        },
+        "description": "milestone 4 text",
+        "default_text": "SDG 14 Marine waste pollution and nutrient salt pollution disappeared"
+      },
+      {
+        "name": "milestone_5",
+        "target": {
+          "raw_id": "r019"
+        },
+        "description": "milestone 5 text",
+        "default_text": "SDG 15 Restore degraded forests, lands and soils"
+      }
+    ],
+    "semantic_version": "v8",
+    "supports_slot_groups": true,
+    "overlay_based": false
+  }
+}

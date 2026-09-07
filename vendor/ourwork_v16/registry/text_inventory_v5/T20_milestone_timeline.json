@@ -1,0 +1,596 @@
+{
+  "template_id": "T20_milestone_timeline",
+  "reference_page": 33,
+  "raw_items": [
+    {
+      "raw_id": "r000",
+      "text": "2024",
+      "x0": 26.08,
+      "y0": 58.4,
+      "x1": 80.05,
+      "y1": 88.4,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r001",
+      "text": "2025",
+      "x0": 105.46,
+      "y0": 62.03,
+      "x1": 145.9,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r002",
+      "text": "2026",
+      "x0": 198.01,
+      "y0": 62.03,
+      "x1": 238.45,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r003",
+      "text": "2027",
+      "x0": 284.79,
+      "y0": 62.03,
+      "x1": 325.23,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r004",
+      "text": "2028",
+      "x0": 366.77,
+      "y0": 62.03,
+      "x1": 407.21,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r005",
+      "text": "2029",
+      "x0": 443.84,
+      "y0": 56.56,
+      "x1": 497.81,
+      "y1": 86.56,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r006",
+      "text": "2030",
+      "x0": 531.85,
+      "y0": 62.03,
+      "x1": 572.29,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r007",
+      "text": "2032",
+      "x0": 711.68,
+      "y0": 62.03,
+      "x1": 752.12,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r008",
+      "text": "2031",
+      "x0": 615.26,
+      "y0": 56.56,
+      "x1": 669.23,
+      "y1": 86.56,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r009",
+      "text": "2034",
+      "x0": 871.6,
+      "y0": 56.56,
+      "x1": 925.57,
+      "y1": 86.56,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r010",
+      "text": "2033",
+      "x0": 796.83,
+      "y0": 62.03,
+      "x1": 837.27,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r011",
+      "text": "SDG 13 Goals to be achieved in 10",
+      "x0": 263.34,
+      "y0": 431.52,
+      "x1": 669.36,
+      "y1": 461.52,
+      "font_size": 24.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r012",
+      "text": "years",
+      "x0": 263.34,
+      "y0": 460.32,
+      "x1": 326.66,
+      "y1": 490.32,
+      "font_size": 24.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r013",
+      "text": "SDG 6 People have equitable access to safe drinking",
+      "x0": 132.82,
+      "y0": 152.09,
+      "x1": 619.0,
+      "y1": 177.15,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r014",
+      "text": "water",
+      "x0": 132.82,
+      "y0": 176.09,
+      "x1": 187.4,
+      "y1": 201.15,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r015",
+      "text": "SDG 7 Significantly increase the share of renewable energy in the global energy",
+      "x0": 67.68,
+      "y0": 248.34,
+      "x1": 794.86,
+      "y1": 273.4,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r016",
+      "text": "mix",
+      "x0": 67.68,
+      "y0": 272.34,
+      "x1": 100.81,
+      "y1": 297.4,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r017",
+      "text": "SDG 12 Sustainable management and efficient use of natural resources",
+      "x0": 186.86,
+      "y0": 348.55,
+      "x1": 832.54,
+      "y1": 373.61,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r018",
+      "text": "SDG 14 Marine waste pollution and nutrient salt pollution disappeared",
+      "x0": 258.46,
+      "y0": 297.38,
+      "x1": 884.54,
+      "y1": 322.45,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "raw_id": "r019",
+      "text": "SDG 15 Restore degraded forests, lands and soils",
+      "x0": 126.93,
+      "y0": 200.39,
+      "x1": 576.36,
+      "y1": 225.45,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    }
+  ],
+  "blocks": [
+    {
+      "block_id": "b000",
+      "text": "2024",
+      "raw_ids": [
+        "r000"
+      ],
+      "x0": 26.08,
+      "y0": 58.4,
+      "x1": 80.05,
+      "y1": 88.4,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b001",
+      "text": "2025",
+      "raw_ids": [
+        "r001"
+      ],
+      "x0": 105.46,
+      "y0": 62.03,
+      "x1": 145.9,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b002",
+      "text": "2026",
+      "raw_ids": [
+        "r002"
+      ],
+      "x0": 198.01,
+      "y0": 62.03,
+      "x1": 238.45,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b003",
+      "text": "2027",
+      "raw_ids": [
+        "r003"
+      ],
+      "x0": 284.79,
+      "y0": 62.03,
+      "x1": 325.23,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b004",
+      "text": "2028",
+      "raw_ids": [
+        "r004"
+      ],
+      "x0": 366.77,
+      "y0": 62.03,
+      "x1": 407.21,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b005",
+      "text": "2029",
+      "raw_ids": [
+        "r005"
+      ],
+      "x0": 443.84,
+      "y0": 56.56,
+      "x1": 497.81,
+      "y1": 86.56,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b006",
+      "text": "2030",
+      "raw_ids": [
+        "r006"
+      ],
+      "x0": 531.85,
+      "y0": 62.03,
+      "x1": 572.29,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b007",
+      "text": "2032",
+      "raw_ids": [
+        "r007"
+      ],
+      "x0": 711.68,
+      "y0": 62.03,
+      "x1": 752.12,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b008",
+      "text": "2031",
+      "raw_ids": [
+        "r008"
+      ],
+      "x0": 615.26,
+      "y0": 56.56,
+      "x1": 669.23,
+      "y1": 86.56,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b009",
+      "text": "2034",
+      "raw_ids": [
+        "r009"
+      ],
+      "x0": 871.6,
+      "y0": 56.56,
+      "x1": 925.57,
+      "y1": 86.56,
+      "font_size": 24.0,
+      "fill": "#2e54a1",
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b010",
+      "text": "2033",
+      "raw_ids": [
+        "r010"
+      ],
+      "x0": 796.83,
+      "y0": 62.03,
+      "x1": 837.27,
+      "y1": 84.53,
+      "font_size": 18.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b011",
+      "text": "SDG 13 Goals to be achieved in 10",
+      "raw_ids": [
+        "r011"
+      ],
+      "x0": 263.34,
+      "y0": 431.52,
+      "x1": 669.36,
+      "y1": 461.52,
+      "font_size": 24.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b012",
+      "text": "years",
+      "raw_ids": [
+        "r012"
+      ],
+      "x0": 263.34,
+      "y0": 460.32,
+      "x1": 326.66,
+      "y1": 490.32,
+      "font_size": 24.0,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": "bold",
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b013",
+      "text": "SDG 6 People have equitable access to safe drinking\nSDG 15 Restore degraded forests, lands and soils",
+      "raw_ids": [
+        "r013",
+        "r019"
+      ],
+      "x0": 126.93,
+      "y0": 152.09,
+      "x1": 619.0,
+      "y1": 225.45,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b014",
+      "text": "water",
+      "raw_ids": [
+        "r014"
+      ],
+      "x0": 132.82,
+      "y0": 176.09,
+      "x1": 187.4,
+      "y1": 201.15,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b015",
+      "text": "SDG 7 Significantly increase the share of renewable energy in the global energy\nSDG 14 Marine waste pollution and nutrient salt pollution disappeared",
+      "raw_ids": [
+        "r015",
+        "r018"
+      ],
+      "x0": 67.68,
+      "y0": 248.34,
+      "x1": 884.54,
+      "y1": 322.45,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b016",
+      "text": "mix",
+      "raw_ids": [
+        "r016"
+      ],
+      "x0": 67.68,
+      "y0": 272.34,
+      "x1": 100.81,
+      "y1": 297.4,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    },
+    {
+      "block_id": "b017",
+      "text": "SDG 12 Sustainable management and efficient use of natural resources",
+      "raw_ids": [
+        "r017"
+      ],
+      "x0": 186.86,
+      "y0": 348.55,
+      "x1": 832.54,
+      "y1": 373.61,
+      "font_size": 20.050002,
+      "fill": null,
+      "font_family": "HelveticaNeue",
+      "font_weight": null,
+      "font_style": null,
+      "transform": "matrix(1 0 0 1 0 0)"
+    }
+  ]
+}

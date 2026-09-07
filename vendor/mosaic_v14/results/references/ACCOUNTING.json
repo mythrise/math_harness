@@ -1,0 +1,112 @@
+[
+  {
+    "task": "rgv_g1",
+    "oracle_vectors": 109600,
+    "front_size": 4,
+    "seconds": 0.9588489820000063
+  },
+  {
+    "task": "rgv_dev",
+    "oracle_vectors": 109600,
+    "front_size": 4,
+    "seconds": 0.2977875020000056
+  },
+  {
+    "task": "tour_dev",
+    "oracle_vectors": 109600,
+    "front_size": 28,
+    "seconds": 0.20782796799994685
+  },
+  {
+    "task": "job_dev",
+    "oracle_vectors": 109600,
+    "front_size": 32,
+    "seconds": 0.18320477700001447
+  },
+  {
+    "task": "rgv_new1",
+    "oracle_vectors": 109600,
+    "front_size": 5,
+    "seconds": 0.28614181699998653
+  },
+  {
+    "task": "rgv_new2",
+    "oracle_vectors": 109600,
+    "front_size": 6,
+    "seconds": 0.4829669860000081
+  },
+  {
+    "task": "rgv_new3",
+    "oracle_vectors": 109600,
+    "front_size": 4,
+    "seconds": 0.2196135969999773
+  },
+  {
+    "task": "rgv_new4",
+    "oracle_vectors": 109600,
+    "front_size": 7,
+    "seconds": 0.4865895789999968
+  },
+  {
+    "task": "tour_new1",
+    "oracle_vectors": 109600,
+    "front_size": 28,
+    "seconds": 0.18265316299999768
+  },
+  {
+    "task": "tour_new2",
+    "oracle_vectors": 109600,
+    "front_size": 18,
+    "seconds": 0.18256176999994977
+  },
+  {
+    "task": "tour_new3",
+    "oracle_vectors": 109600,
+    "front_size": 19,
+    "seconds": 0.18232301499995174
+  },
+  {
+    "task": "tour_new4",
+    "oracle_vectors": 109600,
+    "front_size": 31,
+    "seconds": 0.18308613300001753
+  },
+  {
+    "task": "job_new1",
+    "oracle_vectors": 109600,
+    "front_size": 20,
+    "seconds": 0.17353809200000114
+  },
+  {
+    "task": "job_new2",
+    "oracle_vectors": 109600,
+    "front_size": 28,
+    "seconds": 0.17631330299997217
+  },
+  {
+    "task": "job_new3",
+    "oracle_vectors": 109600,
+    "front_size": 21,
+    "seconds": 0.17476921799999445
+  },
+  {
+    "task": "job_new4",
+    "oracle_vectors": 109600,
+    "front_size": 25,
+    "seconds": 0.17471085500000072
+  },
+  {
+    "task": "rgv_g2",
+    "oracle_vectors": 109600,
+    "front_size": 5,
+    "seconds": 1.419332637000025,
+    "purpose": "original-parameter supplementary"
+  },
+  {
+    "task": "rgv_g3",
+    "oracle_vectors": 109600,
+    "front_size": 8,
+    "seconds": 1.0735198429999855,
+    "purpose": "original-parameter supplementary"
+  }
+]

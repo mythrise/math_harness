@@ -1,0 +1,184 @@
+[
+  {
+    "id": "T01_policy_timeline",
+    "name": "Policy timeline + staged strategy",
+    "reference_page": 1,
+    "members": [
+      1
+    ]
+  },
+  {
+    "id": "T02_two_stage_pipeline",
+    "name": "Two-stage bordered research pipeline",
+    "reference_page": 2,
+    "members": [
+      2
+    ]
+  },
+  {
+    "id": "T03_composite_pipeline",
+    "name": "Composite multi-model pipeline",
+    "reference_page": 3,
+    "members": [
+      3
+    ]
+  },
+  {
+    "id": "T04_four_problem_panel",
+    "name": "2x2 problem / task panel",
+    "reference_page": 4,
+    "members": [
+      4,
+      9,
+      42
+    ]
+  },
+  {
+    "id": "T05_dual_column_model",
+    "name": "Mechanism vs application dual-column model",
+    "reference_page": 5,
+    "members": [
+      5
+    ]
+  },
+  {
+    "id": "T06_literature_review_matrix",
+    "name": "Literature review branches + strengths/weaknesses matrix",
+    "reference_page": 6,
+    "members": [
+      6,
+      36
+    ]
+  },
+  {
+    "id": "T07_three_phase_board",
+    "name": "Data/model/application three-phase board",
+    "reference_page": 7,
+    "members": [
+      7,
+      38
+    ]
+  },
+  {
+    "id": "T08_task_chain",
+    "name": "Task-chain workflow board",
+    "reference_page": 8,
+    "members": [
+      8,
+      10
+    ]
+  },
+  {
+    "id": "T09_supervision_state",
+    "name": "Supervision / abnormal-normal state system",
+    "reference_page": 11,
+    "members": [
+      11,
+      40
+    ]
+  },
+  {
+    "id": "T10_taxonomy_matrix",
+    "name": "Category-feature taxonomy matrix",
+    "reference_page": 12,
+    "members": [
+      12,
+      16
+    ]
+  },
+  {
+    "id": "T11_donut_capability",
+    "name": "Concentric capability / process donut",
+    "reference_page": 13,
+    "members": [
+      13
+    ]
+  },
+  {
+    "id": "T12_network_views",
+    "name": "Network overview + detailed view / hierarchy",
+    "reference_page": 14,
+    "members": [
+      14,
+      15
+    ]
+  },
+  {
+    "id": "T13_trend_ribbon",
+    "name": "Ribbon trend timeline",
+    "reference_page": 17,
+    "members": [
+      17
+    ]
+  },
+  {
+    "id": "T14_queue_process",
+    "name": "Queue / multi-stage process flow",
+    "reference_page": 18,
+    "members": [
+      18
+    ]
+  },
+  {
+    "id": "T15_comparison_bars",
+    "name": "Mirrored / paired comparison bars",
+    "reference_page": 19,
+    "members": [
+      19,
+      26,
+      27,
+      29,
+      41,
+      43
+    ]
+  },
+  {
+    "id": "T16_radial_bubble",
+    "name": "Radial bubble network",
+    "reference_page": 20,
+    "members": [
+      20,
+      45
+    ]
+  },
+  {
+    "id": "T17_cube_ray",
+    "name": "3D cube / layer / ray decision diagram",
+    "reference_page": 21,
+    "members": [
+      21,
+      22,
+      23,
+      25,
+      30,
+      31
+    ]
+  },
+  {
+    "id": "T18_sdg_network",
+    "name": "Goal-node pathway network",
+    "reference_page": 28,
+    "members": [
+      24,
+      28,
+      44
+    ]
+  },
+  {
+    "id": "T19_lstm_architecture",
+    "name": "Neural network / LSTM architecture with parameter table",
+    "reference_page": 32,
+    "members": [
+      32
+    ]
+  },
+  {
+    "id": "T20_milestone_timeline",
+    "name": "Arrow milestone roadmap",
+    "reference_page": 33,
+    "members": [
+      33,
+      35
+    ]
+  }
+]

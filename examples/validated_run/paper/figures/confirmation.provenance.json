@@ -1,0 +1,9 @@
+{
+  "data_digest": "47e1e6afe356487f2247f064c88e035ffc218cb45852924779491b480d59bfa0",
+  "error_bar": "sample standard deviation, not confidence interval",
+  "groups": [
+    "baseline",
+    "c0"
+  ],
+  "svg_sha256": "8c81212068e293d82f3270fd794e0f522677428bc6fa8ec0ce928d80ad18baa0"
+}
