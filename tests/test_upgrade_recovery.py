@@ -11,6 +11,22 @@ from cumcm_harness.review_board import ReviewBoard, ProviderFailure
 from cumcm_harness.store import Store
 
 
+def test_new_workspace_runtime_tracks_the_installed_release(tmp_path):
+    from cumcm_harness import __version__
+    from cumcm_harness.intake import create_workspace
+    from cumcm_harness.sandbox import Executor
+    expected='cumcm-egoharness:'+__version__
+    problem=tmp_path/'problem.md';problem.write_text('Synthetic runtime configuration test')
+    data=tmp_path/'data';data.mkdir();(data/'input.txt').write_text('fixture')
+    workspace=tmp_path/'workspace'
+    create_workspace(workspace,problem,data,dict(DEFAULT_CONFIG))
+    assert json.loads((workspace/'config.json').read_text())['docker_image']==expected
+    assert Executor().image==expected
+    for path in (ROOT/'configs').glob('*.json'):
+        assert {**DEFAULT_CONFIG,**json.loads(path.read_text())}['docker_image']==expected,path
+    assert Executor(image='custom-harness:frozen').image=='custom-harness:frozen'
+
+
 def controller(tmp_path, provider):
     c = Controller.__new__(Controller)
     c.root = tmp_path

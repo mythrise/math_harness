@@ -22,7 +22,7 @@ DEFAULT_CONFIG={
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
  'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_call_budget_usd':None,
- 'codex_model':None,'claude_model':'claude-fable-5','docker_image':'cumcm-egoharness:0.1.0',
+ 'codex_model':None,'claude_model':'claude-fable-5','docker_image':'cumcm-egoharness:0.3.0',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
  'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
  'review_members_per_role':2,'review_attempts_per_provider':2,'review_cooldown_seconds':60,

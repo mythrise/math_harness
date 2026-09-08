@@ -3,11 +3,11 @@
   "external_candidates_run": 0,
   "global_promotions": 0,
   "numerical_runs": 2,
-  "protocol_digest": "e64f6bc53e50925ac5f4fa8a423f83ab9c9c691ba22f0894dc6e87e7fa35e3f6",
+  "protocol_digest": "0a99e1248284198093ddf6c6a36f141084da2be714cb658df38dd8eddf8c7d42",
   "receipts": {
-    "lab-1": "c9c7c3c5e0c64cf419dd289073659cb68b1caf665c57180b4861144faebb70ec",
-    "lab-2": "f67bc7613fe65102de1b7b0887fcd39c509ccf89cf8c10c6c11d54d5999f251c",
-    "tests": "d96556a1a5f50dee81a8aac49da9f347a5bc8dfd41a6be0f65bf3adaa9079b53"
+    "lab-1": "fdbf07ef65324fa82911cc178e4be84810f693bc3ceeb293fe602744c642072d",
+    "lab-2": "a726d6d6dcb686d0a755cd43f75646d6a3d13a7c5ed51cc83e4945692f0a672e",
+    "tests": "6befb3e21ce54c45380afacd437acbb56549bb8c9a6177b228ba456e68abe53d"
   },
   "reproducibility": {
     "diagnostics.json": true,

@@ -31,14 +31,14 @@
       "backend": "HOST_FILE_IO_ONLY"
     },
     "host_infrastructure": {
-      "passed": 203,
+      "passed": 204,
       "excluded": [
         "test_algorithm_upgrade.py",
         "test_algorithm_integration.py"
       ]
     },
     "docker_complete_suite": {
-      "passed": 291,
+      "passed": 292,
       "failed": 0,
       "skipped": 0,
       "python": "3.11"
@@ -60,7 +60,8 @@
       },
       "rows_per_run": 98,
       "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
-      "status": "PASS"
+      "status": "PASS",
+      "scope_revision": "6d8916a before default-runtime fix; final revision uses complete 12-seed matrix"
     }
   },
   "numerical_validation": {
@@ -68,11 +69,11 @@
     "external_candidates_run": 0,
     "global_promotions": 0,
     "numerical_runs": 2,
-    "protocol_digest": "e64f6bc53e50925ac5f4fa8a423f83ab9c9c691ba22f0894dc6e87e7fa35e3f6",
+    "protocol_digest": "0a99e1248284198093ddf6c6a36f141084da2be714cb658df38dd8eddf8c7d42",
     "receipts": {
-      "lab-1": "c9c7c3c5e0c64cf419dd289073659cb68b1caf665c57180b4861144faebb70ec",
-      "lab-2": "f67bc7613fe65102de1b7b0887fcd39c509ccf89cf8c10c6c11d54d5999f251c",
-      "tests": "d96556a1a5f50dee81a8aac49da9f347a5bc8dfd41a6be0f65bf3adaa9079b53"
+      "lab-1": "fdbf07ef65324fa82911cc178e4be84810f693bc3ceeb293fe602744c642072d",
+      "lab-2": "a726d6d6dcb686d0a755cd43f75646d6a3d13a7c5ed51cc83e4945692f0a672e",
+      "tests": "6befb3e21ce54c45380afacd437acbb56549bb8c9a6177b228ba456e68abe53d"
     },
     "reproducibility": {
       "diagnostics.json": true,
@@ -84,11 +85,11 @@
   },
   "runtime": {
     "backend": "DOCKER",
-    "image_id": "sha256:2758b07ee18b31abac6e9a270d86b9379d3743dfb8ae1f94975d1c6bb1c31b05"
+    "image_id": "sha256:e621693495ffaac7c2766fe90821d31a26099f9a799812a76b30d2b64f0ee0ab"
   },
   "test_runtime": {
     "backend": "DOCKER",
-    "image_id": "sha256:0206f7c7c143292fef723ffc60d8bbc8544e8f09c506d31aa152de22fecd52e7"
+    "image_id": "sha256:15301d718335846d94f7221b5a8e597188e2d32ad7237b7655613d7c7fe75136"
   },
   "vendor": {
     "files": 408,
@@ -97,8 +98,8 @@
   },
   "repeated_outputs": {
     "raw_results.json": {
-      "lab-1": "16020e973d4c0903f854a84f076184b929c1304cbdf4b98bb9f37dc90b79b670",
-      "lab-2": "d2bf914803e2666710fa4063638270e5a219f0ec507805ecc679702e498c4b6d"
+      "lab-1": "2436a18ccf27f605cb8955f3f1041812c4f5b53b488acda6ef03264689ad2864",
+      "lab-2": "f50e3a6be57abf306a30ab855267dfe1db4f09152071487b973ddc5e60e47744"
     },
     "diagnostics.json": {
       "lab-1": "ef4769fff664579e10e841d96e23cc9198e9f41b925aaeb3d368973da6f7a769",
@@ -124,11 +125,11 @@
       "file_count": 177,
       "official_submission_sent": false,
       "paper": "deliverables/paper.pdf",
-      "paper_bytes": 600427,
-      "paper_sha256": "f17392c72b62b0838e26a6defd95d4f8b4719602b8603078a619b175821364bc",
+      "paper_bytes": 600438,
+      "paper_sha256": "342bba1134cca9b5bc4612bb553a10caba52fd82ae99d1ea4c9540ca81fcbca4",
       "support": "deliverables/support.zip",
-      "support_bytes": 983021,
-      "support_sha256": "e6f09a9edec52e475085ed7d8e8cfb01872585f7cdb7b80d3726eaee985168fc"
+      "support_bytes": 983035,
+      "support_sha256": "66ef87882e962a88341fa0cecafad03ba16f9ee3225b5f94afb61dd86c82e6a6"
     },
     "pages": 159,
     "body_pages": 4,
@@ -141,8 +142,10 @@
         4,
         5
       ],
-      "status": "PASS_SAMPLED_BODY_AND_REFERENCES_NOT_ALL_SOURCE_APPENDIX"
-    }
+      "status": "PASS_SAMPLED_BODY_AND_REFERENCES_NOT_ALL_SOURCE_APPENDIX",
+      "verification": "Rendered pages 1-5 pixel-identical to previously inspected pages"
+    },
+    "workspace": "workspaces/algorithm-upgrade-v030-paper-final-20260908"
   },
   "preserved_failed_validation": {
     "id": "validation-01",
@@ -160,5 +163,17 @@
     "live_llm_full_problem_run": "NOT_RUN",
     "live_exa_this_upgrade": "NOT_RUN",
     "official_submission_sent": false
+  },
+  "final_validation_id": "validation-03-final",
+  "runtime_default_fix": {
+    "default_image": "cumcm-egoharness:0.3.0",
+    "frozen_workspace_configs_changed": false,
+    "new_workspace_regression": "PASS",
+    "intermediate_test_failure": "Wrong test import of create_workspace; corrected to intake before full rerun"
+  },
+  "first_commit_ci": {
+    "sha": "6d8916a601dfc979e2f6e77ecca5a80afb1b6781",
+    "status": "success",
+    "url": "https://github.com/mythrise/math_harness/actions/runs/34227691025"
   }
 }

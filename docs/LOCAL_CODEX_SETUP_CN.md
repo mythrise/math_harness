@@ -1,5 +1,7 @@
 # 当前项目的 Codex 部署
 
+2026-09-08 算法库升级后，当前 editable 环境版本为 **0.3.0**。新工作区和示例配置默认使用 `cumcm-egoharness:0.3.0`，该生产镜像及 `0.3.0-test` 验证镜像已经构建。当前验收见 [0.3.0 本机报告](../reports/ALGORITHM_UPGRADE_LOCAL_CN.md)；下文的 0.1.0 安装和探针信息为原始部署记录。旧工作区保持冻结，升级后的真实任务重新初始化。
+
 本项目从 `CUMCM_EgoHarness_v0.1.0.zip` 直接解压到项目根目录，保留完整源码与附件目录。
 项目级入口为根目录 `AGENTS.md` 和 `.agents/skills/` 下的 8 个技能；不需要另外复制到全局技能目录。
 Codex 的项目级技能发现路径见 [OpenAI 官方文档](https://learn.chatgpt.com/docs/build-skills)。
