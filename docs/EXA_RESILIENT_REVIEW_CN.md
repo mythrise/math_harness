@@ -26,7 +26,7 @@ PI → Exa 文献研究员 → 建模手 → 假设卡 → 独立 Exa 反方检�
 
 ## Exa 与隐私
 
-Exa HTTP 固定目标为 `https://api.exa.ai/search` 和 `/contents`，密钥仅从 EXA_API_KEY 环境变量读取。拒绝跨地址重定向、响应中的密钥回显、私有源 URL 和带凭证的源 URL；成功缓存绑定内容摘要，HTTP/逐 URL 失败不会伪造空文献。对 429/5xx 做有限重试。保留公开来源片段供溯源，不将密钥、请求头或原始题目放入检索日志。
+Exa HTTP 固定目标为 `https://api.exa.ai/search` 和 `/contents`，优先读取 EXA_API_KEY 环境变量；未设置时读取操作员通过 `set-exa-key` 保存的 `.runtime/credentials/exa-api-key` 本机私有文件。目录权限为 700、文件权限为 600，凭证不纳入 Git、Docker 镜像、工作区或支撑包。拒绝跨地址重定向、响应中的密钥回显、私有源 URL 和带凭证的源 URL；成功缓存绑定内容摘要，HTTP/逐 URL 失败不会伪造空文献。对 429/5xx 做有限重试。保留公开来源片段供溯源，不将密钥、请求头或原始题目放入检索日志。
 
 实践模式只发送抽象查询，并有题目原文/路径/标识符过滤。**这只是启发式过滤，不是完备敏感信息防泄漏证明。** 对严格敏感任务应人工审定查询。contest 模式必须将查询逐字加入冻结配置 `exa_approved_queries`，空名单会阻塞研究。正文题意和私有数据不会由代码自动拼接进 Exa 请求。
 
@@ -47,10 +47,8 @@ python -m pip install --no-build-isolation -e '.[dev,excel]'
 python -m pytest -q
 python -m cumcm_harness verify-vendor
 
-# Bash 隐藏输入；不要把真实值写入脚本或命令历史。
-read -r -s -p 'Exa API key: ' EXA_API_KEY
-export EXA_API_KEY
-printf '\n'
+# 隐藏输入并保存到本机私有文件；不要把真实值放入命令参数。
+python -m cumcm_harness set-exa-key
 
 # 为兼容已有命令保留镜像标签，必须重新构建而不是复用旧镜像。
 docker build -t cumcm-egoharness:0.1.0 .

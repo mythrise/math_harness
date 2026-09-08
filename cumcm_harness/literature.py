@@ -15,6 +15,7 @@ import urllib.request
 from pathlib import Path
 from .common import Blocked, IntegrityError, canonical, digest, read_json, write_json
 from .contracts import SCHEMAS, S, I, B, ID, obj, arr, validate
+from .credentials import get_exa_api_key
 
 QUERY = obj(query={'type':'string','minLength':4,'maxLength':220}, purpose={'enum':['background','support','counterexample','limitations']})
 SCHEMAS['research_queries'] = obj(queries={**arr(QUERY,1),'maxItems':4})
@@ -68,8 +69,8 @@ class ExaClient:
         self.live=transport is None
 
     def _http(self, endpoint, body):
-        key=os.environ.get('EXA_API_KEY','')
-        if not key:raise ResearchUnavailable('EXA_API_KEY_NOT_CONFIGURED; do not put credentials in config.json')
+        key=get_exa_api_key()
+        if not key:raise ResearchUnavailable('EXA_API_KEY_NOT_CONFIGURED; use set-exa-key or the environment, not config.json')
         request=urllib.request.Request('https://api.exa.ai/'+endpoint, data=canonical(body),
             headers={'Content-Type':'application/json','x-api-key':key},method='POST')
         for attempt in range(self.retries):
@@ -156,7 +157,7 @@ def validate_query(query, *, problem='', filenames=(), approved=None):
         raise IntegrityError('Query may expose URLs, paths, identifiers or credentials')
     if len(query)>=40 and query in problem:raise IntegrityError('Do not send verbatim problem text to Exa')
     if any(len(x)>4 and x.lower() in query.lower() for x in filenames):raise IntegrityError('Input filenames must not be sent to Exa')
-    secret=os.getenv('EXA_API_KEY')
+    secret=get_exa_api_key()
     if secret and secret in query:raise IntegrityError('Credential in research query')
     if approved is not None and query not in approved:
         raise Blocked('Contest query is not in the operator-approved exa_approved_queries list')

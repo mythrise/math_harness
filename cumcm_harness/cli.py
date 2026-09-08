@@ -21,6 +21,7 @@ def parser():
     a=sub.add_parser('methods');a.add_argument('query')
     a=sub.add_parser('schema');a.add_argument('name',nargs='?')
     a=sub.add_parser('verify-vendor')
+    sub.add_parser('set-exa-key',help='Save a local-only Exa credential using hidden input')
     return p
 
 def doctor(live=False, config=None):
@@ -37,7 +38,8 @@ def doctor(live=False, config=None):
         from .sandbox import Executor
         try:report['docker_probe']=Executor(image=config['docker_image']).probe()
         except Exception as e:report['docker_probe']={'status':'BLOCKED','reason':str(e)}
-    report['exa_key_configured']=bool(os.environ.get('EXA_API_KEY'))
+    from .credentials import get_exa_api_key
+    report['exa_key_configured']=bool(get_exa_api_key())
     report['claude_optional']='DEGRADED_TO_INDEPENDENT_CODEX_SEATS' if report['commands']['claude']=='NOT_INSTALLED' or isinstance(report.get('claude_probe'),dict) else 'AVAILABLE_NOT_AUTH_VERIFIED'
     required=('codex','docker','xelatex','inkscape')
     report['literature_enabled']=config['literature_enabled']
@@ -50,7 +52,11 @@ def main(argv=None):
     args=parser().parse_args(argv)
     try:
         from .store import Store,controller_lock
-        if args.command=='doctor':result=doctor(args.live,read_json(args.config) if args.config else None)
+        if args.command=='set-exa-key':
+            from .credentials import save_exa_api_key
+            path=save_exa_api_key(getpass.getpass('Exa API key (hidden): '))
+            result={'status':'LOCAL_CREDENTIAL_SAVED','path':str(path),'git_tracked':False}
+        elif args.command=='doctor':result=doctor(args.live,read_json(args.config) if args.config else None)
         elif args.command=='init':
             from .controller import DEFAULT_CONFIG,validate_config
             from .intake import create_workspace

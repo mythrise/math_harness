@@ -6,7 +6,7 @@
 
 先读 [升级与完整运行说明](docs/EXA_RESILIENT_REVIEW_CN.md) 和 [本机升级验收](reports/EXA_UPGRADE_LOCAL_CN.md)。[更新包上游验收](reports/EXA_REVIEW_ACCEPTANCE_CN.md) 保留制作时的测试与远程 403 记录，不代表本机本次推送状态。旧版测试、部署及真实赛题进度仍保留在 `reports/`。
 
-后续 [Exa 真实接口验收](reports/EXA_LIVE_AUTH_20260908_CN.md) 已通过支持/反例检索、正文提取及缓存重放。密钥仅用于该验证进程，启动新运行仍需提供 `EXA_API_KEY`；真实双模型与完整赛题联合验收尚未执行。
+后续 [Exa 真实接口验收](reports/EXA_LIVE_AUTH_20260908_CN.md) 已通过支持/反例检索、正文提取及缓存重放。现支持通过 `set-exa-key` 保存本机私有凭证，新进程自动读取；环境变量 `EXA_API_KEY` 可覆盖本机凭证。真实双模型与完整赛题联合验收尚未执行。
 
 ## 快速验证
 
@@ -25,12 +25,10 @@ python -m cumcm_harness.resilience_demo workspaces/resilience-demo
 
 Codex CLI 需要有效认证。Claude CLI 使用既有用户认证／服务地址／模型配置，保留 safe-mode，禁用执行工具和 MCP；无需强制更换为 API-only 登录。Claude 不可用时可由新的 Codex 审查调用接管。GPT 同样不可用时暂停保留状态，不假装完成。
 
-Exa 密钥只通过 `EXA_API_KEY` 环境变量提供，**不要写进仓库、JSON、提示词或日志**。在 Bash 中隐藏输入：
+首次使用可通过隐藏输入保存 Exa 密钥；文件位于 `.runtime/credentials/exa-api-key`，目录权限 `700`、文件权限 `600`，被 Git 与 Docker 构建上下文排除，也不进入工作区和支撑包。环境变量 `EXA_API_KEY` 优先于本机文件。**不要把密钥写进受版本控制的文件、config.json、提示词或日志。**
 
 ```bash
-read -r -s -p 'Exa API key: ' EXA_API_KEY
-export EXA_API_KEY
-printf '\n'
+./scripts/cumcm set-exa-key
 
 docker build -t cumcm-egoharness:0.1.0 .
 python -m cumcm_harness doctor --live --config configs/exa-resilient.json

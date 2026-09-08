@@ -37,15 +37,18 @@ def sanitize(value,root:Path):
     return json.loads(text)
 
 def scan_release(folder:Path,denylist):
+    from .credentials import get_exa_api_key
+    exa_key=get_exa_api_key()
     for p in folder.rglob('*'):
         if not p.is_file():continue
         if p.suffix.lower() in ('.ttf','.otf','.ttc','.woff','.woff2','.eot'):raise IntegrityError('Font files cannot be distributed')
         if p.suffix.lower() in ('.py','.json','.csv','.txt','.md','.tex','.svg'):
             text=p.read_text('utf-8',errors='replace')
+            if exa_key and exa_key in text:raise Blocked('Credential detected in release file '+p.name)
             if any(os.getenv(k) and os.environ[k] in text for k in ('EXA_API_KEY','OPENAI_API_KEY','ANTHROPIC_API_KEY','CLAUDE_CODE_OAUTH_TOKEN')):raise Blocked('Credential detected in release file '+p.name)
             if any(s and s in text for s in denylist):raise Blocked('Anonymity denylist match in '+p.name)
             if re.search(r'(?<![A-Za-z])sk-(?:proj-|ant-)?[A-Za-z0-9_-]{24,}',text):raise Blocked('Possible credential in release file '+p.name)
-        if p.name in ('.env','auth.json','credentials.json'):raise Blocked('Credential file cannot be packaged')
+        if p.name in ('.env','auth.json','credentials.json','exa-api-key'):raise Blocked('Credential file cannot be packaged')
 
 def package_workspace(root:Path,built,claims,protocol,rows,records,ai,*,contest=False,human=None):
     if contest and human is None:raise Blocked('No contest package without digest-bound human approval')
