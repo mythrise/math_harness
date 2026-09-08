@@ -104,7 +104,10 @@ class Controller:
                    'source_registry':read_json(self.root/'sources.json') if (self.root/'sources.json').exists() else [],
                    'rules':'CUMCM 2026: team-led core modeling and itemized human review required for competition. Use Exa only for generic method queries; never post the current problem or raw/private data publicly.'}
         self.review_board=ReviewBoard(self)
-        self.literature=LiteratureWorkflow(self,exa_client) if self.config['literature_enabled'] else None
+        if (self.root/'exa-policy.json').exists():
+            from .literature_r2 import R2LiteratureWorkflow
+            self.literature=R2LiteratureWorkflow(self,exa_client)
+        else:self.literature=LiteratureWorkflow(self,exa_client) if self.config['literature_enabled'] else None
         self.review_cycle=0
     def status(self,label):self.store.set('status',label)
     def check_deadline(self,*,research=False):
@@ -436,6 +439,6 @@ class Controller:
         with controller_lock(self.root):
             try:return self._run()
             except Exception as e:
-                self.store.event('BLOCKER',{'type':type(e).__name__,'message':str(e)});self.status('WAITING_REVIEW_PROVIDERS' if isinstance(e,ReviewUnavailable) else 'WAITING_RESEARCH_PROVIDER' if isinstance(e,ResearchUnavailable) else 'BLOCKED')
+                self.store.event('BLOCKER',{'type':type(e).__name__,'message':str(e)});self.status('WAITING_REVIEW_PROVIDERS' if isinstance(e,ReviewUnavailable) else getattr(e,'status','WAITING_RESEARCH_PROVIDER') if isinstance(e,ResearchUnavailable) else 'BLOCKED')
                 write_json(self.root/'blocker.json',{'type':type(e).__name__,'message':str(e),'completed_artifacts_preserved':True})
                 raise

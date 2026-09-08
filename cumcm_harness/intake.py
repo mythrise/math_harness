@@ -64,8 +64,16 @@ def copy_inputs(source:Path,destination:Path):
             q=under(destination,p.relative_to(source).as_posix());q.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,q)
 
 def create_workspace(root:Path,problem:Path,data:Path,config:dict,*,confirmation:Path|None=None,
-                     private_dev:Path|None=None,private_confirm:Path|None=None):
+                     private_dev:Path|None=None,private_confirm:Path|None=None,
+                     exa_policy:dict|None=None,research_cutoff:str|None=None):
     if root.exists() and any(root.iterdir()):raise Blocked('Workspace must be new; use run/status to resume')
+    snapshot=None
+    if exa_policy is not None:
+        if not config.get('literature_enabled') or config.get('network_policy')!='EXA_ABSTRACT_QUERIES':
+            raise IntegrityError('Exa R2 policy requires the explicit online literature profile')
+        from .exa_policy import freeze_policy
+        snapshot=freeze_policy(exa_policy,cutoff=research_cutoff)
+    elif research_cutoff is not None:raise IntegrityError('Research cutoff requires an Exa policy')
     root.mkdir(parents=True,exist_ok=True)
     text=read_problem(problem);atomic_write(root/'problem.md',text)
     public=root/'inputs/development';copy_inputs(data,public)
@@ -83,14 +91,21 @@ def create_workspace(root:Path,problem:Path,data:Path,config:dict,*,confirmation
           'private_schema':[profile(p,expose_rows=False) for p in sorted((root/'evaluation_inputs/development/private').rglob('*')) if p.is_file()]}
     write_json(root/'intake.json',info);write_json(root/'config.json',config)
     from .store import Store
-    store=Store(root);store.set('immutable_inputs',{'intake':digest(info),'config':digest(config),'problem':file_hash(root/'problem.md')})
+    frozen={'intake':digest(info),'config':digest(config),'problem':file_hash(root/'problem.md')}
+    if snapshot is not None:
+        write_json(root/'exa-policy.json',snapshot);frozen['exa_policy']=digest(snapshot)
+    store=Store(root);store.set('immutable_inputs',frozen)
     store.set('status','INITIALIZED');return info
 
 def verify_inputs(root:Path):
     from .store import Store
     store=Store(root);frozen=store.get('immutable_inputs')
     i=read_json(root/'intake.json');c=read_json(root/'config.json')
-    if {'intake':digest(i),'config':digest(c),'problem':file_hash(root/'problem.md')}!=frozen:raise IntegrityError('Intake/config/problem changed after initialization')
+    current={'intake':digest(i),'config':digest(c),'problem':file_hash(root/'problem.md')}
+    if (root/'exa-policy.json').exists():
+        from .exa_policy import load_frozen
+        current['exa_policy']=digest(load_frozen(root))
+    if current!=frozen:raise IntegrityError('Intake/config/problem/Exa policy changed after initialization')
     for key,folder in [('development','inputs/development'),('confirmation','inputs/confirmation'),
                         ('eval_development','evaluation_inputs/development'),('eval_confirmation','evaluation_inputs/confirmation')]:
         verify_tree(root/folder,i[key])

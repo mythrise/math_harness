@@ -1,0 +1,39 @@
+#0 building with "colima" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 221B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/cumcm-egoharness:0.3.0
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 156B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 53.59kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/library/cumcm-egoharness:0.3.0@sha256:738aca0621720e034d60905ef801d31a578479184603f441d8b9d0f677053dd0
+#5 resolve docker.io/library/cumcm-egoharness:0.3.0@sha256:738aca0621720e034d60905ef801d31a578479184603f441d8b9d0f677053dd0 done
+#5 DONE 0.0s
+
+#6 [2/4] COPY cumcm_harness /opt/cumcm/cumcm_harness
+#6 DONE 0.0s
+
+#7 [3/4] COPY vendor/mosaic_v14 /opt/cumcm/vendor/mosaic_v14
+#7 DONE 0.1s
+
+#8 [4/4] COPY vendor/MANIFEST.json /opt/cumcm/vendor/MANIFEST.json
+#8 DONE 0.0s
+
+#9 exporting to image
+#9 exporting layers 0.0s done
+#9 exporting manifest sha256:bc41e0f3cd0e2c8ec60c4479fa3509a11c2eb18ff2dc2195ceb7529b0f7315ad done
+#9 exporting config sha256:d5f6f361fb8069aa7fcd96609fe1b55d7fb24aa063b8dd9062736eb3d6424c96 done
+#9 exporting attestation manifest sha256:ef039b20f7216f9095aee4d516251a875aa3480d144b22101ec75fc177f0bec7 done
+#9 exporting manifest list sha256:708ccfc05f57a370839a9a92cab0454b6cb256519b3259dc22a8d09119abd5c0 done
+#9 naming to docker.io/library/cumcm-egoharness:0.3.0 done
+#9 unpacking to docker.io/library/cumcm-egoharness:0.3.0 0.0s done
+#9 DONE 0.1s

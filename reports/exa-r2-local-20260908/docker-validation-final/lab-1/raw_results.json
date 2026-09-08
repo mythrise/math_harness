@@ -1,0 +1,1002 @@
+[
+  {
+    "coverage90": 0.94921875,
+    "domain": "regression",
+    "family": "linear",
+    "fits": 13,
+    "interval_width": 1.0602742474653888,
+    "method": "classical_portfolio",
+    "rmse": 0.2568746998310293,
+    "seconds": 0.033752600000298116,
+    "seed": 201,
+    "selected": "ols",
+    "train_sha": "cf1b38b48b8aab7fd7f84e64560f43a4779f6b25a227741152758072329f8cfa"
+  },
+  {
+    "coverage90": 0.94921875,
+    "domain": "regression",
+    "family": "linear",
+    "fits": 28,
+    "interval_width": 1.0602742474653888,
+    "method": "residual_ungated",
+    "rmse": 0.2568746998310293,
+    "seconds": 0.05678182100018603,
+    "seed": 201,
+    "selected": "ols",
+    "train_sha": "cf1b38b48b8aab7fd7f84e64560f43a4779f6b25a227741152758072329f8cfa"
+  },
+  {
+    "coverage90": 0.94921875,
+    "domain": "regression",
+    "family": "linear",
+    "fits": 28,
+    "interval_width": 1.0602742474653888,
+    "method": "residual_gated",
+    "rmse": 0.2568746998310293,
+    "seconds": 0.05686493000030168,
+    "seed": 201,
+    "selected": "ols",
+    "train_sha": "cf1b38b48b8aab7fd7f84e64560f43a4779f6b25a227741152758072329f8cfa"
+  },
+  {
+    "coverage90": 0.9140625,
+    "domain": "regression",
+    "family": "nonlinear",
+    "fits": 13,
+    "interval_width": 6.290387004605169,
+    "method": "classical_portfolio",
+    "rmse": 2.5003244918857157,
+    "seconds": 0.03528433400060749,
+    "seed": 201,
+    "selected": "hist_gbdt",
+    "train_sha": "f423c7decb28fdabba5b472b00c94cadf6ab1cab8c42284e56ba9d3a5f8c2f27"
+  },
+  {
+    "coverage90": 0.91015625,
+    "domain": "regression",
+    "family": "nonlinear",
+    "fits": 32,
+    "interval_width": 6.2687794112430115,
+    "method": "residual_ungated",
+    "rmse": 2.78996494520862,
+    "seconds": 0.07192942999972729,
+    "seed": 201,
+    "selected": "crossfit_residual",
+    "train_sha": "f423c7decb28fdabba5b472b00c94cadf6ab1cab8c42284e56ba9d3a5f8c2f27"
+  },
+  {
+    "coverage90": 0.91015625,
+    "domain": "regression",
+    "family": "nonlinear",
+    "fits": 32,
+    "interval_width": 6.2687794112430115,
+    "method": "residual_gated",
+    "rmse": 2.78996494520862,
+    "seconds": 0.06690780499775428,
+    "seed": 201,
+    "selected": "crossfit_residual",
+    "train_sha": "f423c7decb28fdabba5b472b00c94cadf6ab1cab8c42284e56ba9d3a5f8c2f27"
+  },
+  {
+    "coverage90": 0.97265625,
+    "domain": "regression",
+    "family": "outliers",
+    "fits": 13,
+    "interval_width": 1.1753243508054254,
+    "method": "classical_portfolio",
+    "rmse": 0.2609300083405185,
+    "seconds": 0.027638757001113845,
+    "seed": 201,
+    "selected": "huber",
+    "train_sha": "2c3f0c957d0cf2d241c9d2d9d1de0c4f8968f648c8faeb8e4cab13bd67fed13a"
+  },
+  {
+    "coverage90": 0.97265625,
+    "domain": "regression",
+    "family": "outliers",
+    "fits": 28,
+    "interval_width": 1.1753243508054254,
+    "method": "residual_ungated",
+    "rmse": 0.2609300083405185,
+    "seconds": 0.05577354400156764,
+    "seed": 201,
+    "selected": "huber",
+    "train_sha": "2c3f0c957d0cf2d241c9d2d9d1de0c4f8968f648c8faeb8e4cab13bd67fed13a"
+  },
+  {
+    "coverage90": 0.97265625,
+    "domain": "regression",
+    "family": "outliers",
+    "fits": 28,
+    "interval_width": 1.1753243508054254,
+    "method": "residual_gated",
+    "rmse": 0.2609300083405185,
+    "seconds": 0.055487215002358425,
+    "seed": 201,
+    "selected": "huber",
+    "train_sha": "2c3f0c957d0cf2d241c9d2d9d1de0c4f8968f648c8faeb8e4cab13bd67fed13a"
+  },
+  {
+    "coverage90": 0.890625,
+    "domain": "regression",
+    "family": "heteroskedastic",
+    "fits": 13,
+    "interval_width": 2.869562919010411,
+    "method": "classical_portfolio",
+    "rmse": 1.0979636916848583,
+    "seconds": 0.028058019997843076,
+    "seed": 201,
+    "selected": "huber",
+    "train_sha": "b4040b459667e38f5740535e079be37d823f6d27e482f57c5d73223cb69c36d2"
+  },
+  {
+    "coverage90": 0.890625,
+    "domain": "regression",
+    "family": "heteroskedastic",
+    "fits": 28,
+    "interval_width": 2.869562919010411,
+    "method": "residual_ungated",
+    "rmse": 1.0979636916848583,
+    "seconds": 0.05726995000077295,
+    "seed": 201,
+    "selected": "huber",
+    "train_sha": "b4040b459667e38f5740535e079be37d823f6d27e482f57c5d73223cb69c36d2"
+  },
+  {
+    "coverage90": 0.890625,
+    "domain": "regression",
+    "family": "heteroskedastic",
+    "fits": 28,
+    "interval_width": 2.869562919010411,
+    "method": "residual_gated",
+    "rmse": 1.0979636916848583,
+    "seconds": 0.05738965500131599,
+    "seed": 201,
+    "selected": "huber",
+    "train_sha": "b4040b459667e38f5740535e079be37d823f6d27e482f57c5d73223cb69c36d2"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.22579418391900985,
+    "method": "linear",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.49350146890609414,
+    "method": "naive",
+    "seed": 201,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.8295225144543373,
+    "method": "seasonal",
+    "seed": 201,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.2565267686867623,
+    "method": "seasonal_residual",
+    "seed": 201,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.23967298754008315,
+    "method": "ridge_lags",
+    "seed": 201,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 16,
+    "mae": 0.22579418391900985,
+    "method": "portfolio",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 1.200396635998333,
+    "method": "linear",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 1.3098025941967064,
+    "method": "naive",
+    "seed": 201,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 0.28404152242829045,
+    "method": "seasonal",
+    "seed": 201,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 0.19381782384587684,
+    "method": "seasonal_residual",
+    "seed": 201,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 0.25547514297125545,
+    "method": "ridge_lags",
+    "seed": 201,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 16,
+    "mae": 0.25547514297125545,
+    "method": "portfolio",
+    "seed": 201,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 1.234921063719275,
+    "method": "linear",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 1.5825683145788958,
+    "method": "naive",
+    "seed": 201,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 0.6487383000914838,
+    "method": "seasonal",
+    "seed": 201,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 0.1844779326161304,
+    "method": "seasonal_residual",
+    "seed": 201,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 0.22703305746285005,
+    "method": "ridge_lags",
+    "seed": 201,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 16,
+    "mae": 0.22703305746285005,
+    "method": "portfolio",
+    "seed": 201,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 1.1180224518437083,
+    "method": "linear",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 2.217738572711517,
+    "method": "naive",
+    "seed": 201,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 1.7154919417826726,
+    "method": "seasonal",
+    "seed": 201,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 1.0168191568750193,
+    "method": "seasonal_residual",
+    "seed": 201,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 2.0706964237945433,
+    "method": "ridge_lags",
+    "seed": 201,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 16,
+    "mae": 1.1180224518437083,
+    "method": "portfolio",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.6860448532217477,
+    "method": "linear",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.9354156177906913,
+    "method": "naive",
+    "seed": 201,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.912900782204153,
+    "method": "seasonal",
+    "seed": 201,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 1.1152790840415785,
+    "method": "seasonal_residual",
+    "seed": 201,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.7213251713345131,
+    "method": "ridge_lags",
+    "seed": 201,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 16,
+    "mae": 0.6860448532217477,
+    "method": "portfolio",
+    "seed": 201,
+    "selected": "linear"
+  },
+  {
+    "domain": "integration",
+    "error": 0.0007879651142164157,
+    "estimate": 1.6667641464004905,
+    "evaluations": 1024,
+    "family": "smooth_exp",
+    "method": "mc",
+    "seed": 201,
+    "standard_error": 0.00574551185627141,
+    "truth": 1.6659761812862741
+  },
+  {
+    "domain": "integration",
+    "error": 6.896310671811179e-05,
+    "estimate": 1.6660451443929922,
+    "evaluations": 1024,
+    "family": "smooth_exp",
+    "method": "sobol",
+    "seed": 201,
+    "standard_error": 8.635273458538787e-05,
+    "truth": 1.6659761812862741
+  },
+  {
+    "domain": "integration",
+    "error": 0.0046484375,
+    "estimate": 0.0146484375,
+    "evaluations": 1024,
+    "family": "rare_indicator",
+    "method": "mc",
+    "seed": 201,
+    "standard_error": 0.0031101418540189665,
+    "truth": 0.01
+  },
+  {
+    "domain": "integration",
+    "error": 0.0002343750000000002,
+    "estimate": 0.009765625,
+    "evaluations": 1024,
+    "family": "rare_indicator",
+    "method": "sobol",
+    "seed": 201,
+    "standard_error": 0.0012786204506015177,
+    "truth": 0.01
+  },
+  {
+    "coverage90": 0.9375,
+    "domain": "regression",
+    "family": "linear",
+    "fits": 13,
+    "interval_width": 0.9538938672317299,
+    "method": "classical_portfolio",
+    "rmse": 0.25474159561294013,
+    "seconds": 0.0280541859974619,
+    "seed": 202,
+    "selected": "ols",
+    "train_sha": "dd7dbd6401d485bff6b6202714010c5b742731066b92e8bce24f329fe4e31f4d"
+  },
+  {
+    "coverage90": 0.9375,
+    "domain": "regression",
+    "family": "linear",
+    "fits": 28,
+    "interval_width": 0.9538938672317299,
+    "method": "residual_ungated",
+    "rmse": 0.25474159561294013,
+    "seconds": 0.05536663499879069,
+    "seed": 202,
+    "selected": "ols",
+    "train_sha": "dd7dbd6401d485bff6b6202714010c5b742731066b92e8bce24f329fe4e31f4d"
+  },
+  {
+    "coverage90": 0.9375,
+    "domain": "regression",
+    "family": "linear",
+    "fits": 28,
+    "interval_width": 0.9538938672317299,
+    "method": "residual_gated",
+    "rmse": 0.25474159561294013,
+    "seconds": 0.057556290998036275,
+    "seed": 202,
+    "selected": "ols",
+    "train_sha": "dd7dbd6401d485bff6b6202714010c5b742731066b92e8bce24f329fe4e31f4d"
+  },
+  {
+    "coverage90": 0.953125,
+    "domain": "regression",
+    "family": "nonlinear",
+    "fits": 13,
+    "interval_width": 5.650688081865692,
+    "method": "classical_portfolio",
+    "rmse": 1.6954427374069394,
+    "seconds": 0.04538787300043623,
+    "seed": 202,
+    "selected": "hist_gbdt",
+    "train_sha": "b07047e6a3e5403b20f1c0e8b448feedb85780381aaa1d8c55c914630eeefc7a"
+  },
+  {
+    "coverage90": 0.96484375,
+    "domain": "regression",
+    "family": "nonlinear",
+    "fits": 32,
+    "interval_width": 5.697247225922453,
+    "method": "residual_ungated",
+    "rmse": 1.778299981177247,
+    "seconds": 0.06475608400069177,
+    "seed": 202,
+    "selected": "crossfit_residual",
+    "train_sha": "b07047e6a3e5403b20f1c0e8b448feedb85780381aaa1d8c55c914630eeefc7a"
+  },
+  {
+    "coverage90": 0.96484375,
+    "domain": "regression",
+    "family": "nonlinear",
+    "fits": 32,
+    "interval_width": 5.697247225922453,
+    "method": "residual_gated",
+    "rmse": 1.778299981177247,
+    "seconds": 0.06460887100183754,
+    "seed": 202,
+    "selected": "crossfit_residual",
+    "train_sha": "b07047e6a3e5403b20f1c0e8b448feedb85780381aaa1d8c55c914630eeefc7a"
+  },
+  {
+    "coverage90": 0.84765625,
+    "domain": "regression",
+    "family": "outliers",
+    "fits": 13,
+    "interval_width": 0.8146376656219207,
+    "method": "classical_portfolio",
+    "rmse": 0.277742132668371,
+    "seconds": 0.02711430300041684,
+    "seed": 202,
+    "selected": "huber",
+    "train_sha": "34745cfb13ec33a7fb4dbe1d8a9cc6e31962e243b6844d953d0254fe39371423"
+  },
+  {
+    "coverage90": 0.84765625,
+    "domain": "regression",
+    "family": "outliers",
+    "fits": 28,
+    "interval_width": 0.8146376656219207,
+    "method": "residual_ungated",
+    "rmse": 0.277742132668371,
+    "seconds": 0.05481966899969848,
+    "seed": 202,
+    "selected": "huber",
+    "train_sha": "34745cfb13ec33a7fb4dbe1d8a9cc6e31962e243b6844d953d0254fe39371423"
+  },
+  {
+    "coverage90": 0.84765625,
+    "domain": "regression",
+    "family": "outliers",
+    "fits": 28,
+    "interval_width": 0.8146376656219207,
+    "method": "residual_gated",
+    "rmse": 0.277742132668371,
+    "seconds": 0.05860712499998044,
+    "seed": 202,
+    "selected": "huber",
+    "train_sha": "34745cfb13ec33a7fb4dbe1d8a9cc6e31962e243b6844d953d0254fe39371423"
+  },
+  {
+    "coverage90": 0.91796875,
+    "domain": "regression",
+    "family": "heteroskedastic",
+    "fits": 13,
+    "interval_width": 3.7202323377115274,
+    "method": "classical_portfolio",
+    "rmse": 1.1243045549498092,
+    "seconds": 0.029233936002128758,
+    "seed": 202,
+    "selected": "huber",
+    "train_sha": "eec43d486a13fb194f49f2d7779f2ced2048f7ecf5401e99b0fdb6114c6bc354"
+  },
+  {
+    "coverage90": 0.91796875,
+    "domain": "regression",
+    "family": "heteroskedastic",
+    "fits": 28,
+    "interval_width": 3.7202323377115274,
+    "method": "residual_ungated",
+    "rmse": 1.1243045549498092,
+    "seconds": 0.057307420000142884,
+    "seed": 202,
+    "selected": "huber",
+    "train_sha": "eec43d486a13fb194f49f2d7779f2ced2048f7ecf5401e99b0fdb6114c6bc354"
+  },
+  {
+    "coverage90": 0.91796875,
+    "domain": "regression",
+    "family": "heteroskedastic",
+    "fits": 28,
+    "interval_width": 3.7202323377115274,
+    "method": "residual_gated",
+    "rmse": 1.1243045549498092,
+    "seconds": 0.06975463400158333,
+    "seed": 202,
+    "selected": "huber",
+    "train_sha": "eec43d486a13fb194f49f2d7779f2ced2048f7ecf5401e99b0fdb6114c6bc354"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.11085779570256331,
+    "method": "linear",
+    "seed": 202,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.3121772770437043,
+    "method": "naive",
+    "seed": 202,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.911600137151666,
+    "method": "seasonal",
+    "seed": 202,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.15890253711691882,
+    "method": "seasonal_residual",
+    "seed": 202,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 1,
+    "mae": 0.11271733557039616,
+    "method": "ridge_lags",
+    "seed": 202,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "trend",
+    "fits": 16,
+    "mae": 0.11271733557039616,
+    "method": "portfolio",
+    "seed": 202,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 1.3116021489292666,
+    "method": "linear",
+    "seed": 202,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 1.505199028098836,
+    "method": "naive",
+    "seed": 202,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 0.13435094596492944,
+    "method": "seasonal",
+    "seed": 202,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 0.156092637971843,
+    "method": "seasonal_residual",
+    "seed": 202,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 1,
+    "mae": 0.13171024339562712,
+    "method": "ridge_lags",
+    "seed": 202,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal",
+    "fits": 16,
+    "mae": 0.13171024339562712,
+    "method": "portfolio",
+    "seed": 202,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 1.2691956477664443,
+    "method": "linear",
+    "seed": 202,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 1.4547958076004495,
+    "method": "naive",
+    "seed": 202,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 0.4899506669888069,
+    "method": "seasonal",
+    "seed": 202,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 0.1496511390964419,
+    "method": "seasonal_residual",
+    "seed": 202,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 1,
+    "mae": 0.14188637625871006,
+    "method": "ridge_lags",
+    "seed": 202,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "seasonal_trend",
+    "fits": 16,
+    "mae": 0.1496511390964419,
+    "method": "portfolio",
+    "seed": 202,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 1.3670475901760522,
+    "method": "linear",
+    "seed": 202,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 1.881303932982197,
+    "method": "naive",
+    "seed": 202,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 2.3357063066301755,
+    "method": "seasonal",
+    "seed": 202,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 3.2541053102324278,
+    "method": "seasonal_residual",
+    "seed": 202,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 1,
+    "mae": 3.1335794991179147,
+    "method": "ridge_lags",
+    "seed": 202,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "random_walk",
+    "fits": 16,
+    "mae": 1.881303932982197,
+    "method": "portfolio",
+    "seed": 202,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.8096715736753243,
+    "method": "linear",
+    "seed": 202,
+    "selected": "linear"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.7001030605391318,
+    "method": "naive",
+    "seed": 202,
+    "selected": "naive"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.848250053336911,
+    "method": "seasonal",
+    "seed": 202,
+    "selected": "seasonal"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.836583615279285,
+    "method": "seasonal_residual",
+    "seed": 202,
+    "selected": "seasonal_residual"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 1,
+    "mae": 0.7512564351512806,
+    "method": "ridge_lags",
+    "seed": 202,
+    "selected": "ridge_lags"
+  },
+  {
+    "domain": "forecast",
+    "family": "white_noise",
+    "fits": 16,
+    "mae": 0.8096715736753243,
+    "method": "portfolio",
+    "seed": 202,
+    "selected": "linear"
+  },
+  {
+    "domain": "integration",
+    "error": 0.004542395587165515,
+    "estimate": 1.6705185768734396,
+    "evaluations": 1024,
+    "family": "smooth_exp",
+    "method": "mc",
+    "seed": 202,
+    "standard_error": 0.007541085951381307,
+    "truth": 1.6659761812862741
+  },
+  {
+    "domain": "integration",
+    "error": 5.4836467441976566e-05,
+    "estimate": 1.666031017753716,
+    "evaluations": 1024,
+    "family": "smooth_exp",
+    "method": "sobol",
+    "seed": 202,
+    "standard_error": 5.231672934343158e-05,
+    "truth": 1.6659761812862741
+  },
+  {
+    "domain": "integration",
+    "error": 0.0026953125,
+    "estimate": 0.0126953125,
+    "evaluations": 1024,
+    "family": "rare_indicator",
+    "method": "mc",
+    "seed": 202,
+    "standard_error": 0.002530462771654165,
+    "truth": 0.01
+  },
+  {
+    "domain": "integration",
+    "error": 0.0002343750000000002,
+    "estimate": 0.009765625,
+    "evaluations": 1024,
+    "family": "rare_indicator",
+    "method": "sobol",
+    "seed": 202,
+    "standard_error": 0.0012786204506015177,
+    "truth": 0.01
+  },
+  {
+    "domain": "public_dataset",
+    "family": "sklearn_diabetes",
+    "fits": 13,
+    "method": "classical_portfolio",
+    "rmse": 54.096577530907076,
+    "scope": "DESCRIPTIVE_REPEATED_SPLITS_NOT_CLINICAL_USE_OR_INDEPENDENT_DATASETS",
+    "seed": 201,
+    "selected": "ols"
+  },
+  {
+    "domain": "public_dataset",
+    "family": "sklearn_diabetes",
+    "fits": 28,
+    "method": "residual_ungated",
+    "rmse": 54.096577530907076,
+    "scope": "DESCRIPTIVE_REPEATED_SPLITS_NOT_CLINICAL_USE_OR_INDEPENDENT_DATASETS",
+    "seed": 201,
+    "selected": "ols"
+  },
+  {
+    "domain": "public_dataset",
+    "family": "sklearn_diabetes",
+    "fits": 28,
+    "method": "residual_gated",
+    "rmse": 54.096577530907076,
+    "scope": "DESCRIPTIVE_REPEATED_SPLITS_NOT_CLINICAL_USE_OR_INDEPENDENT_DATASETS",
+    "seed": 201,
+    "selected": "ols"
+  },
+  {
+    "domain": "public_dataset",
+    "family": "sklearn_diabetes",
+    "fits": 13,
+    "method": "classical_portfolio",
+    "rmse": 53.41568202932296,
+    "scope": "DESCRIPTIVE_REPEATED_SPLITS_NOT_CLINICAL_USE_OR_INDEPENDENT_DATASETS",
+    "seed": 202,
+    "selected": "ols"
+  },
+  {
+    "domain": "public_dataset",
+    "family": "sklearn_diabetes",
+    "fits": 32,
+    "method": "residual_ungated",
+    "rmse": 56.048839911340465,
+    "scope": "DESCRIPTIVE_REPEATED_SPLITS_NOT_CLINICAL_USE_OR_INDEPENDENT_DATASETS",
+    "seed": 202,
+    "selected": "crossfit_residual"
+  },
+  {
+    "domain": "public_dataset",
+    "family": "sklearn_diabetes",
+    "fits": 28,
+    "method": "residual_gated",
+    "rmse": 53.41568202932296,
+    "scope": "DESCRIPTIVE_REPEATED_SPLITS_NOT_CLINICAL_USE_OR_INDEPENDENT_DATASETS",
+    "seed": 202,
+    "selected": "ols"
+  }
+]

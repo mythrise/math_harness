@@ -1,0 +1,46 @@
+[
+  {
+    "capability_probe": false,
+    "cost_dollars": 0.007,
+    "provider_request_id": "81b70887871035509f816f326e65b6ed",
+    "public_headers": {
+      "Content-Type": "application/json"
+    },
+    "request_digest": "1e775477976efef0817e4959074530b4a2f3f7e5f926fc0dea49bfc270ebb256",
+    "response_digest": "8896cd8d92a4de8b5c57e831bae37356cba74c87f629cdb14c3658fbaf1ae06a",
+    "status": "HTTP_200"
+  },
+  {
+    "capability_probe": false,
+    "cost_dollars": 0.007,
+    "provider_request_id": "161afcca34abfcfaa80e6315cd75c8a3",
+    "public_headers": {
+      "Content-Type": "application/json"
+    },
+    "request_digest": "2d15d28e206055e455bdc844b3c04ad2e9c4ffdde1816e0fa39ee4f1b403d094",
+    "response_digest": "31b933413f65a6ba8a42828ca43cb6fbecbc84cf3fac4d00745608c2e1470a76",
+    "status": "HTTP_200"
+  },
+  {
+    "capability_probe": false,
+    "cost_dollars": 0.004,
+    "provider_request_id": "fc9a3d5a08a3a1fdc741a86681a0da9c",
+    "public_headers": {
+      "Content-Type": "application/json"
+    },
+    "request_digest": "78564d745b0bacaf03643e17789ed24d92433c54a6649505ebe136749b15da28",
+    "response_digest": "a820029f3ae0510959d96e67cda5e840d78043bf7f2ec1d30d1510ef7bd9bb1c",
+    "status": "HTTP_200"
+  },
+  {
+    "capability_probe": false,
+    "cost_dollars": 0.007,
+    "provider_request_id": "3d020265d50717762053839013d33bcd",
+    "public_headers": {
+      "Content-Type": "application/json"
+    },
+    "request_digest": "24266c67aea14703b5dbc4ca68f0ccfa1cbe9d66e933221eff1648dbee3e3b17",
+    "response_digest": "03a78bdd6e57576ccbfcac7ef01eba5fc896834eb046e484b38d1a6461876e57",
+    "status": "HTTP_200"
+  }
+]

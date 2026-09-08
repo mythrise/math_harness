@@ -1,0 +1,44 @@
+.............F.......................................................... [ 27%]
+........................................................................ [ 54%]
+........................................................................ [ 81%]
+.................................................                        [100%]
+=================================== FAILURES ===================================
+__________ test_claude_null_budget_omits_flag_for_all_shipped_configs __________
+
+tmp_path = PosixPath('/private/var/folders/7c/9wv77s25275cjh5d9jwbbrwm0000gn/T/pytest-of-mythrise/pytest-19/test_claude_null_budget_omits_0')
+
+    def test_claude_null_budget_omits_flag_for_all_shipped_configs(tmp_path):
+        from cumcm_harness.controller import DEFAULT_CONFIG,validate_config
+        assert DEFAULT_CONFIG['claude_call_budget_usd'] is None
+        for path in (Path(__file__).resolve().parents[1]/'configs').glob('*.json'):
+            config={**DEFAULT_CONFIG,**json.loads(path.read_text())}
+>           validate_config(config)
+
+tests/test_cli_contracts.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = {'mode': 'practice', 'workers': 2, 'cpu_threads': 1, 'total_cpu_threads': 2, ...}
+
+    def validate_config(c):
+>       if set(c)!=set(DEFAULT_CONFIG):raise IntegrityError('Unexpected/missing configuration keys')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       cumcm_harness.common.IntegrityError: Unexpected/missing configuration keys
+
+cumcm_harness/controller.py:62: IntegrityError
+=============================== warnings summary ===============================
+tests/test_paper_selection.py::test_render_only_requested_pages
+tests/test_paper_selection.py::test_render_only_requested_pages
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute
+
+tests/test_paper_selection.py::test_render_only_requested_pages
+tests/test_paper_selection.py::test_render_only_requested_pages
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute
+
+tests/test_paper_selection.py::test_render_only_requested_pages
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type swigvarlink has no __module__ attribute
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cli_contracts.py::test_claude_null_budget_omits_flag_for_all_shipped_configs
+1 failed, 264 passed, 5 warnings in 6.22s
+<sys>:0: DeprecationWarning: builtin type swigvarlink has no __module__ attribute

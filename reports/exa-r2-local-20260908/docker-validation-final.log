@@ -1,0 +1,25 @@
+START tests
+PASS tests
+START lab-1
+PASS lab-1
+START lab-2
+PASS lab-2
+{
+  "status": "PASS",
+  "protocol_digest": "2130b388ac1dd84f22e972f5e56d84b438bb9ed0ac9700882bab4bfe1b9b7b33",
+  "rows_per_run": 98,
+  "numerical_runs": 2,
+  "diagnostics_per_run": 9,
+  "reproducibility": {
+    "raw_results.json": true,
+    "diagnostics.json": true
+  },
+  "external_candidates_run": 0,
+  "global_promotions": 0,
+  "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+  "receipts": {
+    "tests": "f6dbf6bbf50a84256b11ecb43b52358930954fdeae91a8bdf67717561bfa3cdb",
+    "lab-1": "ba4d24d4fd20f2823fe4cf1fac57fcc715d9356e5c96440496e0a878a6214ac4",
+    "lab-2": "67523500706fb5c0e38e600282bb7e45d100bc8985a8f6740bfa88d5c748ccc5"
+  }
+}

@@ -25,6 +25,8 @@ docker build -f Dockerfile.test -t cumcm-egoharness:0.3.0-test .
 
 后续 [Exa 真实接口验收](reports/EXA_LIVE_AUTH_20260908_CN.md) 已通过支持/反例检索、正文提取及缓存重放。现支持通过 `set-exa-key` 保存本机私有凭证，新进程自动读取；环境变量 `EXA_API_KEY` 可覆盖本机凭证。真实双模型与完整赛题联合验收尚未执行。
 
+Exa R2 已加入严格策略 sidecar、UTC 研究截止、逐假设支持/反方检索、定向正文读取、原文偏移引用和可恢复 HTTP 账本。新任务使用 `configs/exa-modeling-compatible.json` 并在 init 传入 `--exa-policy configs/exa-policy-r2.json`；动态摘录和 deep 默认关闭。参见 [R2 使用说明](docs/EXA_R2_CN.md) 与 [本机验收](reports/EXA_R2_LOCAL_CN.md)。
+
 ## 快速验证
 
 已有本机部署继续使用 `.venv/bin/python` 或 `./scripts/cumcm`；其他环境先创建 Python 3.11+ 虚拟环境。保留完整仓库并使用 editable install。
@@ -47,7 +49,7 @@ Codex CLI 需要有效认证。Claude CLI 使用既有用户认证／服务地�
 ```bash
 ./scripts/cumcm set-exa-key
 
-docker build -t cumcm-egoharness:0.1.0 .
+docker build -t cumcm-egoharness:0.3.0 .
 python -m cumcm_harness doctor --live --config configs/exa-resilient.json
 python -m cumcm_harness init workspaces/exa-new \
   --problem /absolute/path/problem.md \

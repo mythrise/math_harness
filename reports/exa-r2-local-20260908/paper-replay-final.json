@@ -1,0 +1,21 @@
+{
+  "fresh_fixture_model_invocations": 0,
+  "hashes_after": {
+    "deliverables/paper.pdf": "53aa7bbf5731e5370d3c4cbe321a6459afc97805be7f05e0a309448fb4e8f334",
+    "deliverables/support.zip": "1489fe7d33729d151117d94e972621e137daa010a43feb88a06fa3c91c0c2b4d"
+  },
+  "hashes_before": {
+    "deliverables/paper.pdf": "53aa7bbf5731e5370d3c4cbe321a6459afc97805be7f05e0a309448fb4e8f334",
+    "deliverables/support.zip": "1489fe7d33729d151117d94e972621e137daa010a43feb88a06fa3c91c0c2b4d"
+  },
+  "http_attempts_after": 5,
+  "http_attempts_before": 5,
+  "identical_hashes": true,
+  "identical_jobs": true,
+  "job_count": 22,
+  "model_calls_after": 47,
+  "model_calls_before": 47,
+  "no_new_executor_or_http_calls": "GUARDED_WITH_ASSERTION",
+  "result_status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+  "status": "PASS"
+}

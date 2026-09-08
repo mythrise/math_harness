@@ -1,0 +1,24 @@
+{
+  "primary_attachment": {
+    "filename": "粘贴的 markdown (1)。md",
+    "sha256": "131fd8ff826b78542922b66cca240878491d0b017b8435b90f3f53164f4bdef3",
+    "title": "Search API Reference",
+    "line_count": 423,
+    "relevant_lines": {
+      "bearer_auth": "11-13",
+      "parameters": "45-63",
+      "dynamic_highlights": "89-110",
+      "output_schema": "203-212",
+      "estimated_dates_and_response": "253-277",
+      "nesting": "324-337",
+      "sdk_case": "349"
+    }
+  },
+  "verification": {
+    "date": "2026-09-08",
+    "search_guide": "https://exa.ai/docs/reference/search-api-guide-for-coding-agents",
+    "contents_guide": "https://exa.ai/docs/reference/contents-api-guide-for-coding-agents",
+    "finding": "Opened current search guide confirms Bearer/publication/dynamic preview header; initial search-engine snapshot was older. No authenticated API requests were made."
+  },
+  "recommendation_boundary": "80 HTTP attempts/6-8 results/2 concurrency/1 rps/45-90 seconds/24000-60000 chars are proposed local policy, not vendor defaults or measured optima."
+}

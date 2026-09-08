@@ -81,6 +81,10 @@ def test_claude_null_budget_omits_flag_for_all_shipped_configs(tmp_path):
     from cumcm_harness.controller import DEFAULT_CONFIG,validate_config
     assert DEFAULT_CONFIG['claude_call_budget_usd'] is None
     for path in (Path(__file__).resolve().parents[1]/'configs').glob('*.json'):
+        if path.name=='exa-policy-r2.json':
+            from cumcm_harness.exa_policy import validate_policy
+            validate_policy(json.loads(path.read_text()))
+            continue
         config={**DEFAULT_CONFIG,**json.loads(path.read_text())}
         validate_config(config)
         assert config['claude_call_budget_usd'] is None,path

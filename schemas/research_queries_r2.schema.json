@@ -1,0 +1,73 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "queries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "additional_queries": {
+            "items": {
+              "maxLength": 220,
+              "minLength": 4,
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 0,
+            "type": "array"
+          },
+          "hypothesis_ids": {
+            "items": {
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+              "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 0,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "profile": {
+            "enum": [
+              "foundations",
+              "recent_methods",
+              "frontier_refresh",
+              "counterexamples",
+              "unfiltered_scholarly_fallback",
+              "implementation",
+              "official_rules",
+              "deep_escalation",
+              "discovery_beta"
+            ]
+          },
+          "purpose": {
+            "enum": [
+              "background",
+              "support",
+              "counterexample",
+              "limitations"
+            ]
+          },
+          "query": {
+            "maxLength": 220,
+            "minLength": 4,
+            "type": "string"
+          }
+        },
+        "required": [
+          "query",
+          "purpose",
+          "profile",
+          "hypothesis_ids",
+          "additional_queries"
+        ],
+        "type": "object"
+      },
+      "maxItems": 4,
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "queries"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,36 @@
+test_additional_query_on_auto_rejected (test_request_contract.RequestContractTests.test_additional_query_on_auto_rejected) ... ok
+test_all_eight_examples (test_request_contract.RequestContractTests.test_all_eight_examples) ... ok
+test_boolean_highlights_cannot_use_preview_fallback (test_request_contract.RequestContractTests.test_boolean_highlights_cannot_use_preview_fallback) ... ok
+test_boolean_results_rejected (test_request_contract.RequestContractTests.test_boolean_results_rejected) ... ok
+test_category_publication_not_legacy (test_request_contract.RequestContractTests.test_category_publication_not_legacy) ... ok
+test_company_date_filters_rejected (test_request_contract.RequestContractTests.test_company_date_filters_rejected) ... ok
+test_compatible_profile_only_three_changed_values (test_request_contract.RequestContractTests.test_compatible_profile_only_three_changed_values) ... ok
+test_contents_nested_content_rejected (test_request_contract.RequestContractTests.test_contents_nested_content_rejected) ... ok
+test_credential_not_allowed_in_public_header_receipt (test_request_contract.RequestContractTests.test_credential_not_allowed_in_public_header_receipt) ... ok
+test_dynamic_cap_conflict (test_request_contract.RequestContractTests.test_dynamic_cap_conflict) ... ok
+test_dynamic_false_cap_is_allowed (test_request_contract.RequestContractTests.test_dynamic_false_cap_is_allowed) ... ok
+test_dynamic_not_boolean (test_request_contract.RequestContractTests.test_dynamic_not_boolean) ... ok
+test_dynamic_requires_beta (test_request_contract.RequestContractTests.test_dynamic_requires_beta) ... ok
+test_dynamic_wrong_beta (test_request_contract.RequestContractTests.test_dynamic_wrong_beta) ... ok
+test_fallback_not_for_auth_or_negative_review (test_request_contract.RequestContractTests.test_fallback_not_for_auth_or_negative_review) ... ok
+test_fallback_preserves_scope_and_input (test_request_contract.RequestContractTests.test_fallback_preserves_scope_and_input) ... ok
+test_fulltext_expansion_allowed (test_request_contract.RequestContractTests.test_fulltext_expansion_allowed) ... ok
+test_legacy_highlights_parameters_rejected (test_request_contract.RequestContractTests.test_legacy_highlights_parameters_rejected) ... ok
+test_legacy_parameters_rejected (test_request_contract.RequestContractTests.test_legacy_parameters_rejected) ... ok
+test_more_than_ten_properties (test_request_contract.RequestContractTests.test_more_than_ten_properties) ... ok
+test_nested_output_schema_rejected_by_local_subset (test_request_contract.RequestContractTests.test_nested_output_schema_rejected_by_local_subset) ... ok
+test_no_citation_fields_in_output_schema (test_request_contract.RequestContractTests.test_no_citation_fields_in_output_schema) ... ok
+test_null_optional_rejected (test_request_contract.RequestContractTests.test_null_optional_rejected) ... ok
+test_policy_preview_default_and_budget (test_request_contract.RequestContractTests.test_policy_preview_default_and_budget) ... ok
+test_request_shape_digest_reproducible_and_different_modes (test_request_contract.RequestContractTests.test_request_shape_digest_reproducible_and_different_modes) ... ok
+test_rest_nested_snake_case_rejected (test_request_contract.RequestContractTests.test_rest_nested_snake_case_rejected) ... ok
+test_reverse_dates_rejected (test_request_contract.RequestContractTests.test_reverse_dates_rejected) ... ok
+test_search_top_level_text_rejected (test_request_contract.RequestContractTests.test_search_top_level_text_rejected) ... ok
+test_sse_rejected (test_request_contract.RequestContractTests.test_sse_rejected) ... ok
+test_stable_no_beta (test_request_contract.RequestContractTests.test_stable_no_beta) ... ok
+test_workflow_field_never_forwarded (test_request_contract.RequestContractTests.test_workflow_field_never_forwarded) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.001s
+
+OK

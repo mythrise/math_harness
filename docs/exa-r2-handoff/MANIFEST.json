@@ -1,0 +1,18 @@
+{
+  "version": "R2",
+  "files_sha256": {
+    "ACCEPTANCE_TESTS.md": "be10899b1dd4993f178affd1456f8fbe4390c8290e3e8ad43716da6ae83e45ca",
+    "CODEX_IMPLEMENTATION_PROMPT.md": "e9237b95c8fb2bc2cb19fdf661177e6e5a6932f42f1b4c839913d45acbed8c2a",
+    "DESIGN_CN.md": "dfd17108a271248ba68d2777a662f8f44c7db39cfc491d9890ecc7db3552a6f2",
+    "README.md": "1b06f05961435f0e91e9187f92bf14c5d133469617d88000070a21d7abac1355",
+    "checks/offline-tests.log": "c9f5fd194d22f897dfc4ddf6026541d076e32c5a8cb8f7b4167e30ae5e041116",
+    "checks/validation-report.json": "038578aa8beaee4f9b8d7c80a2c76103c42604c1bc899a4616a8cf3b100504fa",
+    "configs/exa-modeling-compatible.json": "1dff75f921e06fa55800039fd47efa95cdf3951642ea90a0fecf306b5447c745",
+    "examples/raw-exa-requests.json": "f37e01f7da2aed96a4d784727a1daf7f02dd57c996214a3d79ee65b7bdcdcd77",
+    "reference/request_contract.py": "6a8a3c5a82a7ad912a03a4cc954e7b5a3a4397aa18efbaf161bb9585ab34dc7b",
+    "reference/test_request_contract.py": "890bb0e446efed6997fd890b5640ee7cbc4fef4a4a7d91de8816c5b1b73385dd",
+    "sources.json": "79dd44adbf5b5a139efe7f6cd02164149d84b4dfcbeb925c764a958ed433e9a7",
+    "specs/exa-research-policy.proposed.json": "e3c20eaeec77c3c5fe479eabef38695df708d974514bc2c9b9619d86a28cbd40"
+  },
+  "note": "Unsigned content integrity manifest; not a proof of source authenticity."
+}

@@ -95,7 +95,7 @@ class OutageProvider:
         raise ProviderFailure('claude','TIMEOUT')
 
 
-def run_resilience_demo(root:Path, *, candidates=1, fe_budget=192):
+def run_resilience_demo(root:Path, *, candidates=1, fe_budget=192, r2=False, executor=None):
     root=Path(root)
     if not (root/'control.sqlite3').exists():
         src=root.parent/(root.name+'-inputs');src.mkdir(parents=True,exist_ok=True)
@@ -108,10 +108,18 @@ def run_resilience_demo(root:Path, *, candidates=1, fe_budget=192):
         cfg={**DEFAULT_CONFIG,'network_policy':'EXA_ABSTRACT_QUERIES','literature_enabled':True,
              'max_candidates':candidates,'fe_budget':fe_budget,'review_backoff_seconds':0,
              'allow_research_algorithms':True,'review_cooldown_seconds':3600}
-        create_workspace(root,problem,src,cfg)
-    provider=FixtureProvider(fixture_responder)
-    c=Controller(root,fixture_provider=provider,executor=Executor('trusted-local'),
-                 exa_client=ExaClient(root/'literature/exa-cache',transport=replay_exa))
+        if r2:cfg.update(exa_max_requests=80,exa_results_per_query=6,exa_timeout=45)
+        from .exa_defaults import DEFAULT_POLICY
+        create_workspace(root,problem,src,cfg,exa_policy=DEFAULT_POLICY if r2 else None)
+    if r2:
+        from .exa_r2_demo import r2_responder, r2_transport
+        from .exa_transport import R2ExaClient
+        from .exa_policy import load_frozen
+        from .store import Store
+        exa=R2ExaClient(Store(root),load_frozen(root),transport=r2_transport)
+    else:exa=ExaClient(root/'literature/exa-cache',transport=replay_exa)
+    provider=FixtureProvider(r2_responder if r2 else fixture_responder)
+    c=Controller(root,fixture_provider=provider,executor=executor or Executor('trusted-local'),exa_client=exa)
     c.providers['claude']=OutageProvider()
     result=c.run()
     assert result['literature_status']=='FIXTURE_EXA_TRANSPORT' and result['review_failovers']

@@ -7,20 +7,23 @@ from .common import ROOT,Blocked,IntegrityError,read_json,write_json,environment
 def parser():
     p=argparse.ArgumentParser(prog='cumcm',description='Evidence-gated Codex + Claude modeling harness')
     sub=p.add_subparsers(dest='command',required=True)
-    a=sub.add_parser('doctor');a.add_argument('--live',action='store_true');a.add_argument('--config',type=Path)
+    a=sub.add_parser('doctor');a.add_argument('--live',action='store_true');a.add_argument('--config',type=Path);a.add_argument('--exa-policy',type=Path)
     a=sub.add_parser('init');a.add_argument('workspace',type=Path);a.add_argument('--problem',required=True,type=Path);a.add_argument('--data',required=True,type=Path)
     a.add_argument('--config',type=Path);a.add_argument('--mode',choices=['practice','contest']);a.add_argument('--confirmation',type=Path)
     a.add_argument('--private-dev',type=Path);a.add_argument('--private-confirm',type=Path);a.add_argument('--sources',type=Path)
+    a.add_argument('--exa-policy',type=Path);a.add_argument('--research-cutoff',help='Explicit UTC cutoff; defaults to initialization time')
     a=sub.add_parser('run');a.add_argument('workspace',type=Path)
     a=sub.add_parser('demo');a.add_argument('workspace',type=Path);a.add_argument('--candidates',type=int,default=2);a.add_argument('--fe-budget',type=int,default=192)
     for name in ('status','audit'):
         a=sub.add_parser(name);a.add_argument('workspace',type=Path)
-    a=sub.add_parser('approve');a.add_argument('workspace',type=Path);a.add_argument('--stage',choices=['plan','release'],required=True);a.add_argument('--review',type=Path,required=True)
-    for name in ('recover-step','recover-job'):
+    a=sub.add_parser('approve');a.add_argument('workspace',type=Path);a.add_argument('--stage',choices=['plan','release','research'],required=True);a.add_argument('--review',type=Path,required=True)
+    for name in ('recover-step','recover-job','recover-exa'):
         a=sub.add_parser(name);a.add_argument('workspace',type=Path);a.add_argument('key');a.add_argument('--reason',required=True);a.add_argument('--external-process-stopped',action='store_true')
     a=sub.add_parser('methods');a.add_argument('query')
     a=sub.add_parser('schema');a.add_argument('name',nargs='?')
     a=sub.add_parser('verify-vendor')
+    a=sub.add_parser('exa-status');a.add_argument('workspace',type=Path)
+    a=sub.add_parser('exa-probe');a.add_argument('workspace',type=Path);a.add_argument('--query',required=True);a.add_argument('--dynamic',action='store_true',required=True)
     sub.add_parser('set-exa-key',help='Save a local-only Exa credential using hidden input')
     return p
 
@@ -56,14 +59,24 @@ def main(argv=None):
             from .credentials import save_exa_api_key
             path=save_exa_api_key(getpass.getpass('Exa API key (hidden): '))
             result={'status':'LOCAL_CREDENTIAL_SAVED','path':str(path),'git_tracked':False}
-        elif args.command=='doctor':result=doctor(args.live,read_json(args.config) if args.config else None)
+        elif args.command=='doctor':
+            result=doctor(args.live,read_json(args.config) if args.config else None)
+            if args.exa_policy:
+                from .exa_policy import validate_policy
+                policy=validate_policy(read_json(args.exa_policy))
+                from .controller import DEFAULT_CONFIG
+                config={**DEFAULT_CONFIG,**(read_json(args.config) if args.config else {})}
+                result['exa_policy']={'status':'VALIDATED_NOT_HTTP_TESTED','effective_policy':policy,'capability_probe':'NOT_RUN',
+                    'effective_http_attempt_cap':min(config['exa_max_requests'],policy['budget']['max_total_http_attempts']),
+                    'effective_default_timeout_seconds':min(config['exa_timeout'],policy['http']['default_timeout_seconds'])}
         elif args.command=='init':
             from .controller import DEFAULT_CONFIG,validate_config
             from .intake import create_workspace
             config={**DEFAULT_CONFIG,**(read_json(args.config) if args.config else {})}
             if args.mode:config['mode']=args.mode
             validate_config(config)
-            info=create_workspace(args.workspace,args.problem,args.data,config,confirmation=args.confirmation,private_dev=args.private_dev,private_confirm=args.private_confirm)
+            info=create_workspace(args.workspace,args.problem,args.data,config,confirmation=args.confirmation,private_dev=args.private_dev,private_confirm=args.private_confirm,
+                                  exa_policy=read_json(args.exa_policy) if args.exa_policy else None,research_cutoff=args.research_cutoff)
             if args.sources:write_json(args.workspace/'sources.json',read_json(args.sources))
             result={'status':'INITIALIZED','workspace':str(args.workspace.resolve()),'confirmation_scope':info['confirmation_scope']}
         elif args.command=='run':
@@ -89,18 +102,33 @@ def main(argv=None):
             key=os.getenv('CUMCM_OPERATOR_KEY') or getpass.getpass('Operator key (at least 32 characters): ')
             with controller_lock(args.workspace):r=sign(args.workspace,args.stage,read_json(args.review),key)
             result={'status':'LOCAL_HUMAN_ATTESTATION_SAVED','target':r['payload']['review']['target_digest']}
-        elif args.command in ('recover-step','recover-job'):
+        elif args.command in ('recover-step','recover-job','recover-exa'):
             if not args.external_process_stopped:raise Blocked('First reconcile external CLI/container billing/process state, then pass --external-process-stopped')
             with controller_lock(args.workspace):
                 store=Store(args.workspace)
                 if args.command=='recover-step':store.recover_step(args.key,args.reason)
-                else:store.recover_job(args.key,args.reason)
+                elif args.command=='recover-job':store.recover_job(args.key,args.reason)
+                else:
+                    from .intake import verify_inputs
+                    from .exa_policy import load_frozen
+                    from .exa_ledger import ExaLedger,SharedHTTPGate
+                    verify_inputs(args.workspace);snapshot=load_frozen(args.workspace)
+                    if snapshot is None:raise IntegrityError('recover-exa requires a frozen R2 workspace')
+                    attempts=ExaLedger(store,snapshot['policy']).reconcile(args.key,args.reason)
+                    SharedHTTPGate(ROOT/'.runtime/exa/shared.sqlite3').reconcile(snapshot['run_id'],attempts)
             result={'status':'EXPLICIT_RETRY_AUTHORIZED','key':args.key,'prior_attempt_preserved':True}
+        elif args.command in ('exa-status','exa-probe'):
+            from .controller import Controller
+            with controller_lock(args.workspace):
+                controller=Controller(args.workspace)
+                from .literature_r2 import R2LiteratureWorkflow
+                if not isinstance(controller.literature,R2LiteratureWorkflow):raise IntegrityError('This command requires a frozen R2 workspace')
+                result=controller.literature.client.ledger.summary() if args.command=='exa-status' else controller.literature.client.probe_dynamic(args.query)
         elif args.command=='methods':
             from .algorithms import route_methods
             result=route_methods(args.query,top_k=10)
         elif args.command=='schema':
-            from . import literature  # registers the evidence/hypothesis schemas
+            from . import literature,literature_r2  # registers evidence/policy schemas
             from .contracts import SCHEMAS
             if args.name and args.name not in SCHEMAS:raise IntegrityError('Unknown schema')
             result=SCHEMAS[args.name] if args.name else {'available':list(SCHEMAS)}

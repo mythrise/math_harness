@@ -34,6 +34,8 @@ PI 能提议停止、修改研究方向、要求返工；不能修改已冻结�
 
 `configs/exa-resilient.json` 显式启用 Exa；旧 profile 与缺省配置保持本地文献模式。每条模型假设对应唯一假设卡，反方必须检索反例，精确引文与来源摘要由程序校验。双席文献审查后才接受参考文献，经验性/简化假设的 `hypothesis_Hn` 诊断必须在执行阶段实际通过。搜索结果和诊断通过均不证明现实假设为真。接口、缓存、隐私和恢复细节见 `docs/EXA_RESILIENT_REVIEW_CN.md`。
 
+Exa R2 在显式 sidecar 下使用 `exa_policy → exa_authorization → exa_transport/exa_ledger → exa_evidence → literature_r2`：冻结研究范围、逐尝试计数、保存版本快照，再将逐假设文献对抗接入原审查与执行门禁。无 sidecar 保持旧适配器。配置、缓存、恢复和 contest 授权见 [R2 说明](EXA_R2_CN.md)。
+
 ## 三、从题目到模型合同
 
 `intake.py` 首先复制并散列题面和数据，保存 CSV 形状、缺失值、有限预览、JSON 结构、Excel 表名及公式风险。评测私有数据只给模型看结构，不把标签内容交给代码手。确认数据不参与开发提示包。原始图表的语义需要人工/外部核实，当前 PDF 导入不是通用视觉理解器。

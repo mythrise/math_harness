@@ -1,0 +1,22 @@
+{
+  "demo_docker_jobs": 22,
+  "demo_fixture_http_attempts": 5,
+  "demo_reserved_fixture_model_calls": 47,
+  "docker_tests": 358,
+  "handoff_reference_tests": 31,
+  "host_tests": 270,
+  "live_exa_http_attempts": 4,
+  "new_r2_tests": 66,
+  "not_run": [
+    "LIVE_LLM_FULL_PAPER",
+    "LIVE_DYNAMIC_HIGHLIGHTS",
+    "LIVE_DEEP_SEARCH",
+    "REAL_CONTEST_APPROVAL"
+  ],
+  "numerical_rows_per_run": 98,
+  "numerical_runs": 2,
+  "replay_new_calls": 0,
+  "report_sha256": "c1692017c209635986dcadc450968c56c2d07b01860dd035e9170394b99737ff",
+  "reported_cost_dollars": 0.025,
+  "status": "PASS_WITH_EXPLICIT_NOT_RUN_SCOPES"
+}
