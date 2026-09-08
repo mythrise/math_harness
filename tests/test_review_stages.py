@@ -75,3 +75,64 @@ def test_failed_prefreeze_execution_reaches_author_before_review(tmp_path):
     feedback=author[1]['repair_feedback'][0]
     assert feedback['prior_artifact']==attempts[0] and 'IndexError' in feedback['runtime_diagnostic']['stderr']
     assert contexts[0]['bounded_preflight']['passed'] is True
+
+
+@pytest.mark.parametrize('failure',['unsupported','contradicted','board_rejection','board_outage'])
+def test_literature_failure_preserves_full_feedback_for_plan_author(tmp_path,failure):
+    """A malformed citation must not hide the critic's substantive objections."""
+    from cumcm_harness.common import digest,read_json
+    from cumcm_harness.literature import LiteratureWorkflow
+    c,packets=controller(tmp_path);c.config['repair_attempts']=1
+    c.base['methods']=[{'name':'synthetic-card','applicability':'conditional'}]
+    source={'id':'source1','text':'Synthetic source supports only a bounded claim.'}
+    source['content_sha256']=digest(source['text'])
+    wf=LiteratureWorkflow.__new__(LiteratureWorkflow)
+    wf.c=c;wf.initial=[source];wf.accepted=None
+    wf.retrieve=lambda *a,**kw:[source]
+    c.literature=wf;original=c.call;audits=[];critic_packets=[]
+    def call(key,role,schema,packet,**kw):
+        if schema=='hypotheses':
+            return {'result':{'hypotheses':[{
+                'id':f'H{i+1}','assumption_index':i,'statement':a,'kind':'structural',
+                'falsification_test':'Check the declared boundary','acceptance_rule':'Within scope',
+                'failure_action':'Revise the specification'} for i,a in enumerate(packet['plan']['assumptions'])]}}
+        if schema=='research_queries':return {'result':{'queries':[]}}
+        if schema=='hypothesis_audit':
+            critic_packets.append(packet)
+            audit={'decision':'ACCEPT_FOR_TESTING' if failure.startswith('board_') else 'REVISE',
+                'checks':[{'hypothesis_id':h['id'],
+                    'judgment':'supported_with_scope' if failure=='unsupported' else
+                        'contradicted' if failure=='contradicted' else 'explicit_simplification',
+                    'rationale':'A narrow shadow can be missed by every unshifted grid. Add a Docker preflight counterexample.',
+                    'evidence':[{'source_id':'source1','quote':'Synthetic source supports only a bounded claim.',
+                        'relation':'scope_limit'}],
+                    'requires_execution':True,'required_test':'hypothesis_'+h['id']}
+                    for h in packet['hypotheses']['hypotheses']],
+                'citation_ids':['source1'],'limitations':['Add shifted-grid counterexamples.']}
+            audits.append(audit);return {'result':audit}
+        return original(key,role,schema,packet,**kw)
+    c.call=call
+    def reject(*args,**kwargs):
+        if failure=='board_outage':
+            from cumcm_harness.review_board import ReviewUnavailable
+            raise ReviewUnavailable('All required providers unavailable')
+        raise Blocked('Independent literature board requests narrower claims')
+    c.reviews=reject
+    with pytest.raises(Blocked):c.produce_reviewed('plan','modeler','plan',{})
+    authors=[p for role,p in packets if role=='modeler']
+    if failure=='board_outage':
+        assert len(authors)==1 and not authors[0]['repair_feedback']
+        assert c.store.get('plan') is None and wf.accepted is None
+        return
+    feedback=authors[1]['repair_feedback'][0]
+    assert feedback['literature_diagnostic']['audit']==audits[0]
+    assert feedback['literature_diagnostic']['validation_status']=='REJECTED_NOT_ACCEPTED'
+    assert feedback['prior_artifact']['assumptions']
+    assert feedback['literature_diagnostic']['sources']==[source]
+    for packet in critic_packets:
+        assert packet['context']['methods']==c.base['methods']
+        assert packet['context']['experiment_contract']==c.base['experiment_contract']
+        assert packet['problem']==c.problem
+    path=tmp_path/'literature/audits'/(digest(feedback['prior_artifact'])+'.json')
+    assert read_json(path)['audit']==audits[0]
+    assert c.store.get('plan') is None and wf.accepted is None

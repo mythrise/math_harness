@@ -16,6 +16,7 @@ from pathlib import Path
 from .common import Blocked, IntegrityError, canonical, digest, read_json, write_json
 from .contracts import SCHEMAS, S, I, B, ID, obj, arr, validate
 from .credentials import get_exa_api_key
+from .review_board import ReviewUnavailable
 
 QUERY = obj(query={'type':'string','minLength':4,'maxLength':220}, purpose={'enum':['background','support','counterexample','limitations']})
 SCHEMAS['research_queries'] = obj(queries={**arr(QUERY,1),'maxItems':4})
@@ -33,6 +34,14 @@ SCHEMAS['hypothesis_audit'] = obj(decision={'enum':['ACCEPT_FOR_TESTING','REVISE
 
 class ResearchUnavailable(Blocked):
     pass
+
+
+class LiteratureAssessmentFailure(Blocked):
+    """Rejected evidence remains available to the bounded model-repair loop."""
+    def __init__(self, reason, dossier):
+        super().__init__(reason)
+        self.diagnostic={**dossier,'validation_status':'REJECTED_NOT_ACCEPTED',
+                         'validation_error':reason}
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -191,7 +200,7 @@ def check_audit(cards, audit, sources):
             if ref['quote'] not in source['text']:raise IntegrityError('Fabricated or non-exact evidence quotation')
             used.add(ref['source_id'])
         if c['judgment']=='supported_with_scope' and not any(e['relation']=='supports' for e in c['evidence']):
-            raise IntegrityError('Supported hypothesis requires an exact supporting passage')
+            raise IntegrityError(c['hypothesis_id']+': supported hypothesis requires an exact supporting passage')
         if hyp[c['hypothesis_id']]['kind']!='structural' and not c['requires_execution']:
             raise IntegrityError('Empirical/simplifying assumption cannot be validated by search alone')
         if c['requires_execution']:
@@ -253,25 +262,35 @@ class LiteratureWorkflow:
         if cached:
             self.accepted=self.c.store.load(cached)
             self._apply();return self.accepted
+        context={k:self.c.base[k] for k in ('methods','experiment_contract','source_registry','io_contract','limits') if k in self.c.base}
+        specification={'problem':self.c.problem,'context':context}
         cards=self.c.call('hypotheses:'+key,'modeler','hypotheses',{
-            'plan':plan,'sources':self.initial,
+            **specification,'plan':plan,'sources':self.initial,
             'requirements':'One card per exact plan.assumptions string in order. IDs H1, H2, etc. State executable falsification tests, acceptance rules and failure actions. Search is not an empirical test.'})['result']
         check_hypotheses(plan,cards)
         counter=self.c.call('counterqueries:'+key,'hypothesis_critic','research_queries',{
-            'plan':plan,'hypotheses':cards,'sources':self.initial,
+            **specification,'plan':plan,'hypotheses':cards,'sources':self.initial,
             'approved_queries':self.c.config.get('exa_approved_queries',[]),
             'requirements':'Independently seek counterexamples, limitations and competing explanations with generic Exa queries. Include purpose=counterexample. Do not merely repeat the modeler search.'})['result']
         opposing=self.retrieve(counter,opponent=True)
         sources=list({s['id']:s for s in self.initial+opposing}.values())
         audit=self.c.call('hypothesis-audit:'+key,'hypothesis_critic','hypothesis_audit',{
-            'plan':plan,'hypotheses':cards,'sources':sources,
-            'requirements':'Cover every hypothesis. Exact source quotations only. Use required_test=hypothesis_H1 etc for execution-required checks. Accept only FOR TESTING; never claim empirical validity from Exa. Retain contradictions as REVISE.'})['result']
+            **specification,'plan':plan,'hypotheses':cards,'sources':sources,
+            'requirements':'Cover every hypothesis. Exact source quotations only. Every supported_with_scope judgment, including a structural one, requires an exact quote with relation=supports; scope_limit alone is insufficient. Do not claim that literature proves local execution or internal contracts. Use required_test=hypothesis_H1 etc for execution-required checks. Review the prospective specification: use supplied problem/method/experiment context, distinguish planned tests from completed execution, and require later evidence at the relevant gate. Accept only FOR TESTING; never claim empirical validity from Exa. Retain contradictions as REVISE.'})['result']
         # Save even negative reports, before a deterministic gate raises.
         dossier={'plan_digest':key,'hypotheses':cards,'audit':audit,'sources':sources,
                  'counterqueries':counter,'empirical_tests':'NOT_RUN'}
         write_json(self.c.root/'literature/audits'/(key+'.json'),dossier)
-        tests=check_audit(cards,audit,sources)
-        self.c.reviews('literature:'+key,dossier,roles=('literature_reviewer',),stage='plan_design')
+        try:
+            tests=check_audit(cards,audit,sources)
+            self.c.reviews('literature:'+key,dossier,roles=('literature_reviewer',),stage='plan_design',context=context)
+        except (ReviewUnavailable,ResearchUnavailable):
+            raise
+        except (Blocked,IntegrityError) as exc:
+            # Keep the complete rejected report even when an early integrity
+            # check masks later substantive objections. This is repair input,
+            # never an accepted hypothesis contract or permission to advance.
+            raise LiteratureAssessmentFailure(str(exc),dossier) from exc
         used=set(audit['citation_ids'])
         bibliography=[{'id':s['id'],'title':s['title'],'url':s['url'],'verified':True,
             'verification_note':'Exa source snapshot + exact-quotation checks + independent source/relevance board. Not proof of a hypothesis. Content digest '+s['content_sha256']} for s in sources if s['id'] in used]

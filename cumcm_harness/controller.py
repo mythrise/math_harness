@@ -15,7 +15,7 @@ from .research import ResearchRunner,freeze_protocol,choose_development,paired_e
 from .algorithms import route_methods
 from . import approval
 from .review_board import ReviewBoard, ProviderFailure, ReviewUnavailable
-from .literature import LiteratureWorkflow, ResearchUnavailable
+from .literature import LiteratureWorkflow, ResearchUnavailable, LiteratureAssessmentFailure
 
 DEFAULT_CONFIG={
  'mode':'practice','workers':2,'cpu_threads':1,'total_cpu_threads':2,'memory_mb':2048,'total_memory_mb':4096,
@@ -193,10 +193,13 @@ class Controller:
                 raise
             except (Blocked,IntegrityError) as e:
                 feedback.append({'attempt':attempt,'failure':str(e),
+                                 **({'prior_artifact':artifact,'literature_diagnostic':e.diagnostic} if isinstance(e,LiteratureAssessmentFailure) else {}),
                                  **({'prior_artifact':artifact,'runtime_diagnostic':diagnostic} if role=='verifier_author' and artifact else {})})
                 self.store.event('REPAIR_REQUEST',{'key':key,'attempt':attempt,'failure':str(e)})
                 # Missing infrastructure cannot be repaired by inventing LLM responses.
-                if any(x in str(e) for x in ('NOT_INSTALLED','budget exhausted','lacks required CLI','deadline','RUNNING',
+                # A completed literature review can discuss Docker, deadlines
+                # or budgets without being an infrastructure failure.
+                if not isinstance(e,LiteratureAssessmentFailure) and any(x in str(e) for x in ('NOT_INSTALLED','budget exhausted','lacks required CLI','deadline','RUNNING',
                                             'Docker','Output directory is not empty','claude failed','codex failed')):raise
         raise Blocked(f'{key} failed after bounded repairs: {feedback}')
     def verifier_preflight(self,bundle):
