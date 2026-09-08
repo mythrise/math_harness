@@ -26,3 +26,9 @@ Use the deterministic CLI; do not impersonate its DB, reviewer or human approval
 - If infrastructure is absent or independent checks remain unknown, return BLOCKED with evidence; never silently switch to a fixture.
 
 Skills: `.agents/skills/cumcm-orchestrator`, `mosaic-multiobjective`, `deterministic-autoresearch`, `ourwork-svg-v16`, `cumcm-paper-2026`, `independent-review-board`, `modeling-contract`, `coding-experiments`.
+
+## 0.2 Exa and availability policy
+
+Read docs/EXA_RESILIENT_REVIEW_CN.md first. Use configs/exa-resilient.json for new online workspaces. Keep EXA_API_KEY in the parent environment only; never write its value or send private inputs to search. Exa provides literature, not empirical hypothesis tests. Use the literature-adversary skill and execute the declared hypothesis diagnostics.
+
+Review seats are role-based Claude plus Codex. A terminated ProviderFailure may trigger a bounded recorded failover; a valid negative finding, stale digest or unknown process state may not. No fixture can pass a live gate. WAITING_REVIEW_PROVIDERS / WAITING_RESEARCH_PROVIDER preserve work for a later explicit run. Updated code requires a new workspace rather than editing an old fingerprint.

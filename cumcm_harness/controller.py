@@ -14,15 +14,20 @@ from .intake import verify_inputs
 from .research import ResearchRunner,freeze_protocol,choose_development,paired_effect
 from .algorithms import route_methods
 from . import approval
+from .review_board import ReviewBoard, ProviderFailure, ReviewUnavailable
+from .literature import LiteratureWorkflow, ResearchUnavailable
 
 DEFAULT_CONFIG={
  'mode':'practice','workers':2,'cpu_threads':1,'total_cpu_threads':2,'memory_mb':2048,'total_memory_mb':4096,
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
- 'max_candidates':2,'repair_attempts':2,'max_model_calls':90,'model_timeout':600,'claude_call_budget_usd':None,
+ 'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_call_budget_usd':None,
  'codex_model':None,'claude_model':'claude-fable-5','docker_image':'cumcm-egoharness:0.1.0',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
- 'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY'}
+ 'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
+ 'review_members_per_role':2,'review_attempts_per_provider':2,'review_cooldown_seconds':60,
+ 'review_backoff_seconds':0.25,'review_timeout':180,
+ 'literature_enabled':False,'exa_timeout':35,'exa_results_per_query':4,'exa_max_requests':32,'exa_approved_queries':[]}
 
 IO_CONTRACT={
  'solver_entry':'main.py --input PUBLIC_DATA_DIR --out EMPTY_OUTPUT_DIR --seed INT --budget INT --variant ID',
@@ -60,13 +65,23 @@ def validate_config(c):
         if not isinstance(c[key],(int,float)) or isinstance(c[key],bool) or c[key]<=0:raise IntegrityError('Invalid config '+key)
     if c['max_candidates']>20 or c['repair_attempts']>5:raise IntegrityError('Unbounded research/repair is not supported')
     if c['fe_budget']<32:raise IntegrityError('FE budget must support at least one population')
-    if c['mode']=='contest' and c['network_policy']!='LOCAL_EVIDENCE_ONLY':raise IntegrityError('Contest automation uses local curated references; no public question posting')
+    if c['network_policy'] not in ('LOCAL_EVIDENCE_ONLY','EXA_ABSTRACT_QUERIES'):raise IntegrityError('Unknown network policy')
+    if not isinstance(c['literature_enabled'],bool):raise IntegrityError('literature_enabled must be Boolean')
+    if c['literature_enabled'] and c['network_policy']!='EXA_ABSTRACT_QUERIES':
+        raise IntegrityError('Online literature requires network_policy=EXA_ABSTRACT_QUERIES')
+    for key,lo,hi in [('review_members_per_role',2,3),('review_attempts_per_provider',1,3),('exa_results_per_query',1,8),('exa_max_requests',1,100)]:
+        if type(c[key]) is not int or not lo<=c[key]<=hi:raise IntegrityError('Invalid bounded config '+key)
+    for key in ('review_cooldown_seconds','review_backoff_seconds','review_timeout','exa_timeout'):
+        if isinstance(c[key],bool) or not isinstance(c[key],(int,float)) or not 0<=c[key]<=3600:raise IntegrityError('Invalid config '+key)
+    if c['review_timeout']<=0 or c['exa_timeout']<=0:raise IntegrityError('Positive timeout required')
+    if not isinstance(c['exa_approved_queries'],list) or any(not isinstance(q,str) for q in c['exa_approved_queries']):raise IntegrityError('Approved queries must be a string list')
     return c
 
 class Controller:
-    def __init__(self,root:Path,*,fixture_provider=None,executor=None):
+    def __init__(self,root:Path,*,fixture_provider=None,executor=None,exa_client=None):
         self.root=Path(root).resolve();self.store=Store(self.root)
-        self.intake,self.config=verify_inputs(self.root);validate_config(self.config)
+        self.intake,raw_config=verify_inputs(self.root)
+        self.config={**DEFAULT_CONFIG,**raw_config};validate_config(self.config)
         self.demo=fixture_provider is not None
         if self.demo and self.config['mode']=='contest':raise Blocked('Fixtures cannot run in contest mode')
         self.providers={'codex':fixture_provider or CLIProvider('codex',model=self.config['codex_model'],timeout=self.config['model_timeout']),
@@ -87,7 +102,10 @@ class Controller:
                        'metric_rule':'primary_metric must exactly equal a questions[].metric. The independent evaluator score and metric must use that same frozen primary metric.',
                        'inference_rule':'A complete valid seed matrix is required. Failed cells cannot be dropped to create a success-only comparison. Confirmation is run only after selection is frozen.'},
                    'source_registry':read_json(self.root/'sources.json') if (self.root/'sources.json').exists() else [],
-                   'rules':'CUMCM 2026: team-led core modeling and itemized human review required for competition. Local evidence only; never post the current problem publicly.'}
+                   'rules':'CUMCM 2026: team-led core modeling and itemized human review required for competition. Use Exa only for generic method queries; never post the current problem or raw/private data publicly.'}
+        self.review_board=ReviewBoard(self)
+        self.literature=LiteratureWorkflow(self,exa_client) if self.config['literature_enabled'] else None
+        self.review_cycle=0
     def status(self,label):self.store.set('status',label)
     def check_deadline(self,*,research=False):
         if not self.config['deadline_iso']:return
@@ -98,8 +116,14 @@ class Controller:
         if remaining<=0:raise Blocked('Configured deadline has passed; no new live operations')
         if research and remaining<=self.config['paper_reserve_seconds']:raise Blocked('Paper time reserve reached; freeze research scope')
     def call(self,key,role,schema,packet,*,images=()):
-        kind='claude' if role in ('verifier_author','math_reviewer','experiment_reviewer') else 'codex'
-        provider=self.providers[kind]
+        if role in ('verifier_author','hypothesis_critic'):
+            return self.review_board.invoke(key,role,schema,packet,primary='claude',images=images)
+        return self._call_one(key,role,schema,packet,provider_kind='codex',images=images)
+    def _call_one(self,key,role,schema,packet,*,provider_kind,images=(),managed_failure=False):
+        kind=provider_kind;provider=self.providers[kind]
+        if isinstance(provider,CLIProvider) and (schema=='review' or role=='hypothesis_critic'):
+            provider=__import__('copy').copy(provider)
+            provider.timeout=min(provider.timeout,self.config['review_timeout'])
         image_refs=[{'name':p.name,'sha256':file_hash(p)} for p in images]
         inputs={'role':role,'schema':schema,'packet':packet,'provider':kind,'model':getattr(provider,'model','FIXTURE'),'images':image_refs}
         def invoke():
@@ -107,40 +131,41 @@ class Controller:
             if count>=self.config['max_model_calls']:raise Blocked('Model-call budget exhausted; no success fabricated')
             self.store.set('model_calls_reserved',count+1)
             log=self.root/'model_calls'/digest({'key':key,'input':inputs})
-            record=provider.invoke(role,schema,packet,log,images=images)
+            try:record=provider.invoke(role,schema,packet,log,images=images)
+            except ProviderFailure as exc:
+                if not managed_failure:
+                    # Direct author calls keep the existing explicit recovery
+                    # path. Only the board owns durable failure + retry cycles.
+                    raise
+                # A known terminated/probe failure is a durable outcome, not an
+                # unknown RUNNING action. Retry/failover uses a new attempt key.
+                raw=read_json(log/'process.json') if (log/'process.json').exists() else {}
+                failure={'provider':exc.provider,'code':exc.code,'retryable':exc.retryable}
+                receipt={**raw,'provider':kind,'role':role,'transport':raw.get('transport','PROBE_ONLY_NO_MODEL_RESPONSE'),
+                    'invocation_id':raw.get('invocation_id',str(__import__('uuid').uuid4())),
+                    'cli_version':raw.get('cli_version','NOT_AVAILABLE'),'model_requested':getattr(provider,'model',None) or 'CLI_DEFAULT',
+                    'model_reported':raw.get('model_reported','UNREPORTED'),'packet_digest':digest(packet),
+                    'prompt_sha256':raw.get('prompt_sha256','NOT_SENT'),'response_digest':digest(failure),
+                    'model_execution_status':'NO_VALID_RESPONSE','call_index':count+1}
+                write_json(log/'receipt.json',receipt);write_json(log/'failure.json',failure)
+                return {'provider_failure':failure,'receipt':receipt}
             record['receipt']['call_index']=count+1
             write_json(log/'receipt.json',record['receipt'])
             self.store.memory(role,{'key':key,'input_digest':digest(inputs),'output_digest':digest(record['result']),
                                      'receipt':record['receipt'],'next_action':'consume explicit downstream contract'})
             return record
-        return self.store.step('model:'+key,inputs,invoke)
+        record=self.store.step('model:'+key,inputs,invoke)
+        if 'provider_failure' in record:
+            failure=record['provider_failure']
+            raise ProviderFailure(failure['provider'],failure['code'],retryable=failure['retryable'])
+        return record
     def reviews(self,key,target,*,roles=('math_reviewer','experiment_reviewer'),context=None,images=(),stage='execution'):
         if stage not in REVIEW_STAGES:raise IntegrityError('Unknown review stage')
-        target_digest=digest(target)
-        packet={'problem':self.problem,'artifact':target,'target_digest':target_digest,
+        packet={'problem':self.problem,'artifact':target,'target_digest':digest(target),
                 'review_stage':stage,'stage_requirements':REVIEW_STAGES[stage],
                 'required_check':'PASS only when all in-scope checks are supported; unresolved P0/P1 or unknown required checks must FAIL/BLOCK.',
                 'context':context or {}}
-        result=[]
-        for role in roles:
-            feedback=None
-            for attempt in range(self.config['repair_attempts']+1):
-                request={**packet,**({'response_contract_feedback':feedback} if feedback else {})}
-                call_key=key+':'+role+(f':schema-retry{attempt}' if attempt else '')
-                try:
-                    result.append(self.call(call_key,role,'review',request,images=images if role=='paper_reviewer' else ()))
-                    break
-                except IntegrityError as exc:
-                    # A contradictory verdict is an invalid response, not an
-                    # artifact defect. Ask the same independent role afresh;
-                    # never rewrite its output or retry a valid negative verdict.
-                    if str(exc)!='PASS cannot contain blocking findings or unverified required checks' or attempt>=self.config['repair_attempts']:
-                        raise
-                    feedback={'error':str(exc),
-                        'rule':'Reassess the SAME artifact at the SAME stage. PASS requires no P0/P1 findings and unverified=[]. If required in-scope checks remain unknown, return FAIL/BLOCKED. Future execution requirements belong in the scope/evidence limitations, not in unverified at a pre-execution gate. Do not remove or downgrade an actual unresolved in-scope defect merely to satisfy the schema.'}
-                    self.store.event('REVIEW_RESPONSE_RETRY',{'key':call_key,'role':role,'target_digest':target_digest,'reason':str(exc)})
-        quorum=review_quorum(result,target_digest,required=roles,allow_fixture=self.demo)
-        self.store.event('REVIEW_GATE',quorum);return result
+        return self.review_board.review(key,packet,roles,images=images)
     def produce_reviewed(self,key,role,schema,packet,*,extra_review=None,entry=None):
         feedback=[]
         for attempt in range(self.config['repair_attempts']+1):
@@ -149,8 +174,10 @@ class Controller:
             try:
                 record=self.call(f'{key}:r{attempt}',role,schema,full);artifact=record['result']
                 if entry and entry not in [f['path'] for f in artifact['files']]:raise IntegrityError('Required entrypoint missing: '+entry)
-                if role=='modeler':resource_gate(artifact,self.config)
-                review_context={k:self.base[k] for k in ('experiment_contract','source_registry','io_contract','limits') if k in self.base}
+                if role=='modeler':
+                    resource_gate(artifact,self.config)
+                    if self.literature:self.literature.assess(artifact)
+                review_context={k:self.base[k] for k in ('experiment_contract','source_registry','io_contract','limits','hypothesis_contract') if k in self.base}
                 if 'plan' in packet:review_context['plan']=packet['plan']
                 review_context.update(extra_review or {})
                 if role=='verifier_author' and not self.demo:
@@ -162,6 +189,8 @@ class Controller:
                 self.store.set(key,{'artifact_digest':self.store.put(artifact),'response_digest':record['receipt']['response_digest'],
                                      'review_target':digest(artifact),'attempt':attempt})
                 return artifact,reviews
+            except (ReviewUnavailable,ResearchUnavailable):
+                raise
             except (Blocked,IntegrityError) as e:
                 feedback.append({'attempt':attempt,'failure':str(e),
                                  **({'prior_artifact':artifact,'runtime_diagnostic':diagnostic} if role=='verifier_author' and artifact else {})})
@@ -209,6 +238,7 @@ class Controller:
             return {'unit_tests':report,'negative_controls':runner.negative_controls(verifier),'output_path':str((base/'out').relative_to(self.root)),'output_manifest':tree_manifest(base/'out')}
         result=self.store.step('independent-selftests:'+answer_row['job_id'],{'verifier':digest(verifier),'answer':answer_row['job_id']},action)
         verify_tree(self.root/result['output_path'],result['output_manifest'])
+        if self.literature:self.literature.require_tests(result['unit_tests'])
         return result
     def all_ai_records(self):
         records=[]
@@ -221,7 +251,14 @@ class Controller:
                 r['model_execution_status']='FAILED_OR_UNKNOWN';records.append(r)
         return sorted(records,key=lambda x:(x.get('call_index',10**9),x['invocation_id']))
     def _run(self):
-        self.store.audit();verify_vendor();backend=self.executor.probe()
+        self.store.audit()
+        with self.store.connect() as c:
+            pending_steps=[r['key'] for r in c.execute("SELECT key FROM steps WHERE status='RUNNING'")]
+            pending_jobs=[r['id'] for r in c.execute("SELECT id FROM jobs WHERE status='RUNNING'")]
+        if pending_steps or pending_jobs:
+            raise Blocked('Unknown RUNNING work; reconcile external processes before explicit recovery: '
+                          + str({'steps':pending_steps,'jobs':pending_jobs}))
+        verify_vendor();backend=self.executor.probe()
         current_sources=read_json(self.root/'sources.json') if (self.root/'sources.json').exists() else []
         self.store.step('freeze-sources',{'sources':current_sources},lambda:current_sources)
         fingerprint={'environment':environment(),'backend':backend,
@@ -230,10 +267,17 @@ class Controller:
         old=self.store.get('runtime_fingerprint')
         if old is not None and old!=fingerprint:raise IntegrityError('Runtime/code changed since run start; create a fresh run for a new environment')
         if old is None:self.store.set('runtime_fingerprint',fingerprint)
+        self.review_cycle=self.store.get('review_cycle',0)+1
+        self.store.set('review_cycle',self.review_cycle)
         if not self.demo:
-            for p in self.providers.values():p.probe()
+            # Production generation needs Codex. Optional Claude is checked
+            # lazily by the board; it is never a startup single point of failure.
+            self.providers['codex'].probe()
         self.status('PLANNING')
         pi=self.call('pi-initial','supervisor','supervisor',self.base)['result']
+        if self.literature:
+            self.status('EXA_LITERATURE_AND_HYPOTHESES')
+            self.literature.collect_initial(pi)
         plan,_=self.produce_reviewed('plan','modeler','plan',{**self.base,'pi_priorities':pi})
         self.store.step('resource-gate',{'plan':plan,'config':self.config},lambda:resource_gate(plan,self.config))
         if self.config['mode']=='contest':
@@ -257,6 +301,8 @@ class Controller:
                 tests=self.selftests(runner,verifier,smoke)
                 self.reviews('smoke-review:'+digest(bundle),{'smoke':smoke,'tests':tests,'code':bundle,'verifier':verifier},context={'plan':plan})
                 break
+            except (ReviewUnavailable,ResearchUnavailable):
+                raise
             except (Blocked,IntegrityError) as exc:
                 # Never repair an unknown external process, evaluator, protocol or
                 # confirmation data. Only a new producer bundle may be proposed.
@@ -320,15 +366,18 @@ class Controller:
         from .paper import claim_registry,build_paper,render_pages,build_ai_details
         claims,representative=claim_registry(confirm,selection,inference);write_json(self.root/'claims.json',claims)
         self.status('WRITING')
-        source_registry=read_json(self.root/'sources.json') if (self.root/'sources.json').exists() else []
-        packet={'problem':self.problem,'plan':plan,'claims':claims,'inference':inference,'selection':selection,
+        source_registry=self.base.get('source_registry',[])
+        self.store.step('freeze-paper-sources',{'sources':source_registry},lambda:source_registry)
+        packet={'hypothesis_contract':self.base.get('hypothesis_contract'),
+                'hypothesis_execution':read_json(self.root/'literature/execution.json') if (self.root/'literature/execution.json').exists() else None,
+                'problem':self.problem,'plan':plan,'claims':claims,'inference':inference,'selection':selection,
                 'source_registry':source_registry,'scope':protocol['scope'],'demo':self.demo,
                 'requirements':'Chinese text; first section 问题重述. All empirical numbers use {{claim:ID}}; mathematical constants use equation fields. Do not invent citations. This research is NOT a claim of global superiority.'}
         feedback=[];built=None;draft=None
         for attempt in range(self.config['repair_attempts']+1):
             record=self.call(f'paper:r{attempt}','writer','paper',{**packet,'repair_feedback':feedback});draft=record['result']
             try:
-                built=self.store.step(f'paper-build:r{attempt}',{'draft':draft,'claims':claims,'rows':confirm,'bundles':bundles,'verifier':digest(verifier)},
+                built=self.store.step(f'paper-build:r{attempt}',{'draft':draft,'claims':claims,'rows':confirm,'bundles':bundles,'verifier':digest(verifier),'sources':source_registry},
                     lambda:build_paper(self.root,draft,claims,confirm,ai_records=self.all_ai_records(),code_bundles={**bundles,'verifier':verifier},source_registry=source_registry,demo=self.demo))
                 if file_hash(self.root/'paper/main.pdf')!=built['paper_sha256']:raise IntegrityError('Frozen PDF was changed')
                 break
@@ -337,10 +386,10 @@ class Controller:
         if not built:raise Blocked('Paper build did not pass within repair budget')
         # Review all body pages; appendices are code-bound, mechanically checked,
         # and remain subject to explicit human full-document visual attestation.
-        pages=render_pages(self.root/'paper/main.pdf',self.root/'paper/rendered')
         n=built['preflight']['body_pages']+1
-        selected_pages=pages[:n]+pages[n:n+1]+pages[-1:]
-        selected_pages=list(dict.fromkeys(selected_pages))
+        total_pages=built['preflight']['pages']
+        indices=list(range(min(n+1,total_pages)))+[total_pages-1]
+        selected_pages=render_pages(self.root/'paper/main.pdf',self.root/'paper/rendered',page_indices=indices)
         visual=[]
         for j in range(0,len(selected_pages),6):
             batch=selected_pages[j:j+6]
@@ -356,18 +405,22 @@ class Controller:
             pending=approval.request(self.root,'release',release_target,[r['response_digest'] for r in records],
                         'Review adoption/modification/verification for every AI output and visually check the whole PDF')
             self.status('WAITING_HUMAN_RELEASE');human=approval.require(self.root,'release',pending,os.getenv('CUMCM_OPERATOR_KEY'))
-        ai=build_ai_details(self.root/'paper',records,human,demo=self.demo)
+        ai=self.store.step('ai-details-build',{'records':records,'human':human,'demo':self.demo},
+            lambda:build_ai_details(self.root/'paper',records,human,demo=self.demo))
+        if file_hash(self.root/'paper'/ai['path'])!=ai['sha256']:raise IntegrityError('AI details PDF changed after build')
         from .packaging import package_workspace
         package=package_workspace(self.root,built,claims,protocol,confirm,records,ai,contest=self.config['mode']=='contest',human=human)
         status='DEMO_COMPLETE_NOT_LIVE_VALIDATED' if self.demo else ('CONTEST_REVIEWED_LOCAL_PACKAGE' if self.config['mode']=='contest' else 'PRACTICE_COMPLETE_HUMAN_REVIEW_REQUIRED')
         result={'status':status,'live_llm_calls':not self.demo,'plan_digest':digest(plan),'verifier_digest':digest(verifier),
                 'development_cells':len(development),'confirmation_cells':len(confirm),'selection':selection,'inference':inference,
-                'paper':built,'package':package,'world_best_claim':'NOT_ESTABLISHED','auto_submission':False}
+                'paper':built,'package':package,'world_best_claim':'NOT_ESTABLISHED','auto_submission':False,
+                'review_failovers':[__import__('json').loads(e['payload']) for e in self.store.events() if e['kind']=='PROVIDER_FAILOVER'],
+                'literature_status':self.literature.accepted['retrieval'] if self.literature and self.literature.accepted else 'DISABLED_EXPLICITLY'}
         write_json(self.root/'run_summary.json',result);self.status(status);self.store.audit();return result
     def run(self):
         with controller_lock(self.root):
             try:return self._run()
             except Exception as e:
-                self.store.event('BLOCKER',{'type':type(e).__name__,'message':str(e)});self.status('BLOCKED')
+                self.store.event('BLOCKER',{'type':type(e).__name__,'message':str(e)});self.status('WAITING_REVIEW_PROVIDERS' if isinstance(e,ReviewUnavailable) else 'WAITING_RESEARCH_PROVIDER' if isinstance(e,ResearchUnavailable) else 'BLOCKED')
                 write_json(self.root/'blocker.json',{'type':type(e).__name__,'message':str(e),'completed_artifacts_preserved':True})
                 raise

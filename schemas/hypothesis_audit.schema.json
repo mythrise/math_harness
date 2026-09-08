@@ -1,0 +1,106 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checks": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "quote": {
+                  "maxLength": 400,
+                  "minLength": 12,
+                  "type": "string"
+                },
+                "relation": {
+                  "enum": [
+                    "supports",
+                    "opposes",
+                    "scope_limit"
+                  ]
+                },
+                "source_id": {
+                  "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source_id",
+                "quote",
+                "relation"
+              ],
+              "type": "object"
+            },
+            "minItems": 0,
+            "type": "array"
+          },
+          "hypothesis_id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "judgment": {
+            "enum": [
+              "supported_with_scope",
+              "explicit_simplification",
+              "inconclusive",
+              "contradicted"
+            ]
+          },
+          "rationale": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "required_test": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "requires_execution": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "hypothesis_id",
+          "judgment",
+          "rationale",
+          "evidence",
+          "requires_execution",
+          "required_test"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "citation_ids": {
+      "items": {
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+        "type": "string"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "decision": {
+      "enum": [
+        "ACCEPT_FOR_TESTING",
+        "REVISE"
+      ]
+    },
+    "limitations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "decision",
+    "checks",
+    "limitations",
+    "citation_ids"
+  ],
+  "type": "object"
+}

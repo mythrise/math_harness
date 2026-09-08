@@ -1,0 +1,18 @@
+{
+  "mode": "practice",
+  "network_policy": "EXA_ABSTRACT_QUERIES",
+  "literature_enabled": true,
+  "exa_max_requests": 32,
+  "exa_results_per_query": 4,
+  "exa_timeout": 35,
+  "exa_approved_queries": [],
+  "review_members_per_role": 2,
+  "review_attempts_per_provider": 2,
+  "review_timeout": 180,
+  "review_cooldown_seconds": 60,
+  "review_backoff_seconds": 0.25,
+  "max_model_calls": 180,
+  "claude_call_budget_usd": null,
+  "claude_model": null,
+  "codex_model": null
+}

@@ -1,0 +1,86 @@
+{
+  "version": "0.2.0",
+  "base_commit": "3b233edaa5d2c9ec95bf67ae2d495e0d662c3292",
+  "test_date": "2026-09-07",
+  "harness_tests": {
+    "passed": 170,
+    "failed": 0,
+    "seconds": 13.81
+  },
+  "installer_tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "vendor": {
+    "status": "PASS",
+    "files": 408,
+    "manifest_sha256": "4d5d665f6511cc5c345c936194512a43a3e821d50afb14b634e9c9438c059034"
+  },
+  "e2e": {
+    "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+    "scope": {
+      "claude_outage": "INJECTED_NOT_REAL_OUTAGE",
+      "exa": "REPLAYED_SOURCE_FIXTURE_NOT_LIVE_HTTP",
+      "llm": "FIXTURE_NOT_LLM",
+      "numerics": "ACTUALLY_EXECUTED",
+      "pdf": "ACTUALLY_COMPILED",
+      "user_api_key_validation": "NOT_RUN"
+    },
+    "development_cells": 12,
+    "confirmation_cells": 10,
+    "fe_per_cell": 192,
+    "review_failovers": 18,
+    "model_calls_including_injected_failures": 45,
+    "pdf_pages": 159,
+    "package": {
+      "contest_mode": false,
+      "file_count": 177,
+      "official_submission_sent": false,
+      "paper": "deliverables/paper.pdf",
+      "paper_bytes": 552963,
+      "paper_sha256": "6babefac24a0b2b2dd0644c60d5a765ebab2363a798f80cd4df66eb372af0a8b",
+      "support": "deliverables/support.zip",
+      "support_bytes": 934686,
+      "support_sha256": "c62141ea876acecd1664ee2b93d8d7d35a5e5c338aa63db57532f7d9798bf2ce"
+    },
+    "inference": {
+      "ci95": [
+        0.03707035445757254,
+        0.08476100966702467
+      ],
+      "decision": "KEEP_CANDIDATE",
+      "mean_improvement": 0.06703813104189041,
+      "n": 5,
+      "reason": "percentile paired bootstrap; applies only to declared replication unit, not a universal claim",
+      "scope": "SEED_REPLICATION_SAME_INSTANCE",
+      "winner_selected_before_confirmation": "c0"
+    }
+  },
+  "resume": {
+    "calls_after": 45,
+    "calls_before": 45,
+    "jobs_after": 22,
+    "jobs_before": 22,
+    "paper_sha256_unchanged": true,
+    "seconds_including_resume": 57.31594488900009,
+    "status": "PASS",
+    "support_sha256_unchanged": true
+  },
+  "support_reproduction": {
+    "baseline_seed701": "ANSWER_AND_EVALUATION_BYTE_EQUAL",
+    "c0_seed701": "ANSWER_AND_EVALUATION_BYTE_EQUAL"
+  },
+  "visual_inspection": "Rendered body/figure and sampled appendix inspected; not a full independent scientific review",
+  "remote_update": {
+    "status": "NOT_UPDATED",
+    "attempted_actions": [
+      "create_blob",
+      "create_branch"
+    ],
+    "http_status": 403,
+    "message": "Resource not accessible by integration"
+  },
+  "live_codex_claude_docker": "NOT_RUN_EXECUTABLES_UNAVAILABLE",
+  "user_exa_key_auth": "NOT_RUN_DIRECT_DNS_UNAVAILABLE",
+  "actual_exa_connector_search": "COMPLETED_SEPARATELY_NOT_THE_USER_KEY_HTTP_CLIENT"
+}

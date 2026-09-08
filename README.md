@@ -1,115 +1,73 @@
-# CUMCM-EgoHarness 0.1.0
+# CUMCM-EgoHarness 0.2.0
 
-**Codex 建模 / 编码 / 论文 + Claude 关键审查 + 确定性实验内核。**
+**Codex 建模／编码／论文 + Exa 文献对抗 + Claude/GPT 审查接管 + 确定性实验内核。**
 
-本仓库包含当前 harness 源码、项目级 Codex skills、Docker 构建文件、测试、演示以及原版 MOSAIC/OurWork 依赖。Claude 单次调用默认不设美元费用上限；指定 Fable 时关闭自动换模型。最新本地工程验证及真实赛题进度见 [GitHub 快照说明](reports/GITHUB_SNAPSHOT_CN.md)。
+本次更新基于已有 0.1.0 仓库，不改原版 MOSAIC/OurWork，不复制或覆盖本机凭证。新增独立文献反方、可执行假设诊断、双席审查、Claude 故障的 GPT 接管、熔断与恢复。**真实否定意见不能被切换模型绕过。**
 
-本机凭证、虚拟环境、原始 CLI 日志、实验数据库、赛题输入及下载压缩包不纳入 Git。下文及本地部署文档中指向这些本机目录的链接需要在自己的环境运行后生成。`examples/validated_run` 是原始交付中的演示证据，不能当作真实赛题论文。
+先读 [升级与完整运行说明](docs/EXA_RESILIENT_REVIEW_CN.md) 和 [本机升级验收](reports/EXA_UPGRADE_LOCAL_CN.md)。[更新包上游验收](reports/EXA_REVIEW_ACCEPTANCE_CN.md) 保留制作时的测试与远程 403 记录，不代表本机本次推送状态。旧版测试、部署及真实赛题进度仍保留在 `reports/`。
 
-这是一套可执行的本地 harness，而不是把角色提示词拼在一起。代码、输入、评测器、阶段、种子、资源与环境进入内容寻址；只有可追溯且通过验收的结果才能成为论文数值。2026 正式参赛模式在核心建模、最终发布前要求真实人工签核，不自动提交。
+## 快速验证
 
-## 本次交付的边界
-
-下表是原始压缩包的交付记录。本机后续部署与配置结果见 `docs/LOCAL_CODEX_SETUP_CN.md` 和 `reports/live-configuration/STATUS.md`。
-
-| 能力 | 本次状态 |
-|---|---|
-| 原始 MOSAIC v14 封装、独立目标重算、真实多种子实验 | 已执行，见 reports 和 examples/validated_run |
-| 原始 OurWork v16 二十模板空编辑回归与矢量输出 | 已测试 |
-| 状态机、内容哈希、并行发布、恢复、门禁、CLI 解析 | 已测试 |
-| 中文 XeLaTeX、完整源码附录、AI 详情、独立支撑包 | 实际构建；见报告 |
-| 真正调用 Codex/Claude | 本环境未安装，未执行。假 CLI 测试只是接口契约测试 |
-| Docker 隔离执行 | 已实现，但本环境没有 Docker，未做容器实测 |
-| 完整历史国赛题 / 四个上游系统同预算对比 | 未执行，不能声称超越全部系统或全国一等奖能力 |
-
-`demo` 的规划、代码选择、审查答复是**事先写好的夹具**，数值求解和独立评测是真的。`run` 没有夹具退化路径，必须能调用真实 CLI 与 Docker。请勿把演示 PDF 当作官方赛题论文。
-
-## 先运行无需模型费用的演示
-
-Linux / macOS；Windows 使用 WSL。必须保留整个源码目录，并使用 editable install，不要只拷贝 `cumcm_harness/`。
+已有本机部署继续使用 `.venv/bin/python` 或 `./scripts/cumcm`；其他环境先创建 Python 3.11+ 虚拟环境。保留完整仓库并使用 editable install。
 
 ```bash
-cd CUMCM_EgoHarness
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e '.[dev,excel]'
-python -m cumcm_harness doctor
+python -m pip install --no-build-isolation -e '.[dev,excel]'
 python -m pytest -q
 python -m cumcm_harness verify-vendor
-python -m cumcm_harness demo workspaces/demo --candidates 2 --fe-budget 192
+python -m cumcm_harness.resilience_demo workspaces/resilience-demo
 ```
 
-PDF/矢量导出还需本机有 `xelatex`、`inkscape`，中文 TeX 包、`fvextra`、`xurl`，以及 DejaVu Sans Mono 或支持希腊字母的等宽字体。Ubuntu 可由操作员安装 `texlive-xetex texlive-lang-chinese texlive-latex-extra inkscape fonts-dejavu`。本包不包含字体文件。
+最后一条命令是**明确标记的故障注入工程测试**，不调用真实模型或 Exa HTTP、不需要密钥。数值求解、独立评价、假设诊断、LaTeX 编译和支撑包生成实际执行。它不证明真实多模型自主完成国赛题，更不代表已超越其他系统。PDF/矢量输出需要 `xelatex`、`inkscape` 及原文档所列中文 TeX 环境。
 
-完成后读取：
+## 使用真实服务
 
-```
-workspaces/demo/run_summary.json
-workspaces/demo/selection.json
-workspaces/demo/confirmation.json
-workspaces/demo/deliverables/paper.pdf
-workspaces/demo/deliverables/support.zip
-```
+Codex CLI 需要有效认证。Claude CLI 使用既有用户认证／服务地址／模型配置，保留 safe-mode，禁用执行工具和 MCP；无需强制更换为 API-only 登录。Claude 不可用时可由新的 Codex 审查调用接管。GPT 同样不可用时暂停保留状态，不假装完成。
 
-相同工作区再次执行 `demo` 是恢复，不是新的独立试验。不可通过删除失败记录来制造新结果。
-
-Claude 单次调用默认不设美元费用上限：`claude_call_budget_usd: null` 时不向 CLI 传递 `--max-budget-usd`。模型调用超时、总调用次数与数值实验 FE 预算仍由各自配置控制。已冻结工作区保留原配置；新的默认值不追溯修改历史运行。
-
-## 真实模型运行
-
-先按官方文档安装并配置 Codex CLI、Claude Code CLI、Docker。Claude 适配器调用本机 CLI，使用 `--safe-mode --setting-sources user`，让 CLI 自行读取用户现有认证、服务地址与模型设置，同时关闭自定义插件、hooks、技能和 MCP；内置执行工具仍禁用。harness 不复制或转换凭证，也不硬编码某种订阅或 API 认证方式。Codex 使用其 CLI 默认认证或支持的环境变量；不硬编码某个可能下线的模型名称。
+Exa 密钥只通过 `EXA_API_KEY` 环境变量提供，**不要写进仓库、JSON、提示词或日志**。在 Bash 中隐藏输入：
 
 ```bash
-# 凭证由操作员设置，不写入仓库、提示词、题目或源码。
-# 本机 Claude CLI 应已配置并能完成实际请求。
-# Codex CLI 应已经完成有效认证。
+read -r -s -p 'Exa API key: ' EXA_API_KEY
+export EXA_API_KEY
+printf '\n'
 
 docker build -t cumcm-egoharness:0.1.0 .
-python -m cumcm_harness doctor --live
-python -m cumcm_harness init workspaces/practice \
+python -m cumcm_harness doctor --live --config configs/exa-resilient.json
+python -m cumcm_harness init workspaces/exa-new \
   --problem /absolute/path/problem.md \
   --data /absolute/path/data \
-  --config configs/practice.json
-python -m cumcm_harness run workspaces/practice
+  --config configs/exa-resilient.json
+python -m cumcm_harness run workspaces/exa-new
 ```
 
-题面可为 Markdown、文本或含可提取文本的 PDF。**复杂图示不会被文字解析自动理解**；应先核实图表，提供已校验转录及解释。扫描 PDF 会明确阻塞，而不是编造识别内容。数据可包含 CSV、JSON、XLSX；导入不重算 Excel 公式，不做隐式插值。
+镜像标签为兼容已有部署保留，升级后必须重建。默认旧 profile 的 LOCAL_EVIDENCE_ONLY 不会静默启用网络；使用上面的新 profile。更新了源码、环境或冻结配置时创建新工作区，保留旧证据，不手工改 fingerprint。相同新工作区再次 `run` 才是恢复。
 
-可用 `--confirmation DIR` 指定独立确认数据、`--private-dev DIR --private-confirm DIR` 提供只交给评测器的参考标签。没有独立确认目录时，系统明确记录 `SEED_REPLICATION_SAME_INSTANCE`，不冒充跨数据集泛化。已有已核验文献可通过 `--sources docs/sources-example.json` 导入；该示例仅含已核验的官方规则；具体模型仍需补充真实领域文献。
+题面支持 Markdown、文本和可提取文本的 PDF；扫描件或复杂图示必须提供已核验转录。可通过既有 `--confirmation`、`--private-dev`、`--private-confirm`、`--sources` 指定独立确认数据、私有参考和人工核验来源。无独立确认数据时明确标记为同实例种子重复，而非跨数据泛化。
 
-## 2026 正式参赛模式
+## 编排与验收
 
-```bash
-python -m cumcm_harness init workspaces/contest \
-  --problem /absolute/path/problem.md --data /absolute/path/data \
-  --config configs/contest-2026.json
-python -m cumcm_harness run workspaces/contest
+文献研究员 → Exa 支持证据 → 建模手与假设卡 → 独立反方 Exa 反例检索 → 双席文献／数学／实验审查 → 独立评测器 preflight → 编码与真实实验 → 强制假设诊断 → 开发选择后冻结确认 → 证据写作 → PDF 审查和支撑包。
+
+每个关键审查职责默认两个新上下文席位。接口终止性故障有限重试并显式接管；有效 FAIL/BLOCKED、必要检查未知、数据或摘要损坏、未知运行状态和预算耗尽不能靠换供应商通过。图像输入仅由支持该能力的 Codex 适配器处理。Exa 搜到文献不等于假设成立，经验性和简化假设需实际程序诊断。
+
+`WAITING_REVIEW_PROVIDERS` 或 `WAITING_RESEARCH_PROVIDER` 表示保留成功阶段、等待依赖恢复。未知 RUNNING 任务仍必须先核对外部进程，再使用显式 recover；不要删除数据库重新伪造一轮成功。
+
+## 正式国赛模式
+
+仍保留 2026 规则下的团队主导核心建模、逐项人工审查及 plan/release 签核，不自动提交、不代签。contest 在线研究仅允许操作员预先逐字批准的 `exa_approved_queries`；空列表会阻塞。仅做启发式过滤的 practice 模式不是敏感信息防泄漏的正式保证。
+
+既有 `approve --stage plan/release`、HMAC 摘要绑定、匿名检查、AI 工具使用声明、完整源码附录和论文/支撑包大小限制均保留。HMAC 不是法律电子签名，也不能证明签核者实际读过内容。
+
+## 主要目录
+
+```text
+cumcm_harness/literature.py       Exa 检索、假设卡、反方审查、检验门禁
+cumcm_harness/review_board.py     Claude/GPT 席位、接管、熔断、证据法定人数
+cumcm_harness/controller.py       确定性全链路
+cumcm_harness/resilience_demo.py  故障注入到完整论文的工程回归
+.agents/skills/                   Codex skills（含新增文献反方）
+configs/exa-resilient.json        新在线研究配置，不含密钥
+vendor/                          原版 MOSAIC 与 OurWork
+reports/                         分开记录真实数值、夹具与尚未运行的验收
 ```
 
-首次会在建模门禁等待团队审查。团队必须真正主导、修改并理解核心建模；在尚未确认的问题上不要签字。编辑 `approvals/plan.review-template.json`，为每项填写采纳、修改、实际核验方法。操作员在独立终端保管至少32字符的 `CUMCM_OPERATOR_KEY`，然后：
-
-```bash
-python -m cumcm_harness approve workspaces/contest \
-  --stage plan --review workspaces/contest/approvals/plan.review-template.json
-python -m cumcm_harness run workspaces/contest
-```
-
-最终发布还会要求 `--stage release`，逐项核验 AI 输出并检查整篇 PDF。修改方案或证据后旧签核失效。HMAC 只是本地防误用的签核绑定，不是法律电子签名，也不能证明签核者真的读过内容。
-
-**开发源码 ZIP ≠ 比赛支撑材料 ZIP。** 源码包保留研究来源与模板，体积可能超过20MB；系统生成的 `support.zip` 和论文单独受20MB门禁约束。承诺书与编号页不放入电子论文或支撑包。
-
-## 源码地图
-
-```
-.agents/skills/        Codex 可读入口；独立的 MOSAIC / OurWork / autoresearch 技能
-cumcm_harness/        确定性控制、真实 CLI、独立执行与论文发布
-configs/ schemas/    配置及机器可校验合同
-vendor/mosaic_v14/    附件算法原码，未修改
-vendor/ourwork_v16/   附件矢量引擎与20个原始模板，未修改
-examples/            固定演示代码、验收产物与独立复现入口
-benchmarks/          四基线比较协议与已测/未测状态，不填虚假得分
-reports/             本次测试、环境与实验审计
-scripts/             支撑包独立复现
-```
-
-详细设计见 `docs/ARCHITECTURE_CN.md`，上游分析见 `docs/RESEARCH_REVIEW_CN.md`，运行和安全边界见 `docs/OPERATIONS_CN.md`，完整评测计划见 `benchmarks/PROTOCOL_CN.md`。最终测试数字以 `reports/TEST_REPORT_CN.md` 为准。
+其他设计和历史部署细节：`docs/ARCHITECTURE_CN.md`、`docs/LOCAL_CODEX_SETUP_CN.md`、`reports/live-configuration/STATUS.md`、`benchmarks/PROTOCOL_CN.md`。本机私有日志、凭证、赛题数据与运行工作区不纳入 Git。

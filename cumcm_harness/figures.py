@@ -26,11 +26,11 @@ def framework(out:Path, *, questions=None):
     s=SVG(w=1160,h=760)
     family='Arial, Liberation Sans, sans-serif'
     s.text(580,40,'CUMCM-EgoHarness  |  Evidence before claims',size=25,weight='bold',family=family)
-    s.text(580,69,'Deterministic control + Codex producers + fresh-context Claude reviews',size=15,family=family)
+    s.text(580,69,'Exa evidence + adversarial assumptions + Claude / GPT review seats',size=15,family=family)
     node(s,390,92,380,56,'Research PI / Supreme Scheduler\nPriorities, budget, repair and stop decisions',size=16,weight='bold')
     for x in (200,580,960):
         s.polyline([(580,148),(580,167),(x,167),(x,187)],marker='arrow')
-    columns=[(30,'MODELER / Codex',['Read problem and data','Units, assumptions and equations','Task DAG + model / solver contracts','Baseline + ablations + sensitivity']),
+    columns=[(30,'MODELER / Codex',['Exa scout: evidence and method limits','Modeler: assumptions and equations','Exa adversary: counterexamples + tests','Frozen hypotheses + solver contracts']),
              (410,'CODER / Codex',['Generate isolated versioned code','MOSAIC or admissible algorithm skill','Independent tests + bounded execution','Immutable trials / seeds / raw outputs']),
              (790,'WRITER / Codex',['Read only validated claim records','Tables and vector OurWork figures','Chinese LaTeX + runnable code appendix','AI disclosure + anonymous release'])]
     for x,title,items in columns:
@@ -41,8 +41,8 @@ def framework(out:Path, *, questions=None):
     for x in (200,580,960):arrow(s,x,422,x,452)
     s.rect(30,455,1100,98,fill='#F6F3EC',stroke='#9D8969',rx=10)
     s.text(580,483,'INDEPENDENT REVIEW BOARD',size=18,weight='bold',family=family)
-    s.text(580,511,'Claude: mathematics  |  Claude: experimental validity  |  Codex: manuscript + rendered pages',size=16,family=family)
-    s.text(580,537,'Every decision binds exact artifact digests. P0/P1 failures cannot be overridden by the PI.',size=13,family=family)
+    s.text(580,511,'Claude + GPT: math / experiments  |  GPT takeover on outage  |  GPT: rendered pages',size=16,family=family)
+    s.text(580,537,'Two fresh seats per role. Transport failover never erases a valid negative review.',size=13,family=family)
     arrow(s,580,553,580,579)
     node(s,30,582,340,66,'DETERMINISTIC CORE\nDAG + CAS + SQLite + receipts',size=16,fill='#EAF1F4')
     node(s,410,582,340,66,'AUTORESEARCH\nDev selection -> freeze -> confirm',size=16,fill='#EAF1F4')

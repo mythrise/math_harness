@@ -1,0 +1,186 @@
+{
+  "audit": {
+    "authority": "LOCAL_SQLITE",
+    "events": 458,
+    "integrity": "PASS",
+    "root_hash": "5a3347e59ba8dd0e67e967ef3a0654e9237990ce7bfefcb1d4c0f8df241350b5"
+  },
+  "base_commit": "3b233edaa5d2c9ec95bf67ae2d495e0d662c3292",
+  "branch": "main",
+  "core_source_sha256": {
+    "cumcm_harness/__init__.py": "415b1102e1741fbda0d97fff6e1f492baa8067386a11ddffdcb46516c535089f",
+    "cumcm_harness/__main__.py": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+    "cumcm_harness/algorithms.py": "76e0a755c9bc9a68ac849976bd2bcd540db48d4214e33300c807cd1d23b4d837",
+    "cumcm_harness/approval.py": "5cf436458902032f2a2dd9e4f4b134b56cb9dec42998cf716790434ce20e5e73",
+    "cumcm_harness/cli.py": "f2d5390fae4fdcd5c7b58130ea053a29f1cbbbeb1298b35c57977c1eec8869bf",
+    "cumcm_harness/common.py": "932e9e66db12373bdd3118447a51a5c8d1ba99ffb290e11c7def54701c46c22d",
+    "cumcm_harness/contracts.py": "4f6ec5b6feeb43fd86b25e0e207405af1475ef8231d2712451e2e41fa3b9bd16",
+    "cumcm_harness/controller.py": "d8aa61d3d6213cd1763599949a555232092b6d5e923227440600f0008dd49833",
+    "cumcm_harness/demo.py": "a9b549ce9497b410fcead2ffee223ce2d709737a1da710ce00bc04eb8c1efb99",
+    "cumcm_harness/ego_bridge.py": "d69cf97ef1f4e00f2d5602e2f4f4eaa554739e9b019614fd12dba2f3b46ae492",
+    "cumcm_harness/figures.py": "b957a83f97b506a5da5e4432a2df387b9a6ff8ec71e713b5aa68f5acb3f327ce",
+    "cumcm_harness/intake.py": "c25dbdb9bc460e715b0cbeabf7148c085aa204720dfe896c66f987e2f0a2bd85",
+    "cumcm_harness/literature.py": "da700f5bf115b8d72e2886736bb46d26789e024e9fe6d68bc93aae010aa299c1",
+    "cumcm_harness/packaging.py": "57cbe3c761d704b0a855c577ad2cbf4687afb044aad76997c862773c75115f13",
+    "cumcm_harness/paper.py": "de70c330c235440d8c128d8f64dde8855a2228dcfa8749a3ed1d133ef8ce55ed",
+    "cumcm_harness/process.py": "a14b48f0f33605b67263b1b4b008ab39f315f01ba9895eab0bd10af2d221b792",
+    "cumcm_harness/providers.py": "9b2d9a8df25e4c6b79170f6d45251b893ad5cce3c968d4ac0b75d3b8d23ee934",
+    "cumcm_harness/research.py": "b783112c1bf04ecc84795a34c00866d5a3788167e1170fe472095f90447d8196",
+    "cumcm_harness/resilience_demo.py": "43eb59f8bcaaad95c6ea8882aa1bd0b35cd85e0a1a24f7789bb7bbf51a492452",
+    "cumcm_harness/review_board.py": "29a5006797fac51000a3c72b735cc670e658449a06884716dc2f98b14e5bc5fc",
+    "cumcm_harness/sandbox.py": "d543952703fb627d56b97b0114a96a5b18664c4f91deb63e2e38b1bbf103499a",
+    "cumcm_harness/store.py": "d6ad0a84a284252cfdf523f1a239b0ed5fdb2f49cd93fb72fdcd762e8dd427af",
+    "cumcm_harness/verifier_preflight.py": "d91b5f4cb4a4ee2113c9bf96f1f2ceccc8859fec7be1cc7b92f5fee0d87dd069",
+    "cumcm_harness/worker.py": "2e3423ae7553a0dc078a84d83409f2fc9b09e44518038e5b9681c295a4b20e66"
+  },
+  "date": "2026-09-08",
+  "docker": {
+    "cases": [
+      {
+        "candidate": "baseline",
+        "evaluation_status": "EXITED",
+        "seed": 701,
+        "solver_status": "EXITED",
+        "valid": true
+      },
+      {
+        "candidate": "c0",
+        "evaluation_status": "EXITED",
+        "seed": 701,
+        "solver_status": "EXITED",
+        "valid": true
+      }
+    ],
+    "image": {
+      "backend": "DOCKER",
+      "image_id": "sha256:41e1b0b29b5c72fbf89fd2c1de7e4b0783a06fc0e5abbd7e3daf1a7cd80ac77f"
+    },
+    "previous_image_backup": "cumcm-egoharness:pre-exa-20260908",
+    "status": "LIVE_LOCAL_DOCKER_PASS",
+    "tags": [
+      "cumcm-egoharness:0.2.0",
+      "cumcm-egoharness:0.1.0"
+    ]
+  },
+  "e2e": {
+    "body_pages": 4,
+    "calls_reserved": 45,
+    "confirmation_cells": 10,
+    "development_cells": 12,
+    "package": {
+      "contest_mode": false,
+      "file_count": 177,
+      "official_submission_sent": false,
+      "paper": "deliverables/paper.pdf",
+      "paper_bytes": 600338,
+      "paper_sha256": "bee40f6ae9f90b67530a1673020820c80294b2b4a50a7e286d19a2c4b91215f6",
+      "support": "deliverables/support.zip",
+      "support_bytes": 982917,
+      "support_sha256": "8610b8e162cb5e651363040797e3646626371982f526369d0904bc6e0f0650cf"
+    },
+    "paper_pages": 159,
+    "review_failovers": 18,
+    "scope": {
+      "claude_outage": "INJECTED_NOT_REAL_OUTAGE",
+      "exa": "REPLAYED_SOURCE_FIXTURE_NOT_LIVE_HTTP",
+      "llm": "FIXTURE_NOT_LLM",
+      "numerics": "ACTUALLY_EXECUTED",
+      "pdf": "ACTUALLY_COMPILED",
+      "user_api_key_validation": "NOT_RUN"
+    },
+    "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+    "workspace": "workspaces/exa-upgrade-final-20260908"
+  },
+  "engineering_status": "PASS",
+  "evidence_note": "Raw process logs, local workspaces and credentials are not published; upstream reports are historical receipts.",
+  "harness_tests": {
+    "errors": 0,
+    "failed": 0,
+    "passed": 186,
+    "seconds": 4.841,
+    "skipped": 0,
+    "warnings": "5 third-party PyMuPDF/SWIG deprecation warnings"
+  },
+  "independent_reproduction": {
+    "cases": [
+      {
+        "answer_bytes_equal": true,
+        "candidate": "baseline",
+        "evaluation_bytes_equal": true,
+        "seed": 701,
+        "status": "PASS"
+      },
+      {
+        "answer_bytes_equal": true,
+        "candidate": "c0",
+        "evaluation_bytes_equal": true,
+        "seed": 701,
+        "status": "PASS"
+      }
+    ],
+    "scope": "SUPPLIED_SYNTHETIC_FIXTURE_NOT_LIVE_GENERATED_CODE",
+    "support_sha256": "8610b8e162cb5e651363040797e3646626371982f526369d0904bc6e0f0650cf"
+  },
+  "initial_obstacles": [
+    "Colima was stopped; started existing VM and rebuilt image.",
+    "Local venv has no pip module; refreshed editable package using uv pip."
+  ],
+  "input_package": "math_harness_exa_review_update 2",
+  "live_joint_acceptance": "BLOCKED",
+  "live_prerequisites": {
+    "claude_probe": "2.1.263 (Claude Code)",
+    "codex_probe": "codex-cli 0.153.4",
+    "exa_key_configured": false,
+    "ready_for_live": false
+  },
+  "local_fixes": [
+    "Offline defaults and profile-aware doctor",
+    "Persistent pending call identity across cycles and parents",
+    "Replay successful calls after interrupted board-cache publication",
+    "Direct author failures retain explicit recovery",
+    "Reject unusable Exa responses before caching",
+    "Export three literature schemas"
+  ],
+  "not_run": [
+    "LIVE_EXA_HTTP_AUTH",
+    "LIVE_DUAL_MODEL_REVIEW",
+    "FULL_HISTORICAL_CONTEST_PROBLEM"
+  ],
+  "official_submission_sent": false,
+  "payload_files_verified": 27,
+  "repository": "https://github.com/mythrise/math_harness",
+  "resume": {
+    "after": {
+      "calls": 45,
+      "jobs": 22,
+      "paper_sha256": "bee40f6ae9f90b67530a1673020820c80294b2b4a50a7e286d19a2c4b91215f6",
+      "support_sha256": "8610b8e162cb5e651363040797e3646626371982f526369d0904bc6e0f0650cf"
+    },
+    "before": {
+      "calls": 45,
+      "jobs": 22,
+      "paper_sha256": "bee40f6ae9f90b67530a1673020820c80294b2b4a50a7e286d19a2c4b91215f6",
+      "support_sha256": "8610b8e162cb5e651363040797e3646626371982f526369d0904bc6e0f0650cf"
+    },
+    "status": "PASS"
+  },
+  "vendor": {
+    "files": 408,
+    "manifest_sha256": "4d5d665f6511cc5c345c936194512a43a3e821d50afb14b634e9c9438c059034",
+    "status": "PASS"
+  },
+  "version": "0.2.0",
+  "visual_check": {
+    "full_appendix_visual_review": "NOT_RUN",
+    "pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      159
+    ],
+    "status": "SAMPLED_PASS"
+  }
+}

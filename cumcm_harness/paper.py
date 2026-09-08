@@ -134,12 +134,14 @@ def preflight(pdf:Path, *, denylist=(),require_ai=True):
             'bytes':pdf.stat().st_size,'failures':failures,'warnings':warnings,'pdf_sha256':file_hash(pdf),
             'visual_check':'REQUIRED_SEPARATELY','anonymity':'denylist/metadata checks do not prove complete anonymity'}
 
-def render_pages(pdf:Path,out:Path):
+def render_pages(pdf:Path,out:Path,*,page_indices=None):
     try:import fitz
     except ImportError as e:raise Blocked('Install PyMuPDF for rasterized visual review') from e
     out.mkdir(parents=True,exist_ok=True);doc=fitz.open(pdf);paths=[]
-    for i,page in enumerate(doc):
-        p=out/f'page-{i+1:03d}.png';page.get_pixmap(matrix=fitz.Matrix(1.3,1.3)).save(p);paths.append(p)
+    indices=range(len(doc)) if page_indices is None else sorted(set(page_indices))
+    for i in indices:
+        if type(i) is not int or not 0<=i<len(doc):raise IntegrityError('Invalid PDF page index')
+        p=out/f'page-{i+1:03d}.png';doc[i].get_pixmap(matrix=fitz.Matrix(1.3,1.3)).save(p);paths.append(p)
     doc.close();return paths
 
 def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:list[dict],code_bundles:dict,

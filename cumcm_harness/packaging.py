@@ -1,17 +1,19 @@
 """Separate development distribution from the <=20 MB contest support package."""
 from __future__ import annotations
-import json, re, shutil, zipfile
+import json, re, shutil, zipfile, os
 from pathlib import Path
 from .common import *
 
 BASIC=['README.md','reproduce.py','config.json','protocol.json','claims.json','input_manifest.json',
        'results/confirmation.json','results/development.json','ai_usage.json','AI工具使用详情.pdf',
        'source_inventory.json','support_inventory.json','manifest.json']
+RESEARCH_FILES=['literature/accepted.json','literature/execution.json']
 FIGURES=['ourwork.svg','ourwork.pdf','ourwork.png','ourwork.provenance.json',
          'confirmation.svg','confirmation.pdf','confirmation.png','confirmation.data.json','confirmation.provenance.json']
 
 def planned_support_files(root:Path,source_files:list[str]):
     cfg=read_json(root/'config.json');files=BASIC+list(source_files)+['figures/'+f for f in FIGURES]
+    files += [f for f in RESEARCH_FILES if (root/f).exists()]
     if cfg['input_data_origin']=='include-in-support':
         files += ['inputs/'+p.relative_to(root/'inputs').as_posix() for p in (root/'inputs').rglob('*') if p.is_file()]
     elif cfg['input_data_origin']!='contest-original':raise IntegrityError('Classify input_data_origin explicitly before packaging')
@@ -40,6 +42,7 @@ def scan_release(folder:Path,denylist):
         if p.suffix.lower() in ('.ttf','.otf','.ttc','.woff','.woff2','.eot'):raise IntegrityError('Font files cannot be distributed')
         if p.suffix.lower() in ('.py','.json','.csv','.txt','.md','.tex','.svg'):
             text=p.read_text('utf-8',errors='replace')
+            if any(os.getenv(k) and os.environ[k] in text for k in ('EXA_API_KEY','OPENAI_API_KEY','ANTHROPIC_API_KEY','CLAUDE_CODE_OAUTH_TOKEN')):raise Blocked('Credential detected in release file '+p.name)
             if any(s and s in text for s in denylist):raise Blocked('Anonymity denylist match in '+p.name)
             if re.search(r'(?<![A-Za-z])sk-(?:proj-|ant-)?[A-Za-z0-9_-]{24,}',text):raise Blocked('Possible credential in release file '+p.name)
         if p.name in ('.env','auth.json','credentials.json'):raise Blocked('Credential file cannot be packaged')
@@ -51,6 +54,8 @@ def package_workspace(root:Path,built,claims,protocol,rows,records,ai,*,contest=
     if support.exists():shutil.rmtree(support)
     support.mkdir();source_files=read_json(root/'paper/source_inventory.json')
     for rel in source_files:atomic_write(support/rel,(root/'paper'/rel).read_bytes())
+    for rel in RESEARCH_FILES:
+        if (root/rel).exists():atomic_write(support/rel,(root/rel).read_bytes())
     atomic_write(support/'reproduce.py',(ROOT/'scripts/reproduce_support.py').read_bytes())
     for f in FIGURES:atomic_write(support/'figures'/f,(root/'paper/figures'/f).read_bytes())
     if cfg['input_data_origin']=='include-in-support':shutil.copytree(root/'inputs',support/'inputs')

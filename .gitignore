@@ -22,8 +22,14 @@ node_modules/
 /测试/
 /*.zip
 /math_modeling_official_pack_2015_2026/
+/math_harness_exa_review_update*/
 
 # Raw CLI logs may contain private prompts or provider diagnostics.
 /reports/**
 !/reports/TEST_REPORT_CN.md
 !/reports/GITHUB_SNAPSHOT_CN.md
+!/reports/EXA_REVIEW_ACCEPTANCE_CN.md
+!/reports/EXA_REVIEW_ACCEPTANCE.json
+!/reports/exa-review-tests.txt
+!/reports/EXA_UPGRADE_LOCAL_CN.md
+!/reports/EXA_UPGRADE_LOCAL.json

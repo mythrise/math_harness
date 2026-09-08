@@ -8,6 +8,7 @@ from pathlib import Path
 from .common import *
 from .contracts import validate, SCHEMAS
 from .process import run_process, clean_env
+from .review_board import ProviderFailure
 
 ROLES={
  'supervisor': 'You are the research PI. Set priorities and falsifiable search directions. You cannot waive gates, change frozen evaluation or assert unmeasured superiority.',
@@ -17,6 +18,9 @@ ROLES={
  'math_reviewer': 'Independent mathematical auditor. Check assumptions, dimensions, constraints, derivations, algorithm applicability, baseline fairness and exact objective fidelity. PASS only with traceable evidence; report P0/P1 on unsupported math.',
  'experiment_reviewer': 'Independent experimental auditor. Check frozen metrics, baseline/ablation fairness, raw evidence, no holdout leakage, no fake values, resource use, statistical unit, budget/FE integrity, and independent evaluator quality. Do not certify merely because code executes.',
  'paper_reviewer': 'Independent paper auditor. Check every subquestion, claim-to-evidence link, limitations, citation identity, 2026 CUMCM rules, anonymity, AI disclosure and visual-review status. Never equate a polished paper with scientific correctness.',
+ 'literature_scout': 'Build a small, focused research query plan. Search for primary literature and applicability limits, not ready-made contest answers. Query text is sent to Exa. Use generic method terms; never include the problem verbatim, data rows, file names, credentials or private labels.',
+ 'hypothesis_critic': 'You are an independent adversarial researcher, separate from the modeler. Seek counterexamples, violated assumptions, missing identification conditions and contradictory primary sources. Exa retrieval is evidence discovery, NEVER a statistical hypothesis test. Quote only exact supplied source passages. A simplification requires an explicit executable sensitivity or falsification test. Never certify experiments not yet executed.',
+ 'literature_reviewer': 'Independently audit the hypothesis register, source identity, exact quotations, contextual applicability, opposing evidence, executable falsification tests and the critic report. Search hits and plausible citations are not proof. Verify every assumption is covered. Keep literature support separate from empirical test results. Do not waive contradictions or invent references.',
  'writer': 'Write a Chinese mathematical-modeling paper from validated claims only. Use {{claim:ID}} for measured numbers, never invent results. Return structured sections; equations only mathematical LaTeX, no IO macros. No identity, no TOC, no award/SOTA claim without comparison. Cite only supplied verified source IDs.',
 }
 
@@ -27,15 +31,16 @@ class CLIProvider:
         self.kind=kind;self.model=model;self.timeout=timeout;self.max_budget_usd=max_budget_usd
     def probe(self):
         binary=shutil.which(self.kind)
-        if not binary:raise Blocked(f'{self.kind} CLI NOT_INSTALLED; live calls were not run')
+        if not binary:raise ProviderFailure(self.kind, 'NOT_INSTALLED', retryable=False)
         def get(args):
-            r=subprocess.run([binary,*args],capture_output=True,text=True,timeout=20,env=clean_env(provider=True))
-            if r.returncode:raise Blocked(f'{self.kind} CLI probe failed')
+            try:r=subprocess.run([binary,*args],capture_output=True,text=True,timeout=20,env=clean_env(provider=True))
+            except (OSError,subprocess.TimeoutExpired):raise ProviderFailure(self.kind, 'PROBE_ERROR', retryable=False) from None
+            if r.returncode:raise ProviderFailure(self.kind, 'PROBE_FAILED', retryable=False)
             return r.stdout+r.stderr
         version=get(['--version']).strip();help_text=get(['exec','--help'] if self.kind=='codex' else ['--help'])
         flags=['--output-schema','--output-last-message','--sandbox','--ephemeral','--ignore-user-config'] if self.kind=='codex' else ['--json-schema','--tools','--no-session-persistence','--safe-mode','--setting-sources','--strict-mcp-config']
         missing=[x for x in flags if x not in help_text]
-        if missing:raise Blocked(f'{self.kind} lacks required CLI flags: {missing}; no unsafe fallback')
+        if missing:raise ProviderFailure(self.kind, 'UNSUPPORTED_SAFE_FLAGS', retryable=False)
         return binary,version
     def command(self,binary,work:Path,schema_name:str):
         if self.kind=='codex':
@@ -75,34 +80,52 @@ class CLIProvider:
                 for i,image in enumerate(images):
                     local=work/f'page-{i:03d}.png';shutil.copy2(image,local)
                     command[-1:-1]=['--image',str(local)]
-            receipt=run_process(command,cwd=work,out=logdir,env=clean_env(provider=True),timeout=self.timeout,stdin=prompt)
+            try:receipt=run_process(command,cwd=work,out=logdir,env=clean_env(provider=True),timeout=self.timeout,stdin=prompt)
+            except OSError:raise ProviderFailure(self.kind, 'SPAWN_ERROR', retryable=False) from None
             receipt.update({'provider':self.kind,'transport':'LIVE_CLI','invocation_id':invocation,'role':role,
                  'cli_version':version,'model_requested':self.model or 'CLI_DEFAULT','model_reported':'UNREPORTED',
                  'prompt_sha256':digest(prompt),'packet_digest':digest(packet)})
             if self.kind=='claude':receipt['configuration_mode']='LOCAL_CLI_USER_SETTINGS_SAFE_MODE'
             write_json(logdir/'process.json',receipt)
             if receipt['status']!='EXITED' or receipt['returncode']!=0:
-                raise Blocked(f'{self.kind} failed ({receipt["status"]}, {receipt["returncode"]}); logs: {logdir}')
+                raise ProviderFailure(self.kind, receipt['status'] if receipt['status']!='EXITED' else 'EXIT_NONZERO')
             text=(logdir/'stdout.log').read_text('utf-8')
             if self.kind=='claude':
-                envelope=json.loads(text)
-                if envelope.get('is_error'):raise Blocked('Claude reported is_error')
-                if 'structured_output' not in envelope:raise IntegrityError('Claude missing structured_output; do not parse prose as a review')
+                try:envelope=json.loads(text)
+                except ValueError:raise ProviderFailure(self.kind, 'INVALID_JSON') from None
+                if not isinstance(envelope,dict):raise ProviderFailure(self.kind, 'INVALID_ENVELOPE')
+                if envelope.get('is_error'):raise ProviderFailure(self.kind, 'REMOTE_ERROR')
+                if 'structured_output' not in envelope:raise ProviderFailure(self.kind, 'MISSING_STRUCTURED_OUTPUT')
                 result=envelope['structured_output']
                 receipt['usage']=envelope.get('usage',{})
                 receipt['cost_usd']=envelope.get('total_cost_usd')
                 receipt['model_reported']=envelope.get('model','UNREPORTED')
             else:
-                result=read_json(work/'result.json');usage={}
+                try:result=read_json(work/'result.json')
+                except (ValueError,FileNotFoundError):raise ProviderFailure(self.kind, 'MISSING_OR_INVALID_RESULT') from None
+                usage={}
                 for line in text.splitlines():
                     if not line.strip():continue
-                    e=json.loads(line)
-                    if e.get('type') in ('turn.failed','error'):raise Blocked('Codex stream contains failure')
+                    try:e=json.loads(line)
+                    except ValueError:raise ProviderFailure(self.kind, 'INVALID_EVENT_JSON') from None
+                    if not isinstance(e,dict):raise ProviderFailure(self.kind, 'INVALID_EVENT')
+                    if e.get('type') in ('turn.failed','error'):raise ProviderFailure(self.kind, 'REMOTE_ERROR')
                     if e.get('item',{}).get('type') in ('command_execution','file_change','mcp_tool_call','web_search'):
                         raise IntegrityError('Unexpected tool use in proposal-only invocation')
                     if e.get('type')=='turn.completed':usage=e.get('usage',{})
                 receipt['usage']=usage
-            validate(schema_name,result);receipt['response_digest']=digest(result)
+            try:validate(schema_name,result)
+            except IntegrityError:
+                # Do not discard an identifiable negative finding by classifying
+                # a contradictory PASS as a mere syntax/availability problem.
+                if schema_name=='review' and isinstance(result,dict):
+                    if (result.get('verdict') in ('FAIL','BLOCKED') or result.get('unverified') or
+                        any(isinstance(f,dict) and f.get('severity') in ('P0','P1') for f in (result.get('findings') or []))):
+                        raise
+                    if result.get('target_digest') not in (None, packet.get('target_digest')):
+                        raise
+                raise ProviderFailure(self.kind, 'OUTPUT_SCHEMA_INVALID') from None
+            receipt['response_digest']=digest(result)
             write_json(logdir/'response.json',result);write_json(logdir/'receipt.json',receipt)
             return {'result':result,'receipt':receipt}
 
@@ -129,7 +152,7 @@ def review_quorum(reviews:list[dict],target_digest:str,required=('math_reviewer'
         if result['verdict']!='PASS':raise Blocked(f'{role}: {result["verdict"]} '+str(result['findings']))
         if not allow_fixture:
             if receipt['transport']!='LIVE_CLI':raise Blocked('Fixture is not an independent live review')
-            if role in ('math_reviewer','experiment_reviewer') and receipt['provider']!='claude':raise Blocked('Critical review requires Claude CLI')
+            if receipt['provider'] not in ('claude','codex'):raise Blocked('Critical review requires a supported live CLI provider')
         roles[role]=item;ids.add(receipt['invocation_id'])
     if set(required)-set(roles):raise Blocked('Missing review members: '+str(set(required)-set(roles)))
     return {'status':'DEMO_QUORUM' if allow_fixture else 'PASS','target_digest':target_digest,'roles':sorted(roles)}

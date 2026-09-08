@@ -35,8 +35,48 @@ def test_codex_real_adapter_fake_process(fake_cli,tmp_path):
 def test_claude_real_adapter_fake_process(fake_cli,tmp_path):
     fake_cli('claude');r=CLIProvider('claude').invoke('math_reviewer','review',{'target_digest':'a'*64},tmp_path/'logs')
     assert r['result']==REVIEW;assert r['receipt']['model_reported']=='UNREPORTED'
-    assert '--max-budget-usd' not in r['receipt']['argv']
+@pytest.mark.parametrize('mode',['malformed','error','missing'])
+def test_claude_bad_envelope(fake_cli,tmp_path,mode):
+    fake_cli('claude',mode)
+    with pytest.raises((ValueError,IntegrityError,Blocked)):CLIProvider('claude').invoke('math_reviewer','review',{},tmp_path/'logs')
+def test_no_dangerous_flags(tmp_path):
+    for kind in ('codex','claude'):
+        command=CLIProvider(kind).command(kind,tmp_path,'review')
+        assert '--yolo' not in command;assert '--dangerously-skip-permissions' not in command
+    c=CLIProvider('claude').command('claude',tmp_path,'review');assert c[c.index('--tools')+1]=='';assert 'mcp__*' in c
 
+def reviews(tmp_path):
+    p=FixtureProvider(lambda *a:dict(REVIEW))
+    return [p.invoke(role,'review',{},tmp_path/role) for role in ('math_reviewer','experiment_reviewer')]
+def test_fixture_cannot_pass_live_gate(tmp_path):
+    with pytest.raises(Blocked):review_quorum(reviews(tmp_path),'a'*64)
+def test_demo_explicit_label(tmp_path):assert review_quorum(reviews(tmp_path),'a'*64,allow_fixture=True)['status']=='DEMO_QUORUM'
+def test_stale_review(tmp_path):
+    with pytest.raises(IntegrityError):review_quorum(reviews(tmp_path),'b'*64,allow_fixture=True)
+def test_duplicate_review(tmp_path):
+    r=reviews(tmp_path)
+    with pytest.raises(IntegrityError):review_quorum([r[0],r[0]],'a'*64,allow_fixture=True)
+
+
+def test_claude_user_auth_and_unlimited_default_budget(tmp_path):
+    c=CLIProvider('claude').command('claude',tmp_path,'review')
+    assert '--bare' not in c and '--safe-mode' in c
+    assert c[c.index('--setting-sources')+1]=='user'
+    assert '--max-budget-usd' not in c
+    assert CLIProvider('claude',max_budget_usd=3).command('claude',tmp_path,'review')[-2:]==['--max-budget-usd','3']
+
+def test_fable_selection_never_silently_changes(tmp_path):
+    c=CLIProvider('claude',model='claude-fable-5').command('claude',tmp_path,'review')
+    assert json.loads(c[c.index('--settings')+1])=={'availableModels':['claude-fable-5'],'switchModelsOnFlag':False}
+
+def test_exa_secret_not_forwarded_to_model_providers(monkeypatch):
+    from cumcm_harness.process import clean_env
+    monkeypatch.setenv('EXA_API_KEY','not-a-real-secret')
+    monkeypatch.setenv('CLAUDE_CODE_OAUTH_TOKEN','not-a-real-oauth-token')
+    assert 'EXA_API_KEY' not in clean_env(provider=True)
+    assert clean_env(provider=True)['CLAUDE_CODE_OAUTH_TOKEN']=='not-a-real-oauth-token'
+
+# Keep the upstream local-auth and no-hidden-budget regressions as named tests.
 def test_claude_null_budget_omits_flag_for_all_shipped_configs(tmp_path):
     from cumcm_harness.controller import DEFAULT_CONFIG,validate_config
     assert DEFAULT_CONFIG['claude_call_budget_usd'] is None
@@ -53,19 +93,9 @@ def test_explicit_historical_budget_still_reproduces_command(tmp_path):
 
 def test_fable_does_not_silently_switch_models(tmp_path):
     command=CLIProvider('claude',model='claude-fable-5').command('claude',tmp_path,'bundle')
-    assert json.loads(command[command.index('--settings')+1])=={
-        'availableModels':['claude-fable-5'],'switchModelsOnFlag':False}
+    assert json.loads(command[command.index('--settings')+1])=={'availableModels':['claude-fable-5'],'switchModelsOnFlag':False}
     assert command[command.index('--model')+1]=='claude-fable-5'
     assert '--max-budget-usd' not in command
-@pytest.mark.parametrize('mode',['malformed','error','missing'])
-def test_claude_bad_envelope(fake_cli,tmp_path,mode):
-    fake_cli('claude',mode)
-    with pytest.raises((ValueError,IntegrityError,Blocked)):CLIProvider('claude').invoke('math_reviewer','review',{},tmp_path/'logs')
-def test_no_dangerous_flags(tmp_path):
-    for kind in ('codex','claude'):
-        command=CLIProvider(kind).command(kind,tmp_path,'review')
-        assert '--yolo' not in command;assert '--dangerously-skip-permissions' not in command
-    c=CLIProvider('claude').command('claude',tmp_path,'review');assert c[c.index('--tools')+1]=='';assert 'mcp__*' in c
 
 def test_claude_reuses_user_auth_without_customizations(tmp_path):
     c=CLIProvider('claude').command('claude',tmp_path,'review')
@@ -83,15 +113,3 @@ def test_oauth_env_only_reaches_model_provider(monkeypatch):
     assert clean_env(provider=True)['CLAUDE_CODE_OAUTH_TOKEN']=='test-token-not-a-real-secret'
     assert 'CLAUDE_CODE_OAUTH_TOKEN' not in clean_env()
     assert 'CUMCM_OPERATOR_KEY' not in clean_env(provider=True)
-
-def reviews(tmp_path):
-    p=FixtureProvider(lambda *a:dict(REVIEW))
-    return [p.invoke(role,'review',{},tmp_path/role) for role in ('math_reviewer','experiment_reviewer')]
-def test_fixture_cannot_pass_live_gate(tmp_path):
-    with pytest.raises(Blocked):review_quorum(reviews(tmp_path),'a'*64)
-def test_demo_explicit_label(tmp_path):assert review_quorum(reviews(tmp_path),'a'*64,allow_fixture=True)['status']=='DEMO_QUORUM'
-def test_stale_review(tmp_path):
-    with pytest.raises(IntegrityError):review_quorum(reviews(tmp_path),'b'*64,allow_fixture=True)
-def test_duplicate_review(tmp_path):
-    r=reviews(tmp_path)
-    with pytest.raises(IntegrityError):review_quorum([r[0],r[0]],'a'*64,allow_fixture=True)

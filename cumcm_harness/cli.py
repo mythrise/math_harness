@@ -7,7 +7,7 @@ from .common import ROOT,Blocked,IntegrityError,read_json,write_json,environment
 def parser():
     p=argparse.ArgumentParser(prog='cumcm',description='Evidence-gated Codex + Claude modeling harness')
     sub=p.add_subparsers(dest='command',required=True)
-    a=sub.add_parser('doctor');a.add_argument('--live',action='store_true')
+    a=sub.add_parser('doctor');a.add_argument('--live',action='store_true');a.add_argument('--config',type=Path)
     a=sub.add_parser('init');a.add_argument('workspace',type=Path);a.add_argument('--problem',required=True,type=Path);a.add_argument('--data',required=True,type=Path)
     a.add_argument('--config',type=Path);a.add_argument('--mode',choices=['practice','contest']);a.add_argument('--confirmation',type=Path)
     a.add_argument('--private-dev',type=Path);a.add_argument('--private-confirm',type=Path);a.add_argument('--sources',type=Path)
@@ -23,8 +23,10 @@ def parser():
     a=sub.add_parser('verify-vendor')
     return p
 
-def doctor(live=False):
+def doctor(live=False, config=None):
     from .providers import CLIProvider
+    from .controller import DEFAULT_CONFIG, validate_config
+    config = validate_config({**DEFAULT_CONFIG, **(config or {})})
     report={'environment':environment(),'commands':{},'live_model_calls':'NOT_RUN','docker_execution':'NOT_RUN'}
     for name in ('codex','claude','docker','xelatex','inkscape'):
         report['commands'][name]=shutil.which(name) or 'NOT_INSTALLED'
@@ -33,16 +35,22 @@ def doctor(live=False):
             try:report[name+'_probe']=CLIProvider(name).probe()[1]
             except Exception as e:report[name+'_probe']={'status':'BLOCKED','reason':str(e)}
         from .sandbox import Executor
-        try:report['docker_probe']=Executor().probe()
+        try:report['docker_probe']=Executor(image=config['docker_image']).probe()
         except Exception as e:report['docker_probe']={'status':'BLOCKED','reason':str(e)}
-    report['ready_for_live']=all(report['commands'][x]!='NOT_INSTALLED' for x in report['commands']) and not any(isinstance(v,dict) and v.get('status')=='BLOCKED' for v in report.values())
+    report['exa_key_configured']=bool(os.environ.get('EXA_API_KEY'))
+    report['claude_optional']='DEGRADED_TO_INDEPENDENT_CODEX_SEATS' if report['commands']['claude']=='NOT_INSTALLED' or isinstance(report.get('claude_probe'),dict) else 'AVAILABLE_NOT_AUTH_VERIFIED'
+    required=('codex','docker','xelatex','inkscape')
+    report['literature_enabled']=config['literature_enabled']
+    report['network_policy']=config['network_policy']
+    report['ready_for_live']=all(report['commands'][x]!='NOT_INSTALLED' for x in required) and not any(isinstance(report.get(x+'_probe'),dict) and report[x+'_probe'].get('status')=='BLOCKED' for x in ('codex','docker')) and (not config['literature_enabled'] or report['exa_key_configured'])
+    report['auth_and_end_to_end_verified']=False
     return report
 
 def main(argv=None):
     args=parser().parse_args(argv)
     try:
         from .store import Store,controller_lock
-        if args.command=='doctor':result=doctor(args.live)
+        if args.command=='doctor':result=doctor(args.live,read_json(args.config) if args.config else None)
         elif args.command=='init':
             from .controller import DEFAULT_CONFIG,validate_config
             from .intake import create_workspace
@@ -86,6 +94,7 @@ def main(argv=None):
             from .algorithms import route_methods
             result=route_methods(args.query,top_k=10)
         elif args.command=='schema':
+            from . import literature  # registers the evidence/hypothesis schemas
             from .contracts import SCHEMAS
             if args.name and args.name not in SCHEMAS:raise IntegrityError('Unknown schema')
             result=SCHEMAS[args.name] if args.name else {'available':list(SCHEMAS)}

@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "queries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "purpose": {
+            "enum": [
+              "background",
+              "support",
+              "counterexample",
+              "limitations"
+            ]
+          },
+          "query": {
+            "maxLength": 220,
+            "minLength": 4,
+            "type": "string"
+          }
+        },
+        "required": [
+          "query",
+          "purpose"
+        ],
+        "type": "object"
+      },
+      "maxItems": 4,
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "queries"
+  ],
+  "type": "object"
+}

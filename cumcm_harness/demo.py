@@ -72,7 +72,7 @@ def run_demo(root:Path,*,candidates=2,fe_budget=192):
               'process':[4.,3.,5.,2.,4.,1.],'dues':[14.,9.,18.,6.,16.,5.],'penalty':[1.1,.8,1.2,1.,.9,.5],'setup':setup}
         write_json(src/'problem.json',spec);problem=root.parent/(root.name+'-problem.md')
         atomic_write(problem,'合成双目标工件选择与排序：在非空、不重复的工件序列上同时最大化延迟折损收益与最小化总时长。第一问求取Pareto前沿；第二问给出固定效用尺度下的可行代表方案。数据见problem.json。本实例是工程测试，不是官方国赛题。')
-        config={**DEFAULT_CONFIG,'allow_research_algorithms':True,'max_candidates':candidates,'fe_budget':fe_budget}
+        config={**DEFAULT_CONFIG,'literature_enabled':False,'allow_research_algorithms':True,'max_candidates':candidates,'fe_budget':fe_budget}
         create_workspace(root,problem,src,config)
     provider=FixtureProvider(responder);executor=Executor('trusted-local')
     return Controller(root,fixture_provider=provider,executor=executor).run()

@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "hypotheses": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "acceptance_rule": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "assumption_index": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "failure_action": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "falsification_test": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "structural",
+              "empirical",
+              "simplification"
+            ]
+          },
+          "statement": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "assumption_index",
+          "statement",
+          "kind",
+          "falsification_test",
+          "acceptance_rule",
+          "failure_action"
+        ],
+        "type": "object"
+      },
+      "maxItems": 24,
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "hypotheses"
+  ],
+  "type": "object"
+}
