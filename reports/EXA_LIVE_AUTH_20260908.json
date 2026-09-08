@@ -1,0 +1,76 @@
+{
+  "cache_sha256": {
+    "75c4a81df2760faa2257a519313178d280bd076d7c59c6d4a0f9902304dbf6ad.json": "69cfcea085576824468d0f03963a66403fd072ae935779ba31f70e5d91881223",
+    "a485d8d93d005862910d0aa1d83e394f1554e986aa08b20aff3369be305e1328.json": "e62b544426964925db5b14f7d156686d090bead4f2f1a4f52c80e858c96019b1",
+    "f2f81bbc4faef61a53b54dc10601dc7a1bdb8c997e6799c2dbae0e0d550fdd6a.json": "629fa72d29d883ada2731e6129a15d493bbad8513c74b3c0f42f59dfe45652e9"
+  },
+  "checks": [
+    {
+      "operation": "search",
+      "purpose": "support",
+      "query": "single machine scheduling sequence dependent setup times linear delay penalties",
+      "result_count": 2,
+      "sources": [
+        {
+          "content_sha256": "0528cdbc776956475605eac41746b31ed226c8e9a4b757d5c53ed25267119429",
+          "id": "exa_6adea6757590c3b3",
+          "title": "Scheduling Jobs with Linear Delay Penalties and Sequence Dependent Setup Costs",
+          "url": "https://doi.org/10.1287/opre.29.1.146"
+        },
+        {
+          "content_sha256": "67e761bb54900104d44dd087210d2abc8ff8582ebf12e17b4b819cfc57c71011",
+          "id": "exa_5179fcdfe22656f4",
+          "title": "Scheduling Jobs with Linear Delay Penalties and Sequence Dependent Setup Costs",
+          "url": "https://ideas.repec.org/a/inm/oropre/v29y1981i1p146-160.html"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "operation": "search",
+      "purpose": "counterexample",
+      "query": "scheduling position dependent deterioration processing times counterexample fixed time assumption",
+      "result_count": 2,
+      "sources": [
+        {
+          "content_sha256": "2c94a1f0bc3338d025ff7ef02dce9b4973d34daf087fc08d28f1a85848dbd1c8",
+          "id": "exa_9590f996b9747a75",
+          "title": "A note on proving the strong NP-hardness of a scheduling problem with position dependent job processing times",
+          "url": "https://doi.org/10.1007/s11590-012-0445-0"
+        },
+        {
+          "content_sha256": "c761efe640f5f4a34dc4a0c1043be79cb887d6837ffc42796dfe8038a6ce6ea2",
+          "id": "exa_b8c6e94f22a5f980",
+          "title": "Minimizing Makespan Scheduling on a Single Machine with General Positional Deterioration Effects",
+          "url": "https://doi.org/10.3390/axioms14040290"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "operation": "contents",
+      "result_count": 1,
+      "sources": [
+        {
+          "content_sha256": "0528cdbc776956475605eac41746b31ed226c8e9a4b757d5c53ed25267119429",
+          "url": "https://doi.org/10.1287/opre.29.1.146"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "extra_requests": 0,
+      "operation": "cache_replay",
+      "status": "PASS"
+    }
+  ],
+  "credential_persisted": false,
+  "credential_scope": "Provided through a no-echo terminal; used only in the validation process environment; not installed persistently.",
+  "harness_commit": "4fb29985ebeda90b890e09738422e54b5143b60d",
+  "http_attempts": 3,
+  "joint_model_workflow": "NOT_RUN",
+  "scientific_validation": "NOT_ESTABLISHED_BY_RETRIEVAL",
+  "started_at": "2026-09-08T08:47:51.819638+00:00",
+  "status": "LIVE_EXA_HTTP_PASS",
+  "transport": "LIVE_EXA_HTTP"
+}

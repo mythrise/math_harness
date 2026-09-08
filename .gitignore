@@ -33,3 +33,5 @@ node_modules/
 !/reports/exa-review-tests.txt
 !/reports/EXA_UPGRADE_LOCAL_CN.md
 !/reports/EXA_UPGRADE_LOCAL.json
+!/reports/EXA_LIVE_AUTH_20260908.json
+!/reports/EXA_LIVE_AUTH_20260908_CN.md

@@ -6,6 +6,8 @@
 
 先读 [升级与完整运行说明](docs/EXA_RESILIENT_REVIEW_CN.md) 和 [本机升级验收](reports/EXA_UPGRADE_LOCAL_CN.md)。[更新包上游验收](reports/EXA_REVIEW_ACCEPTANCE_CN.md) 保留制作时的测试与远程 403 记录，不代表本机本次推送状态。旧版测试、部署及真实赛题进度仍保留在 `reports/`。
 
+后续 [Exa 真实接口验收](reports/EXA_LIVE_AUTH_20260908_CN.md) 已通过支持/反例检索、正文提取及缓存重放。密钥仅用于该验证进程，启动新运行仍需提供 `EXA_API_KEY`；真实双模型与完整赛题联合验收尚未执行。
+
 ## 快速验证
 
 已有本机部署继续使用 `.venv/bin/python` 或 `./scripts/cumcm`；其他环境先创建 Python 3.11+ 虚拟环境。保留完整仓库并使用 editable install。
