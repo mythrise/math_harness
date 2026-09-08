@@ -1,0 +1,163 @@
+{
+  "version": "0.3.0-algorithms",
+  "as_of": "2026-09-08",
+  "baseline_repository": "mythrise/math_harness",
+  "observed_commit": "69dc9247ff2408e05d23e0bb7be1395f77db9c64",
+  "files": [
+    {
+      "path": ".agents/skills/algorithm-library-upgrade/SKILL.md",
+      "sha256": "f5b8622cb03f3caa67bdd265d05ce5ed0877d6985c46ecd53373e967f376d8c4",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/TEST_REPORT_CN.md",
+      "sha256": "4445a81b91fc586fef608d13cfb416e82dd426632dcf6d75548fc14b6f95d9c6",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/VALIDATION_SCOPE.json",
+      "sha256": "35de6f20a84a8b62b0e87427c7eb8d95f255cb3b4750569533b62ea801aa320f",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/diagnostics.json",
+      "sha256": "bdafbb4f6f1031df3979bd48f686a4f99663aeecfe85abaea1200069134e32a7",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/environment.json",
+      "sha256": "4ed617cc5910f286391f4a7863b107901024403f8afe24081c5b876ce4c27ac7",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/pilot_ungated/diagnostics.json",
+      "sha256": "64a4ecd68f81bf9f5a8c344630bbc53d8c286b81200aefad134b605cc3f63c08",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/pilot_ungated/protocol.json",
+      "sha256": "9024a8b81a0e51f13e748415b4092daf2c95f023b0a9560d4350930e4c121a71",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/pilot_ungated/raw_results.json",
+      "sha256": "c1a5eb54c34acdebd9767ef3bd092f3db72012409955f6aa61388f9597ecc3fe",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/pilot_ungated/summary.json",
+      "sha256": "cdad2bc82ba31e6e4a8c11f8b472eed4a8ff63031ec9445e1fcb36ef4efe9a56",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/protocol.json",
+      "sha256": "c68fb9c602defa6b271bb9e0a0e9c44eed427fc424b5b0369f201dcb117f8e02",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/raw_results.json",
+      "sha256": "94c0d19d158b3ccae7df2ab6bbb831250c4a7fd99849f9caf2142849f4b78165",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/reproducibility.json",
+      "sha256": "cd3919438cfa712d4a54c79e346834afd6f5244453cdc6c1bf21ce672b3fe40f",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/summary.json",
+      "sha256": "a94d679a4ac9b35a1e06c67db8e784ca7b8dbdc925990cdbe067e95c254445b6",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/tests_full_archive_regression.log",
+      "sha256": "56ad7b22c0571a121256e6212be940edc5c9bf101e02fe1afa9a7a45d6cb23ae",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/updater_tests.log",
+      "sha256": "06cdf8bcb89efbe1e002f486792f1f4e5041790a94a9ede6adf87e5214f877f9",
+      "old_git_blob": null
+    },
+    {
+      "path": "benchmarks/algorithm-upgrade/vendor_verification.json",
+      "sha256": "12ec9b366e67f2dcf70edeb15412ca5351da18b96637b13b7674c2b18898d0b3",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/algdecision.py",
+      "sha256": "fcd7bed12b43b190496a17fc3694990804e817c0e7d62c6be3fd4a07b73ed1af",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/alggraph.py",
+      "sha256": "80a4ef1f07ff2ea7bfd217e576360517b655be2fce73ae75284782fcb8f33993",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/algopt.py",
+      "sha256": "6810590a49de677d6bdc450399baea95f86e0e185b9083ba26742e351f8daf6b",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/algorithm_lab.py",
+      "sha256": "fffb95de2366480e101fb0b8f659ab801f7a4f245c930ad677c191d40b0ed5bd",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/algorithm_library.py",
+      "sha256": "efcc7614fbf8b518b8c10fa43b16823bcbc37ca45827ad2bf120ce07aad57578",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/algorithms.py",
+      "sha256": "7e088cd5133549c9cedafd7648ac06f049c3f8edcdaa42129ed99d2adb58d29f",
+      "old_git_blob": "4b41b864c3d3f76cb6dcdc6fafca3ddf1d428f33"
+    },
+    {
+      "path": "cumcm_harness/algpredict.py",
+      "sha256": "96dcb07abb31716d8bc52a32c84f2d4dc4596e3f13101e0669852cf13ec53965",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/algpromotion.py",
+      "sha256": "e0cf5163cfc9258535f6c8eb41b345930bafd91a9c0395fe363d0d544c32df58",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/algscience.py",
+      "sha256": "542845c161e87a97aecb6d62fcec8deb37eec27e31d979bcc895135998301885",
+      "old_git_blob": null
+    },
+    {
+      "path": "docs/algorithm-upgrade/API_CN.md",
+      "sha256": "4b7c0713679af8163ed2eaa75398288b0503811dfc45e8984622e8bdfb2ab728",
+      "old_git_blob": null
+    },
+    {
+      "path": "docs/algorithm-upgrade/FAMILIES.json",
+      "sha256": "4058d670b0eb840458ae979d5b9d431a326258229dd5426a99e9a2862ca58848",
+      "old_git_blob": null
+    },
+    {
+      "path": "docs/algorithm-upgrade/RESEARCH_AND_DESIGN_CN.md",
+      "sha256": "de39b26d5f5918ec3c065b349aab1123f2766cc20528c3bbd808d1038d6a5add",
+      "old_git_blob": null
+    },
+    {
+      "path": "docs/algorithm-upgrade/SOURCES.json",
+      "sha256": "a882514974338ee327165081ce2f9122db2725eaf91a1627fb11b6168ed3527e",
+      "old_git_blob": null
+    },
+    {
+      "path": "docs/algorithm-upgrade/external_candidates.json",
+      "sha256": "9bfd8d08ff5c32e6f0de119f0ae3317d8948de2dacaf67293928d05e55569c9f",
+      "old_git_blob": null
+    },
+    {
+      "path": "tests/test_algorithm_upgrade.py",
+      "sha256": "cd5ed523109f77806fe4badc5bdd520611d7c957ca2a01b20f4e6fdd555b86db",
+      "old_git_blob": null
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "linear-programming": {
+    "entry": "cumcm_harness.algopt.solve_linear",
+    "upgrade": "Original-space residual checks, optional row scaling, solver statuses; retain HiGHS.",
+    "assumptions": [
+      "linear objective and constraints",
+      "continuous variables"
+    ],
+    "verifier": [
+      "original units feasibility",
+      "original objective recomputation",
+      "status/duals"
+    ],
+    "frontier": [
+      "llm-lns",
+      "llm4branch"
+    ],
+    "mechanism": "Only extend LP inside a certified MILP/solver workflow, not a neural LP replacement."
+  },
+  "mixed-integer": {
+    "entry": "cumcm_harness.algopt.solve_linear",
+    "upgrade": "Integer residuals and original dual bound; feasible-incumbent local neighborhoods.",
+    "assumptions": [
+      "linear model",
+      "continuous or general integer variables"
+    ],
+    "verifier": [
+      "integrality",
+      "feasibility",
+      "original vs local dual-bound scope",
+      "total seconds"
+    ],
+    "frontier": [
+      "llm-lns",
+      "llm4branch",
+      "encore"
+    ],
+    "mechanism": "Propose free variables, solve bounded neighborhood, accept only an independently checked incumbent."
+  },
+  "mosaic-multiobjective": {
+    "entry": "cumcm_harness.algorithms.mosaic_solve",
+    "upgrade": "Keep v14 solver frozen; add independent objective/front audit; new experts remain candidates.",
+    "assumptions": [
+      "original MOSAIC contract applies",
+      "minimization convention in front audit"
+    ],
+    "verifier": [
+      "exact FE ledger",
+      "objective recomputation",
+      "Pareto nondominance",
+      "held-out families"
+    ],
+    "frontier": [
+      "seemoo",
+      "cmoea-aop"
+    ],
+    "mechanism": "Evidence-triggered residual experts, frozen inactive RNG trajectory, no untested automatic promotion."
+  },
+  "regression": {
+    "entry": "cumcm_harness.algpredict.fit_tabular",
+    "upgrade": "Train-only OLS/Ridge/Huber/GBDT selection; optional crossfit residual; separate conformal calibration.",
+    "assumptions": [
+      "numeric finite features",
+      "declared IID/group/time dependence"
+    ],
+    "verifier": [
+      "train-only preprocessing",
+      "outer test error",
+      "calibration isolation",
+      "fit budget"
+    ],
+    "frontier": [
+      "tabpfn3",
+      "tabiclv2"
+    ],
+    "mechanism": "Cheap shared predictor plus a validated residual expert; same output contract for optional foundation models."
+  },
+  "time-series": {
+    "entry": "cumcm_harness.algpredict.forecast_portfolio",
+    "upgrade": "Nonoverlapping rolling-origin selection among trend, naive, seasonal and lagged models.",
+    "assumptions": [
+      "regular univariate series",
+      "specified season",
+      "sufficient historical validation windows"
+    ],
+    "verifier": [
+      "no future target leakage",
+      "future-known covariates only in future adapter",
+      "horizon MAE/MASE",
+      "wallclock"
+    ],
+    "frontier": [
+      "timesfm3",
+      "tirex2",
+      "toto2",
+      "chronos2"
+    ],
+    "mechanism": "Choose by historical regime evidence, never assume a single foundation model dominates every horizon."
+  },
+  "topsis": {
+    "entry": "cumcm_harness.algdecision.fixed_topsis",
+    "upgrade": "Fixed external scale and ideals; explicit preference weights; Dirichlet rank acceptability; AHP consistency.",
+    "assumptions": [
+      "anchors fixed independently of alternatives",
+      "weights are declared preferences"
+    ],
+    "verifier": [
+      "dominated alternative monotonicity",
+      "insertion invariance",
+      "ties",
+      "weight sensitivity"
+    ],
+    "frontier": [
+      "mcda-robustness"
+    ],
+    "mechanism": "Robust decision support, not a fabricated ground-truth ranking or automatic normative preferences."
+  },
+  "graph-path": {
+    "entry": "cumcm_harness.alggraph.shortest_path",
+    "upgrade": "Zero-edge-safe graph, negative-edge Bellman-Ford, checked A* hint with Dijkstra fallback.",
+    "assumptions": [
+      "explicit directed edge list",
+      "static edge weights"
+    ],
+    "verifier": [
+      "edge existence",
+      "recomputed path cost",
+      "negative cycles",
+      "heuristic consistency"
+    ],
+    "frontier": [
+      "dynaco",
+      "efloco"
+    ],
+    "mechanism": "Neural routing is a separate NP-hard TSP/VRP branch, not replacement of exact shortest paths."
+  },
+  "ode": {
+    "entry": "cumcm_harness.algscience.checked_ivp",
+    "upgrade": "Declared-stiffness DOP853/Radau, tolerance refinement, optional invariants and positivity checks.",
+    "assumptions": [
+      "explicit RHS and initial state",
+      "invariants declared when known"
+    ],
+    "verifier": [
+      "refinement diagnostic",
+      "RHS call budget",
+      "initial state",
+      "conservation"
+    ],
+    "frontier": [
+      "walrus",
+      "pdeformer2",
+      "physicscorrect"
+    ],
+    "mechanism": "Surrogate proposes, numerical residual and boundary conditions verify; no rigorous-error claim from two tolerances."
+  },
+  "monte-carlo": {
+    "entry": "cumcm_harness.algscience.integrate_unit",
+    "upgrade": "Replicated scrambled Sobol, independent-pilot control variates, honest total evaluation counts.",
+    "assumptions": [
+      "integration on unit hypercube",
+      "finite integrand",
+      "known control means when used"
+    ],
+    "verifier": [
+      "independent scramble error units",
+      "pilot cost",
+      "analytic examples",
+      "rare-event warnings"
+    ],
+    "frontier": [
+      "fm-isqmc"
+    ],
+    "mechanism": "Learned sampling requires density/importance correction; never substitute biased generated samples for MC truth."
+  },
+  "statistics": {
+    "entry": "cumcm_harness.algscience.paired_summary",
+    "upgrade": "Independent-unit aggregation, effect intervals, Holm/BH/BY, clustering diagnostics; separate classifier selection.",
+    "assumptions": [
+      "independent units declared",
+      "valid null p-values",
+      "no causal conclusion from prediction alone"
+    ],
+    "verifier": [
+      "unit of analysis",
+      "multiplicity",
+      "effect size",
+      "negative controls",
+      "calibration"
+    ],
+    "frontier": [
+      "score",
+      "tabpfn3",
+      "tabiclv2"
+    ],
+    "mechanism": "Uncertainty and selection risk need independent statistical evidence, not model self-confidence."
+  }
+}

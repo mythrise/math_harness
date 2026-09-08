@@ -1,0 +1,93 @@
+[
+  {
+    "exact": -16.0,
+    "family": "mixed-integer",
+    "objective": -16.0,
+    "passed": true,
+    "seed": 101
+  },
+  {
+    "exact": -17.0,
+    "family": "mixed-integer",
+    "objective": -17.0,
+    "passed": true,
+    "seed": 102
+  },
+  {
+    "exact": -14.0,
+    "family": "mixed-integer",
+    "objective": -14.0,
+    "passed": true,
+    "seed": 103
+  },
+  {
+    "exact": -22.0,
+    "family": "mixed-integer",
+    "objective": -22.0,
+    "passed": true,
+    "seed": 104
+  },
+  {
+    "exact": -18.0,
+    "family": "mixed-integer",
+    "objective": -18.0,
+    "passed": true,
+    "seed": 105
+  },
+  {
+    "exact": -15.0,
+    "family": "mixed-integer",
+    "objective": -15.0,
+    "passed": true,
+    "seed": 106
+  },
+  {
+    "exact": -22.0,
+    "family": "mixed-integer",
+    "objective": -22.0,
+    "passed": true,
+    "seed": 107
+  },
+  {
+    "exact": -17.0,
+    "family": "mixed-integer",
+    "objective": -17.0,
+    "passed": true,
+    "seed": 108
+  },
+  {
+    "family": "linear-programming",
+    "passed": true
+  },
+  {
+    "family": "graph-path",
+    "passed": true
+  },
+  {
+    "family": "topsis",
+    "passed": true
+  },
+  {
+    "family": "ode",
+    "max_error": 3.5839279127758417e-07,
+    "passed": true,
+    "rhs_calls": 64,
+    "stiff": false
+  },
+  {
+    "family": "ode",
+    "max_error": 2.5161324357370063e-08,
+    "passed": true,
+    "rhs_calls": 1238,
+    "stiff": true
+  },
+  {
+    "family": "statistics",
+    "passed": true
+  },
+  {
+    "error": "AttributeError: 'BiObjective' object has no attribute 'name'",
+    "family": "mosaic-multiobjective",
+    "passed": false
+  }
+]

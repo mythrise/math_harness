@@ -32,3 +32,9 @@ Skills: `.agents/skills/cumcm-orchestrator`, `mosaic-multiobjective`, `determini
 Read docs/EXA_RESILIENT_REVIEW_CN.md first. Use configs/exa-resilient.json for new online workspaces. Exa credentials may come from the parent EXA_API_KEY environment or an operator-authorized local private file managed by set-exa-key. Never copy the value into versioned files, workspace config, logs, model packets, containers or support bundles; never send private inputs to search. Exa provides literature, not empirical hypothesis tests. Use the literature-adversary skill and execute the declared hypothesis diagnostics.
 
 Review seats are role-based Claude plus Codex. A terminated ProviderFailure may trigger a bounded recorded failover; a valid negative finding, stale digest or unknown process state may not. No fixture can pass a live gate. WAITING_REVIEW_PROVIDERS / WAITING_RESEARCH_PROVIDER preserve work for a later explicit run. Updated code requires a new workspace rather than editing an old fingerprint.
+
+## 0.3 algorithm library
+
+Read `.agents/skills/algorithm-library-upgrade/SKILL.md` and `docs/algorithm-upgrade/API_CN.md` when selecting the new algorithms. Method retrieval and partial structural screening are not execution approval. Keep original MOSAIC constraints, residual regression off by default, and external candidates `EXTERNAL_NOT_RUN`. Run new numerical validation with `scripts/validate_algorithm_upgrade.py` through Docker; it never establishes a live LLM/contest result. Use a new empty validation directory and preserve upstream and local result sets separately.
+
+Only retrieved source IDs are citable in literature audits. Problem/experiment context is not empirical literature evidence. Complete failed dossiers remain in the object store; bounded repair packets retain objections without duplicating source bodies. Do not repeat an oversized request, weaken quotation checks or rewrite old workspaces to bypass a fingerprint.

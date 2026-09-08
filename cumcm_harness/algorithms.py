@@ -21,7 +21,8 @@ METHODS=[
 def route_methods(query:str,top_k=6):
     text=query.casefold()
     ranked=sorted(METHODS,key=lambda m:(-sum(k.casefold() in text for k in m['keywords']),m['id']))
-    return ranked[:top_k]
+    from .algorithm_library import enrich_method
+    return [enrich_method(card) for card in ranked[:top_k]]
 
 def linear_fit(X,y):
     X=np.asarray(X,float);y=np.asarray(y,float)

@@ -1,0 +1,242 @@
+{
+  "as_of": "2026-09-08",
+  "exa_queries": 11,
+  "requested_result_entries": 57,
+  "not_all_unique": true,
+  "sources": [
+    {
+      "id": "S01",
+      "name": "TabPFN-3",
+      "url": "https://priorlabs.ai/technical-reports/tabpfn-3",
+      "upstream": "https://github.com/PriorLabs/TabPFN",
+      "mechanism": "tabular synthetic prior in-context learning",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "WEIGHTS_RESTRICTED_VERIFY"
+    },
+    {
+      "id": "S02",
+      "name": "TabICLv2",
+      "url": "https://arxiv.org/abs/2602.11139",
+      "upstream": "https://github.com/soda-inria/tabicl",
+      "mechanism": "large-context synthetic-prior tabular model",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S03",
+      "name": "TimesFM 3.0",
+      "url": "https://github.com/google-research/timesfm",
+      "upstream": "https://github.com/google-research/timesfm",
+      "mechanism": "multivariate + past/future-known covariates",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "WEIGHTS_NONCOMMERCIAL_NONPRODUCTION_VERIFY"
+    },
+    {
+      "id": "S04",
+      "name": "TiRex-2",
+      "url": "https://arxiv.org/abs/2607.01204",
+      "upstream": "https://github.com/NX-AI/tirex-2",
+      "mechanism": "xLSTM recurrent multivariate prior; streaming implementation is Pro-dependent",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_OPEN_VS_PRO"
+    },
+    {
+      "id": "S05",
+      "name": "Toto 2.0",
+      "url": "https://arxiv.org/abs/2605.20119",
+      "upstream": "https://github.com/DataDog/toto",
+      "mechanism": "multi-size forecasting; observability and synthetic pretraining",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "APACHE2_RECHECK_CHECKPOINT"
+    },
+    {
+      "id": "S06",
+      "name": "Chronos-2",
+      "url": "https://arxiv.org/abs/2510.15821",
+      "upstream": "https://github.com/amazon-science/chronos-forecasting",
+      "mechanism": "group attention and covariate context sharing",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S07",
+      "name": "LLM-LNS (ICML 2025)",
+      "url": "https://proceedings.mlr.press/v267/ye25j.html",
+      "upstream": "https://proceedings.mlr.press/v267/ye25j.html",
+      "mechanism": "LLM-evolved large neighborhoods",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S08",
+      "name": "LLM4Branch",
+      "url": "https://arxiv.org/abs/2605.10401",
+      "upstream": "https://github.com/hzn18/LLM4Branch",
+      "mechanism": "interpretable programs plus parameter search for branching",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S09",
+      "name": "EnCore",
+      "url": "https://arxiv.org/abs/2608.19953",
+      "upstream": "https://github.com/lamda-bbo/EnCore",
+      "mechanism": "early feasible incumbent consistency for local search",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S10",
+      "name": "SEEMOO",
+      "url": "https://arxiv.org/abs/2602.00540",
+      "upstream": null,
+      "mechanism": "RL scheduling of surrogate experts",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S11",
+      "name": "CMOEA-AOP",
+      "url": "https://arxiv.org/abs/2603.16401",
+      "upstream": null,
+      "mechanism": "constrained operator portfolios",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S12",
+      "name": "MCDA robustness coefficients",
+      "url": "https://doi.org/10.1007/s10462-025-11307-6",
+      "upstream": null,
+      "mechanism": "rank stability and preference sensitivity",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "OPEN_ARTICLE_NOT_CODE_LICENSE"
+    },
+    {
+      "id": "S13",
+      "name": "DyNACO",
+      "url": "https://arxiv.org/abs/2606.04039",
+      "upstream": null,
+      "mechanism": "dynamic neural correction of classical ACO stagnation",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S14",
+      "name": "EFLOCO (AAAI 2026)",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/41035",
+      "upstream": null,
+      "mechanism": "few-step discrete flow matching for TSP/ATSP",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S15",
+      "name": "Walrus",
+      "url": "https://arxiv.org/abs/2511.15684",
+      "upstream": "https://github.com/PolymathicAI/walrus",
+      "mechanism": "continuum dynamics prior, adaptive stride and patch jitter",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "MIT_RECHECK_CHECKPOINT"
+    },
+    {
+      "id": "S16",
+      "name": "PDEformer-2",
+      "url": "https://arxiv.org/abs/2507.15409",
+      "upstream": "https://github.com/functoreality/pdeformer-2",
+      "mechanism": "explicit PDE-conditioned solution operator",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S17",
+      "name": "PhysicsCorrect",
+      "url": "https://arxiv.org/abs/2507.02227",
+      "upstream": "https://github.com/summerwine668/PhysicsCorrect",
+      "mechanism": "training-free numerical residual projection",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S18",
+      "name": "FM-ISQMC",
+      "url": "https://arxiv.org/abs/2601.01072",
+      "upstream": null,
+      "mechanism": "flow transport with importance correction and RQMC",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S19",
+      "name": "SCoRE",
+      "url": "https://arxiv.org/abs/2603.24704",
+      "upstream": "https://github.com/Tian-Bai/SCoRE",
+      "mechanism": "selective risk control with conformal e-values",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S20",
+      "name": "AlphaEvolve",
+      "url": "https://arxiv.org/abs/2506.13131",
+      "upstream": null,
+      "mechanism": "evolve algorithms under external machine evaluation",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "NOT_DISTRIBUTED_HERE"
+    },
+    {
+      "id": "S21",
+      "name": "Engram",
+      "url": "https://arxiv.org/abs/2601.07372",
+      "upstream": "https://github.com/deepseek-ai/Engram",
+      "mechanism": "conditional lookup versus dynamic computation",
+      "status": "SOURCE_REVIEWED_EXTERNAL_IMPLEMENTATION_NOT_RUN",
+      "accessed": "2026-09-08",
+      "license_note": "VERIFY_UPSTREAM"
+    },
+    {
+      "id": "S22",
+      "name": "DeepSeek-V3 technical report",
+      "url": "https://arxiv.org/abs/2412.19437",
+      "mechanism": "Shared experts and auxiliary-loss-free routing biases; only architectural analogy here"
+    },
+    {
+      "id": "S23",
+      "name": "High Performance, Low Reliability: Uncertainty Benchmarking for Tabular Foundation Models",
+      "url": "https://arxiv.org/abs/2605.28554",
+      "mechanism": "Counterevidence: point prediction and conditional coverage can disagree"
+    },
+    {
+      "id": "S24",
+      "name": "SciPy milp official documentation",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html",
+      "mechanism": "Actual solver API, integrality and limits"
+    },
+    {
+      "id": "S25",
+      "name": "SciPy Sobol official documentation",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.qmc.Sobol.html",
+      "mechanism": "Power-of-two points, scrambling and independent replication"
+    }
+  ]
+}

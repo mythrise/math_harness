@@ -1,0 +1,164 @@
+{
+  "version": "0.3.0",
+  "date": "2026-09-08",
+  "status": "LOCAL_VALIDATION_PASS",
+  "base_commit": "b54d883",
+  "package": {
+    "name": "math_harness_algorithm_library_v0.3.0.zip",
+    "sha256": "f1169d815e2cb57fe07a2ab7fcdd231e73ca00fe095418d969aef6f894f4d808",
+    "payload_files": 31,
+    "local_payload_changes": [
+      {
+        "path": "cumcm_harness/algorithm_lab.py",
+        "upstream_sha256": "fffb95de2366480e101fb0b8f659ab801f7a4f245c930ad677c191d40b0ed5bd",
+        "integrated_sha256": "10e64ca1ff95b95b0cb2b8eea5e2fc18ca71a185e2c4684948305de605f4bf71"
+      },
+      {
+        "path": "cumcm_harness/algorithm_library.py",
+        "upstream_sha256": "efcc7614fbf8b518b8c10fa43b16823bcbc37ca45827ad2bf120ce07aad57578",
+        "integrated_sha256": "ddc103f069f9616a0e33733092556f8fa4eacb9e7438393cd87aef7f4b98e6b2"
+      },
+      {
+        "path": "cumcm_harness/algpromotion.py",
+        "upstream_sha256": "e0cf5163cfc9258535f6c8eb41b345930bafd91a9c0395fe363d0d544c32df58",
+        "integrated_sha256": "48c9229878a2b0cdbb3a59fb3f81a2f4c1d6fbf657e72586c5089aab1d0ff824"
+      }
+    ]
+  },
+  "tests": {
+    "updater": {
+      "passed": 10,
+      "backend": "HOST_FILE_IO_ONLY"
+    },
+    "host_infrastructure": {
+      "passed": 203,
+      "excluded": [
+        "test_algorithm_upgrade.py",
+        "test_algorithm_integration.py"
+      ]
+    },
+    "docker_complete_suite": {
+      "passed": 291,
+      "failed": 0,
+      "skipped": 0,
+      "python": "3.11"
+    },
+    "ci_command_local_check": {
+      "diagnostics_per_run": 9,
+      "external_candidates_run": 0,
+      "global_promotions": 0,
+      "numerical_runs": 2,
+      "protocol_digest": "233921b07d9a5a198ee75e1df27730d89e2853597049f20b399f59e726cf31f8",
+      "receipts": {
+        "lab-1": "9af992a9d22f8b543055a00726b69019ecffdeb29001ea362d5e4ae0c795365b",
+        "lab-2": "937d5fd98ac01fdc4c0510d6034eaa25532105b9ed14c1127f99e80a7519c032",
+        "tests": "408b8300c60321382403e285eb2596083d40328148dc44e9b048fd4682b5d0d1"
+      },
+      "reproducibility": {
+        "diagnostics.json": true,
+        "raw_results.json": true
+      },
+      "rows_per_run": 98,
+      "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+      "status": "PASS"
+    }
+  },
+  "numerical_validation": {
+    "diagnostics_per_run": 19,
+    "external_candidates_run": 0,
+    "global_promotions": 0,
+    "numerical_runs": 2,
+    "protocol_digest": "e64f6bc53e50925ac5f4fa8a423f83ab9c9c691ba22f0894dc6e87e7fa35e3f6",
+    "receipts": {
+      "lab-1": "c9c7c3c5e0c64cf419dd289073659cb68b1caf665c57180b4861144faebb70ec",
+      "lab-2": "f67bc7613fe65102de1b7b0887fcd39c509ccf89cf8c10c6c11d54d5999f251c",
+      "tests": "d96556a1a5f50dee81a8aac49da9f347a5bc8dfd41a6be0f65bf3adaa9079b53"
+    },
+    "reproducibility": {
+      "diagnostics.json": true,
+      "raw_results.json": true
+    },
+    "rows_per_run": 564,
+    "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+    "status": "PASS"
+  },
+  "runtime": {
+    "backend": "DOCKER",
+    "image_id": "sha256:2758b07ee18b31abac6e9a270d86b9379d3743dfb8ae1f94975d1c6bb1c31b05"
+  },
+  "test_runtime": {
+    "backend": "DOCKER",
+    "image_id": "sha256:0206f7c7c143292fef723ffc60d8bbc8544e8f09c506d31aa152de22fecd52e7"
+  },
+  "vendor": {
+    "files": 408,
+    "manifest_sha256": "4d5d665f6511cc5c345c936194512a43a3e821d50afb14b634e9c9438c059034",
+    "status": "PASS"
+  },
+  "repeated_outputs": {
+    "raw_results.json": {
+      "lab-1": "16020e973d4c0903f854a84f076184b929c1304cbdf4b98bb9f37dc90b79b670",
+      "lab-2": "d2bf914803e2666710fa4063638270e5a219f0ec507805ecc679702e498c4b6d"
+    },
+    "diagnostics.json": {
+      "lab-1": "ef4769fff664579e10e841d96e23cc9198e9f41b925aaeb3d368973da6f7a769",
+      "lab-2": "ef4769fff664579e10e841d96e23cc9198e9f41b925aaeb3d368973da6f7a769"
+    }
+  },
+  "paper_fixture": {
+    "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+    "scope": {
+      "claude_outage": "INJECTED_NOT_REAL_OUTAGE",
+      "exa": "REPLAYED_SOURCE_FIXTURE_NOT_LIVE_HTTP",
+      "llm": "FIXTURE_NOT_LLM",
+      "numerics": "ACTUALLY_EXECUTED",
+      "pdf": "ACTUALLY_COMPILED",
+      "user_api_key_validation": "NOT_RUN"
+    },
+    "jobs": {
+      "DONE": 22
+    },
+    "deliverables_replay_hashes_unchanged": true,
+    "package": {
+      "contest_mode": false,
+      "file_count": 177,
+      "official_submission_sent": false,
+      "paper": "deliverables/paper.pdf",
+      "paper_bytes": 600427,
+      "paper_sha256": "f17392c72b62b0838e26a6defd95d4f8b4719602b8603078a619b175821364bc",
+      "support": "deliverables/support.zip",
+      "support_bytes": 983021,
+      "support_sha256": "e6f09a9edec52e475085ed7d8e8cfb01872585f7cdb7b80d3726eaee985168fc"
+    },
+    "pages": 159,
+    "body_pages": 4,
+    "overfull_boxes": 0,
+    "visual_inspection": {
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "status": "PASS_SAMPLED_BODY_AND_REFERENCES_NOT_ALL_SOURCE_APPENDIX"
+    }
+  },
+  "preserved_failed_validation": {
+    "id": "validation-01",
+    "passed": 286,
+    "failed": 5,
+    "cause": [
+      "Missing examples in source snapshot",
+      "Fake CLI scripts in noexec /tmp"
+    ],
+    "fix": "Include examples and schemas; place pytest scratch in existing output mount without changing sandbox protections"
+  },
+  "limits": {
+    "external_candidates_run": 0,
+    "global_promotions": 0,
+    "live_llm_full_problem_run": "NOT_RUN",
+    "live_exa_this_upgrade": "NOT_RUN",
+    "official_submission_sent": false
+  }
+}

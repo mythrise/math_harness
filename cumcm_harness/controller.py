@@ -8,7 +8,7 @@ from pathlib import Path
 from .common import *
 from .contracts import validate, SCHEMAS
 from .store import Store,controller_lock
-from .providers import CLIProvider,review_quorum
+from .providers import CLIProvider,review_quorum,PromptPacketTooLarge
 from .sandbox import Executor,Limits,resource_gate
 from .intake import verify_inputs
 from .research import ResearchRunner,freeze_protocol,choose_development,paired_effect
@@ -167,9 +167,13 @@ class Controller:
                 'context':context or {}}
         return self.review_board.review(key,packet,roles,images=images)
     def produce_reviewed(self,key,role,schema,packet,*,extra_review=None,entry=None):
-        feedback=[]
+        feedback=[];latest_plan=None
         for attempt in range(self.config['repair_attempts']+1):
-            full={**packet,'repair_feedback':feedback}
+            # Snapshot feedback: previous prompts/receipts must never change as
+            # new rounds are appended. Include only the latest prior plan once.
+            repairs=__import__('copy').deepcopy(feedback)
+            if repairs and latest_plan is not None:repairs[-1]['prior_artifact']=latest_plan
+            full={**packet,'repair_feedback':repairs}
             diagnostic=None;artifact=None
             try:
                 record=self.call(f'{key}:r{attempt}',role,schema,full);artifact=record['result']
@@ -189,19 +193,27 @@ class Controller:
                 self.store.set(key,{'artifact_digest':self.store.put(artifact),'response_digest':record['receipt']['response_digest'],
                                      'review_target':digest(artifact),'attempt':attempt})
                 return artifact,reviews
-            except (ReviewUnavailable,ResearchUnavailable):
+            except (ReviewUnavailable,ResearchUnavailable,ProviderFailure,PromptPacketTooLarge):
                 raise
             except (Blocked,IntegrityError) as e:
-                feedback.append({'attempt':attempt,'failure':str(e),
-                                 **({'prior_artifact':artifact,'literature_diagnostic':e.diagnostic} if isinstance(e,LiteratureAssessmentFailure) else {}),
+                literature_feedback={};failure=str(e)
+                if role=='modeler' and artifact is not None:latest_plan=artifact
+                if isinstance(e,LiteratureAssessmentFailure):
+                    ref=self.store.put(e.diagnostic)
+                    summary=e.repair_summary();failure=summary['validation_error']
+                    literature_feedback={'literature_diagnostic':summary,'diagnostic_ref':ref}
+                feedback.append({'attempt':attempt,'failure':failure,
+                                 **literature_feedback,
                                  **({'prior_artifact':artifact,'runtime_diagnostic':diagnostic} if role=='verifier_author' and artifact else {})})
-                self.store.event('REPAIR_REQUEST',{'key':key,'attempt':attempt,'failure':str(e)})
+                self.store.event('REPAIR_REQUEST',{'key':key,'attempt':attempt,'failure':failure,
+                    **({'diagnostic_ref':literature_feedback['diagnostic_ref']} if literature_feedback else {})})
                 # Missing infrastructure cannot be repaired by inventing LLM responses.
                 # A completed literature review can discuss Docker, deadlines
                 # or budgets without being an infrastructure failure.
                 if not isinstance(e,LiteratureAssessmentFailure) and any(x in str(e) for x in ('NOT_INSTALLED','budget exhausted','lacks required CLI','deadline','RUNNING',
                                             'Docker','Output directory is not empty','claude failed','codex failed')):raise
-        raise Blocked(f'{key} failed after bounded repairs: {feedback}')
+        failures=[{k:r[k] for k in ('attempt','failure','diagnostic_ref') if k in r} for r in feedback]
+        raise Blocked(f'{key} failed after bounded repairs: {failures}')
     def verifier_preflight(self,bundle):
         """Run a bounded verifier test BEFORE freezing it; never repair frozen code.
 

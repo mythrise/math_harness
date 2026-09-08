@@ -1,0 +1,121 @@
+[
+  {
+    "exact": -18.0,
+    "family": "mixed-integer",
+    "objective": -18.0,
+    "passed": true,
+    "seed": 201
+  },
+  {
+    "exact": -14.0,
+    "family": "mixed-integer",
+    "objective": -14.0,
+    "passed": true,
+    "seed": 202
+  },
+  {
+    "exact": -26.0,
+    "family": "mixed-integer",
+    "objective": -26.0,
+    "passed": true,
+    "seed": 203
+  },
+  {
+    "exact": -23.0,
+    "family": "mixed-integer",
+    "objective": -23.0,
+    "passed": true,
+    "seed": 204
+  },
+  {
+    "exact": -22.0,
+    "family": "mixed-integer",
+    "objective": -22.0,
+    "passed": true,
+    "seed": 205
+  },
+  {
+    "exact": -22.0,
+    "family": "mixed-integer",
+    "objective": -22.0,
+    "passed": true,
+    "seed": 206
+  },
+  {
+    "exact": -16.0,
+    "family": "mixed-integer",
+    "objective": -16.0,
+    "passed": true,
+    "seed": 207
+  },
+  {
+    "exact": -27.0,
+    "family": "mixed-integer",
+    "objective": -27.0,
+    "passed": true,
+    "seed": 208
+  },
+  {
+    "exact": -16.0,
+    "family": "mixed-integer",
+    "objective": -16.0,
+    "passed": true,
+    "seed": 209
+  },
+  {
+    "exact": -20.0,
+    "family": "mixed-integer",
+    "objective": -20.0,
+    "passed": true,
+    "seed": 210
+  },
+  {
+    "exact": -12.0,
+    "family": "mixed-integer",
+    "objective": -12.0,
+    "passed": true,
+    "seed": 211
+  },
+  {
+    "exact": -16.0,
+    "family": "mixed-integer",
+    "objective": -16.0,
+    "passed": true,
+    "seed": 212
+  },
+  {
+    "family": "linear-programming",
+    "passed": true
+  },
+  {
+    "family": "graph-path",
+    "passed": true
+  },
+  {
+    "family": "topsis",
+    "passed": true
+  },
+  {
+    "family": "ode",
+    "max_error": 3.5839279127758417e-07,
+    "passed": true,
+    "rhs_calls": 64,
+    "stiff": false
+  },
+  {
+    "family": "ode",
+    "max_error": 2.5161324357370063e-08,
+    "passed": true,
+    "rhs_calls": 1238,
+    "stiff": true
+  },
+  {
+    "family": "statistics",
+    "passed": true
+  },
+  {
+    "family": "mosaic-multiobjective",
+    "fe": 64,
+    "passed": true
+  }
+]

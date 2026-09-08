@@ -10,6 +10,19 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install -e '.[dev,excel]'
       - run: python -m cumcm_harness verify-vendor
-      - run: python -m pytest -q --junitxml=reports/ci-tests.xml
-# This job does not claim live CLI authentication, Docker execution or competition
-# quality. Run those separately under explicit credentials and a frozen protocol.
+      - run: python -m pytest -q --ignore=tests/test_algorithm_upgrade.py --ignore=tests/test_algorithm_integration.py --junitxml=reports/ci-infrastructure.xml
+      - run: docker build -t cumcm-egoharness:0.3.0 .
+      - run: docker build -f Dockerfile.test -t cumcm-egoharness:0.3.0-test .
+      - run: python scripts/validate_algorithm_upgrade.py --out reports/ci-algorithm-validation --seeds 2 --seed-start 201
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deterministic-validation-evidence
+          path: |
+            reports/ci-infrastructure.xml
+            reports/ci-algorithm-validation/*.json
+            reports/ci-algorithm-validation/tests/*.xml
+            reports/ci-algorithm-validation/*-logs/*.log
+            reports/ci-algorithm-validation/lab-*/*.json
+# Numerical code executes in the existing restricted Docker executor. These
+# bounded diagnostics do not establish live LLM/Exa or competition quality.

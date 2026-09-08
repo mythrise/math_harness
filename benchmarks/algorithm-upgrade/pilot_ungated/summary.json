@@ -1,0 +1,590 @@
+{
+  "diagnostics": [
+    {
+      "exact": -16.0,
+      "family": "mixed-integer",
+      "objective": -16.0,
+      "passed": true,
+      "seed": 101
+    },
+    {
+      "exact": -17.0,
+      "family": "mixed-integer",
+      "objective": -17.0,
+      "passed": true,
+      "seed": 102
+    },
+    {
+      "exact": -14.0,
+      "family": "mixed-integer",
+      "objective": -14.0,
+      "passed": true,
+      "seed": 103
+    },
+    {
+      "exact": -22.0,
+      "family": "mixed-integer",
+      "objective": -22.0,
+      "passed": true,
+      "seed": 104
+    },
+    {
+      "exact": -18.0,
+      "family": "mixed-integer",
+      "objective": -18.0,
+      "passed": true,
+      "seed": 105
+    },
+    {
+      "exact": -15.0,
+      "family": "mixed-integer",
+      "objective": -15.0,
+      "passed": true,
+      "seed": 106
+    },
+    {
+      "exact": -22.0,
+      "family": "mixed-integer",
+      "objective": -22.0,
+      "passed": true,
+      "seed": 107
+    },
+    {
+      "exact": -17.0,
+      "family": "mixed-integer",
+      "objective": -17.0,
+      "passed": true,
+      "seed": 108
+    },
+    {
+      "family": "linear-programming",
+      "passed": true
+    },
+    {
+      "family": "graph-path",
+      "passed": true
+    },
+    {
+      "family": "topsis",
+      "passed": true
+    },
+    {
+      "family": "ode",
+      "max_error": 3.5839279127758417e-07,
+      "passed": true,
+      "rhs_calls": 64,
+      "stiff": false
+    },
+    {
+      "family": "ode",
+      "max_error": 2.5161324357370063e-08,
+      "passed": true,
+      "rhs_calls": 1238,
+      "stiff": true
+    },
+    {
+      "family": "statistics",
+      "passed": true
+    },
+    {
+      "error": "AttributeError: 'BiObjective' object has no attribute 'name'",
+      "family": "mosaic-multiobjective",
+      "passed": false
+    }
+  ],
+  "external_candidates_run": 0,
+  "global_promotions": 0,
+  "protocol_sha256": "9024a8b81a0e51f13e748415b4092daf2c95f023b0a9560d4350930e4c121a71",
+  "rows": 344,
+  "seconds": 8.219199440000011,
+  "status": "DIAGNOSTIC_FAILED",
+  "summary": [
+    {
+      "domain": "forecast",
+      "family": "random_walk",
+      "mean": 4.948337930917894,
+      "method": "linear",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "random_walk",
+      "mean": 1.663248484500057,
+      "method": "naive",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "naive": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "random_walk",
+      "mean": 2.2729598240977964,
+      "method": "portfolio",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 2,
+        "naive": 4,
+        "ridge_lags": 2
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "random_walk",
+      "mean": 2.3743163486504897,
+      "method": "ridge_lags",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "ridge_lags": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "random_walk",
+      "mean": 2.5646474253251954,
+      "method": "seasonal",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "random_walk",
+      "mean": 2.733972926893008,
+      "method": "seasonal_residual",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal_residual": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal",
+      "mean": 1.2810824365957183,
+      "method": "linear",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal",
+      "mean": 1.4568153080002868,
+      "method": "naive",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "naive": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal",
+      "mean": 0.1599246741914811,
+      "method": "portfolio",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "ridge_lags": 3,
+        "seasonal_residual": 5
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal",
+      "mean": 0.14881402830144563,
+      "method": "ridge_lags",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "ridge_lags": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal",
+      "mean": 0.17702693740879433,
+      "method": "seasonal",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal",
+      "mean": 0.15680299447319557,
+      "method": "seasonal_residual",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal_residual": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal_trend",
+      "mean": 1.3078487207572442,
+      "method": "linear",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal_trend",
+      "mean": 1.504851913636886,
+      "method": "naive",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "naive": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal_trend",
+      "mean": 0.21323636724109946,
+      "method": "portfolio",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "ridge_lags": 4,
+        "seasonal_residual": 4
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal_trend",
+      "mean": 0.19790654841798874,
+      "method": "ridge_lags",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "ridge_lags": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal_trend",
+      "mean": 0.5425904331176359,
+      "method": "seasonal",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "seasonal_trend",
+      "mean": 0.2138350201310425,
+      "method": "seasonal_residual",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal_residual": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "trend",
+      "mean": 0.16620465279059307,
+      "method": "linear",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "trend",
+      "mean": 0.5900504793996875,
+      "method": "naive",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "naive": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "trend",
+      "mean": 0.16620465279059307,
+      "method": "portfolio",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "trend",
+      "mean": 0.1646378537345423,
+      "method": "ridge_lags",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "ridge_lags": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "trend",
+      "mean": 0.9470565646072112,
+      "method": "seasonal",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "trend",
+      "mean": 0.19951726841510703,
+      "method": "seasonal_residual",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal_residual": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "white_noise",
+      "mean": 0.7821350214300333,
+      "method": "linear",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "white_noise",
+      "mean": 1.1411370554881237,
+      "method": "naive",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "naive": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "white_noise",
+      "mean": 0.7821350214300333,
+      "method": "portfolio",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "linear": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "white_noise",
+      "mean": 0.7460938794705922,
+      "method": "ridge_lags",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "ridge_lags": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "white_noise",
+      "mean": 1.197786572138876,
+      "method": "seasonal",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal": 8
+      }
+    },
+    {
+      "domain": "forecast",
+      "family": "white_noise",
+      "mean": 1.0704659207685367,
+      "method": "seasonal_residual",
+      "metric": "mae",
+      "n": 8,
+      "selected_counts": {
+        "seasonal_residual": 8
+      }
+    },
+    {
+      "domain": "integration",
+      "family": "rare_indicator",
+      "mean": 0.0024462890625,
+      "method": "mc",
+      "metric": "error",
+      "n": 8,
+      "selected_counts": {}
+    },
+    {
+      "domain": "integration",
+      "family": "rare_indicator",
+      "mean": 0.0011572265625,
+      "method": "sobol",
+      "metric": "error",
+      "n": 8,
+      "selected_counts": {}
+    },
+    {
+      "domain": "integration",
+      "family": "smooth_exp",
+      "mean": 0.0028748160952891677,
+      "method": "mc",
+      "metric": "error",
+      "n": 8,
+      "selected_counts": {}
+    },
+    {
+      "domain": "integration",
+      "family": "smooth_exp",
+      "mean": 6.109302242512937e-05,
+      "method": "sobol",
+      "metric": "error",
+      "n": 8,
+      "selected_counts": {}
+    },
+    {
+      "domain": "public_dataset",
+      "family": "sklearn_diabetes",
+      "mean": 53.08508288318018,
+      "method": "classical_portfolio",
+      "metric": "rmse",
+      "n": 4,
+      "selected_counts": {
+        "ols": 4
+      }
+    },
+    {
+      "domain": "public_dataset",
+      "family": "sklearn_diabetes",
+      "mean": 53.08508288318018,
+      "method": "residual_portfolio",
+      "metric": "rmse",
+      "n": 4,
+      "selected_counts": {
+        "ols": 4
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "heteroskedastic",
+      "mean": 1.1097413472344226,
+      "method": "classical_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "huber": 4,
+        "ols": 4
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "heteroskedastic",
+      "mean": 1.1097413472344226,
+      "method": "residual_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "huber": 4,
+        "ols": 4
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "linear",
+      "mean": 0.25212336765440024,
+      "method": "classical_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "ols": 8
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "linear",
+      "mean": 0.25258195301926933,
+      "method": "residual_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "crossfit_residual": 1,
+        "ols": 7
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "nonlinear",
+      "mean": 2.185692448954245,
+      "method": "classical_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "hist_gbdt": 8
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "nonlinear",
+      "mean": 2.190883692194652,
+      "method": "residual_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "crossfit_residual": 5,
+        "hist_gbdt": 3
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "outliers",
+      "mean": 0.7011919158794756,
+      "method": "classical_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "huber": 4,
+        "ols": 4
+      }
+    },
+    {
+      "domain": "regression",
+      "family": "outliers",
+      "mean": 0.7459355411901851,
+      "method": "residual_portfolio",
+      "metric": "rmse",
+      "n": 8,
+      "selected_counts": {
+        "crossfit_residual": 1,
+        "huber": 4,
+        "ols": 3
+      }
+    }
+  ]
+}

@@ -43,6 +43,15 @@ class LiteratureAssessmentFailure(Blocked):
         self.diagnostic={**dossier,'validation_status':'REJECTED_NOT_ACCEPTED',
                          'validation_error':reason}
 
+    def repair_summary(self):
+        # Preserve all objections, exact quoted passages, hypothesis tests and
+        # source identities. Full source bodies belong in the immutable dossier,
+        # not in every subsequent repair prompt.
+        return {**self.diagnostic,
+                'validation_error':str(self).split(': {',1)[0],
+                'sources':[{k:v for k,v in s.items() if k!='text'} for s in self.diagnostic['sources']],
+                'source_text_policy':'FULL_BODIES_IN_DIAGNOSTIC_OBJECT; EXACT_QUOTES_IN_AUDIT'}
+
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
@@ -195,8 +204,11 @@ def check_audit(cards, audit, sources):
     for c in checks:
         for ref in c['evidence']:
             source=known.get(ref['source_id'])
-            if not source or digest(source['text'])!=source['content_sha256']:
-                raise IntegrityError('Unknown/modified source in hypothesis audit')
+            if source is None:
+                raise IntegrityError('Unknown source in hypothesis audit: '+ref['source_id']+
+                    '; only retrieved sources are citable; problem/protocol metadata is not a literature source')
+            if digest(source['text'])!=source['content_sha256']:
+                raise IntegrityError('Modified source in hypothesis audit: '+ref['source_id'])
             if ref['quote'] not in source['text']:raise IntegrityError('Fabricated or non-exact evidence quotation')
             used.add(ref['source_id'])
         if c['judgment']=='supported_with_scope' and not any(e['relation']=='supports' for e in c['evidence']):
@@ -262,7 +274,7 @@ class LiteratureWorkflow:
         if cached:
             self.accepted=self.c.store.load(cached)
             self._apply();return self.accepted
-        context={k:self.c.base[k] for k in ('methods','experiment_contract','source_registry','io_contract','limits') if k in self.c.base}
+        context={k:self.c.base[k] for k in ('methods','experiment_contract','io_contract','limits') if k in self.c.base}
         specification={'problem':self.c.problem,'context':context}
         cards=self.c.call('hypotheses:'+key,'modeler','hypotheses',{
             **specification,'plan':plan,'sources':self.initial,
@@ -276,6 +288,10 @@ class LiteratureWorkflow:
         sources=list({s['id']:s for s in self.initial+opposing}.values())
         audit=self.c.call('hypothesis-audit:'+key,'hypothesis_critic','hypothesis_audit',{
             **specification,'plan':plan,'hypotheses':cards,'sources':sources,
+            'citation_contract':{
+                'allowed_source_ids':[s['id'] for s in sources],
+                'context_is_not_literature':True,
+                'rule':'Only sources[] IDs and exact text may appear in evidence or citation_ids. Do not cite problem IDs, method-card IDs or invented context-* IDs. Task definitions and frozen protocol choices are declared specifications, not literature-supported empirical findings. They may be explicit_simplification judgments, with rationale scoped to the supplied contract and executable consistency checks; use no fabricated reference. An unresolved contradiction must still be REVISE.'},
             'requirements':'Cover every hypothesis. Exact source quotations only. Every supported_with_scope judgment, including a structural one, requires an exact quote with relation=supports; scope_limit alone is insufficient. Do not claim that literature proves local execution or internal contracts. Use required_test=hypothesis_H1 etc for execution-required checks. Review the prospective specification: use supplied problem/method/experiment context, distinguish planned tests from completed execution, and require later evidence at the relevant gate. Accept only FOR TESTING; never claim empirical validity from Exa. Retain contradictions as REVISE.'})['result']
         # Save even negative reports, before a deterministic gate raises.
         dossier={'plan_digest':key,'hypotheses':cards,'audit':audit,'sources':sources,

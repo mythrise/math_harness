@@ -1,0 +1,59 @@
+{
+  "cost_policy": "Same data and upper budget caps; actual fits differ and are recorded. No equal-walltime superiority claim.",
+  "families": [
+    "linear",
+    "nonlinear",
+    "outliers",
+    "heteroskedastic"
+  ],
+  "forecast": {
+    "fit_budget_cap": 16,
+    "history": 144,
+    "horizon": 12,
+    "rolling_origins": 3,
+    "season": 12
+  },
+  "integration": {
+    "dimension": 4,
+    "evaluation_budget": 1024,
+    "replicates": 8
+  },
+  "kind": "LOCAL_SMOKE_NOT_SOTA",
+  "promotion": "NOT_ELIGIBLE: handcrafted small families and external frontier baselines NOT_RUN",
+  "regression": {
+    "calibration": 64,
+    "features": 4,
+    "fit_budget_cap": 36,
+    "test": 256,
+    "train": 144
+  },
+  "seeds": [
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108
+  ],
+  "series": [
+    "trend",
+    "seasonal",
+    "seasonal_trend",
+    "random_walk",
+    "white_noise"
+  ],
+  "source_hashes": {
+    "algdecision.py": "fcd7bed12b43b190496a17fc3694990804e817c0e7d62c6be3fd4a07b73ed1af",
+    "alggraph.py": "80a4ef1f07ff2ea7bfd217e576360517b655be2fce73ae75284782fcb8f33993",
+    "algopt.py": "6810590a49de677d6bdc450399baea95f86e0e185b9083ba26742e351f8daf6b",
+    "algorithm_lab.py": "380c8beb697c46c364083fa958dd0a5b8ede17295c3077e50e5a02c84c78277e",
+    "algorithm_library.py": "80c1bab5fb555c4a1088c99e658fec9b8a2d73188d8d252df96e95ade2eabc45",
+    "algorithms.py": "76e0a755c9bc9a68ac849976bd2bcd540db48d4214e33300c807cd1d23b4d837",
+    "algpredict.py": "aa186c9f3bbe5641d458bb688d3f6bcf1457b05b7038f577d4f33153d266a83d",
+    "algpromotion.py": "b5c8dc8cdf2a9dc78b3c92bd12d4fc7a626d3085fb743967bf7e211c7e7c30ec",
+    "algscience.py": "542845c161e87a97aecb6d62fcec8deb37eec27e31d979bcc895135998301885"
+  },
+  "version": "0.3.0-algorithms"
+}

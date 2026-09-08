@@ -1,0 +1,4 @@
+# Validation tools only. Production trial images remain free of test dependencies.
+ARG RUNTIME_IMAGE=cumcm-egoharness:0.3.0
+FROM ${RUNTIME_IMAGE}
+RUN pip install --no-cache-dir 'pytest>=8,<10' 'openpyxl>=3.1'

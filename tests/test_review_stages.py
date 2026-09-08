@@ -128,11 +128,61 @@ def test_literature_failure_preserves_full_feedback_for_plan_author(tmp_path,fai
     assert feedback['literature_diagnostic']['audit']==audits[0]
     assert feedback['literature_diagnostic']['validation_status']=='REJECTED_NOT_ACCEPTED'
     assert feedback['prior_artifact']['assumptions']
-    assert feedback['literature_diagnostic']['sources']==[source]
+    assert feedback['literature_diagnostic']['sources']==[{k:v for k,v in source.items() if k!='text'}]
+    assert c.store.load(feedback['diagnostic_ref'])['sources']==[source]
     for packet in critic_packets:
         assert packet['context']['methods']==c.base['methods']
         assert packet['context']['experiment_contract']==c.base['experiment_contract']
+        assert 'source_registry' not in packet['context']
+        assert packet['citation_contract']['allowed_source_ids']==['source1']
+        assert packet['citation_contract']['context_is_not_literature'] is True
         assert packet['problem']==c.problem
     path=tmp_path/'literature/audits'/(digest(feedback['prior_artifact'])+'.json')
     assert read_json(path)['audit']==audits[0]
     assert c.store.get('plan') is None and wf.accepted is None
+
+
+def test_repair_history_keeps_objections_without_repeating_source_bodies(tmp_path):
+    import copy
+    from types import SimpleNamespace
+    from cumcm_harness.common import canonical,digest
+    from cumcm_harness.literature import LiteratureAssessmentFailure
+    c,_=controller(tmp_path);c.config['repair_attempts']=5
+    calls=[];dossiers=[]
+    def call(key,role,schema,packet,**kwargs):
+        calls.append(copy.deepcopy(packet))
+        return {'result':responder(role,schema,packet)}
+    c.call=call
+    def reject(plan):
+        source={'id':'large-source','text':'large archived source '*20000}
+        source['content_sha256']=digest(source['text'])
+        dossier={'plan_digest':digest(plan),'hypotheses':{},'audit':{
+            'decision':'REVISE','checks':[{'rationale':f'Objection {len(dossiers)}: retain this required fix'}]},
+            'sources':[source],'empirical_tests':'NOT_RUN'}
+        dossiers.append(dossier)
+        raise LiteratureAssessmentFailure('Hypothesis critic requests model revision: '+canonical(dossier['audit']).decode(),dossier)
+    c.literature=SimpleNamespace(assess=reject)
+    with pytest.raises(Blocked) as error:c.produce_reviewed('plan','modeler','plan',{})
+    assert len(calls)==6 and len(str(error.value))<4000
+    assert all(len(canonical(p))<100000 for p in calls)
+    for index,packet in enumerate(calls[1:],1):
+        history=packet['repair_feedback']
+        assert len(history)==index
+        assert sum('prior_artifact' in row for row in history)==1
+        for j,row in enumerate(history):
+            assert f'Objection {j}' in row['literature_diagnostic']['audit']['checks'][0]['rationale']
+            assert c.store.load(row['diagnostic_ref'])['sources']==dossiers[j]['sources']
+    assert c.store.audit()['integrity']=='PASS'
+
+
+@pytest.mark.parametrize('kind',['size','provider'])
+def test_direct_author_request_failure_does_not_consume_repair_rounds(tmp_path,kind):
+    from cumcm_harness.providers import PromptPacketTooLarge
+    c,_=controller(tmp_path);c.config['repair_attempts']=5;calls=[]
+    def fail(*args,**kwargs):
+        calls.append(1)
+        if kind=='size':raise PromptPacketTooLarge('Input exceeds the limit')
+        raise ProviderFailure('codex','EXIT_NONZERO')
+    c.call=fail
+    with pytest.raises(Blocked):c.produce_reviewed('plan','modeler','plan',{})
+    assert len(calls)==1
