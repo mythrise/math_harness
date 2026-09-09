@@ -133,7 +133,7 @@
       "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
     }
   ],
-  "acceptance_status": "CODE_AND_DETERMINISTIC_ACCEPTANCE_PASS_LIVE_HISTORICAL_BLOCKED",
+  "acceptance_status": "CODE_AND_DETERMINISTIC_ACCEPTANCE_PASS_LIVE_HISTORICAL_WAITING_REVIEW_PROVIDERS",
   "full_tests": {
     "tests": 444,
     "failures": 0,
@@ -322,7 +322,7 @@
   },
   "live_historical": {
     "scope": "BOUNDED_LIVE_HISTORICAL_2023_PROBLEM_SMOKE_NOT_CONTEST_COMPLETION",
-    "status": "BLOCKED",
+    "status": "WAITING_REVIEW_PROVIDERS",
     "attempts": [
       {
         "workspace": "heliostat-audit-56ade25-20260909",
@@ -713,14 +713,231 @@
           "remote_exactly_once_billing": false,
           "leases": []
         }
+      },
+      {
+        "workspace": "heliostat-audit-postrestore-a878703-20260909",
+        "code_commit": "a8787038c91c6eb34be38282c70234d375b9613a",
+        "status": {
+          "status": "WAITING_REVIEW_PROVIDERS",
+          "jobs": [],
+          "unfinished_steps": [],
+          "model_calls_reserved": 7
+        },
+        "blocker": {
+          "completed_artifacts_preserved": true,
+          "message": "Required role hypothesis_critic unavailable; completed work preserved; attempts=[{'provider': 'claude', 'code': 'EXIT_NONZERO', 'attempt': 0}, {'provider': 'codex', 'code': 'TIMEOUT', 'attempt': 0}]",
+          "type": "ReviewUnavailable"
+        },
+        "model_processes": [
+          {
+            "provider": "claude",
+            "role": "hypothesis_critic",
+            "status": "EXITED",
+            "returncode": 1,
+            "seconds": 2.4803630839996913,
+            "model_requested": "claude-fable-5",
+            "model_reported": "UNREPORTED",
+            "call_index": 6,
+            "process_sha256": "d0c9aaa07dbf889ccaec59de1aa766666dc6977309de1d0b8d8dcb81153596cc",
+            "valid_structured_response": false,
+            "response_digest": "cdc02c5c37c341f1d788ed989f12808ef22013701eb682b4e09deb66e318c75c",
+            "usage": null,
+            "cost_usd": null,
+            "model_execution_status": "NO_VALID_RESPONSE"
+          },
+          {
+            "provider": "codex",
+            "role": "hypothesis_critic",
+            "status": "TIMEOUT",
+            "returncode": -9,
+            "seconds": 180.0515742080006,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "call_index": 7,
+            "process_sha256": "bdd8e52ad855a16a34471c250d79eddce52712823ce9b0a6f8d45911086f9117",
+            "valid_structured_response": false,
+            "response_digest": "95a91c035899db0aa1e614c66cb6601c16b6f26a0b4af2a612e61fb432c8e391",
+            "usage": null,
+            "cost_usd": null,
+            "model_execution_status": "NO_VALID_RESPONSE"
+          },
+          {
+            "provider": "codex",
+            "role": "supervisor",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 47.3284194580001,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "call_index": 1,
+            "process_sha256": "bf879fc912de556ac7be036cd8b27723e319d19e19f067532f81c2bddca4addb",
+            "valid_structured_response": true,
+            "response_digest": "8f56416e1315c660c972b9335470a194a1adc1201e04c9b5528efd9faea8b6b6",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 34020,
+              "output_tokens": 1294,
+              "reasoning_output_tokens": 0
+            },
+            "cost_usd": null,
+            "model_execution_status": null
+          },
+          {
+            "provider": "codex",
+            "role": "modeler",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 106.97422374999951,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "call_index": 4,
+            "process_sha256": "2be307dbf61b4d4b956baba75ac1f0c7c7a2b03a34993ecbeba44932ebf0e649",
+            "valid_structured_response": true,
+            "response_digest": "431ce1a701d375c52f5f67c189e3a68ff2c1135e803adb55330f35512dd8d82a",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 49153,
+              "output_tokens": 3292,
+              "reasoning_output_tokens": 115
+            },
+            "cost_usd": null,
+            "model_execution_status": null
+          },
+          {
+            "provider": "codex",
+            "role": "modeler",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 216.8667239589995,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "call_index": 3,
+            "process_sha256": "ef67c337553a52a606662bdd5c72af5b750c70a6f7d7f9afd4a8652f00dfd0ca",
+            "valid_structured_response": true,
+            "response_digest": "8470d30db940696212565bef3e961184cc5215f3799387f2c10ad4f072bee045",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 60795,
+              "output_tokens": 6836,
+              "reasoning_output_tokens": 70
+            },
+            "cost_usd": null,
+            "model_execution_status": null
+          },
+          {
+            "provider": "codex",
+            "role": "literature_scout",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 17.332242416000554,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "call_index": 2,
+            "process_sha256": "bb99c3988932494e020ec224566f139b90918ef62995febba7a2c8df36ee67b7",
+            "valid_structured_response": true,
+            "response_digest": "f2ace1ea3d90ccc3409fd3c7e0639600eb40ce1fae4b2b2a565ac3acac4e5855",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 21442,
+              "output_tokens": 253,
+              "reasoning_output_tokens": 56
+            },
+            "cost_usd": null,
+            "model_execution_status": null
+          },
+          {
+            "provider": "codex",
+            "role": "literature_scout",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 16.355321416999686,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "call_index": 5,
+            "process_sha256": "1cc015bc33506eb8b42866741d6c541a69e3f04881a0be8c56fcb0a529f69e3b",
+            "valid_structured_response": true,
+            "response_digest": "e1a0dfab2d91905c44f737c148ccc711738827187a962ab26693ab02d862b03a",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 55048,
+              "output_tokens": 301,
+              "reasoning_output_tokens": 78
+            },
+            "cost_usd": null,
+            "model_execution_status": null
+          }
+        ],
+        "exa": {
+          "stage_consumption": {
+            "adversary": 0,
+            "final_verification": 0,
+            "primary_source_fetch": 0,
+            "repair_reserve": 0,
+            "scouting": 8
+          },
+          "http_attempts_reserved": 8,
+          "max_http_attempts": 16,
+          "requests": [
+            {
+              "id": "5534c02ca6ebe27dbcc6eff7b159039d12a3d5a61deaefcce4c2e95ee075fcc1",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "732bd497a6e8243d83b252b46009dab40446e55bfb568b097f297c1c9a34aec7",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "38874b96574ea3f1db9915260775244e4f8a0ec5864608a7d1020b086fee00f6",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "5b4fe6fe2240c5b0d04da6e603e6e45045a07582fed34b46649b41d680f9a23e",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "1574d11a45fdea977cc7bd5977bc2c4c0421506bd10c24f670639a4c1828239d",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "89933c1d6b56e13867351193c6b84c85c8c17729e81d37f191bd2e7d00eb77af",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "723e9250fb815e29b18bc9f91daa2c30f9d7c37035aa3bd65f783433360c06a5",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "1c0aecc449057753f0089a09b1cdf190edf21bce3e4c2f355398a0a0cc9f1afe",
+              "status": "DONE",
+              "attempts": 1
+            }
+          ],
+          "known_cost_dollars": 0.056,
+          "unknown_cost_attempts": 0,
+          "remote_exactly_once_billing": false,
+          "leases": []
+        }
       }
     ],
-    "independent_claude_review": "NOT_RUN",
+    "independent_claude_review": "ATTEMPTED_NO_VALID_RESPONSE",
     "scientific_acceptance": "NOT_RUN",
     "live_solver_execution": "NOT_RUN",
-    "latest_failure_evidence": "Codex CLI exited 0 but returned no valid result; error events report Connection refused (os error 61). Colima was later observed stopped and restarted for infrastructure tests; causal identity of the upstream refusal is not proven.",
-    "code_version_boundary": "These live attempts preceded the final support-lane limitation excerpt fix; that final change is covered by deterministic regression and full Docker acceptance, not by another live attempt.",
-    "automatic_retry_after_unknown_state": false
+    "latest_failure_evidence": "Final-source post-restoration run completed five valid Codex responses, then the required hypothesis_critic role exhausted one Claude EXIT_NONZERO and one Codex TIMEOUT attempt; no pending step or lease remains.",
+    "code_version_boundary": "The final post-restoration attempt used committed a878703, including the support-lane limitation excerpt fix. Earlier attempts retain their original code fingerprints.",
+    "automatic_retry_after_unknown_state": false,
+    "provider_failover": "LIVE_CLAUDE_EXIT_NONZERO_THEN_CODEX_TIMEOUT_OBSERVED_NO_FABRICATED_QUORUM"
   },
   "final_source_manifest": {
     "task_dag.py": "51e2a46f03dc77c536c1623a0a7f81cd54ac02e373b3731d03011b0517b29544",
@@ -787,5 +1004,108 @@
     "No fixture passes a live gate",
     "No vendor changes",
     "No old workspace or finished output rewritten"
-  ]
+  ],
+  "github_ci": {
+    "run_id": 34315142691,
+    "head_sha": "a8787038c91c6eb34be38282c70234d375b9613a",
+    "url": "https://github.com/mythrise/math_harness/actions/runs/34315142691",
+    "status": "PASS",
+    "junit": [
+      {
+        "path": "ci-algorithm-validation/tests/pytest.xml",
+        "sha256": "4b2c44c4eafb43ff8cd47aeca6da106c344df9ac43213183e58f5ce8c2e59b79",
+        "tests": 444,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "path": "ci-infrastructure.xml",
+        "sha256": "6b7729bcde1181393d846aeae2c63c22474b5f98e381ada8213282a0ac55d15f",
+        "tests": 353,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "isolation": {
+      "checks": [
+        {
+          "case": "bundle-shadow-cumcm_harness",
+          "status": "PASS"
+        },
+        {
+          "case": "bundle-shadow-json",
+          "status": "PASS"
+        },
+        {
+          "case": "bundle-shadow-numpy",
+          "status": "PASS"
+        },
+        {
+          "case": "bundle-shadow-sitecustomize",
+          "status": "PASS"
+        },
+        {
+          "case": "installed-worker-isolated-startup",
+          "receipt_digest": "292fda8853b2b61702fbff056cc6b627188e652bb32126ed645542dec941f5cc",
+          "status": "PASS"
+        },
+        {
+          "case": "missing-receipt",
+          "observed_process_status": "EXITED",
+          "status": "PASS"
+        },
+        {
+          "case": "invalid-receipt",
+          "observed_process_status": "EXITED",
+          "status": "PASS"
+        },
+        {
+          "case": "output-bomb",
+          "observed_process_status": "OUTPUT_LIMIT",
+          "status": "PASS"
+        },
+        {
+          "case": "timeout",
+          "observed_process_status": "TIMEOUT",
+          "status": "PASS"
+        },
+        {
+          "case": "tex-legal-matrix-and-immutable-replay",
+          "receipt_digest": "263fe446371eb0cd3c39bc234883a2b8fc27f398199b38a3fcd5e9c03908f0f9",
+          "status": "PASS"
+        },
+        {
+          "case": "artificial-host-canary-not-mounted",
+          "status": "PASS"
+        }
+      ],
+      "runtime": {
+        "backend": "DOCKER",
+        "image_id": "sha256:8f09831bd40c8398c0a9472401d3623203c6eb91d632ca3a2bd7bda7b0a65e6e"
+      },
+      "scope": "REAL_DOCKER_AND_TEX_NO_MODEL_OR_NETWORK_CALLS",
+      "status": "PASS"
+    },
+    "numerics": {
+      "diagnostics_per_run": 9,
+      "external_candidates_run": 0,
+      "global_promotions": 0,
+      "numerical_runs": 2,
+      "protocol_digest": "1f0d7f20089a2884601c4a0cbf0e2746dd45017c94842fc242628cf1901bd1ab",
+      "receipts": {
+        "lab-1": "a4c1a14cf8c0c015ed04207094bd884c5ed78dd7b9dab2193d18cda402e5d866",
+        "lab-2": "33be57cb8ea0667cec2a7cfe61e26aa0d4ce0c99b47153e8d579309e07f05592",
+        "tests": "5ce5ce21015364e17224bfb1277d341decc2c6347119e1be0302fc905d6679f7"
+      },
+      "reproducibility": {
+        "diagnostics.json": true,
+        "raw_results.json": true
+      },
+      "rows_per_run": 98,
+      "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+      "status": "PASS"
+    }
+  }
 }

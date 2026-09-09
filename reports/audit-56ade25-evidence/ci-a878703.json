@@ -1,0 +1,103 @@
+{
+  "run_id": 34315142691,
+  "head_sha": "a8787038c91c6eb34be38282c70234d375b9613a",
+  "url": "https://github.com/mythrise/math_harness/actions/runs/34315142691",
+  "status": "PASS",
+  "junit": [
+    {
+      "path": "ci-algorithm-validation/tests/pytest.xml",
+      "sha256": "4b2c44c4eafb43ff8cd47aeca6da106c344df9ac43213183e58f5ce8c2e59b79",
+      "tests": 444,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "ci-infrastructure.xml",
+      "sha256": "6b7729bcde1181393d846aeae2c63c22474b5f98e381ada8213282a0ac55d15f",
+      "tests": 353,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "isolation": {
+    "checks": [
+      {
+        "case": "bundle-shadow-cumcm_harness",
+        "status": "PASS"
+      },
+      {
+        "case": "bundle-shadow-json",
+        "status": "PASS"
+      },
+      {
+        "case": "bundle-shadow-numpy",
+        "status": "PASS"
+      },
+      {
+        "case": "bundle-shadow-sitecustomize",
+        "status": "PASS"
+      },
+      {
+        "case": "installed-worker-isolated-startup",
+        "receipt_digest": "292fda8853b2b61702fbff056cc6b627188e652bb32126ed645542dec941f5cc",
+        "status": "PASS"
+      },
+      {
+        "case": "missing-receipt",
+        "observed_process_status": "EXITED",
+        "status": "PASS"
+      },
+      {
+        "case": "invalid-receipt",
+        "observed_process_status": "EXITED",
+        "status": "PASS"
+      },
+      {
+        "case": "output-bomb",
+        "observed_process_status": "OUTPUT_LIMIT",
+        "status": "PASS"
+      },
+      {
+        "case": "timeout",
+        "observed_process_status": "TIMEOUT",
+        "status": "PASS"
+      },
+      {
+        "case": "tex-legal-matrix-and-immutable-replay",
+        "receipt_digest": "263fe446371eb0cd3c39bc234883a2b8fc27f398199b38a3fcd5e9c03908f0f9",
+        "status": "PASS"
+      },
+      {
+        "case": "artificial-host-canary-not-mounted",
+        "status": "PASS"
+      }
+    ],
+    "runtime": {
+      "backend": "DOCKER",
+      "image_id": "sha256:8f09831bd40c8398c0a9472401d3623203c6eb91d632ca3a2bd7bda7b0a65e6e"
+    },
+    "scope": "REAL_DOCKER_AND_TEX_NO_MODEL_OR_NETWORK_CALLS",
+    "status": "PASS"
+  },
+  "numerics": {
+    "diagnostics_per_run": 9,
+    "external_candidates_run": 0,
+    "global_promotions": 0,
+    "numerical_runs": 2,
+    "protocol_digest": "1f0d7f20089a2884601c4a0cbf0e2746dd45017c94842fc242628cf1901bd1ab",
+    "receipts": {
+      "lab-1": "a4c1a14cf8c0c015ed04207094bd884c5ed78dd7b9dab2193d18cda402e5d866",
+      "lab-2": "33be57cb8ea0667cec2a7cfe61e26aa0d4ce0c99b47153e8d579309e07f05592",
+      "tests": "5ce5ce21015364e17224bfb1277d341decc2c6347119e1be0302fc905d6679f7"
+    },
+    "reproducibility": {
+      "diagnostics.json": true,
+      "raw_results.json": true
+    },
+    "rows_per_run": 98,
+    "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+    "status": "PASS"
+  }
+}

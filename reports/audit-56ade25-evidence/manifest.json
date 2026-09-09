@@ -21,8 +21,8 @@
       "bytes": 211
     },
     "historical-live.json": {
-      "sha256": "328e3a81bd293b8cca30d26ef9bad1ec598f79c3befbbee4f1d29e4f80928da9",
-      "bytes": 13847
+      "sha256": "4967d000e1fbddfe5e5b9bee7071aa4ecfaa7537c814d36811f02ccdf044675e",
+      "bytes": 21860
     },
     "infrastructure.xml.gz": {
       "sha256": "d78370957d1e40903b4b14e15834adf2c9496d22a6341eb36dcd27817285b577",
@@ -81,6 +81,10 @@
       "sha256": "faf2bf0bb38c559cf0eabe79f2249963595337a10b5c9d7ead6a68e8179866f9",
       "bytes": 801,
       "uncompressed_sha256": "e94e6d653ec4939366fcabb141304856c44c563816c1df19417652732c966e43"
+    },
+    "ci-a878703.json": {
+      "sha256": "50df34b1f67e910528c9b0a0d19e3bd4512d818696d277092bcafa6135d47d9d",
+      "bytes": 2944
     }
   },
   "full_tests_uncompressed_sha256": "095c9463045595d72d50eaa214c4a82c0d08af95c9b5585ae2a2a3ad02e25cfe",

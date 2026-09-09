@@ -44,11 +44,15 @@
 | 最终镜像源码 | **45 个模块逐字节相同** | 标准 Dockerfile 安装依赖后增量 COPY 最后两个源码修正；最终 CI 使用仓库 Dockerfile 从源码完整构建 |
 | 供应商原码 | **408 个文件校验通过** | MOSAIC/OurWork 原码未变 |
 
-真实历史题链路状态为 **BLOCKED**：最后一轮已获得 Codex 的 supervisor、literature_scout 和 modeler 结构化响应，后续假设清单调用出现 `Connection refused (os error 61)`，CLI 未产生有效结果。此前的 schema 400、检索用途违约与 180 秒规划超时均保留；阶段用途提示修复后检索通过，600 秒上限下规划用时约 242 秒并成功返回。最后一轮仍受 16 次模型调用及 16 次 Exa 请求上限约束。
+真实历史题最终状态为 **WAITING_REVIEW_PROVIDERS**。在最终提交 `a878703` 上恢复环境并新建工作区后，Codex 已实际完成 supervisor、初始检索、modeler、假设清单和支持检索共五次结构化响应。必需的 hypothesis_critic 角色先遇到 Claude `EXIT_NONZERO`，有界接管的 Codex 再达到 `TIMEOUT`；两次失败都保留，没有伪造审查 quorum，也没有未知步骤或租约。
 
-四个历史题工作区合计保留 11 次模型调用预算记录；其中已实际启动的进程和终态逐项见 [真实历史题回执摘要](audit-56ade25-evidence/historical-live.json)。历史题中的 Exa 共 8 次请求全部完成，已知费用合计 $0.056，无遗留租约；上表 $0.016 是独立 HTTP 烟测费用，二者分列。Codex 未提供美元费用，不据此估计模型总费用。
+此前的 schema 400、检索用途违约、180 秒规划超时，以及连接中断均保留。阶段用途修复后检索通过，600 秒上限下规划成功；最后一轮仍受 16 次模型调用及 16 次 Exa 请求上限约束。
 
-**真实 Claude 独立审查、历史题求解计算与论文完成均为 NOT_RUN**。没有以合成审查补齐真实门槛。最后的跨检索阶段摘录修复发生在上述真实调用终止后，已通过定向、完整 Docker 与论文重放验证，没有再声称对该最终源码完成真实多模型端到端验收。
+五个历史题工作区合计保留 **18 次模型调用预算记录、16 次已完成 Exa 请求**，历史题 Exa 已知费用合计 **$0.112**，无遗留租约。上表 $0.016 是独立 HTTP 烟测费用，二者分列。Codex 未提供美元费用，不据此估计模型总费用。逐次回执见 [真实历史题摘要](audit-56ade25-evidence/historical-live.json)。
+
+**真实 Claude 调用及其失败后的 Codex 接管已实际执行；Claude 成功响应、科学审查通过、历史题数值求解与论文完成没有建立。** 没有以合成审查补齐真实门槛。待供应商恢复后，由操作员显式继续该工作区；本次没有自动扩充预算或修改其冻结配置。
+
+GitHub [CI 34315142691](https://github.com/mythrise/math_harness/actions/runs/34315142691) 对 `a878703` 全部通过：353 项基础设施、444 项完整容器测试、11 项隔离检查，以及两次各 98 行数值复现。已下载原始 CI XML/摘要核验，见 [CI 回执](audit-56ade25-evidence/ci-a878703.json)。
 
 完整证据见 [JSON 报告](AUDIT_56ADE25_LOCAL.json)、[完整测试 XML.gz](audit-56ade25-evidence/full-tests.xml.gz)、[隔离验证](audit-56ade25-evidence/isolation.json)、[论文重放](audit-56ade25-evidence/paper-repair.json)。XML 为原始文件的无损 gzip 压缩，解压后可直接读取。原始模型包、CLI 日志、赛题输入和凭证不进入 Git。
 
