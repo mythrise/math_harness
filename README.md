@@ -8,6 +8,7 @@
 
 ```bash
 docker build -t cumcm-egoharness:0.3.0 .
+docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
 docker build -f Dockerfile.test -t cumcm-egoharness:0.3.0-test .
 ./.venv/bin/python scripts/validate_algorithm_upgrade.py \
   --out workspaces/algorithm-validation-01 --seeds 12 --seed-start 201
@@ -38,7 +39,7 @@ python -m cumcm_harness verify-vendor
 python -m cumcm_harness.resilience_demo workspaces/resilience-demo
 ```
 
-最后一条命令是**明确标记的故障注入工程测试**，不调用真实模型或 Exa HTTP、不需要密钥。数值求解、独立评价、假设诊断、LaTeX 编译和支撑包生成实际执行。它不证明真实多模型自主完成国赛题，更不代表已超越其他系统。PDF/矢量输出需要 `xelatex`、`inkscape` 及原文档所列中文 TeX 环境。
+最后一条命令是**明确标记的故障注入工程测试**，不调用真实模型或 Exa HTTP、不需要密钥。数值求解、独立评价、假设诊断、LaTeX 编译和支撑包生成实际执行。它不证明真实多模型自主完成国赛题，更不代表已超越其他系统。PDF 通过独立 `cumcm-egoharness-tex:0.3.1` 容器编译；矢量绘图仍需本机 `inkscape`。构建、恢复与兼容性见 [56ade25 审查修复说明](docs/AUDIT_56ADE25_REPAIR_CN.md)。
 
 ## 使用真实服务
 

@@ -1,7 +1,7 @@
 """Synthetic transport tests for the pre-freeze gate, not optical validation."""
 from pathlib import Path
 import pytest
-from cumcm_harness.common import Blocked, write_json
+from cumcm_harness.common import Blocked, ExecutionFailure, write_json
 from cumcm_harness.controller import DEFAULT_CONFIG
 from cumcm_harness.store import Store
 from cumcm_harness.verifier_preflight import run_preflight, validate_tests
@@ -17,7 +17,7 @@ class FakeExecutor:
         if self.mode=='crash':
             write_json(logdir/'process_receipt.json',{'status':'EXITED','returncode':1})
             (logdir/'stderr.log').write_text('IndexError: index 4 is out of bounds for axis 0 with size 4')
-            raise Blocked('Execution failed: EXITED, rc=1; synthetic log')
+            raise ExecutionFailure('Execution failed: EXITED, rc=1; synthetic log')
         if entry=='test_evaluator.py':
             write_json(out/'tests.json',{'all_passed':True,'cases':[
                 {'name':n,'passed':True,'detail':'synthetic fixture'} for n in ('positive','negative','boundary')]})

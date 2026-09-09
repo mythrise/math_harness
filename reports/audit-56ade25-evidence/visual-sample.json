@@ -1,0 +1,41 @@
+{
+  "scope": "BODY_AND_SAMPLED_APPENDIX_ONLY",
+  "pages": [
+    {
+      "page": "page-001.png",
+      "same_pixels_as_visually_inspected": true,
+      "sha256": "ad8d973115785cd7ea84c484b2dc22d1168705ee132f940904ae04c9e4410a8b"
+    },
+    {
+      "page": "page-002.png",
+      "same_pixels_as_visually_inspected": true,
+      "sha256": "ba8cdc15ed34317b2516447e8e7b7558609d24e1f63c765f545fdf583d8a42db"
+    },
+    {
+      "page": "page-003.png",
+      "same_pixels_as_visually_inspected": true,
+      "sha256": "b6edcf64275683434547b5c03c4b527ea5a9c739322a10449c94412ae8247ea0"
+    },
+    {
+      "page": "page-004.png",
+      "same_pixels_as_visually_inspected": true,
+      "sha256": "bfdfdd01b327563988b42cb8af8bf8e136b43f9117795ceaff746634dd03d135"
+    },
+    {
+      "page": "page-005.png",
+      "same_pixels_as_visually_inspected": true,
+      "sha256": "57bd4842ed31fd0850201231f99f98b3b5dc72b48136c8f654d79ed14a242ad3"
+    },
+    {
+      "page": "page-006.png",
+      "same_pixels_as_visually_inspected": true,
+      "sha256": "c5574ebda4582848a5ee55c5f55f903c888f01417d3f1ad4c3496c78e03c6958"
+    },
+    {
+      "page": "page-161.png",
+      "same_pixels_as_visually_inspected": true,
+      "sha256": "57a473ff63c941a780eb7557c40b3970457f0c068a96e47edad4bc5f8ebe810f"
+    }
+  ],
+  "all_sampled_pages_match": true
+}

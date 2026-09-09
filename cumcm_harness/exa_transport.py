@@ -218,12 +218,14 @@ class R2ExaClient:
             else:
                 self.deadline();self.authorization.check(current,for_network=True,origin=origin or request,fallback=fallback)
                 if self.live and not get_exa_api_key():raise ExaWait('EXA_API_KEY_NOT_CONFIGURED',status='WAITING_EXA_AUTH')
-                lease=self.gate.acquire(self.credential_source,self.snapshot['run_id'],self.policy)
-                attempt=None;outcome='cancel'
+                lease=self.gate.acquire(self.credential_source,self.snapshot['run_id'],self.policy,request=key)
+                attempt=None;outcome='cancel';retain_lease=False
                 try:
                     self.deadline()
+                    self.gate.phase(lease,'RESERVING_UNSENT')
                     attempt=self.ledger.reserve(key,stage);self.gate.bind(lease,attempt)
                     timeout=self.policy['http']['deep_timeout_seconds'] if current['body'].get('type','').startswith('deep') else self.timeout
+                    self.gate.phase(lease,'SENT_OR_UNKNOWN')
                     try:payload=self.transport(current['endpoint'],copy.deepcopy(current['body']),dict(current['public_headers']),timeout)
                     except (TimeoutError,urllib.error.URLError,OSError):raise HTTPFailure(0,reason='NETWORK_TIMEOUT_OR_UNAVAILABLE') from None
                     if not isinstance(payload,dict) or not isinstance(payload.get('results'),list):raise HTTPFailure(200,reason='MISSING_RESULTS')
@@ -241,6 +243,10 @@ class R2ExaClient:
                     checkpoint(ref)
                     self.ledger.finish_attempt(attempt,receipt);attempt=None
                 except HTTPFailure as exc:
+                    if exc.code==0:
+                        retain_lease=True
+                        self.ledger.finish_attempt(attempt,{'status':'UNKNOWN_TRANSPORT_OUTCOME','reason':exc.reason,'cost_dollars':'UNKNOWN'},unknown=True)
+                        raise ExaWait('EXA_UNKNOWN_TRANSPORT_OUTCOME; reconcile possible remote execution',status='WAITING_EXA_RECONCILIATION') from None
                     outcome='transient' if exc.code in TRANSIENT or exc.code==0 else 'nonretryable'
                     remaining=max_attempts-self.ledger.get(key)['attempts']
                     delay=max(retry_seconds(exc.retry_after,self.clock()),self.rng.uniform(0,min(self.policy['http']['backoff_cap_seconds'],
@@ -276,11 +282,12 @@ class R2ExaClient:
                     continue
                 except BaseException:
                     if attempt:
+                        retain_lease=True
                         self.ledger.finish_attempt(attempt,{'status':'UNKNOWN','request_digest':digest(current),
                             'public_headers':current['public_headers'],'cost_dollars':'UNKNOWN','provider_request_id':'UNKNOWN'},unknown=True)
                     raise
                 finally:
-                    if lease:self.gate.release(lease,self.policy,outcome=outcome)
+                    if lease and not retain_lease:self.gate.release(lease,self.policy,outcome=outcome)
             if current['endpoint']=='search':
                 status='OK' if payload['results'] else 'EMPTY'
                 if status=='EMPTY':self.store.event('EXA_EMPTY',{'request':key,'absence_is_not_proof':True})
@@ -334,12 +341,27 @@ class R2ExaClient:
         self.store.set('exa:deep-grant:'+digest(request),{'conflict_audit_digest':self.store.put(audit),
             'prior_query_digests':sorted(requested),'authority':'CONTROLLER_OWNED_CONFLICT_EVIDENCE','valid_negative_remains_binding':True})
 
+    def preserve_text_objects(self,sources):
+        # Physical byte deduplication only. A hit cannot authorize a request or
+        # transfer scientific acceptance between research cutoffs/policies.
+        base=(self.cross_cache.parent/'source-text-objects' if self.live and self.cross_cache else self.store.root/'literature/source-text-objects')
+        for source in sources:
+            if not source['text']:continue
+            identity={'url':source['url'],'version':source['publication_version'],'content_sha256':source['content_sha256']}
+            path=base/(digest(identity)+'.json')
+            value={'identity':identity,'text':source['text'],'contract':'immutable-original-text/1'}
+            if path.exists():
+                if read_json(path)!=value:raise IntegrityError('Original text object changed')
+            else:write_json(path,value)
+            source['original_text_object']=digest(identity)
+
     def search(self, query, *, profile='foundations', stage='scouting', additional_queries=(), parent_lane=None, competition_year=None,
                conflict_audit=None,prior_query_digests=()):
         request=self.compiler.search(query,profile,additional_queries=additional_queries,parent_lane=parent_lane,competition_year=competition_year)
         if conflict_audit is not None:self.authorize_deep(request,conflict_audit,prior_query_digests)
         result=self.execute(request,stage=stage)
         sources=normalize_sources(result['response'],result['effective_request'],self.snapshot,live=self.live,retrieved_at=result.get('retrieved_at'))
+        self.preserve_text_objects(sources)
         for source in sources:source['origin_request']=request
         return sources
 
@@ -348,6 +370,7 @@ class R2ExaClient:
         result=self.execute(request,stage=stage,origin=origin)
         sources=normalize_sources(result['response'],request,self.snapshot,live=self.live,
                                   provenance=result.get('source_provenance'),retrieved_at=result.get('retrieved_at'))
+        self.preserve_text_objects(sources)
         for source in sources:source['origin_request']=origin
         return sources,result['response'].get('statuses',[])
 

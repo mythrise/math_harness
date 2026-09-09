@@ -1,6 +1,37 @@
 {
   "additionalProperties": false,
   "properties": {
+    "counter_dispositions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "disposition": {
+            "enum": [
+              "READ",
+              "EXCLUDE",
+              "NEEDS_MORE_CONTENT"
+            ]
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 12,
+            "type": "string"
+          },
+          "source_id": {
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_id",
+          "disposition",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
     "selections": {
       "items": {
         "additionalProperties": false,
@@ -28,6 +59,23 @@
           "source_id": {
             "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
             "type": "string"
+          },
+          "window": {
+            "additionalProperties": false,
+            "properties": {
+              "offset": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "section": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "offset",
+              "section"
+            ],
+            "type": "object"
           }
         },
         "required": [

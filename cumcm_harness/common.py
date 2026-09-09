@@ -8,6 +8,17 @@ ROOT = Path(__file__).resolve().parents[1]
 class HarnessError(RuntimeError): pass
 class Blocked(HarnessError): pass
 class IntegrityError(HarnessError): pass
+class InfrastructureUnavailable(Blocked): pass
+class UnknownExternalState(Blocked): pass
+class BudgetExhausted(Blocked): pass
+class DeadlineReached(Blocked): pass
+class PaperReserveReached(DeadlineReached): pass
+class ExecutionFailure(Blocked):
+    """A subprocess is known to have stopped with an unsuccessful outcome."""
+class PaperCompilationFailure(ExecutionFailure): pass
+class ScientificRejection(Blocked):
+    def __init__(self,message,records=()):
+        super().__init__(message);self.records=list(records)
 
 def canonical(value: Any) -> bytes:
     return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(',', ':'), allow_nan=False).encode('utf-8')

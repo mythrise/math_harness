@@ -1,6 +1,8 @@
 """Machine-enforced contracts. Model output never supplies its own provenance."""
 from __future__ import annotations
-import re
+import re, sys
+from functools import lru_cache
+from importlib.metadata import packages_distributions
 from typing import Any
 from jsonschema import Draft202012Validator
 from .common import canonical, IntegrityError, finite, safe_rel
@@ -13,6 +15,7 @@ I={'type':'integer','minimum':0}; N={'type':'number'}; B={'type':'boolean'}
 ID={'type':'string','pattern':'^[a-zA-Z][a-zA-Z0-9_-]{0,63}$'}
 FINDING=obj(severity={'enum':['P0','P1','P2']},location=S,issue=S,required_fix=S)
 QUESTION=obj(id=ID,question=S,metric=S,unit=S,acceptance=S)
+QUESTION['properties']['answer_type']={'enum':['quantitative','qualitative']}
 TASK=obj(id=ID,depends_on=arr(ID),goal=S,algorithm_skill=S,outputs=arr(S,1))
 PLAN=obj(summary=S,assumptions=arr(S,1),questions=arr(QUESTION,1),tasks=arr(TASK,1),
          variables=arr(obj(symbol=S,meaning=S,unit=S)),equations=arr(S,1),
@@ -27,12 +30,14 @@ BUNDLE=obj(files=arr(obj(path=S,content=TEXT),1),notes=arr(S),
 REVIEW=obj(target_digest={'type':'string','pattern':'^[0-9a-f]{64}$'},
            verdict={'enum':['PASS','FAIL','BLOCKED']},scope=S,
            findings=arr(FINDING),evidence=arr(S,1),unverified=arr(S))
+REVIEW['properties']['clarification_responses']=arr(obj(signal_digest={'type':'string','pattern':'^[0-9a-f]{64}$'},reason={'type':'string','minLength':20}))
 SUPERVISE=obj(objective=S,priorities=arr(S,1),research_focus=arr(S,1),stop_rules=arr(S,1))
 PROPOSAL=obj(hypothesis=S,mechanism=S,expected_effect=S,change_request=S,
              falsification=S,stop=B)
 MEASUREMENT=obj(id=ID,value=N,unit=S,question_id=ID,description=S)
 EVALUATION=obj(score=N,valid=B,metric=S,checks=arr(obj(name=S,passed=B,detail=S),1),
                question_coverage=arr(ID,1),measurements=arr(MEASUREMENT,1))
+EVALUATION['properties']['question_evidence']=arr({'oneOf':[obj(id=ID,question_id=ID,kind={'const':'text'},text=S,sha256={'type':'string','pattern':'^[0-9a-f]{64}$'}),obj(id=ID,question_id=ID,kind={'const':'file'},path=S,description=S,sha256={'type':'string','pattern':'^[0-9a-f]{64}$'})]})
 PAPER=obj(title=S,abstract=S,keywords=arr(S,1),sections=arr(obj(heading=S,text=S,equations=arr(S),claim_ids=arr(ID)),1),
           limitations=arr(S,1),figure_caption=S,citation_ids=arr(ID))
 SCHEMAS={'plan':PLAN,'bundle':BUNDLE,'review':REVIEW,'supervisor':SUPERVISE,'proposal':PROPOSAL,
@@ -53,8 +58,21 @@ def validate(name: str, value: Any) -> Any:
         for m in value['measurements']: finite(m['value'])
         if len({m['id'] for m in value['measurements']})!=len(value['measurements']):
             raise IntegrityError('Duplicate measurement IDs')
-        if value['valid'] and not all(x['passed'] for x in value['checks']):
-            raise IntegrityError('Valid evaluation has failing checks')
+        covered=value['question_coverage']
+        if len(set(covered))!=len(covered):raise IntegrityError('Duplicate question coverage IDs')
+        if value['valid']:
+            if not all(x['passed'] for x in value['checks']):
+                raise IntegrityError('Valid evaluation has failing checks')
+            measured={m['question_id'] for m in value['measurements']}
+            evidence=value.get('question_evidence',[])
+            if len({e['id'] for e in evidence})!=len(evidence):raise IntegrityError('Duplicate question evidence IDs')
+            for e in evidence:
+                if e['kind']=='text':
+                    if __import__('hashlib').sha256(e['text'].encode()).hexdigest()!=e['sha256']:raise IntegrityError('Question text evidence hash mismatch')
+                else:safe_rel(e['path'])
+            measured|={e['question_id'] for e in evidence}
+            if measured!=set(covered):
+                raise IntegrityError('Valid question coverage must match measurement evidence')
     return value
 
 def topo(tasks: list[dict]) -> list[str]:
@@ -78,10 +96,20 @@ def validate_plan(p: dict) -> None:
     if not p['ablations'] or not p['sensitivity']:raise IntegrityError('Require at least one ablation and sensitivity diagnostic')
     if p['primary_metric'] not in [q['metric'] for q in p['questions']]:raise IntegrityError('Primary metric not linked to a question')
 
+@lru_cache(maxsize=1)
+def protected_modules():
+    legacy_stdlib={'cgi','cgitb','imghdr','mailcap','nntplib','pipes','sndhdr','telnetlib','uu','xdrlib','aifc','audioop','sunau','ossaudiodev','chunk'}
+    return {n.casefold() for n in set(sys.stdlib_module_names)|set(packages_distributions())|legacy_stdlib|
+            {'cumcm_harness','numpy','scipy','sklearn','numba','matplotlib','pandas','jsonschema','yaml','PIL','fitz','pymupdf','lxml','pypdf'}}
+
 def validate_bundle(b: dict) -> None:
     names=[]; total=0
     for f in b['files']:
         name=safe_rel(f['path']); names.append(name); total+=len(f['content'].encode())
+        # /code is the worker's working directory. Never let generated files
+        # replace the trusted worker package or its standard/approved dependencies.
+        top=name.split('/')[0].split('.')[0]
+        if top.casefold() in protected_modules():raise IntegrityError('Generated file shadows a trusted runtime module')
         if not name.endswith(('.py','.json','.md','.txt','.csv')):raise IntegrityError('Unapproved generated file type')
         if name.split('/')[-1] in ('AGENTS.md','CLAUDE.md','sitecustomize.py','usercustomize.py'):
             raise IntegrityError('Generated instruction / Python startup injection forbidden')

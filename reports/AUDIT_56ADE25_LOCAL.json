@@ -1,0 +1,791 @@
+{
+  "base_commit": "56ade25f435c052f770bc018c562017eb3c3d5f3",
+  "date": "2026-09-09",
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "P0",
+      "title": "TeX 编码/环境绕过与宿主文件读取",
+      "implementation_status": "FIXED",
+      "files": "paper.py, tex_sandbox.py, Dockerfile.tex",
+      "change": "编码/环境/文件名过滤；专用隔离 TeX 编译",
+      "checks": "test_audit_20260908_audit_regressions.py; validate_audit_isolation.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F02",
+      "severity": "P1",
+      "title": "评测结束后的格式错误遗留 RUNNING",
+      "implementation_status": "FIXED",
+      "files": "research.py",
+      "change": "已完成执行后的格式和证据错误记 FAILED 并保存回执",
+      "checks": "test_audit_20260908_audit_regressions.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F03",
+      "severity": "P1",
+      "title": "评测输入未纳入实验身份",
+      "implementation_status": "FIXED",
+      "files": "research.py",
+      "change": "冻结 public/private evaluation 身份并在运行及缓存时校验",
+      "checks": "test_audit_20260908_audit_regressions.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F04",
+      "severity": "P1",
+      "title": "子问题覆盖无逐问证据约束",
+      "implementation_status": "FIXED",
+      "files": "contracts.py, research.py, controller.py",
+      "change": "逐问 measurement 或摘要绑定的定性文件/文本证据",
+      "checks": "test_audit_56ade25_flow.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F05",
+      "severity": "P1",
+      "title": "生成代码名称可覆盖可信启动模块",
+      "implementation_status": "FIXED",
+      "files": "contracts.py, sandbox.py",
+      "change": "拒绝覆盖可信模块；Python -I；依赖回执必需",
+      "checks": "validate_audit_isolation.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F06",
+      "severity": "P1",
+      "title": "可伪造附录标题影响页数与审查范围",
+      "implementation_status": "FIXED",
+      "files": "paper.py",
+      "change": "正文页数取可信 appendix 编译标签",
+      "checks": "test_audit_20260908_paper_boundary.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F07",
+      "severity": "P1",
+      "title": "多轮检索覆盖未按累计证据计算",
+      "implementation_status": "FIXED",
+      "files": "literature_r2.py",
+      "change": "按全部轮次成功映射累计覆盖",
+      "checks": "test_audit_56ade25_flow.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F08",
+      "severity": "P1",
+      "title": "未绑定attempt的共享租约无法由现有恢复回收",
+      "implementation_status": "FIXED",
+      "files": "exa_ledger.py, exa_transport.py, cli.py",
+      "change": "有状态租约、owner/lease ID、显式核对恢复；超时保留 UNKNOWN",
+      "checks": "test_audit_56ade25_flow.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F09",
+      "severity": "P1",
+      "title": "反方候选缺失受审的排除理由",
+      "implementation_status": "FIXED",
+      "files": "literature_r2.py",
+      "change": "全部反方候选有 disposition；critic 看到排除理由和摘录",
+      "checks": "test_audit_56ade25_flow.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F10",
+      "severity": "P1",
+      "title": "结构不合格的假设否定信号可能当供应商故障接管",
+      "implementation_status": "FIXED",
+      "files": "providers.py, review_board.py, controller.py",
+      "change": "NEEDS_CLARIFICATION 保留否定信号并要求后续有界回应",
+      "checks": "test_audit_56ade25_flow.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F11",
+      "severity": "P1",
+      "title": "视觉否决没有返还writer形成新版本的有界循环",
+      "implementation_status": "FIXED",
+      "files": "controller.py, review_board.py",
+      "change": "否决后新 draft/new PDF；反馈稳定序列化支持重放",
+      "checks": "validate_paper_repair.py; test_review_board.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F12",
+      "severity": "P1",
+      "title": "baseline自测未覆盖每个新代码/variant",
+      "implementation_status": "FIXED",
+      "files": "controller.py",
+      "change": "每个候选代码及 variant 独立有界自测后才进全矩阵",
+      "checks": "test_audit_56ade25_flow.py; validate_paper_repair.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    },
+    {
+      "id": "F13",
+      "severity": "P2",
+      "title": "路径累计溢出被当作不可达",
+      "implementation_status": "FIXED",
+      "files": "alggraph.py",
+      "change": "有限边权累加溢出显式 ValueError",
+      "checks": "test_audit_20260908_graph_overflow.py",
+      "verification_status": "PASS_TARGETED_AND_FULL_DOCKER"
+    }
+  ],
+  "acceptance_status": "CODE_AND_DETERMINISTIC_ACCEPTANCE_PASS_LIVE_HISTORICAL_BLOCKED",
+  "full_tests": {
+    "tests": 444,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "backend": "DOCKER",
+    "xml": "audit-56ade25-evidence/full-tests.xml.gz"
+  },
+  "isolation": {
+    "checks": [
+      {
+        "case": "bundle-shadow-cumcm_harness",
+        "status": "PASS"
+      },
+      {
+        "case": "bundle-shadow-json",
+        "status": "PASS"
+      },
+      {
+        "case": "bundle-shadow-numpy",
+        "status": "PASS"
+      },
+      {
+        "case": "bundle-shadow-sitecustomize",
+        "status": "PASS"
+      },
+      {
+        "case": "installed-worker-isolated-startup",
+        "receipt_digest": "139d23de3381c1fd0775b19b1aee07829f5673166900bb4e6c87df8f48f2e65b",
+        "status": "PASS"
+      },
+      {
+        "case": "missing-receipt",
+        "observed_process_status": "EXITED",
+        "status": "PASS"
+      },
+      {
+        "case": "invalid-receipt",
+        "observed_process_status": "EXITED",
+        "status": "PASS"
+      },
+      {
+        "case": "output-bomb",
+        "observed_process_status": "OUTPUT_LIMIT",
+        "status": "PASS"
+      },
+      {
+        "case": "timeout",
+        "observed_process_status": "TIMEOUT",
+        "status": "PASS"
+      },
+      {
+        "case": "tex-legal-matrix-and-immutable-replay",
+        "receipt_digest": "3e3cc62f712a3d190007563ddd9df0d65017152c176887611f991e25fc3d70eb",
+        "status": "PASS"
+      },
+      {
+        "case": "artificial-host-canary-not-mounted",
+        "status": "PASS"
+      }
+    ],
+    "runtime": {
+      "backend": "DOCKER",
+      "image_id": "sha256:a893f035b246fbcb0f2304452d31dced3cd48281422fcd8ccb9a676745806c43"
+    },
+    "scope": "REAL_DOCKER_AND_TEX_NO_MODEL_OR_NETWORK_CALLS",
+    "status": "PASS"
+  },
+  "numerical": {
+    "diagnostics_per_run": 9,
+    "external_candidates_run": 0,
+    "global_promotions": 0,
+    "numerical_runs": 2,
+    "protocol_digest": "c8b954427ea5c896063a03d27ee0085c7ea0bfda2b6aa44c6b0eac73aa067981",
+    "receipts": {
+      "lab-1": "7692b4e94cfb865f2a8c71cd7fd58fa8f40fee353d2e669741aac74af94db442",
+      "lab-2": "4a934acd3a28a4c31aad9c774b8238367215a9cc43cebb8dc9cd46fdc030f0d1",
+      "tests": "0a8ff58d3b14bab092b5987c7c77f6a1a87a42dcc48a09f0e01976c8dd752368"
+    },
+    "reproducibility": {
+      "diagnostics.json": true,
+      "raw_results.json": true
+    },
+    "rows_per_run": 98,
+    "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+    "status": "PASS"
+  },
+  "paper_repair": {
+    "status": "PASS",
+    "numerical_jobs": 22,
+    "variant_selftests": 4,
+    "distinct_pdfs": 2,
+    "replay_unchanged": true,
+    "model_transport": "SYNTHETIC_FIXTURE",
+    "exa_transport": "SYNTHETIC_FIXTURE"
+  },
+  "live_exa": {
+    "evidence": "LIVE_EXA_HTTP",
+    "leases": [],
+    "ledger": {
+      "http_attempts_reserved": 3,
+      "known_cost_dollars": 0.016,
+      "max_http_attempts": 6,
+      "remote_exactly_once_billing": false,
+      "requests": [
+        {
+          "attempts": 1,
+          "id": "fb74002fb453df7cf46a064d046b1ee670eca528477f058182e699bcea2e8c01",
+          "status": "DONE"
+        },
+        {
+          "attempts": 1,
+          "id": "8b2d5a4323d766f80d6aaacbd3b06eb5ba404ae03256b9112c35c212887608ca",
+          "status": "DONE"
+        },
+        {
+          "attempts": 1,
+          "id": "0f289066f452668189e22cd7c06a77d44445273d0e09bbbed7fe9a555a7c22d2",
+          "status": "DONE"
+        }
+      ],
+      "stage_consumption": {
+        "adversary": 1,
+        "final_verification": 0,
+        "primary_source_fetch": 1,
+        "repair_reserve": 0,
+        "scouting": 1
+      },
+      "unknown_cost_attempts": 0
+    },
+    "max_http_attempts": 6,
+    "operations": [
+      {
+        "kind": "search",
+        "profile": "foundations",
+        "query": "heliostat field optical efficiency shading blocking ray tracing",
+        "snapshots": [
+          "64b9f0df205c001a47fd351433963b5f4cfa12e429e63ea533a8faba86fe61aa",
+          "96ac2d79aa7ae767761b4b0ad337753435375e9dde16f08d3e7f62439d23754d",
+          "4c0c1ade1421aa3e15bc3d9d17c5a284282776a6bd6e0631f13e93b0e699fdd8",
+          "770e884881f97f2237625518f4ce3b3ee10eab434b67417bb59e254b7ecd5444",
+          "75aea24fec6da1c829657fbe0838c568c0ca1129355c748b196b992832d1cd41",
+          "a959c8383432415b24c0ba925d8745cb55daab403c9b6170cbddc92c98bde590"
+        ],
+        "sources": 6
+      },
+      {
+        "kind": "contents",
+        "source_text_characters": [
+          23820,
+          5937
+        ],
+        "sources_with_text": 2,
+        "statuses": [
+          {
+            "id": "https://doi.org/10.62051/kjxscg84",
+            "source": "cached",
+            "status": "success"
+          },
+          {
+            "id": "https://doi.org/10.1016/j.renene.2021.09.045",
+            "source": "cached",
+            "status": "success"
+          }
+        ]
+      },
+      {
+        "kind": "search",
+        "profile": "counterexamples",
+        "query": "heliostat field shading blocking approximation limitations validation",
+        "snapshots": [
+          "7c0c6a96024d301bedc7474ab91f3905ef56b5114ae60875df0a7009c9921067",
+          "6bae17b7dd841b1f2e72f8d2faf2b727172c7283a45d34ef6429ad3ccd293860",
+          "91e9bc626a8ef9140711b42288af99cfd291f4b075d2f50c831b33f756a672be",
+          "79136a7a683d658a1e1eb8828fa164ea2891a99cb26f93eaf0371a0eb770de65",
+          "838d08a273248b5e0589a01342a54471c80e9c3c50176fe0f83cb34b92d7b95c",
+          "adef58326a8d0ce2508ac8ae2aa423cbfec492f85933e7eaa2b3dc60eeb82202",
+          "5184773cb5e72fd2f7e5d05d1e619e70a3892b1d280ffb49aa2dde238a75e9e8",
+          "4619962b394fbc1a8536ffce5f7cf3c328f32dd63d32b9a2d0f3b138d38e0d19"
+        ],
+        "sources": 8
+      }
+    ],
+    "queries_are_public_generic_methods": true,
+    "status": "PASS"
+  },
+  "live_historical": {
+    "scope": "BOUNDED_LIVE_HISTORICAL_2023_PROBLEM_SMOKE_NOT_CONTEST_COMPLETION",
+    "status": "BLOCKED",
+    "attempts": [
+      {
+        "workspace": "heliostat-audit-56ade25-20260909",
+        "status": {
+          "status": "BLOCKED",
+          "jobs": [],
+          "unfinished_steps": [
+            {
+              "key": "model:literature:r2:initial:0",
+              "status": "FAILED",
+              "error": "ProviderFailure: codex provider unavailable: EXIT_NONZERO"
+            }
+          ],
+          "model_calls_reserved": 2
+        },
+        "blocker": {
+          "completed_artifacts_preserved": true,
+          "message": "codex provider unavailable: EXIT_NONZERO",
+          "type": "ProviderFailure"
+        },
+        "model_processes": [
+          {
+            "provider": "codex",
+            "role": "supervisor",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 43.57301104100043,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "484da5ab1e141de22657038d17794925b31b5edcfff7e8cdd31ec61ecb64654a",
+            "valid_structured_response": true,
+            "response_digest": "bc469d908c7b8655366c4a48ccb4934efd28c0968d90f00d028626b6e0e5cad5",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 34018,
+              "output_tokens": 1137,
+              "reasoning_output_tokens": 17
+            },
+            "cost_usd": null
+          },
+          {
+            "provider": "codex",
+            "role": "literature_scout",
+            "status": "EXITED",
+            "returncode": 1,
+            "seconds": 3.8612148749962216,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "527a1b6b21fc8204b1838e6b1a12639b4e814e9ef4350f5fb5fdf5babed1c41c",
+            "valid_structured_response": false,
+            "response_digest": null,
+            "usage": null,
+            "cost_usd": null
+          }
+        ],
+        "exa": {
+          "stage_consumption": {
+            "adversary": 0,
+            "final_verification": 0,
+            "primary_source_fetch": 0,
+            "repair_reserve": 0,
+            "scouting": 0
+          },
+          "http_attempts_reserved": 0,
+          "max_http_attempts": 16,
+          "requests": [],
+          "known_cost_dollars": 0,
+          "unknown_cost_attempts": 0,
+          "remote_exactly_once_billing": false,
+          "leases": []
+        }
+      },
+      {
+        "workspace": "heliostat-audit-acceptance-56ade25-20260909",
+        "status": {
+          "status": "BLOCKED",
+          "jobs": [],
+          "unfinished_steps": [],
+          "model_calls_reserved": 2
+        },
+        "blocker": {
+          "completed_artifacts_preserved": true,
+          "message": "Support query has an adversarial purpose",
+          "type": "IntegrityError"
+        },
+        "model_processes": [
+          {
+            "provider": "codex",
+            "role": "literature_scout",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 18.39571845800674,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "5add91503ec37dc3ac4fd2f4748a051dbb07c2c5a3440809b2ada66d4759430c",
+            "valid_structured_response": true,
+            "response_digest": "1a17f5ce0fdb6366df2443deea5c64a3fe18af91eb67ed55ee268877fbe961f6",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 21451,
+              "output_tokens": 263,
+              "reasoning_output_tokens": 75
+            },
+            "cost_usd": null
+          },
+          {
+            "provider": "codex",
+            "role": "supervisor",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 65.34048470800917,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "effd10e4308cd376a0a5115969131fcec181ac63a65fdcf20fa1fa4255d82917",
+            "valid_structured_response": true,
+            "response_digest": "d2a78c644b467d580ae0e35a134aaaa48339076a6d1fd97d9d65b7a4dd5a58d3",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 34018,
+              "output_tokens": 1237,
+              "reasoning_output_tokens": 0
+            },
+            "cost_usd": null
+          }
+        ],
+        "exa": {
+          "stage_consumption": {
+            "adversary": 0,
+            "final_verification": 0,
+            "primary_source_fetch": 0,
+            "repair_reserve": 0,
+            "scouting": 0
+          },
+          "http_attempts_reserved": 0,
+          "max_http_attempts": 16,
+          "requests": [],
+          "known_cost_dollars": 0,
+          "unknown_cost_attempts": 0,
+          "remote_exactly_once_billing": false,
+          "leases": []
+        }
+      },
+      {
+        "workspace": "heliostat-audit-final-56ade25-20260909",
+        "status": {
+          "status": "BLOCKED",
+          "jobs": [],
+          "unfinished_steps": [
+            {
+              "key": "model:plan:r0",
+              "status": "FAILED",
+              "error": "ProviderFailure: codex provider unavailable: TIMEOUT"
+            }
+          ],
+          "model_calls_reserved": 3
+        },
+        "blocker": {
+          "completed_artifacts_preserved": true,
+          "message": "codex provider unavailable: TIMEOUT",
+          "type": "ProviderFailure"
+        },
+        "model_processes": [
+          {
+            "provider": "codex",
+            "role": "literature_scout",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 15.74146020799526,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "9c3f7e048d177155ede9a1c10131987ab1d81d9c0923a796a19edd63c91a54d5",
+            "valid_structured_response": true,
+            "response_digest": "58111496b56ea5f25c464018a563a3291b17630cb62275fd5c733ddcea839beb",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 21506,
+              "output_tokens": 254,
+              "reasoning_output_tokens": 65
+            },
+            "cost_usd": null
+          },
+          {
+            "provider": "codex",
+            "role": "supervisor",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 54.5784457080008,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "33562a9052de363799f58ec0af78e5ca43ef7ae99efee033d24c132f1b85918b",
+            "valid_structured_response": true,
+            "response_digest": "2379c276822ce8b1025e469cf868e31deded7aeea74afad17955ec19df33d4ae",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 33792,
+              "input_tokens": 34016,
+              "output_tokens": 1242,
+              "reasoning_output_tokens": 0
+            },
+            "cost_usd": null
+          },
+          {
+            "provider": "codex",
+            "role": "modeler",
+            "status": "TIMEOUT",
+            "returncode": -9,
+            "seconds": 180.0545921669982,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "c8e9800f901f1b253aef7356e11207a3fcbeb0fdf9a38a7379f470209e4ff13e",
+            "valid_structured_response": false,
+            "response_digest": null,
+            "usage": null,
+            "cost_usd": null
+          }
+        ],
+        "exa": {
+          "stage_consumption": {
+            "adversary": 0,
+            "final_verification": 0,
+            "primary_source_fetch": 0,
+            "repair_reserve": 0,
+            "scouting": 4
+          },
+          "http_attempts_reserved": 4,
+          "max_http_attempts": 16,
+          "requests": [
+            {
+              "id": "20ddc12342ff4367d57385cd789c873237e328a4e98a010dd8a515757b6fd559",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "e203c6c789ed86e923f4d97e3f0c78982253e7014ae3bafb3e956aeb4f4426d6",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "0f3d9354aef08da1ac7f77f22cd2a0a054414f3937875a98c8d94dcf439c499c",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "02b1fdcb80cfd63556c31e8405b145572ddfaf42caf88dd000ef13b2f0e6d61d",
+              "status": "DONE",
+              "attempts": 1
+            }
+          ],
+          "known_cost_dollars": 0.028,
+          "unknown_cost_attempts": 0,
+          "remote_exactly_once_billing": false,
+          "leases": []
+        }
+      },
+      {
+        "workspace": "heliostat-audit-bounded-56ade25-20260909",
+        "status": {
+          "status": "BLOCKED",
+          "jobs": [],
+          "unfinished_steps": [
+            {
+              "key": "model:hypotheses:r2:690b5512cbd71badafe79450be503826f79409440cb36fc8c7932dbcd42be56d",
+              "status": "FAILED",
+              "error": "ProviderFailure: codex provider unavailable: MISSING_OR_INVALID_RESULT"
+            }
+          ],
+          "model_calls_reserved": 4
+        },
+        "blocker": {
+          "completed_artifacts_preserved": true,
+          "message": "codex provider unavailable: MISSING_OR_INVALID_RESULT",
+          "type": "ProviderFailure"
+        },
+        "model_processes": [
+          {
+            "provider": "codex",
+            "role": "supervisor",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 47.53229083301267,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "eaa1d890864d5865f69fd9af7896124c817a467b2af843b85bf840e1596d46e0",
+            "valid_structured_response": true,
+            "response_digest": "bfbe87401e6548587edd3a2c7db5155f1b367da76bba44b123264bd3235a7986",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 34018,
+              "output_tokens": 1271,
+              "reasoning_output_tokens": 0
+            },
+            "cost_usd": null
+          },
+          {
+            "provider": "codex",
+            "role": "modeler",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 100.46452429100464,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "a220821a2598efea6558aad800bdefb83db07c5125f24949bf04d91457fb1a93",
+            "valid_structured_response": false,
+            "response_digest": null,
+            "usage": null,
+            "cost_usd": null
+          },
+          {
+            "provider": "codex",
+            "role": "modeler",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 241.54123187500227,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "676c7933a2b32c2109dbb688145aa513efa553b4fe40adb3155548ce9d44405b",
+            "valid_structured_response": true,
+            "response_digest": "50705dba6c5373ef4d76940099357969789edfd019739050b0c29ec3f76ef713",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 62426,
+              "output_tokens": 7627,
+              "reasoning_output_tokens": 31
+            },
+            "cost_usd": null
+          },
+          {
+            "provider": "codex",
+            "role": "literature_scout",
+            "status": "EXITED",
+            "returncode": 0,
+            "seconds": 16.185139332999825,
+            "model_requested": "CLI_DEFAULT",
+            "model_reported": "UNREPORTED",
+            "process_sha256": "6a459cf04849f2bca0ed4caacb37367bd5d67ebfe1fa54fcf0a44e7106a2505e",
+            "valid_structured_response": true,
+            "response_digest": "e4613b06db0c3c2c0491f6f1c2f542ef1ae0787c32cbccffff4f6f49c3745b13",
+            "usage": {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 0,
+              "input_tokens": 21516,
+              "output_tokens": 233,
+              "reasoning_output_tokens": 37
+            },
+            "cost_usd": null
+          }
+        ],
+        "exa": {
+          "stage_consumption": {
+            "adversary": 0,
+            "final_verification": 0,
+            "primary_source_fetch": 0,
+            "repair_reserve": 0,
+            "scouting": 4
+          },
+          "http_attempts_reserved": 4,
+          "max_http_attempts": 16,
+          "requests": [
+            {
+              "id": "1480ea23a66feea4da265e126d3f53e4efc441b30acb88a8f583318376420f01",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "65c7904b9fb3f49176782be3eab22cef6ee6bc9986ef64792d1db8b9205ac082",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "81ea2470584524ed37272e16d4879fab5b1a644682a833aed747ffc176843062",
+              "status": "DONE",
+              "attempts": 1
+            },
+            {
+              "id": "f52414e40f5a5d5f9797486c172cc56be6cbc60d725dd2e2cf462131d1cf5f0d",
+              "status": "DONE",
+              "attempts": 1
+            }
+          ],
+          "known_cost_dollars": 0.028,
+          "unknown_cost_attempts": 0,
+          "remote_exactly_once_billing": false,
+          "leases": []
+        }
+      }
+    ],
+    "independent_claude_review": "NOT_RUN",
+    "scientific_acceptance": "NOT_RUN",
+    "live_solver_execution": "NOT_RUN",
+    "latest_failure_evidence": "Codex CLI exited 0 but returned no valid result; error events report Connection refused (os error 61). Colima was later observed stopped and restarted for infrastructure tests; causal identity of the upstream refusal is not proven.",
+    "code_version_boundary": "These live attempts preceded the final support-lane limitation excerpt fix; that final change is covered by deterministic regression and full Docker acceptance, not by another live attempt.",
+    "automatic_retry_after_unknown_state": false
+  },
+  "final_source_manifest": {
+    "task_dag.py": "51e2a46f03dc77c536c1623a0a7f81cd54ac02e373b3731d03011b0517b29544",
+    "intake.py": "c0505d54cdffbdc45589672b03cda159c0e4bf7e46082204b24c0ee859b1c8f7",
+    "exa_r2_demo.py": "d410182be7bdb2d92788b91b5f0d730869dfd3bc9e0c62e36bcdb3ac2119f5a8",
+    "worker.py": "2e3423ae7553a0dc078a84d83409f2fc9b09e44518038e5b9681c295a4b20e66",
+    "store.py": "d5dfe90f79400922f1bfd8ad693a22dc692307d965961045e3171a25cce9b0d2",
+    "review_board.py": "5323e5065306cfab1af86f7b8a418f69f6691a68ab3a58f3b18a636c3e50e8b9",
+    "exa_contract.py": "163486f44e0fba27d2412f2dd089efd2d4706cca72619cc024267c7b1ea31598",
+    "alggraph.py": "14bcc929e62e82095d6c81123d374a137e6a0ebff6ab5a58434b4ca19cd4d10e",
+    "controller.py": "71964749202127afd830829caf270bdd99d3f568b1ee41867d1923e4bfaf44f7",
+    "algorithms.py": "7e088cd5133549c9cedafd7648ac06f049c3f8edcdaa42129ed99d2adb58d29f",
+    "exa_evidence.py": "cbf913541dddc2981008028b99c6ff14ab5fa8cb990506f97c1f90f67a637e2d",
+    "research.py": "0ac9a115c0d68e6e76d17c2f59b40425bf1c4d0e7ed23bbfa530bf733f7849cd",
+    "credentials.py": "94c40d09cc12dc78aea382895b3734e134b838147039cd60bffda4c22fe906a7",
+    "provider_schema.py": "4efb53c70e6ca6e4f56d7eba32265c5bf45c6053e82e31fbf25d0b59b3a66333",
+    "algopt.py": "6810590a49de677d6bdc450399baea95f86e0e185b9083ba26742e351f8daf6b",
+    "algorithm_library.py": "ddc103f069f9616a0e33733092556f8fa4eacb9e7438393cd87aef7f4b98e6b2",
+    "algscience.py": "542845c161e87a97aecb6d62fcec8deb37eec27e31d979bcc895135998301885",
+    "verifier_preflight.py": "13a260130b2124acb3252649970d84463e657309c08d23d2bdc3d8f490d272d8",
+    "paper.py": "f01774b29a99738c4545eb6c936df52ce643f5319ef81b80cf828f7ffb5dd9a7",
+    "__init__.py": "72bb46162526d11457e8f6d6fd6323fa880cd818561456c4563e5e5dc0dd90c2",
+    "exa_defaults.py": "e32f351e9ba8fe7d72c2d3041f4d0785b1f2b1e3a4a3ee4a55b196477204dab1",
+    "literature_r2.py": "7bfa26222f1242839c3c1e958f7c599dac88886024741e8df1a54fc0575b2cf1",
+    "resilience_demo.py": "b1c0be7b2564ec43419f2664b32d5832d47bb64c2c90db401d582c870a1ef2db",
+    "exa_transport.py": "89ee2e0e34671138eaafe98ae330a82a8abe2c11f6ff2e1b28311f5c3b6bff02",
+    "sandbox.py": "5d35bf96388cf39aab68dc23ec2c8bd4d650ca7cabe68f7d8be0b519c3f56616",
+    "exa_authorization.py": "eb77256ffc210ffa3bae737ad6f043e0ee3df37c8cbfa57e8e2dfb10ed10f751",
+    "providers.py": "3310fec490a6469fd2b9aa2c4808a8d1f36877582822f99522b10785b291c9d5",
+    "cli.py": "cb7400d7cc42da0ed0a7f94822a4150cbdff2c5f211508162ad0633d3026d216",
+    "common.py": "17c8052c98e593f29d2f5514ba3f96705c8c04a9aa5ff0571f595291f6712480",
+    "packaging.py": "c8281f1242345bb35fcc07cbe29f6d1afcfad11af0aea16e1d2da0712e1fb04c",
+    "figures.py": "b957a83f97b506a5da5e4432a2df387b9a6ff8ec71e713b5aa68f5acb3f327ce",
+    "contracts.py": "3774f8797404748af1ebdd5b231346c2e1d1c611b65f90f2779512d610a2458a",
+    "exa_ledger.py": "a9c7fc7b844264f3ad7cd921c18714831d5970b410135db14cd66bbbee4b322b",
+    "exa_policy.py": "fc822ef06f2ea5cfd86d8ccbd65bb0a16ac2b9f6bab21b35d6818c100265cf37",
+    "approval.py": "5cf436458902032f2a2dd9e4f4b134b56cb9dec42998cf716790434ce20e5e73",
+    "algpredict.py": "96dcb07abb31716d8bc52a32c84f2d4dc4596e3f13101e0669852cf13ec53965",
+    "process.py": "2d8c92b63492e5b7cafd0d55c0c80e2a2988040773fbbcffb34f8f0bbda139f0",
+    "literature.py": "ec103f4feb70f97cdf6a61bd4266c829bdc3dfac3b736e64497c84289c091375",
+    "ego_bridge.py": "d69cf97ef1f4e00f2d5602e2f4f4eaa554739e9b019614fd12dba2f3b46ae492",
+    "algpromotion.py": "48c9229878a2b0cdbb3a59fb3f81a2f4c1d6fbf657e72586c5089aab1d0ff824",
+    "demo.py": "a9b549ce9497b410fcead2ffee223ce2d709737a1da710ce00bc04eb8c1efb99",
+    "tex_sandbox.py": "9ce3c88ede6124d46959c9ea846b134b809abbaf7d5ec108d8b35f062ffffb7d",
+    "algdecision.py": "fcd7bed12b43b190496a17fc3694990804e817c0e7d62c6be3fd4a07b73ed1af",
+    "algorithm_lab.py": "10e64ca1ff95b95b0cb2b8eea5e2fc18ca71a185e2c4684948305de605f4bf71",
+    "__main__.py": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4"
+  },
+  "vendor": {
+    "status": "PASS",
+    "files": 408,
+    "manifest_sha256": "4d5d665f6511cc5c345c936194512a43a3e821d50afb14b634e9c9438c059034"
+  },
+  "engineering_optimizations": {
+    "stage_budget_wiring": "IMPLEMENTED_AND_TESTED",
+    "separate_original_text_cache": "IMPLEMENTED_AND_TESTED",
+    "source_windows": "IMPLEMENTED_AND_TESTED",
+    "typed_failures": "IMPLEMENTED_AND_TESTED",
+    "bounded_dag_shard_recovery": "IMPLEMENTED_AND_TESTED_NOT_AUTOMATIC_ADOPTION_BY_EVERY_SOLVER"
+  },
+  "preserved_boundaries": [
+    "No operator approval impersonation",
+    "No contest submission",
+    "No fixture passes a live gate",
+    "No vendor changes",
+    "No old workspace or finished output rewritten"
+  ]
+}

@@ -56,10 +56,11 @@ def test_negative_verdict_survives_reentry_and_other_positive_votes(tmp_path):
             r['receipt']['response_digest']=digest(r['result'])
         return r
     c._call_one=invoke
-    with pytest.raises(Blocked,match='Counterexample'):b.review('negative',p,('math_reviewer',))
+    with pytest.raises(Blocked,match='Counterexample') as first:b.review('negative',p,('math_reviewer',))
     assert [x[0] for x in calls]==['claude','codex']
     count=len(calls)
-    with pytest.raises(Blocked):b.review('different-key',p,('math_reviewer',))
+    with pytest.raises(Blocked) as replay:b.review('different-key',p,('math_reviewer',))
+    assert str(first.value)==str(replay.value)
     assert len(calls)==count
     assert len(list((tmp_path/'reviews').glob('*.json')))==1
 

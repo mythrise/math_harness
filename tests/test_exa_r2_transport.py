@@ -33,7 +33,7 @@ def client(tmp_path, transport=None, *, policy=None, clock=None, live=False, **k
         shared_path=tmp_path/'shared.sqlite3',cross_cache=tmp_path/'cross-cache',clock=clock.time,sleep=clock.sleep,rng=random.Random(9),**kwargs)
 
 
-@pytest.mark.parametrize('failure',[HTTPFailure(429,retry_after='3'),HTTPFailure(503),TimeoutError()])
+@pytest.mark.parametrize('failure',[HTTPFailure(429,retry_after='3'),HTTPFailure(503)])
 def test_transient_attempts_are_counted_and_retry_after_is_honored(tmp_path,failure):
     calls=[];clock=Clock()
     def transport(*args):

@@ -8,7 +8,8 @@ from pathlib import Path
 from .common import *
 from .contracts import validate, SCHEMAS
 from .process import run_process, clean_env
-from .review_board import ProviderFailure
+from .review_board import ProviderFailure, NeedsClarification
+from .provider_schema import codex_schema, normalize_codex_response
 
 ROLES={
  'supervisor': 'You are the research PI. Set priorities and falsifiable search directions. You cannot waive gates, change frozen evaluation or assert unmeasured superiority.',
@@ -83,7 +84,9 @@ class CLIProvider:
         binary,version=self.probe();invocation=str(uuid.uuid4())
         logdir.mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(prefix='cumcm-agent-') as td:
-            work=Path(td);write_json(work/'schema.json',SCHEMAS[schema_name])
+            work=Path(td)
+            transport_schema=codex_schema(SCHEMAS[schema_name]) if self.kind=='codex' else SCHEMAS[schema_name]
+            write_json(work/'schema.json',transport_schema)
             command=self.command(binary,work,schema_name)
             if images:
                 if self.kind!='codex':raise Blocked('Visual packets require the Codex image-input adapter')
@@ -103,19 +106,31 @@ class CLIProvider:
                     raise PromptPacketTooLarge('Provider rejected prompt size (INPUT_TOO_LARGE); reduce the packet before retry')
                 raise ProviderFailure(self.kind, receipt['status'] if receipt['status']!='EXITED' else 'EXIT_NONZERO')
             text=(logdir/'stdout.log').read_text('utf-8')
+            def invalid(code,raw):
+                import re
+                if schema_name in ('review','hypothesis_audit_r2','hypothesis_audit') and (re.search(r'\b(?:FAIL|BLOCKED|REVISE|contradicted|P0|P1)\b',raw,re.I) or re.search(r'"unverified"\s*:\s*\[\s*"',raw)):
+                    signal={'schema':schema_name,'target_digest':packet.get('target_digest',digest(packet)),
+                        'raw_sha256':__import__('hashlib').sha256(raw.encode()).hexdigest(),
+                        'raw_excerpt':raw[:16000],'failure_code':code,'status':'NEEDS_CLARIFICATION'}
+                    signal['signal_digest']=digest(signal)
+                    write_json(logdir/'clarification.json',signal)
+                    (logdir/'invalid_response.txt').write_text(raw)
+                    raise NeedsClarification(signal,receipt)
+                raise ProviderFailure(self.kind,code)
+
             if self.kind=='claude':
                 try:envelope=json.loads(text)
-                except ValueError:raise ProviderFailure(self.kind, 'INVALID_JSON') from None
-                if not isinstance(envelope,dict):raise ProviderFailure(self.kind, 'INVALID_ENVELOPE')
+                except ValueError:invalid('INVALID_JSON',text)
+                if not isinstance(envelope,dict):invalid('INVALID_ENVELOPE',text)
                 if envelope.get('is_error'):raise ProviderFailure(self.kind, 'REMOTE_ERROR')
-                if 'structured_output' not in envelope:raise ProviderFailure(self.kind, 'MISSING_STRUCTURED_OUTPUT')
+                if 'structured_output' not in envelope:invalid('MISSING_STRUCTURED_OUTPUT',text)
                 result=envelope['structured_output']
                 receipt['usage']=envelope.get('usage',{})
                 receipt['cost_usd']=envelope.get('total_cost_usd')
                 receipt['model_reported']=envelope.get('model','UNREPORTED')
             else:
                 try:result=read_json(work/'result.json')
-                except (ValueError,FileNotFoundError):raise ProviderFailure(self.kind, 'MISSING_OR_INVALID_RESULT') from None
+                except (ValueError,FileNotFoundError):invalid('MISSING_OR_INVALID_RESULT',(work/'result.json').read_text(errors='replace') if (work/'result.json').exists() else text)
                 usage={}
                 for line in text.splitlines():
                     if not line.strip():continue
@@ -127,17 +142,15 @@ class CLIProvider:
                         raise IntegrityError('Unexpected tool use in proposal-only invocation')
                     if e.get('type')=='turn.completed':usage=e.get('usage',{})
                 receipt['usage']=usage
+            write_json(logdir/'raw_response.json',result)
+            receipt['raw_response_digest']=digest(result)
+            receipt['transport_schema_digest']=digest(transport_schema)
+            receipt['local_schema_digest']=digest(SCHEMAS[schema_name])
+            if self.kind=='codex':result=normalize_codex_response(result,SCHEMAS[schema_name])
             try:validate(schema_name,result)
             except IntegrityError:
-                # Do not discard an identifiable negative finding by classifying
-                # a contradictory PASS as a mere syntax/availability problem.
-                if schema_name=='review' and isinstance(result,dict):
-                    if (result.get('verdict') in ('FAIL','BLOCKED') or result.get('unverified') or
-                        any(isinstance(f,dict) and f.get('severity') in ('P0','P1') for f in (result.get('findings') or []))):
-                        raise
-                    if result.get('target_digest') not in (None, packet.get('target_digest')):
-                        raise
-                raise ProviderFailure(self.kind, 'OUTPUT_SCHEMA_INVALID') from None
+                if schema_name=='review' and isinstance(result,dict) and result.get('target_digest') not in (None,packet.get('target_digest')):raise
+                invalid('OUTPUT_SCHEMA_INVALID',json.dumps(result,ensure_ascii=False))
             receipt['response_digest']=digest(result)
             write_json(logdir/'response.json',result);write_json(logdir/'receipt.json',receipt)
             return {'result':result,'receipt':receipt}

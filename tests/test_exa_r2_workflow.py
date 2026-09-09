@@ -75,3 +75,25 @@ def test_narrower_proposal_limit_is_enforced_before_http(tmp_path):
          'hypothesis_ids':['H1'],'additional_queries':[]}
     with pytest.raises(IntegrityError,match='query limit'):wf.retrieve({'queries':[row,copy.deepcopy(row)]},hypotheses=['H1'])
     assert wf.client.ledger.summary()['http_attempts_reserved']==0
+
+
+def test_critic_sees_limitations_from_support_lane_even_when_excluded(tmp_path):
+    packets={}
+    def responder(role,schema,packet):
+        if schema in ('source_selection_r2','hypothesis_audit_r2'):
+            packets[schema]=copy.deepcopy(packet)
+        return r2_responder(role,schema,packet)
+    c,_=controller(tmp_path,responder);wf=c.literature;original=wf._queries
+    def queries(*args,**kwargs):
+        sources,links=original(*args,**kwargs)
+        if not kwargs.get('opponent'):
+            for source in sources:source['purpose']='limitations'
+        return sources,links
+    wf._queries=queries
+    wf.collect_initial({'research_focus':[]});wf.assess(PLAN)
+    required={s['id'] for s in packets['source_selection_r2']['sources']
+              if s.get('purpose') in ('counterexample','limitations')}
+    audit=packets['hypothesis_audit_r2']
+    assert {s['id'] for s in audit['opposing_candidates']}==required
+    assert {s['source_id'] for s in audit['opposing_dispositions']}==required
+    assert any(s['purpose']=='limitations' for s in audit['opposing_candidates'])

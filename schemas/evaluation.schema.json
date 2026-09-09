@@ -75,6 +75,83 @@
       "minItems": 1,
       "type": "array"
     },
+    "question_evidence": {
+      "items": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+                "type": "string"
+              },
+              "kind": {
+                "const": "text"
+              },
+              "question_id": {
+                "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+                "type": "string"
+              },
+              "sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              "text": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "question_id",
+              "kind",
+              "text",
+              "sha256"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+                "type": "string"
+              },
+              "kind": {
+                "const": "file"
+              },
+              "path": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "question_id": {
+                "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+                "type": "string"
+              },
+              "sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "question_id",
+              "kind",
+              "path",
+              "description",
+              "sha256"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "minItems": 0,
+      "type": "array"
+    },
     "score": {
       "type": "number"
     },

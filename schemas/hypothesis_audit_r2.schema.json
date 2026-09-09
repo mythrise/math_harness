@@ -96,6 +96,28 @@
       "minItems": 0,
       "type": "array"
     },
+    "clarification_responses": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "minLength": 20,
+            "type": "string"
+          },
+          "signal_digest": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "signal_digest",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
     "decision": {
       "enum": [
         "ACCEPT_FOR_TESTING",

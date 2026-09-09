@@ -18,6 +18,12 @@ def shortest_path(n,edges,start,goal,*,heuristic=None):
         w=float(w)
         if not np.isfinite(w):raise ValueError('Finite edge weights required')
         clean.append((int(u),int(v),w));adj[u].append((int(v),w))
+    def add_cost(a,b):
+        # inf marks an unreachable vertex only; finite path sums must stay finite.
+        if a==float('inf'):return a
+        result=a+b
+        if not np.isfinite(result):raise ValueError('Path-cost overflow; not an unreachable graph')
+        return result
     d=[float('inf')]*n;d[start]=0.;parent=[None]*n;expanded=0
     h=np.zeros(n);accepted=False
     if heuristic is not None:
@@ -31,10 +37,10 @@ def shortest_path(n,edges,start,goal,*,heuristic=None):
         for _ in range(n-1):
             changed=False
             for u,v,w in clean:
-                if d[u]+w<d[v]:d[v]=d[u]+w;parent[v]=u;changed=True
+                if add_cost(d[u],w)<d[v]:d[v]=add_cost(d[u],w);parent[v]=u;changed=True
             expanded+=1
             if not changed:break
-        if any(d[u]+w<d[v] for u,v,w in clean):
+        if any(add_cost(d[u],w)<d[v] for u,v,w in clean):
             return dict(status='REACHABLE_NEGATIVE_CYCLE',path=[],distance=None,heuristic_accepted=False,method=method)
     else:
         method='verified_astar' if accepted else 'dijkstra'
@@ -45,9 +51,9 @@ def shortest_path(n,edges,start,goal,*,heuristic=None):
             expanded+=1
             if u==goal:break
             for v,w in adj[u]:
-                nc=cost+w
+                nc=add_cost(cost,w)
                 if nc<d[v]:
-                    d[v]=nc;parent[v]=u;heapq.heappush(heap,(float(nc+h[v]),nc,v))
+                    d[v]=nc;parent[v]=u;heapq.heappush(heap,(float(add_cost(nc,float(h[v]))),nc,v))
     if not np.isfinite(d[goal]):
         return dict(status='UNREACHABLE',path=[],distance=None,heuristic_accepted=accepted,method=method,expanded=expanded)
     path=[];node=goal

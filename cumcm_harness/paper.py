@@ -24,12 +24,42 @@ def esc(text):
 
 MATH_COMMANDS=set('alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota kappa lambda mu nu xi pi varpi rho varrho sigma varsigma tau upsilon phi varphi chi psi omega Gamma Delta Theta Lambda Xi Pi Sigma Upsilon Phi Psi Omega frac dfrac tfrac sqrt sum prod int iint iiint lim min max log ln exp sin cos tan abs left right big Big bigg Bigg mathbb mathcal mathrm mathbf mathit mathsf operatorname text vec hat widehat bar overline underline dot ddot tilde widetilde top bot cdot cdots ldots vdots ddots times div pm mp le leq ge geq ne neq approx sim simeq equiv propto in notin ni subset subseteq supset supseteq emptyset forall exists neg land lor cup cap setminus mid vert Vert lvert rvert lVert rVert to mapsto rightarrow leftarrow Rightarrow Leftrightarrow infinity infty partial nabla ell hbar degree circ prime perp parallel quad qquad displaystyle textstyle substack underbrace overbrace begin end'.split())
 def equation(text):
-    if len(text)>8000 or any(x in text for x in ('%','#','\x00')):raise IntegrityError('Unsafe/oversize equation')
-    commands=set(re.findall(r'\\([A-Za-z]+)',text));bad=commands-MATH_COMMANDS
-    if bad:raise IntegrityError('Unsupported equation macros: '+str(sorted(bad)))
-    for env in re.findall(r'\\(?:begin|end)\{([^}]+)\}',text):
-        if env not in ('aligned','cases','matrix','pmatrix','bmatrix','smallmatrix'):raise IntegrityError('Unapproved math environment')
+    """Conservative math lexer, not a TeX sandbox. Compile in isolation as well.
+
+    TeX expands ^^ character escapes before tokenization. A regex on only the
+    apparent alphabetic commands cannot secure that input. Consume control symbols
+    as complete tokens too, so a row break followed by y is not read as a y macro.
+    """
+    if (not isinstance(text,str) or len(text)>8000 or '^^' in text
+        or any(x in text for x in ('%','#','\x00'))
+        or any(ord(x)<32 and x not in '\n\r\t' for x in text)):
+        raise IntegrityError('Unsafe/oversize equation')
+    allowed_envs={'aligned','cases','matrix','pmatrix','bmatrix','smallmatrix'}
+    allowed_symbols={'\\','{','}',',',';',':','!',' ','|','/','_','^','-','\n','\r','\t'}
+    stack=[]
+    for token in re.finditer(r'\\([A-Za-z]+|.)',text,re.S):
+        command=token.group(1)
+        if command not in MATH_COMMANDS and command not in allowed_symbols:
+            raise IntegrityError('Unsupported equation macro: '+repr(command))
+        if command in ('begin','end'):
+            env=re.match(r'\s*\{([^{}]+)\}',text[token.end():])
+            if not env or env.group(1) not in allowed_envs:
+                raise IntegrityError('Unapproved math environment')
+            name=env.group(1)
+            if command=='begin':stack.append(name)
+            elif not stack or stack.pop()!=name:raise IntegrityError('Unbalanced math environment')
+    if stack:raise IntegrityError('Unbalanced math environment')
     return text
+
+def tex_filename(rel):
+    """Refuse TeX metacharacters in filenames inserted into trusted templates.
+    This includes original attachment names; an operator may stage a safely named
+    copy in a NEW workspace with an explicit filename map rather than lose data.
+    """
+    safe_rel(rel)
+    if any(c in rel for c in '{}%#&$^~') or any(ord(c)<32 or ord(c)==127 for c in rel):
+        raise IntegrityError('Unsafe filename for TeX source inclusion')
+    return rel
 
 TOKEN=re.compile(r'\{\{(claim|cite):([a-zA-Z][a-zA-Z0-9_-]*)\}\}')
 def validate_sources(sources):
@@ -95,22 +125,18 @@ PREAMBLE=r'''\documentclass[UTF8,fontset=fandol,a4paper,zihao=-4]{ctexart}
 '''
 
 def compile_tex(folder:Path,main='main.tex'):
-    if not shutil.which('xelatex'):raise Blocked('XeLaTeX is required; source exists but no PDF was fabricated')
-    from .process import run_process,clean_env
-    for attempt in range(2):
-        receipt=run_process(['xelatex','-no-shell-escape','-interaction=nonstopmode','-halt-on-error',main],cwd=folder,
-                            out=folder/f'build_logs/{Path(main).stem}-{attempt}',env=clean_env(),timeout=180)
-        if receipt['returncode']!=0 or receipt['status']!='EXITED':raise Blocked(f'LaTeX compile failed: {folder}/build_logs')
+    from .tex_sandbox import compile_isolated
+    sandbox=compile_isolated(folder,main)
     pdf=folder/Path(main).with_suffix('.pdf')
     if not pdf.is_file():raise IntegrityError('Compiler exited without PDF')
     log=folder/Path(main).with_suffix('.log')
     text=log.read_text('utf-8',errors='replace') if log.exists() else ''
-    if 'Missing character:' in text or 'LaTeX Warning: Reference' in text or 'undefined references' in text:raise Blocked('PDF contains missing glyphs or undefined references')
+    if 'Missing character:' in text or 'LaTeX Warning: Reference' in text or 'undefined references' in text:raise PaperCompilationFailure('PDF contains missing glyphs or undefined references')
     return {'source_sha256':file_hash(folder/main),'pdf_sha256':file_hash(pdf),
             'engine':'XeLaTeX','shell_escape':False,'passes':2,'overfull_boxes':text.count(r'Overfull \hbox'),
-            'compiler_version':subprocess.check_output(['xelatex','--version'],text=True).splitlines()[0]}
+            'compiler_version':text.splitlines()[0] if text else 'UNREPORTED','sandbox':sandbox}
 
-def preflight(pdf:Path, *, denylist=(),require_ai=True):
+def preflight(pdf:Path, *, denylist=(),require_ai=True,trusted_appendix_page=None):
     import fitz
     r=fitz.open(pdf);texts=[p.get_text() or '' for p in r];whole='\n'.join(texts)
     failures=[];warnings=[]
@@ -119,10 +145,17 @@ def preflight(pdf:Path, *, denylist=(),require_ai=True):
         w,h=float(p.rect.width),float(p.rect.height)
         if abs(w-595.276)>2 or abs(h-841.89)>2:failures.append(f'page {i+1} is not A4')
     if not texts or '摘要' not in texts[0].replace(' ',''):failures.append('first page must be abstract')
-    appendix_pages=[i for i,t in enumerate(texts) if '附录：支撑材料与完整源程序' in re.sub(r'\s+','',t)]
-    appendix=appendix_pages[0] if appendix_pages else None
-    if appendix is None:failures.append('missing appendix')
-    elif appendix-1>30:failures.append('body exceeds 30 pages (excluding first abstract page)')
+    # A model may put the appendix heading in ordinary body prose. That text
+    # must not control page-limit enforcement or the visual-review page range.
+    appendix=None
+    if (type(trusted_appendix_page) is not int
+        or not 2<=trusted_appendix_page<=len(texts)):
+        failures.append('missing/invalid trusted appendix page from compiler label')
+    else:
+        appendix=trusted_appendix_page-1
+        if '附录：支撑材料与完整源程序' not in re.sub(r'\s+','',texts[appendix]):
+            failures.append('trusted appendix label does not match its rendered page')
+        if appendix-1>30:failures.append('body exceeds 30 pages (excluding first abstract page)')
     if len(texts)>1 and '问题重述' not in texts[1].replace(' ',''):warnings.append('check that abstract occupies exactly one page')
     compact=whole.replace(' ','')
     if require_ai and ('AI工具使用声明' not in compact or compact.find('AI工具使用声明')>compact.find('参考文献')):failures.append('AI declaration missing/misordered')
@@ -136,7 +169,7 @@ def preflight(pdf:Path, *, denylist=(),require_ai=True):
 
 def render_pages(pdf:Path,out:Path,*,page_indices=None):
     try:import fitz
-    except ImportError as e:raise Blocked('Install PyMuPDF for rasterized visual review') from e
+    except ImportError as e:raise InfrastructureUnavailable('Install PyMuPDF for rasterized visual review') from e
     out.mkdir(parents=True,exist_ok=True);doc=fitz.open(pdf);paths=[]
     indices=range(len(doc)) if page_indices is None else sorted(set(page_indices))
     for i in indices:
@@ -145,14 +178,14 @@ def render_pages(pdf:Path,out:Path,*,page_indices=None):
     doc.close();return paths
 
 def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:list[dict],code_bundles:dict,
-                source_registry=(),demo=False):
+                source_registry=(),demo=False,build_dir=None):
     validate('paper',draft)
     known=validate_sources(source_registry)
     referenced={m.group(2) for text in [draft['abstract']]+[x['text'] for x in draft['sections']]+draft['limitations'] for m in TOKEN.finditer(text) if m.group(1)=='cite'}
     if referenced!=set(draft['citation_ids']):raise IntegrityError('Bibliography must exactly match inline citation tokens')
     for k in draft['citation_ids']:
         if k not in known or not known[k].get('verified'):raise IntegrityError('Unverified citation: '+k)
-    folder=root/'paper';folder.mkdir(exist_ok=True);figdir=folder/'figures';figdir.mkdir(exist_ok=True)
+    folder=Path(build_dir) if build_dir is not None else root/'paper';folder.mkdir(parents=True,exist_ok=True);figdir=folder/'figures';figdir.mkdir(exist_ok=True)
     from .figures import framework,score_plot
     framework(figdir/'ourwork.svg');score_plot(rows,figdir/'confirmation')
     # Appendix includes generated source and the actually loaded custom dependencies.
@@ -165,7 +198,8 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
     for row in rows:
         for stage in ('solver','evaluation'):
             p=root/'jobs'/row['job_id']/stage/'custom_dependencies.json'
-            if p.exists():dependencies.update(read_json(p))
+            if not p.is_file():raise IntegrityError('Missing mandatory custom dependency receipt for '+stage)
+            dependencies.update(read_json(p))
     for rel,h in sorted(dependencies.items()):
         p=under(ROOT,rel)
         if file_hash(p)!=h:raise IntegrityError('Custom dependency changed before paper build')
@@ -202,13 +236,15 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
             s=known[cid];lines.append(r'\bibitem{'+cid+'} '+esc(s['title'])+'. '+r'\url{'+s['url']+'}.')
         lines.append(r'\end{thebibliography}')
     else:lines.append('本演示的算法来源为随包提供的 MOSAIC 实现，问题为合成实例；未编造外部参考文献。正式研究应补入经过核验且在正文引用的文献。')
-    lines += [r'\clearpage\appendix\section{附录：支撑材料与完整源程序}',
+    lines += [r'\clearpage\appendix\section{附录：支撑材料与完整源程序}\label{harness-appendix-start}',
               '支撑材料包含运行配置、数据清单、实际数值结果、评测器、求解器、定制算法依赖、证据映射、图表源数据和人工智能使用详情。原始附件是否包含在支撑材料中，以数据来源配置与清单为准。',
               r'\subsection*{源程序文件清单}']
     for rel in inventory:
+        tex_filename(rel)
         rendered=r'\nolinkurl{'+rel+'}' if rel.isascii() else r'\texttt{'+esc(rel)+'}'
         lines.append(r'\noindent{\footnotesize '+rendered+r'}\par')
     for rel in source_files:
+        tex_filename(rel)
         lines += [r'\subsection*{源程序与运行资源}',r'\noindent{\footnotesize\nolinkurl{'+rel+r'}}\par']
         if Path(rel).suffix.lower() in ('.py','.json','.csv','.txt','.md','.yaml','.yml'):
             lines.append(r'\VerbatimInput[breaklines=true,breakanywhere=true,fontsize=\scriptsize]{'+rel+'}')
@@ -218,9 +254,14 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
     build=compile_tex(folder)
     aux=(folder/'main.aux').read_text('utf-8',errors='replace')
     abstract_end=re.search(r'\\newlabel\{abstract-end\}\{\{[^}]*\}\{(\d+)\}',aux)
-    if not abstract_end or abstract_end.group(1)!='1':raise Blocked('Abstract must fit on the first page')
-    qa=preflight(folder/'main.pdf',denylist=read_json(root/'config.json')['identity_denylist']);write_json(folder/'build.json',build);write_json(folder/'preflight.json',qa)
-    if qa['status']!='PASS':raise Blocked('Paper preflight failed: '+str(qa['failures']))
+    if not abstract_end or abstract_end.group(1)!='1':raise PaperCompilationFailure('Abstract must fit on the first page')
+    appendix_label=re.search(r'\\newlabel\{harness-appendix-start\}\{\{[^}]*\}\{(\d+)\}',aux)
+    if not appendix_label:raise PaperCompilationFailure('Missing trusted appendix boundary label')
+    build['appendix_start_page']=int(appendix_label.group(1))
+    qa=preflight(folder/'main.pdf',denylist=read_json(root/'config.json')['identity_denylist'],
+                 trusted_appendix_page=build['appendix_start_page'])
+    write_json(folder/'build.json',build);write_json(folder/'preflight.json',qa)
+    if qa['status']!='PASS':raise PaperCompilationFailure('Paper preflight failed: '+str(qa['failures']))
     return {'paper_sha256':file_hash(folder/'main.pdf'),'build':build,'preflight':qa,'claims_digest':digest(claims),'source_inventory':source_files}
 
 def build_ai_details(folder:Path,records:list[dict],human:dict|None,*,demo=False):

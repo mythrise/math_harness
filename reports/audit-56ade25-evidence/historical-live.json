@@ -1,0 +1,402 @@
+{
+  "scope": "BOUNDED_LIVE_HISTORICAL_2023_PROBLEM_SMOKE_NOT_CONTEST_COMPLETION",
+  "status": "BLOCKED",
+  "attempts": [
+    {
+      "workspace": "heliostat-audit-56ade25-20260909",
+      "status": {
+        "status": "BLOCKED",
+        "jobs": [],
+        "unfinished_steps": [
+          {
+            "key": "model:literature:r2:initial:0",
+            "status": "FAILED",
+            "error": "ProviderFailure: codex provider unavailable: EXIT_NONZERO"
+          }
+        ],
+        "model_calls_reserved": 2
+      },
+      "blocker": {
+        "completed_artifacts_preserved": true,
+        "message": "codex provider unavailable: EXIT_NONZERO",
+        "type": "ProviderFailure"
+      },
+      "model_processes": [
+        {
+          "provider": "codex",
+          "role": "supervisor",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 43.57301104100043,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "484da5ab1e141de22657038d17794925b31b5edcfff7e8cdd31ec61ecb64654a",
+          "valid_structured_response": true,
+          "response_digest": "bc469d908c7b8655366c4a48ccb4934efd28c0968d90f00d028626b6e0e5cad5",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 34018,
+            "output_tokens": 1137,
+            "reasoning_output_tokens": 17
+          },
+          "cost_usd": null
+        },
+        {
+          "provider": "codex",
+          "role": "literature_scout",
+          "status": "EXITED",
+          "returncode": 1,
+          "seconds": 3.8612148749962216,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "527a1b6b21fc8204b1838e6b1a12639b4e814e9ef4350f5fb5fdf5babed1c41c",
+          "valid_structured_response": false,
+          "response_digest": null,
+          "usage": null,
+          "cost_usd": null
+        }
+      ],
+      "exa": {
+        "stage_consumption": {
+          "adversary": 0,
+          "final_verification": 0,
+          "primary_source_fetch": 0,
+          "repair_reserve": 0,
+          "scouting": 0
+        },
+        "http_attempts_reserved": 0,
+        "max_http_attempts": 16,
+        "requests": [],
+        "known_cost_dollars": 0,
+        "unknown_cost_attempts": 0,
+        "remote_exactly_once_billing": false,
+        "leases": []
+      }
+    },
+    {
+      "workspace": "heliostat-audit-acceptance-56ade25-20260909",
+      "status": {
+        "status": "BLOCKED",
+        "jobs": [],
+        "unfinished_steps": [],
+        "model_calls_reserved": 2
+      },
+      "blocker": {
+        "completed_artifacts_preserved": true,
+        "message": "Support query has an adversarial purpose",
+        "type": "IntegrityError"
+      },
+      "model_processes": [
+        {
+          "provider": "codex",
+          "role": "literature_scout",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 18.39571845800674,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "5add91503ec37dc3ac4fd2f4748a051dbb07c2c5a3440809b2ada66d4759430c",
+          "valid_structured_response": true,
+          "response_digest": "1a17f5ce0fdb6366df2443deea5c64a3fe18af91eb67ed55ee268877fbe961f6",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 21451,
+            "output_tokens": 263,
+            "reasoning_output_tokens": 75
+          },
+          "cost_usd": null
+        },
+        {
+          "provider": "codex",
+          "role": "supervisor",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 65.34048470800917,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "effd10e4308cd376a0a5115969131fcec181ac63a65fdcf20fa1fa4255d82917",
+          "valid_structured_response": true,
+          "response_digest": "d2a78c644b467d580ae0e35a134aaaa48339076a6d1fd97d9d65b7a4dd5a58d3",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 34018,
+            "output_tokens": 1237,
+            "reasoning_output_tokens": 0
+          },
+          "cost_usd": null
+        }
+      ],
+      "exa": {
+        "stage_consumption": {
+          "adversary": 0,
+          "final_verification": 0,
+          "primary_source_fetch": 0,
+          "repair_reserve": 0,
+          "scouting": 0
+        },
+        "http_attempts_reserved": 0,
+        "max_http_attempts": 16,
+        "requests": [],
+        "known_cost_dollars": 0,
+        "unknown_cost_attempts": 0,
+        "remote_exactly_once_billing": false,
+        "leases": []
+      }
+    },
+    {
+      "workspace": "heliostat-audit-final-56ade25-20260909",
+      "status": {
+        "status": "BLOCKED",
+        "jobs": [],
+        "unfinished_steps": [
+          {
+            "key": "model:plan:r0",
+            "status": "FAILED",
+            "error": "ProviderFailure: codex provider unavailable: TIMEOUT"
+          }
+        ],
+        "model_calls_reserved": 3
+      },
+      "blocker": {
+        "completed_artifacts_preserved": true,
+        "message": "codex provider unavailable: TIMEOUT",
+        "type": "ProviderFailure"
+      },
+      "model_processes": [
+        {
+          "provider": "codex",
+          "role": "literature_scout",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 15.74146020799526,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "9c3f7e048d177155ede9a1c10131987ab1d81d9c0923a796a19edd63c91a54d5",
+          "valid_structured_response": true,
+          "response_digest": "58111496b56ea5f25c464018a563a3291b17630cb62275fd5c733ddcea839beb",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 21506,
+            "output_tokens": 254,
+            "reasoning_output_tokens": 65
+          },
+          "cost_usd": null
+        },
+        {
+          "provider": "codex",
+          "role": "supervisor",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 54.5784457080008,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "33562a9052de363799f58ec0af78e5ca43ef7ae99efee033d24c132f1b85918b",
+          "valid_structured_response": true,
+          "response_digest": "2379c276822ce8b1025e469cf868e31deded7aeea74afad17955ec19df33d4ae",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 33792,
+            "input_tokens": 34016,
+            "output_tokens": 1242,
+            "reasoning_output_tokens": 0
+          },
+          "cost_usd": null
+        },
+        {
+          "provider": "codex",
+          "role": "modeler",
+          "status": "TIMEOUT",
+          "returncode": -9,
+          "seconds": 180.0545921669982,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "c8e9800f901f1b253aef7356e11207a3fcbeb0fdf9a38a7379f470209e4ff13e",
+          "valid_structured_response": false,
+          "response_digest": null,
+          "usage": null,
+          "cost_usd": null
+        }
+      ],
+      "exa": {
+        "stage_consumption": {
+          "adversary": 0,
+          "final_verification": 0,
+          "primary_source_fetch": 0,
+          "repair_reserve": 0,
+          "scouting": 4
+        },
+        "http_attempts_reserved": 4,
+        "max_http_attempts": 16,
+        "requests": [
+          {
+            "id": "20ddc12342ff4367d57385cd789c873237e328a4e98a010dd8a515757b6fd559",
+            "status": "DONE",
+            "attempts": 1
+          },
+          {
+            "id": "e203c6c789ed86e923f4d97e3f0c78982253e7014ae3bafb3e956aeb4f4426d6",
+            "status": "DONE",
+            "attempts": 1
+          },
+          {
+            "id": "0f3d9354aef08da1ac7f77f22cd2a0a054414f3937875a98c8d94dcf439c499c",
+            "status": "DONE",
+            "attempts": 1
+          },
+          {
+            "id": "02b1fdcb80cfd63556c31e8405b145572ddfaf42caf88dd000ef13b2f0e6d61d",
+            "status": "DONE",
+            "attempts": 1
+          }
+        ],
+        "known_cost_dollars": 0.028,
+        "unknown_cost_attempts": 0,
+        "remote_exactly_once_billing": false,
+        "leases": []
+      }
+    },
+    {
+      "workspace": "heliostat-audit-bounded-56ade25-20260909",
+      "status": {
+        "status": "BLOCKED",
+        "jobs": [],
+        "unfinished_steps": [
+          {
+            "key": "model:hypotheses:r2:690b5512cbd71badafe79450be503826f79409440cb36fc8c7932dbcd42be56d",
+            "status": "FAILED",
+            "error": "ProviderFailure: codex provider unavailable: MISSING_OR_INVALID_RESULT"
+          }
+        ],
+        "model_calls_reserved": 4
+      },
+      "blocker": {
+        "completed_artifacts_preserved": true,
+        "message": "codex provider unavailable: MISSING_OR_INVALID_RESULT",
+        "type": "ProviderFailure"
+      },
+      "model_processes": [
+        {
+          "provider": "codex",
+          "role": "supervisor",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 47.53229083301267,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "eaa1d890864d5865f69fd9af7896124c817a467b2af843b85bf840e1596d46e0",
+          "valid_structured_response": true,
+          "response_digest": "bfbe87401e6548587edd3a2c7db5155f1b367da76bba44b123264bd3235a7986",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 34018,
+            "output_tokens": 1271,
+            "reasoning_output_tokens": 0
+          },
+          "cost_usd": null
+        },
+        {
+          "provider": "codex",
+          "role": "modeler",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 100.46452429100464,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "a220821a2598efea6558aad800bdefb83db07c5125f24949bf04d91457fb1a93",
+          "valid_structured_response": false,
+          "response_digest": null,
+          "usage": null,
+          "cost_usd": null
+        },
+        {
+          "provider": "codex",
+          "role": "modeler",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 241.54123187500227,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "676c7933a2b32c2109dbb688145aa513efa553b4fe40adb3155548ce9d44405b",
+          "valid_structured_response": true,
+          "response_digest": "50705dba6c5373ef4d76940099357969789edfd019739050b0c29ec3f76ef713",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 62426,
+            "output_tokens": 7627,
+            "reasoning_output_tokens": 31
+          },
+          "cost_usd": null
+        },
+        {
+          "provider": "codex",
+          "role": "literature_scout",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 16.185139332999825,
+          "model_requested": "CLI_DEFAULT",
+          "model_reported": "UNREPORTED",
+          "process_sha256": "6a459cf04849f2bca0ed4caacb37367bd5d67ebfe1fa54fcf0a44e7106a2505e",
+          "valid_structured_response": true,
+          "response_digest": "e4613b06db0c3c2c0491f6f1c2f542ef1ae0787c32cbccffff4f6f49c3745b13",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 21516,
+            "output_tokens": 233,
+            "reasoning_output_tokens": 37
+          },
+          "cost_usd": null
+        }
+      ],
+      "exa": {
+        "stage_consumption": {
+          "adversary": 0,
+          "final_verification": 0,
+          "primary_source_fetch": 0,
+          "repair_reserve": 0,
+          "scouting": 4
+        },
+        "http_attempts_reserved": 4,
+        "max_http_attempts": 16,
+        "requests": [
+          {
+            "id": "1480ea23a66feea4da265e126d3f53e4efc441b30acb88a8f583318376420f01",
+            "status": "DONE",
+            "attempts": 1
+          },
+          {
+            "id": "65c7904b9fb3f49176782be3eab22cef6ee6bc9986ef64792d1db8b9205ac082",
+            "status": "DONE",
+            "attempts": 1
+          },
+          {
+            "id": "81ea2470584524ed37272e16d4879fab5b1a644682a833aed747ffc176843062",
+            "status": "DONE",
+            "attempts": 1
+          },
+          {
+            "id": "f52414e40f5a5d5f9797486c172cc56be6cbc60d725dd2e2cf462131d1cf5f0d",
+            "status": "DONE",
+            "attempts": 1
+          }
+        ],
+        "known_cost_dollars": 0.028,
+        "unknown_cost_attempts": 0,
+        "remote_exactly_once_billing": false,
+        "leases": []
+      }
+    }
+  ],
+  "independent_claude_review": "NOT_RUN",
+  "scientific_acceptance": "NOT_RUN",
+  "live_solver_execution": "NOT_RUN",
+  "latest_failure_evidence": "Codex CLI exited 0 but returned no valid result; error events report Connection refused (os error 61). Colima was later observed stopped and restarted for infrastructure tests; causal identity of the upstream refusal is not proven.",
+  "code_version_boundary": "These live attempts preceded the final support-lane limitation excerpt fix; that final change is covered by deterministic regression and full Docker acceptance, not by another live attempt.",
+  "automatic_retry_after_unknown_state": false
+}

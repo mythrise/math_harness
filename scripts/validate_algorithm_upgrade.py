@@ -22,14 +22,13 @@ p.add_argument('--seeds',type=int,default=12)
 p.add_argument('--seed-start',type=int,default=201)
 a=p.parse_args()
 if a.mode=='tests':
-    import pytest
-    # Fake CLI protocol tests need executable scratch space. Keep the executor's
-    # noexec /tmp protection and use its existing writable output mount.
-    scratch=Path(a.out)/'pytest-scratch'
-    rc=pytest.main(['/code/tests','-q','-p','no:cacheprovider',
+    import subprocess,sys
+    scratch=Path('/scratch/pytest')
+    command="import sys;sys.path.insert(0,'/code');import pytest;raise SystemExit(pytest.main(sys.argv[1:]))"
+    rc=subprocess.call([sys.executable,'-I','-B','-c',command,'/code/tests','-q','-p','no:cacheprovider',
         '--basetemp='+str(scratch),'--junitxml='+str(Path(a.out)/'pytest.xml')])
     (Path(a.out)/'test-result.json').write_text(json.dumps({'exit_code':int(rc),'backend':'DOCKER'}))
-    if rc==0:shutil.rmtree(scratch)
+    shutil.rmtree(scratch,ignore_errors=True)
     raise SystemExit(rc)
 else:
     from cumcm_harness.algorithm_lab import run
@@ -68,7 +67,7 @@ def main():
     # source snapshot used for the complete repository unit tests.
     (labcode/'validate.py').write_text(ENTRY)
     limits=Limits(seconds=args.seconds,cpu_threads=1,memory_mb=2048)
-    runtime=Executor(image=args.image);test=Executor(image=args.test_image)
+    runtime=Executor(image=args.image);test=Executor(image=args.test_image,test_scratch=True)
     protocol={'scope':'DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END',
         'source_manifest':tree_manifest(code),'vendor':before,'seeds':list(range(args.seed_start,args.seed_start+args.seeds)),
         'runtime':runtime.probe(),'test_runtime':test.probe(),'limits':vars(limits),

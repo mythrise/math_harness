@@ -52,17 +52,25 @@ class ResearchRunner:
     def cell(self,candidate,bundle,verifier,phase,seed,variant):
         root=self.store.root;code=self.store.publish_bundle(bundle);evaluation=self.store.publish_bundle(verifier)
         data=root/'inputs'/phase;edata=root/'evaluation_inputs'/phase
+        inputs={'public':tree_manifest(data),'evaluation':tree_manifest(edata)}
+        # Bind private reference labels as well as public inputs. A changed phase
+        # cannot reuse a score or launch another cell under the same protocol.
+        self.store.step('runner-inputs:'+digest({'protocol':self.protocol,'phase':phase}),
+                        inputs,lambda:inputs)
         intent={'candidate':candidate,'code':digest(bundle),'evaluation':digest(verifier),'phase':phase,'seed':seed,'variant':variant,
-                'protocol':digest(self.protocol),'data':digest(tree_manifest(data)),
+                'protocol':digest(self.protocol),'data':digest(inputs['public']),
+                'evaluation_data':digest(inputs['evaluation']),
                 'environment':digest(environment()),'backend':self.executor.probe()}
         job_id=digest(intent);base=root/'jobs'/job_id
         prior=self.store.job(job_id)
         if prior:
-            if prior['status']!='DONE':raise Blocked(f'Job {job_id} is {prior["status"]}; reconcile explicitly, never duplicate silently')
+            if prior['status']=='FAILED':raise ExecutionFailure('Cached observed job failure: '+str(prior['receipt']))
+            if prior['status']!='DONE':raise UnknownExternalState(f'Job {job_id} is {prior["status"]}; reconcile explicitly, never duplicate silently')
             receipt=__import__('json').loads(prior['receipt'])
             verify_tree(base/'solver',receipt['solver']['output_manifest']);verify_tree(base/'evaluation',receipt['evaluator']['output_manifest'])
             if receipt['intent']!=intent:raise IntegrityError('Job intent changed')
-            if not receipt['result']['evaluation']['valid']:raise Blocked('Cached evaluator rejection remains a rejection')
+            verify_tree(data,inputs['public']);verify_tree(edata,inputs['evaluation'])
+            if not receipt['result']['evaluation']['valid']:raise ScientificRejection('Cached evaluator rejection remains a rejection')
             return receipt['result']
         token=self.store.grant(job_id,intent);self.store.consume(token,job_id)
         lim=Limits(seconds=self.config['trial_timeout'],cpu_threads=self.config['cpu_threads'],memory_mb=self.config['memory_mb'])
@@ -71,16 +79,39 @@ class ResearchRunner:
             sr=self.executor.execute(code,'main.py',data,base/'solver',args,lim,logdir=base/'solver_logs')
             if not (base/'solver/answer.json').is_file():raise IntegrityError('Solver must publish answer.json')
             er=self.executor.execute(evaluation,'evaluate.py',edata,base/'evaluation',args,lim,answer=base/'solver',logdir=base/'eval_logs')
+        except UnknownExternalState:raise
         except (Blocked,IntegrityError) as exc:
             self.store.fail_job(job_id,f'{type(exc).__name__}: {exc}');raise
-        ev=validate('evaluation',read_json(base/'evaluation/evaluation.json'))
-        if ev['metric']!=self.protocol['metric']:raise IntegrityError('Evaluator changed primary metric')
-        if set(ev['question_coverage'])!=set(q['id'] for q in self.plan['questions']):raise IntegrityError('Incomplete subquestion coverage')
+        # Both execute calls have returned. Invalid files/contracts are observed
+        # failures, not still-running processes. Preserve actual subprocess receipts.
+        # Real interrupts (BaseException), unknown external state, or persistence
+        # failures remain unresolved rather than being silently resubmitted.
+        try:
+            verify_tree(data,inputs['public']);verify_tree(edata,inputs['evaluation'])
+            ev=validate('evaluation',read_json(base/'evaluation/evaluation.json'))
+            if ev['metric']!=self.protocol['metric']:raise IntegrityError('Evaluator changed primary metric')
+            if set(ev['question_coverage'])!=set(q['id'] for q in self.plan['questions']):raise IntegrityError('Incomplete subquestion coverage')
+            if ev['valid']:
+                measured={m['question_id'] for m in ev['measurements']}
+                evidence=ev.get('question_evidence',[])
+                for question in self.plan['questions']:
+                    if question.get('answer_type','quantitative')=='quantitative' and question['id'] not in measured:raise IntegrityError('Quantitative question lacks measurement')
+                    if question.get('answer_type')=='qualitative' and question['id'] not in {e['question_id'] for e in evidence}:raise IntegrityError('Qualitative question lacks structured evidence')
+                for item in evidence:
+                    if item['kind']=='file':
+                        rel=safe_rel(item['path']);path=base/rel
+                        if rel.split('/')[0] not in ('solver','evaluation') or path.is_symlink() or not path.is_file() or file_hash(path)!=item['sha256']:raise IntegrityError('Question file evidence is missing or changed')
+        except (IntegrityError,ValueError,OSError) as exc:
+            write_json(base/'validation_failure.json',{'intent':intent,'solver':sr,'evaluator':er,
+                'status':'OBSERVED_POSTPROCESS_FAILURE','error_type':type(exc).__name__,
+                'error':str(exc)})
+            self.store.fail_job(job_id,f'{type(exc).__name__}: {exc}')
+            raise
         result={'candidate':candidate,'variant':variant,'phase':phase,'seed':seed,'job_id':job_id,
                 'evaluation':ev,'code_digest':digest(bundle),'evaluator_digest':digest(verifier),'scope':self.protocol['scope']}
         receipt={'intent':intent,'solver':sr,'evaluator':er,'result':result};write_json(base/'receipt.json',receipt)
         self.store.finish_job(job_id,receipt)
-        if not ev['valid']:raise Blocked(f'Independent evaluator rejected {job_id}')
+        if not ev['valid']:raise ScientificRejection(f'Independent evaluator rejected {job_id}')
         return result
     def matrix(self,candidate,bundle,verifier,phase,variants):
         seeds=self.protocol[phase+'_seeds'];cells=[(s,v) for v in sorted(variants) for s in sorted(seeds)]
@@ -93,14 +124,17 @@ class ResearchRunner:
         """
         root=self.store.root;code=self.store.publish_bundle(verifier);reports=[]
         for name,answer in [('empty',{}),('fabricated_score',{'score':1e200,'valid':True,'fabricated':True})]:
-            key=digest({'verifier':digest(verifier),'control':name});base=root/'negative_controls'/key
+            inputs=tree_manifest(root/'evaluation_inputs/development')
+            self.store.step('negative-control-inputs:'+digest(verifier),inputs,lambda:inputs)
+            key=digest({'verifier':digest(verifier),'control':name,'data':digest(inputs)});base=root/'negative_controls'/key
             prior=base/'report.json'
             if prior.exists():
-                saved=read_json(prior);verify_tree(base/'evaluation',saved['output_manifest']);reports.append(saved);continue
+                saved=read_json(prior);verify_tree(base/'evaluation',saved['output_manifest']);verify_tree(root/'evaluation_inputs/development',inputs);reports.append(saved);continue
             write_json(base/'answer/answer.json',answer)
             lim=Limits(seconds=self.config['trial_timeout'],cpu_threads=self.config['cpu_threads'],memory_mb=self.config['memory_mb'])
             self.executor.execute(code,'evaluate.py',root/'evaluation_inputs/development',base/'evaluation',
                 ['--seed','0','--budget',str(self.protocol['fe_budget']),'--variant','full'],lim,answer=base/'answer',logdir=base/'logs')
+            verify_tree(root/'evaluation_inputs/development',inputs)
             ev=validate('evaluation',read_json(base/'evaluation/evaluation.json'));rejected=not ev['valid']
             if not rejected:raise Blocked('Evaluator accepted controller-generated malformed answer: '+name)
             report={'control':name,'rejected':True,'verifier_digest':digest(verifier),'output_manifest':tree_manifest(base/'evaluation')};write_json(prior,report);reports.append(report)

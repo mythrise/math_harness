@@ -1,0 +1,8 @@
+FROM python:3.11-slim-bookworm
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    texlive-xetex texlive-lang-chinese texlive-latex-extra texlive-fonts-recommended fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/tmp \
+    openin_any=p openout_any=p SOURCE_DATE_EPOCH=1788825600 FORCE_SOURCE_DATE=1
+WORKDIR /tmp
+ENTRYPOINT ["xelatex", "-no-shell-escape", "-interaction=nonstopmode", "-halt-on-error"]

@@ -131,7 +131,7 @@ class ExaLedger:
             requests=[{'id':r['id'],'status':r['status'],'attempts':r['attempts']} for r in c.execute('SELECT * FROM exa_requests')]
         receipts=[json.loads(r['receipt']) for r in rows if r['receipt']]
         costs=[r.get('cost_dollars','UNKNOWN') for r in receipts]
-        return {'http_attempts_reserved':len(rows),'max_http_attempts':self.maximum,'requests':requests,
+        return {'stage_consumption':{stage:sum(r['stage']==stage for r in rows) for stage in self.policy['budget']['stage_allocations']},'http_attempts_reserved':len(rows),'max_http_attempts':self.maximum,'requests':requests,
                 'known_cost_dollars':sum(x for x in costs if type(x) in (int,float)),
                 'unknown_cost_attempts':len(rows)-sum(type(x) in (int,float) for x in costs),
                 'remote_exactly_once_billing':False}
@@ -146,11 +146,15 @@ class SharedHTTPGate:
             c.executescript('''CREATE TABLE IF NOT EXISTS gate(id TEXT PRIMARY KEY,next_at REAL NOT NULL,failures INTEGER NOT NULL,open_until REAL NOT NULL,half_open TEXT);
             CREATE TABLE IF NOT EXISTS leases(id TEXT PRIMARY KEY,source TEXT NOT NULL,run TEXT NOT NULL,attempt TEXT,started REAL NOT NULL);''')
 
+            columns={r[1] for r in c.execute('PRAGMA table_info(leases)')}
+            for name,decl in [('request','TEXT'),('phase',"TEXT NOT NULL DEFAULT 'LEGACY_UNKNOWN'"),('owner','TEXT')]:
+                if name not in columns:c.execute('ALTER TABLE leases ADD COLUMN '+name+' '+decl)
+
     def connect(self):
         c=sqlite3.connect(self.path,timeout=30);c.row_factory=sqlite3.Row
         c.execute('PRAGMA journal_mode=WAL');return c
 
-    def acquire(self, source, run, policy):
+    def acquire(self, source, run, policy, *, request=None):
         begun=self.clock();h=policy['http']
         while True:
             with self.connect() as c:
@@ -164,7 +168,7 @@ class SharedHTTPGate:
                     lease=uuid.uuid4().hex
                     slot=max(now,g['next_at']);delay=slot-now
                     if delay>60:raise ExaWait('EXA_SHARED_RATE_WAIT',retry_at=slot)
-                    c.execute('INSERT INTO leases VALUES(?,?,?,NULL,?)',(lease,source,run,now))
+                    c.execute('INSERT INTO leases(id,source,run,attempt,started,request,phase,owner) VALUES(?,?,?,NULL,?,?,?,?)',(lease,source,run,now,request,'ACQUIRED_UNSENT',str(__import__('os').getpid())+':'+uuid.uuid4().hex))
                     c.execute('UPDATE gate SET next_at=?,half_open=? WHERE id=?',
                               (slot+1/h['soft_requests_per_second'],lease if g['open_until'] else None,source))
                     break
@@ -177,8 +181,34 @@ class SharedHTTPGate:
                 raise
         return lease
 
+    def phase(self,lease,phase):
+        if phase not in ('RESERVING_UNSENT','BOUND_UNSENT','SENT_OR_UNKNOWN'):raise IntegrityError('Invalid lease phase')
+        with self.connect() as c:
+            if c.execute('UPDATE leases SET phase=? WHERE id=?',(phase,lease)).rowcount!=1:raise IntegrityError('Unknown lease')
+
     def bind(self, lease, attempt):
-        with self.connect() as c:c.execute('UPDATE leases SET attempt=? WHERE id=?',(attempt,lease))
+        with self.connect() as c:
+            if c.execute('UPDATE leases SET attempt=?,phase=? WHERE id=?',(attempt,'BOUND_UNSENT',lease)).rowcount!=1:raise IntegrityError('Unknown lease')
+
+    def inspect(self,run):
+        with self.connect() as c:return [dict(r) for r in c.execute('SELECT * FROM leases WHERE run=?',(run,))]
+
+    def recover_lease(self,run,lease,ledger,reason):
+        # The CLI requires operator confirmation that the owner process stopped.
+        # No TTL/PID guess decides that a remote request was free or unsent.
+        if len(reason.strip())<12:raise IntegrityError('Concrete lease reconciliation reason required')
+        rows=[r for r in self.inspect(run) if r['id']==lease]
+        if not rows:raise IntegrityError('Unknown lease or wrong workspace owner')
+        row=rows[0];attempts=[]
+        if row['request']:
+            request=ledger.get(row['request'])
+            if request and request['status'] in ('RUNNING','UNKNOWN'):attempts=ledger.reconcile(row['request'],reason)
+        ledger.store.event('EXA_LEASE_EXPLICIT_RECONCILIATION',{'lease':row,'reason':reason,
+            'send_state':'PROVEN_UNSENT_BY_PHASE' if row['phase'].endswith('_UNSENT') else 'REMOTE_STATE_REQUIRES_OPERATOR_CHECK',
+            'attempts':attempts})
+        self.release(lease,ledger.policy,outcome='cancel')
+        return row
+
 
     def release(self, lease, policy, *, outcome='success'):
         with self.connect() as c:

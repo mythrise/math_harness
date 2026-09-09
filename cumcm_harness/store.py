@@ -72,7 +72,7 @@ class Store:
             if r:
                 if r['input_digest']!=h:raise IntegrityError(f'Stale step {key}; create a new version')
                 if r['status']=='DONE':return self.load(r['result'])
-                raise Blocked(f'{key} is {r["status"]}; inspect then use recover-step explicitly (billing/external effects may have occurred)')
+                raise UnknownExternalState(f'{key} is {r["status"]}; inspect then use recover-step explicitly (billing/external effects may have occurred)')
             c.execute('INSERT INTO steps VALUES(?,?,?,NULL,NULL)',(key,h,'RUNNING'));self._event(c,'STEP_START',{'key':key,'input_digest':h})
         try:
             value=fn();out=self.put(value)
@@ -80,6 +80,7 @@ class Store:
                 c.execute('BEGIN IMMEDIATE');c.execute('UPDATE steps SET status=?,result=? WHERE key=?',('DONE',out,key))
                 self._event(c,'STEP_DONE',{'key':key,'result_digest':out})
             return value
+        except UnknownExternalState:raise
         except Exception as e:
             with self.connect() as c:
                 c.execute('BEGIN IMMEDIATE');c.execute('UPDATE steps SET status=?,error=? WHERE key=?',('FAILED',f'{type(e).__name__}: {e}',key))
@@ -119,7 +120,7 @@ class Store:
             try:
                 if folder.exists():verify_tree(folder,expected);return folder
                 tmp=self.root/'code'/('stage-'+h);tmp.mkdir(parents=True,exist_ok=True)
-                if list(tmp.iterdir()):raise Blocked('Interrupted bundle staging; inspect/remove stage directory')
+                if list(tmp.iterdir()):raise UnknownExternalState('Interrupted bundle staging; inspect/remove stage directory')
                 for f in bundle['files']:atomic_write(under(tmp,f['path']),f['content'])
                 verify_tree(tmp,expected);os.replace(tmp,folder)
                 return folder
@@ -131,7 +132,7 @@ class Store:
             r=c.execute('SELECT * FROM jobs WHERE id=?',(job_id,)).fetchone()
             if r:
                 if r['intent']!=canonical(intent).decode():raise IntegrityError('Job id collision')
-                raise Blocked(f'Existing job {job_id}: {r["status"]}')
+                raise UnknownExternalState(f'Existing job {job_id}: {r["status"]}')
             c.execute('INSERT INTO jobs VALUES(?,?,?,NULL,NULL)',(job_id,'QUEUED',canonical(intent).decode()))
             c.execute('INSERT INTO grants VALUES(?,?,0)',(token,job_id));self._event(c,'GRANT',{'job':job_id,'intent':digest(intent)})
         return token
@@ -170,6 +171,6 @@ def controller_lock(root:Path):
     root.mkdir(parents=True,exist_ok=True)
     with (root/'.controller.lock').open('a+') as f:
         try:fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        except BlockingIOError as e:raise Blocked('Another controller owns this workspace') from e
+        except BlockingIOError as e:raise UnknownExternalState('Another controller owns this workspace') from e
         try:yield
         finally:fcntl.flock(f,fcntl.LOCK_UN)

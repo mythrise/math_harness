@@ -17,13 +17,14 @@ def parser():
     for name in ('status','audit'):
         a=sub.add_parser(name);a.add_argument('workspace',type=Path)
     a=sub.add_parser('approve');a.add_argument('workspace',type=Path);a.add_argument('--stage',choices=['plan','release','research'],required=True);a.add_argument('--review',type=Path,required=True)
-    for name in ('recover-step','recover-job','recover-exa'):
+    for name in ('recover-step','recover-job','recover-exa','recover-exa-lease'):
         a=sub.add_parser(name);a.add_argument('workspace',type=Path);a.add_argument('key');a.add_argument('--reason',required=True);a.add_argument('--external-process-stopped',action='store_true')
     a=sub.add_parser('methods');a.add_argument('query')
     a=sub.add_parser('schema');a.add_argument('name',nargs='?')
     a=sub.add_parser('verify-vendor')
     a=sub.add_parser('exa-status');a.add_argument('workspace',type=Path)
     a=sub.add_parser('exa-probe');a.add_argument('workspace',type=Path);a.add_argument('--query',required=True);a.add_argument('--dynamic',action='store_true',required=True)
+    a=sub.add_parser('exa-rules');a.add_argument('workspace',type=Path);a.add_argument('--query',required=True);a.add_argument('--year',type=int,required=True)
     sub.add_parser('set-exa-key',help='Save a local-only Exa credential using hidden input')
     return p
 
@@ -44,10 +45,13 @@ def doctor(live=False, config=None):
     from .credentials import get_exa_api_key
     report['exa_key_configured']=bool(get_exa_api_key())
     report['claude_optional']='DEGRADED_TO_INDEPENDENT_CODEX_SEATS' if report['commands']['claude']=='NOT_INSTALLED' or isinstance(report.get('claude_probe'),dict) else 'AVAILABLE_NOT_AUTH_VERIFIED'
-    required=('codex','docker','xelatex','inkscape')
+    from .tex_sandbox import probe as tex_probe
+    try:report['tex_container_probe']=tex_probe()
+    except Exception as e:report['tex_container_probe']={'status':'BLOCKED','reason':str(e)}
+    required=('codex','docker','inkscape')
     report['literature_enabled']=config['literature_enabled']
     report['network_policy']=config['network_policy']
-    report['ready_for_live']=all(report['commands'][x]!='NOT_INSTALLED' for x in required) and not any(isinstance(report.get(x+'_probe'),dict) and report[x+'_probe'].get('status')=='BLOCKED' for x in ('codex','docker')) and (not config['literature_enabled'] or report['exa_key_configured'])
+    report['ready_for_live']=report['tex_container_probe'].get('status')!='BLOCKED' and all(report['commands'][x]!='NOT_INSTALLED' for x in required) and not any(isinstance(report.get(x+'_probe'),dict) and report[x+'_probe'].get('status')=='BLOCKED' for x in ('codex','docker')) and (not config['literature_enabled'] or report['exa_key_configured'])
     report['auth_and_end_to_end_verified']=False
     return report
 
@@ -102,7 +106,7 @@ def main(argv=None):
             key=os.getenv('CUMCM_OPERATOR_KEY') or getpass.getpass('Operator key (at least 32 characters): ')
             with controller_lock(args.workspace):r=sign(args.workspace,args.stage,read_json(args.review),key)
             result={'status':'LOCAL_HUMAN_ATTESTATION_SAVED','target':r['payload']['review']['target_digest']}
-        elif args.command in ('recover-step','recover-job','recover-exa'):
+        elif args.command in ('recover-step','recover-job','recover-exa','recover-exa-lease'):
             if not args.external_process_stopped:raise Blocked('First reconcile external CLI/container billing/process state, then pass --external-process-stopped')
             with controller_lock(args.workspace):
                 store=Store(args.workspace)
@@ -114,16 +118,20 @@ def main(argv=None):
                     from .exa_ledger import ExaLedger,SharedHTTPGate
                     verify_inputs(args.workspace);snapshot=load_frozen(args.workspace)
                     if snapshot is None:raise IntegrityError('recover-exa requires a frozen R2 workspace')
-                    attempts=ExaLedger(store,snapshot['policy']).reconcile(args.key,args.reason)
-                    SharedHTTPGate(ROOT/'.runtime/exa/shared.sqlite3').reconcile(snapshot['run_id'],attempts)
+                    ledger=ExaLedger(store,snapshot['policy']);gate=SharedHTTPGate(ROOT/'.runtime/exa/shared.sqlite3')
+                    if args.command=='recover-exa-lease':gate.recover_lease(snapshot['run_id'],args.key,ledger,args.reason)
+                    else:
+                        attempts=ledger.reconcile(args.key,args.reason)
+                        gate.reconcile(snapshot['run_id'],attempts)
             result={'status':'EXPLICIT_RETRY_AUTHORIZED','key':args.key,'prior_attempt_preserved':True}
-        elif args.command in ('exa-status','exa-probe'):
+        elif args.command in ('exa-status','exa-probe','exa-rules'):
             from .controller import Controller
             with controller_lock(args.workspace):
                 controller=Controller(args.workspace)
                 from .literature_r2 import R2LiteratureWorkflow
                 if not isinstance(controller.literature,R2LiteratureWorkflow):raise IntegrityError('This command requires a frozen R2 workspace')
-                result=controller.literature.client.ledger.summary() if args.command=='exa-status' else controller.literature.client.probe_dynamic(args.query)
+                result=controller.literature.collect_rules(args.query,args.year) if args.command=='exa-rules' else controller.literature.client.ledger.summary() if args.command=='exa-status' else controller.literature.client.probe_dynamic(args.query)
+                if args.command=='exa-status':result['leases']=controller.literature.client.gate.inspect(controller.literature.snapshot['run_id'])
         elif args.command=='methods':
             from .algorithms import route_methods
             result=route_methods(args.query,top_k=10)

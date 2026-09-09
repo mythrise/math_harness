@@ -20,12 +20,15 @@ R2_QUERY=obj(query={'type':'string','minLength':4,'maxLength':220},
 SCHEMAS['research_queries_r2']=obj(queries={**arr(R2_QUERY,1),'maxItems':4})
 SCHEMAS['source_selection_r2']=obj(selections={**arr(obj(source_id=ID,hypothesis_ids={**arr(ID,1),'uniqueItems':True},
     critical=B,expanded=B,reason={'type':'string','minLength':12,'maxLength':1000}),1),'maxItems':24})
+SCHEMAS['source_selection_r2']['properties']['counter_dispositions']=arr(obj(source_id=ID,disposition={'enum':['READ','EXCLUDE','NEEDS_MORE_CONTENT']},reason={'type':'string','minLength':12,'maxLength':1000}))
+SCHEMAS['source_selection_r2']['properties']['selections']['items']['properties']['window']=obj(offset=I,section={'type':'string'})
 evidence=obj(source_id=ID,snapshot_id={'type':'string','pattern':'^[0-9a-f]{64}$'},
     quote={'type':'string','minLength':12,'maxLength':400},quote_start=I,quote_end=I,
     relation={'enum':['supports','opposes','scope_limit']})
 check=copy.deepcopy(CHECK);check['properties']['evidence']=arr(evidence)
 SCHEMAS['hypothesis_audit_r2']=obj(decision={'enum':['ACCEPT_FOR_TESTING','REVISE']},
     checks=arr(check,1),limitations=arr(S,1),citation_ids=arr(ID))
+SCHEMAS['hypothesis_audit_r2']['properties']['clarification_responses']=copy.deepcopy(SCHEMAS['review']['properties']['clarification_responses'])
 SCHEMAS['exa_policy']=POLICY_SCHEMA
 
 
@@ -59,6 +62,7 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
         validate('research_queries_r2',proposal)
         if len(proposal['queries'])>self.policy['budget']['max_queries_per_model_proposal']:
             raise IntegrityError('Research proposal exceeds the frozen query limit')
+        if len({digest(row) for row in proposal['queries']})!=len(proposal['queries']):raise IntegrityError('Duplicate research query mapping')
         expected=set(hypotheses);covered=set();sources=[];links=[]
         for row in proposal['queries']:
             if row['profile'] not in self.allowed_profiles(opponent):raise IntegrityError('Exa profile is outside this role/stage')
@@ -71,7 +75,7 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
         if opponent and not any(r['purpose']=='counterexample' for r in proposal['queries']):raise IntegrityError('Explicit counterexample query required')
         if not opponent and not any(r['purpose'] in ('background','support') for r in proposal['queries']):raise IntegrityError('Support/background query required')
         for row in proposal['queries']:
-            found=self.client.search(row['query'],profile=row['profile'],stage=stage or ('adversary' if opponent else 'scouting'),
+            found=self.client.search(row['query'],profile=row['profile'],stage=stage or ('repair_reserve' if getattr(self,'repairing',False) else 'adversary' if opponent else 'scouting'),
                                      additional_queries=row['additional_queries'])
             for source in found:
                 source['hypothesis_ids']=row['hypothesis_ids'];source['purpose']=row['purpose']
@@ -91,9 +95,11 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
             packet={'problem':self.c.problem,'hypotheses':list(hypotheses),'method_cards':self.c.base['methods'],
                 'research_focus':pi['research_focus'] if pi else [],'plan':plan,
                 'sources':self.packet(self.initial),'allowed_profiles':self.allowed_profiles(opponent),
+                'allowed_purposes':['counterexample','limitations'] if opponent else ['background','support','limitations'],
                 'frozen_cutoff':self.snapshot['research_cutoff'],'earlier_queries':seen,'empty_rounds':history,
                 'approved_queries':self.c.config['exa_approved_queries'],
                 'requirements':'Return at most four generic method queries; no problem, data, filenames, identity or credentials. '
+                    'Use only the listed allowed_profiles and allowed_purposes for this stage. '
                     'Use additional_queries=[] for auto profiles. Map each current hypothesis ID explicitly; a query can cover multiple. '
                     'Cover every current H-ID. A missing counterexample is not proof. Propose a different angle after EMPTY. '+
                     ('Independently seek counterexamples; use only counterexamples profile; include counterexample purpose. No author PASS judgments are supplied.' if opponent else
@@ -106,11 +112,18 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
             ids=[h['id'] for h in hypotheses]
             found,links=self.retrieve(proposal,opponent=opponent,hypotheses=ids)
             result=merge_sources(result,found);all_links+=links;seen += [r['query'] for r in proposal['queries']]
-            covered={h for link in links if link['status']=='RETRIEVED' for h in link['hypothesis_ids']}
+            covered={h for link in all_links if link['status']=='RETRIEVED' for h in link['hypothesis_ids']}
             if found and (not ids or covered==set(ids)):return result,all_links
             history.append({'round':round_index,'links':links,'interpretation':'EMPTY_IS_NOT_ABSENCE'})
         write_json(self.c.root/'literature/r2-blockers'/(digest(key)+'.json'),{'query_links':all_links,'sources':self.packet(result)})
         raise ExaWait('EXA_NO_REQUIRED_EVIDENCE_AFTER_DISTINCT_QUERY_ANGLES')
+
+    def collect_rules(self,query,year):
+        sources=self.client.search(query,profile='official_rules',competition_year=year,stage='final_verification')
+        report={'competition_year':year,'sources':self.packet(sources),'budget':self.client.ledger.summary(),
+            'status':'RETRIEVED_REQUIRES_TEAM_VERIFICATION','does_not_replace_human_rule_review':True}
+        write_json(self.c.root/'literature/official-rules'/f'{digest([query,year])}.json',report)
+        return report
 
     def collect_initial(self, pi):
         self.initial,links=self._queries('literature:r2:initial',initial=True,pi=pi)
@@ -123,6 +136,8 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
         packet={'hypotheses':cards,'sources':self.packet(candidates),
             'requirements':'Select known source IDs to read primary text. Cover every hypothesis with material sources, including relevant opposing evidence. '
                 'Set critical=true only for evidence needed at the acceptance gate. Set expanded=true only when a material method/assumption passage needs more than the bounded initial read; explain why. '
+                'For EVERY candidate marked counterexample/limitations, supply counter_dispositions with READ, EXCLUDE or NEEDS_MORE_CONTENT and a concrete reason. Exclusion is subject to independent critic review. '
+                'Optionally request window={offset: nonnegative original-text offset, section: exact heading or empty string} to expose material passages beyond the prefix. '
                 'Do not count mirrors as independent works. No excerpt does not mean irrelevant. Source selection is not scientific acceptance.'}
         selection=self.c.call('source-selection:'+key,'literature_scout','source_selection_r2',packet)['result']
         validate('source_selection_r2',selection)
@@ -135,19 +150,32 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
             if source['temporal_status']=='KNOWN_FUTURE_EXCLUDED':raise IntegrityError('Selected source is after the frozen cutoff')
             groups[digest(source['origin_request'])].append((source,row))
         if covered!=ids:raise IntegrityError('Primary source selection misses a critical hypothesis')
+        opposing={s['id'] for s in candidates if s.get('purpose') in ('counterexample','limitations')}
+        dispositions=selection.get('counter_dispositions',[])
+        if len({r['source_id'] for r in dispositions})!=len(dispositions) or {r['source_id'] for r in dispositions}!=opposing:raise IntegrityError('Every opposing candidate requires an explicit disposition')
+        for row in dispositions:
+            if (row['disposition']=='READ')!=(row['source_id'] in chosen):raise IntegrityError('Opposing source disposition contradicts selection')
+        if any(r['disposition']=='NEEDS_MORE_CONTENT' for r in dispositions):
+            write_json(self.c.root/'literature/reads'/(key+'-pending.json'),{'selection':selection,'opposing_candidates':self.packet([known[i] for i in sorted(opposing)])})
+            selection['pending_opposing_read']=True
         read=[];failures=[]
         for group in groups.values():
             origin=group[0][0]['origin_request']
             for offset in range(0,len(group),self.policy['fetch']['batch_size']):
                 batch=group[offset:offset+self.policy['fetch']['batch_size']]
                 urls=list(dict.fromkeys(s['url'] for s,row in batch))
-                fetched,statuses=self.client.contents(urls,origin=origin)
+                fetched,statuses=self.client.contents(urls,origin=origin,stage='repair_reserve' if getattr(self,'repairing',False) else 'primary_source_fetch')
                 for source in fetched:
+                    requests=[row.get('window') for selected,row in batch if selected['url']==source['url'] and row.get('window')]
+                    if requests:
+                        source['requested_window']={k:v for k,v in requests[0].items() if k!='section' or v}
                     source['hypothesis_ids']=sorted({h for selected,row in batch if selected['url']==source['url'] for h in row['hypothesis_ids']})
                     if any(row['expanded'] and selected['url']==source['url'] for selected,row in batch):
                         if source['coverage']['limit_hit']:
-                            more,more_status=self.client.contents([source['url']],origin=origin,expanded=True)
-                            for extended in more:extended['hypothesis_ids']=source['hypothesis_ids']
+                            more,more_status=self.client.contents([source['url']],origin=origin,expanded=True,stage='repair_reserve' if getattr(self,'repairing',False) else 'primary_source_fetch')
+                            for extended in more:
+                                extended['hypothesis_ids']=source['hypothesis_ids']
+                                if source.get('requested_window'):extended['requested_window']=source['requested_window']
                             read=merge_sources(read,more);statuses+=more_status
                         else:self.c.store.event('EXA_EXPANSION_NOT_NEEDED',{'snapshot':source['snapshot_id'],'initial_limit_not_hit':True})
                 read=merge_sources(read,fetched)
@@ -157,6 +185,21 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
                 write_json(self.c.root/'literature/reads'/(key+'.json'),{'selection':selection,'sources':self.packet(read),'failures':failures})
         if any(f['critical'] for f in failures):raise ExaWait('EXA_CRITICAL_SOURCE_CONTENT_MISSING; other successful reads were preserved')
         return read,selection,failures
+
+    def final_verify(self):
+        if not self.accepted:raise IntegrityError('No accepted source contract to verify')
+        sources=getattr(self,'accepted_sources',None)
+        if sources is None:
+            sources=self.c.store.load(self.accepted['original_sources_ref'])
+        outcomes=[]
+        for source in sources:
+            if source['id'] not in self.accepted['audit']['citation_ids']:continue
+            fetched,_=self.client.contents([source['url']],origin=source['origin_request'],expanded=source['coverage']['requested_text_limit']>self.policy['fetch']['text']['maxCharacters'],stage='final_verification')
+            if not any(s['content_sha256']==source['content_sha256'] for s in fetched):raise IntegrityError('Final source content changed; do not rewrite accepted evidence')
+            outcomes.append({'snapshot':source['snapshot_id'],'status':'ORIGINAL_CONTENT_REVERIFIED'})
+        write_json(self.c.root/'literature/final-verification.json',{'outcomes':outcomes,'budget':self.client.ledger.summary(),
+            'cache_may_avoid_http':True,'meaning':'Content identity check; does not override scientific reviews'})
+        return outcomes
 
     def assess(self, plan):
         key=digest({'plan':plan,'policy_snapshot':self.snapshot})
@@ -172,6 +215,8 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
         sources,selection,failures=self._read_selected(key,cards,candidates)
         audit_packet={'problem':self.c.problem,'plan':plan,'hypotheses':cards,'sources':self.packet(sources),
             'query_links':support_links+counter_links,'reading_failures':failures,
+            'opposing_dispositions':selection.get('counter_dispositions',[]),
+            'opposing_candidates':self.packet([s for s in candidates if s.get('purpose') in ('counterexample','limitations')]),
             'citation_contract':{'allowed_source_ids':[s['id'] for s in sources],
                 'rule':'Only original SOURCE_TEXT is citable. Every quote needs exact source_id, snapshot_id and zero-based [quote_start, quote_end) offsets in the original source text. '
                     'Packet text is a marked bounded window; do not invent missing passages. Generated summary/output/highlights are not original-text quote evidence. '
@@ -179,6 +224,7 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
                     'Estimated/unknown dates do not establish publication-version or as-of claims. Future sources are excluded. '
                     'Mirrors share one work and cannot count as independent corroboration. Task definitions are specifications, not empirical literature evidence.'},
             'requirements':'Independently review each hypothesis; preserve contradictions as REVISE. Supported_with_scope requires a supporting original passage. '
+                'Independently assess every opposing disposition and its excerpt, including excluded and unread candidates. Reject unsupported exclusion or missing material context. '
                 'Every empirical/simplification hypothesis requires execution test hypothesis_H<ID>. Only ACCEPT_FOR_TESTING is possible, never empirical proof.'}
         audit=self.c.call('hypothesis-audit:r2:'+key,'hypothesis_critic','hypothesis_audit_r2',audit_packet)['result']
         validate('hypothesis_audit_r2',audit)
@@ -186,6 +232,7 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
             'sources':self.packet(sources),'query_links':support_links+counter_links,'selection':selection,
             'source_snapshot_digests':{s['id']:s['snapshot_id'] for s in sources},'empirical_tests':'NOT_RUN'}
         write_json(self.c.root/'literature/audits'/(key+'.json'),dossier)
+        if selection.get('pending_opposing_read'):raise ExaWait('EXA_OPPOSING_CANDIDATE_NEEDS_MORE_CONTENT; independent critic saw preserved candidate excerpts')
         try:
             tests,locations=locate_audit(cards,audit,sources)
             reviews=self.c.reviews('literature:r2:'+key,dossier,roles=('literature_reviewer',),stage='plan_design',context={
@@ -210,7 +257,8 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
         used=set(audit['citation_ids']);selected=[s for s in sources if s['id'] in used]
         bibliography=[{'id':s['id'],'title':s['title'],'url':s['url'],'verified':True,
             'verification_note':'Located original-text quote plus independent semantic review; bounded source read, date/version not automatically verified. Snapshot '+s['snapshot_id']} for s in selected]
-        self.accepted={'plan_digest':digest(plan),'policy_snapshot_digest':digest(self.snapshot),'hypotheses':cards,'audit':audit,
+        self.accepted_sources=sources
+        self.accepted={'original_sources_ref':self.c.store.put(sources),'plan_digest':digest(plan),'policy_snapshot_digest':digest(self.snapshot),'hypotheses':cards,'audit':audit,
             'required_tests':tests,'bibliography':bibliography,'source_digests':{s['id']:s['content_sha256'] for s in sources},
             'source_snapshots':{s['id']:s['snapshot_id'] for s in sources},'query_links':support_links+counter_links,
             'evidence':[citation_export(s,locations) for s in selected],

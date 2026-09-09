@@ -14,7 +14,7 @@ from .intake import verify_inputs
 from .research import ResearchRunner,freeze_protocol,choose_development,paired_effect
 from .algorithms import route_methods
 from . import approval
-from .review_board import ReviewBoard, ProviderFailure, ReviewUnavailable
+from .review_board import NeedsClarification, ReviewBoard, ProviderFailure, ReviewUnavailable
 from .literature import LiteratureWorkflow, ResearchUnavailable, LiteratureAssessmentFailure
 
 DEFAULT_CONFIG={
@@ -34,11 +34,12 @@ IO_CONTRACT={
  'solver_outputs':'answer.json plus any raw predictions/tables needed. Budget is an upper bound on expensive model/objective calls; record exact counts honestly. All plan variants must be implemented.',
  'evaluator_entry':'evaluate.py --input EVAL_DATA_DIR --answer SOLVER_OUTPUT_DIR --out EMPTY_OUTPUT_DIR --seed INT --budget INT --variant ID',
  'evaluator_layout':'EVAL_DATA_DIR/public contains the public phase data; EVAL_DATA_DIR/private contains optional hidden reference labels. Solver never mounts private data.',
- 'evaluator_output':'evaluation.json with the supplied evaluation schema. Recompute objective and constraints; never trust score reported by solver. Explicitly return valid=false for malformed answers, rather than crashing.',
+ 'evaluator_output':'evaluation.json with the supplied evaluation schema. Every quantitative question needs a measurement. Declare qualitative questions with answer_type=qualitative and supply question_evidence (hash-bound text or solver/evaluation relative file evidence), never placeholder numbers. Recompute objective and constraints; never trust score reported by solver. Explicitly return valid=false for malformed answers, rather than crashing.',
  'test_entry':'test_solver.py uses evaluator arguments and writes tests.json: {"cases":[{"name":"...","passed":true,"detail":"..."}],"all_passed":true}. At least three substantive distinct tests, including a deliberately wrong answer and a boundary case.',
  'verifier_preflight_entry':'The independent verifier bundle must ALSO include test_evaluator.py --input EVAL_DATA_DIR --out EMPTY_OUTPUT_DIR --seed INT --budget INT --variant ID. It runs without a solver answer BEFORE evaluator freeze. Write tests.json with at least three distinct substantive cases, all_passed and per-case name/passed/detail. Exercise actual evaluator primitives with analytically known positive, negative and boundary inputs; include array-shape/indexing and direction conventions when applicable. Do not run optimization or the full-size field in this bounded preflight. The controller separately tests missing, malformed and fabricated answers. A failing preflight is returned to the author with exact source and execution logs; passing it does not certify full numerical accuracy.',
  'environment':'Python 3.11+, numpy, scipy, pandas, scikit-learn, numba, matplotlib, jsonschema. Do not install packages or use network in trials.',
  'filesystem':'Only the output directory and ephemeral /tmp are writable. Code/input data are read-only. Do not write pycache under /code; use PYTHONDONTWRITEBYTECODE / in-memory work.',
+ 'bounded_task_dag':'For a long trial, implement task shards with cumcm_harness.task_dag.execute(tasks, handlers, checkpoint_dir, identity={code/input/protocol digests}). Tasks have id, depends_on and bounded shards; handlers run inside the solver Docker process. Completed shards verify manifests; an interrupted RUNNING shard must be explicitly reconciled. A resources.checkpointing declaration alone does not prove runtime use.',
  'custom_algorithm':'from cumcm_harness.algorithms import mosaic_solve, mosaic_modules. Attached algorithm is already installed. Do not retype or replace MOSAIC with a generic GA.'}
 
 REVIEW_STAGES={
@@ -116,8 +117,8 @@ class Controller:
         deadline=datetime.fromisoformat(self.config['deadline_iso'])
         if deadline.tzinfo is None:raise IntegrityError('Deadline requires timezone offset, normally +08:00')
         remaining=(deadline-datetime.now(timezone.utc)).total_seconds()
-        if remaining<=0:raise Blocked('Configured deadline has passed; no new live operations')
-        if research and remaining<=self.config['paper_reserve_seconds']:raise Blocked('Paper time reserve reached; freeze research scope')
+        if remaining<=0:raise DeadlineReached('Configured deadline has passed; no new live operations')
+        if research and remaining<=self.config['paper_reserve_seconds']:raise PaperReserveReached('Paper time reserve reached; freeze research scope')
     def call(self,key,role,schema,packet,*,images=()):
         if role in ('verifier_author','hypothesis_critic'):
             return self.review_board.invoke(key,role,schema,packet,primary='claude',images=images)
@@ -131,10 +132,15 @@ class Controller:
         inputs={'role':role,'schema':schema,'packet':packet,'provider':kind,'model':getattr(provider,'model','FIXTURE'),'images':image_refs}
         def invoke():
             self.check_deadline();count=self.store.get('model_calls_reserved',0)
-            if count>=self.config['max_model_calls']:raise Blocked('Model-call budget exhausted; no success fabricated')
+            if count>=self.config['max_model_calls']:raise BudgetExhausted('Model-call budget exhausted; no success fabricated')
             self.store.set('model_calls_reserved',count+1)
             log=self.root/'model_calls'/digest({'key':key,'input':inputs})
             try:record=provider.invoke(role,schema,packet,log,images=images)
+            except NeedsClarification as exc:
+                receipt={**exc.receipt,'call_index':count+1,'response_digest':exc.signal['signal_digest'],
+                         'model_execution_status':'NEEDS_CLARIFICATION'}
+                write_json(log/'receipt.json',receipt)
+                return {'needs_clarification':exc.signal,'receipt':receipt}
             except ProviderFailure as exc:
                 if not managed_failure:
                     # Direct author calls keep the existing explicit recovery
@@ -158,6 +164,7 @@ class Controller:
                                      'receipt':record['receipt'],'next_action':'consume explicit downstream contract'})
             return record
         record=self.store.step('model:'+key,inputs,invoke)
+        if 'needs_clarification' in record:raise NeedsClarification(record['needs_clarification'],record['receipt'])
         if 'provider_failure' in record:
             failure=record['provider_failure']
             raise ProviderFailure(failure['provider'],failure['code'],retryable=failure['retryable'])
@@ -183,7 +190,9 @@ class Controller:
                 if entry and entry not in [f['path'] for f in artifact['files']]:raise IntegrityError('Required entrypoint missing: '+entry)
                 if role=='modeler':
                     resource_gate(artifact,self.config)
-                    if self.literature:self.literature.assess(artifact)
+                    if self.literature:
+                        self.literature.repairing=attempt>0
+                        self.literature.assess(artifact)
                 review_context={k:self.base[k] for k in ('experiment_contract','source_registry','io_contract','limits','hypothesis_contract') if k in self.base}
                 if 'plan' in packet:review_context['plan']=packet['plan']
                 review_context.update(extra_review or {})
@@ -196,7 +205,7 @@ class Controller:
                 self.store.set(key,{'artifact_digest':self.store.put(artifact),'response_digest':record['receipt']['response_digest'],
                                      'review_target':digest(artifact),'attempt':attempt})
                 return artifact,reviews
-            except (ReviewUnavailable,ResearchUnavailable,ProviderFailure,PromptPacketTooLarge):
+            except (ReviewUnavailable,ResearchUnavailable,ProviderFailure,NeedsClarification,PromptPacketTooLarge,InfrastructureUnavailable,UnknownExternalState,BudgetExhausted,DeadlineReached,PaperReserveReached):
                 raise
             except (Blocked,IntegrityError) as e:
                 literature_feedback={};failure=str(e)
@@ -210,11 +219,6 @@ class Controller:
                                  **({'prior_artifact':artifact,'runtime_diagnostic':diagnostic} if role=='verifier_author' and artifact else {})})
                 self.store.event('REPAIR_REQUEST',{'key':key,'attempt':attempt,'failure':failure,
                     **({'diagnostic_ref':literature_feedback['diagnostic_ref']} if literature_feedback else {})})
-                # Missing infrastructure cannot be repaired by inventing LLM responses.
-                # A completed literature review can discuss Docker, deadlines
-                # or budgets without being an infrastructure failure.
-                if not isinstance(e,LiteratureAssessmentFailure) and any(x in str(e) for x in ('NOT_INSTALLED','budget exhausted','lacks required CLI','deadline','RUNNING',
-                                            'Docker','Output directory is not empty','claude failed','codex failed')):raise
         failures=[{k:r[k] for k in ('attempt','failure','diagnostic_ref') if k in r} for r in feedback]
         raise Blocked(f'{key} failed after bounded repairs: {failures}')
     def verifier_preflight(self,bundle):
@@ -247,15 +251,20 @@ class Controller:
         def action():
             base=self.root/'selftests'/digest({'v':digest(verifier),'job':answer_row['job_id']})
             code=self.store.publish_bundle(verifier);lim=Limits(self.config['trial_timeout'],self.config['cpu_threads'],self.config['memory_mb'])
-            self.executor.execute(code,'test_solver.py',self.root/'evaluation_inputs/development',base/'out',
-                ['--seed',str(answer_row['seed']),'--budget',str(self.config['fe_budget']),'--variant','baseline'],lim,
-                answer=self.root/'jobs'/answer_row['job_id']/'solver',logdir=base/'logs')
-            report=read_json(base/'out/tests.json');cases=report.get('cases',[])
-            if len(cases)<3 or len({x['name'] for x in cases})!=len(cases) or report.get('all_passed') is not True or any(x.get('passed') is not True for x in cases):
-                raise Blocked('Independent tests failed or are incomplete')
-            return {'unit_tests':report,'negative_controls':runner.negative_controls(verifier),'output_path':str((base/'out').relative_to(self.root)),'output_manifest':tree_manifest(base/'out')}
+            try:
+                self.executor.execute(code,'test_solver.py',self.root/'evaluation_inputs/development',base/'out',
+                    ['--seed',str(answer_row['seed']),'--budget',str(self.config['fe_budget']),'--variant',answer_row['variant']],lim,
+                    answer=self.root/'jobs'/answer_row['job_id']/'solver',logdir=base/'logs')
+                from .verifier_preflight import validate_tests
+                report=validate_tests(read_json(base/'out/tests.json'))
+            except (ExecutionFailure,ScientificRejection,IntegrityError,ValueError,OSError) as exc:
+                return {'passed':False,'failure':str(exc),'output_path':str(base.relative_to(self.root)),
+                        'output_manifest':tree_manifest(base)}
+            return {'passed':True,'unit_tests':report,'negative_controls':runner.negative_controls(verifier),
+                    'output_path':str((base/'out').relative_to(self.root)),'output_manifest':tree_manifest(base/'out')}
         result=self.store.step('independent-selftests:'+answer_row['job_id'],{'verifier':digest(verifier),'answer':answer_row['job_id']},action)
         verify_tree(self.root/result['output_path'],result['output_manifest'])
+        if result['passed'] is not True:raise ScientificRejection('Independent tests failed or are incomplete: '+result['failure'])
         if self.literature:self.literature.require_tests(result['unit_tests'])
         return result
     def all_ai_records(self):
@@ -274,7 +283,7 @@ class Controller:
             pending_steps=[r['key'] for r in c.execute("SELECT key FROM steps WHERE status='RUNNING'")]
             pending_jobs=[r['id'] for r in c.execute("SELECT id FROM jobs WHERE status='RUNNING'")]
         if pending_steps or pending_jobs:
-            raise Blocked('Unknown RUNNING work; reconcile external processes before explicit recovery: '
+            raise UnknownExternalState('Unknown RUNNING work; reconcile external processes before explicit recovery: '
                           + str({'steps':pending_steps,'jobs':pending_jobs}))
         verify_vendor();backend=self.executor.probe()
         current_sources=read_json(self.root/'sources.json') if (self.root/'sources.json').exists() else []
@@ -319,12 +328,12 @@ class Controller:
                 tests=self.selftests(runner,verifier,smoke)
                 self.reviews('smoke-review:'+digest(bundle),{'smoke':smoke,'tests':tests,'code':bundle,'verifier':verifier},context={'plan':plan})
                 break
-            except (ReviewUnavailable,ResearchUnavailable):
+            except (ReviewUnavailable,ResearchUnavailable,InfrastructureUnavailable,UnknownExternalState,BudgetExhausted,DeadlineReached):
                 raise
             except (Blocked,IntegrityError) as exc:
                 # Never repair an unknown external process, evaluator, protocol or
                 # confirmation data. Only a new producer bundle may be proposed.
-                if runtime_attempt>=self.config['repair_attempts'] or any(x in str(exc) for x in ('NOT_INSTALLED','RUNNING','budget exhausted','required','RESOURCE_GATE')):raise
+                if runtime_attempt>=self.config['repair_attempts']:raise
                 diagnostics=[]
                 for logfile in sorted((self.root/'jobs').glob('*/solver_logs/stderr.log')):
                     text=logfile.read_text('utf-8',errors='replace')[-16000:]
@@ -344,10 +353,8 @@ class Controller:
         current=bundle
         for index in range(self.config['max_candidates']):
             try:self.check_deadline(research=True)
-            except Blocked as e:
-                if 'Paper time reserve' in str(e):
-                    self.store.event('SEARCH_STOP',{'reason':str(e),'remaining_candidates_skipped':self.config['max_candidates']-index});break
-                raise
+            except PaperReserveReached as e:
+                self.store.event('SEARCH_STOP',{'reason':str(e),'remaining_candidates_skipped':self.config['max_candidates']-index});break
             name=f'c{index}'
             if index:
                 proposal=self.call(f'pi-proposal:{index}','supervisor','proposal',{
@@ -361,9 +368,13 @@ class Controller:
                 self.reviews('algorithm:'+name,{'bundle':current,'algorithm':self.algorithm_context(current)},context={'plan':plan,'verifier':verifier},stage='source_code')
                 bundles[name]=current
                 if self.demo:self.executor.trusted_hashes.add(digest({f['path']:__import__('hashlib').sha256(f['content'].encode()).hexdigest() for f in current['files']}))
-            try:rows=runner.matrix(name,current,verifier,'development',protocol['variants'])
-            except (Blocked,IntegrityError) as exc:
-                if 'RUNNING' in str(exc):raise
+            try:
+                for variant in protocol['variants']:
+                    pilot=runner.cell(name,current,verifier,'development',protocol['development_seeds'][0],variant)
+                    self.selftests(runner,verifier,pilot)
+                rows=runner.matrix(name,current,verifier,'development',protocol['variants'])
+            except (InfrastructureUnavailable,UnknownExternalState,BudgetExhausted,DeadlineReached):raise
+            except (ExecutionFailure,ScientificRejection,IntegrityError) as exc:
                 self.store.event('CANDIDATE_REJECTED',{'candidate':name,'reason':str(exc),'bundle':digest(current),'raw_attempts_preserved':True})
                 continue
             development.extend(rows)
@@ -383,6 +394,7 @@ class Controller:
         self.reviews('confirmation-review',{'rows':confirm,'inference':inference,'selection':selection,'protocol':protocol},context={'plan':plan})
         from .paper import claim_registry,build_paper,render_pages,build_ai_details
         claims,representative=claim_registry(confirm,selection,inference);write_json(self.root/'claims.json',claims)
+        if self.literature and hasattr(self.literature,'final_verify'):self.literature.final_verify()
         self.status('WRITING')
         source_registry=self.base.get('source_registry',[])
         self.store.step('freeze-paper-sources',{'sources':source_registry},lambda:source_registry)
@@ -390,32 +402,54 @@ class Controller:
                 'hypothesis_execution':read_json(self.root/'literature/execution.json') if (self.root/'literature/execution.json').exists() else None,
                 'problem':self.problem,'plan':plan,'claims':claims,'inference':inference,'selection':selection,
                 'source_registry':source_registry,'scope':protocol['scope'],'demo':self.demo,
+                'question_evidence':[{'job_id':r['job_id'],'evidence':r['evaluation'].get('question_evidence',[])} for r in confirm],
                 'requirements':'Chinese text; first section 问题重述. All empirical numbers use {{claim:ID}}; mathematical constants use equation fields. Do not invent citations. This research is NOT a claim of global superiority.'}
-        feedback=[];built=None;draft=None
+        feedback=[];built=None;draft=None;rejected_hashes=set();attempted_drafts=set()
         for attempt in range(self.config['repair_attempts']+1):
             record=self.call(f'paper:r{attempt}','writer','paper',{**packet,'repair_feedback':feedback});draft=record['result']
+            if digest(draft) in attempted_drafts:
+                feedback.append({'error':'Writer repeated a failed draft; produce a substantive revision.','draft_digest':digest(draft)})
+                self.store.event('PAPER_DUPLICATE_DRAFT_REJECTED',{'attempt':attempt,'draft_digest':digest(draft)})
+                continue
+            attempted_drafts.add(digest(draft))
+            folder=self.root/'paper_versions'/digest(draft)
+            def compile_draft():
+                try:return build_paper(self.root,draft,claims,confirm,ai_records=self.all_ai_records(),code_bundles={**bundles,'verifier':verifier},source_registry=source_registry,demo=self.demo,build_dir=folder)
+                except (PaperCompilationFailure,IntegrityError) as exc:
+                    return {'observed_build_failure':True,'error':str(exc),'error_type':type(exc).__name__}
             try:
-                built=self.store.step(f'paper-build:r{attempt}',{'draft':draft,'claims':claims,'rows':confirm,'bundles':bundles,'verifier':digest(verifier),'sources':source_registry},
-                    lambda:build_paper(self.root,draft,claims,confirm,ai_records=self.all_ai_records(),code_bundles={**bundles,'verifier':verifier},source_registry=source_registry,demo=self.demo))
-                if file_hash(self.root/'paper/main.pdf')!=built['paper_sha256']:raise IntegrityError('Frozen PDF was changed')
+                candidate=self.store.step(f'paper-build:r{attempt}',{'draft':draft,'claims':claims,'rows':confirm,'bundles':bundles,'verifier':digest(verifier),'sources':source_registry},
+                    compile_draft)
+                if candidate.get('observed_build_failure'):raise PaperCompilationFailure(candidate['error'])
+                if file_hash(folder/'main.pdf')!=candidate['paper_sha256']:raise IntegrityError('Frozen PDF was changed')
+                if candidate['paper_sha256'] in rejected_hashes:raise ScientificRejection('Writer repeated a rejected PDF; revise the artifact')
+                n=candidate['preflight']['body_pages']+1;total=candidate['preflight']['pages']
+                pages=render_pages(folder/'main.pdf',folder/'rendered',page_indices=list(range(min(n+1,total)))+[total-1])
+                negatives=[]
+                for j in range(0,len(pages),6):
+                    batch=pages[j:j+6]
+                    try:
+                        self.reviews(f'paper-visual:{attempt}:{j//6}',{'draft':draft,'claims':claims,'pdf_sha256':candidate['paper_sha256'],
+                            'preflight':candidate['preflight'],'pages':[p.name for p in batch],
+                            'appendix_policy':'Body plus sampled appendix; full appendix requires human review.'},roles=('paper_reviewer',),images=batch)
+                    except ScientificRejection as exc:negatives.append({'error':str(exc),'records':list(exc.records)})
+                if negatives:
+                    rejected_hashes.add(candidate['paper_sha256'])
+                    raise ScientificRejection('Compiled paper rejected by independent review',records=negatives)
+                self.store.event('PAPER_VISUAL_SCOPE',{'body_pages':n,'image_pages':[p.name for p in pages],'full_appendix_human_review_required':True})
+                built=candidate
+                # Immutable versions retain every draft, PDF and review. Publish
+                # only the accepted projection consumed by packaging.
+                import shutil
+                destination=self.root/'paper'
+                if destination.exists():
+                    if not (destination/'main.pdf').exists() or file_hash(destination/'main.pdf')!=built['paper_sha256']:raise IntegrityError('Paper projection conflicts with accepted version')
+                else:shutil.copytree(folder,destination)
                 break
-            except (IntegrityError,Blocked) as e:
-                feedback.append(str(e));self.store.event('PAPER_REPAIR',{'attempt':attempt,'error':str(e)})
-        if not built:raise Blocked('Paper build did not pass within repair budget')
-        # Review all body pages; appendices are code-bound, mechanically checked,
-        # and remain subject to explicit human full-document visual attestation.
-        n=built['preflight']['body_pages']+1
-        total_pages=built['preflight']['pages']
-        indices=list(range(min(n+1,total_pages)))+[total_pages-1]
-        selected_pages=render_pages(self.root/'paper/main.pdf',self.root/'paper/rendered',page_indices=indices)
-        visual=[]
-        for j in range(0,len(selected_pages),6):
-            batch=selected_pages[j:j+6]
-            visual+=self.reviews(f'paper-visual:{j//6}',{'draft':draft,'claims':claims,'pdf_sha256':built['paper_sha256'],
-                   'preflight':built['preflight'],'pages':[p.name for p in batch],
-                   'appendix_policy':'Full custom source included and hashed. These images cover body + sampled appendix, not a claim of model visual review of every appendix page.'},
-                   roles=('paper_reviewer',),images=batch)
-        self.store.event('PAPER_VISUAL_SCOPE',{'body_pages':n,'image_pages':[p.name for p in selected_pages],'full_appendix_human_review_required':True})
+            except (ScientificRejection,PaperCompilationFailure,IntegrityError) as exc:
+                feedback.append({'error':str(exc),'prior_draft':draft,'records':list(getattr(exc,'records',()))})
+                self.store.event('PAPER_REPAIR',{'attempt':attempt,'error':str(exc),'draft_digest':digest(draft)})
+        if not built:raise ScientificRejection('Paper did not pass build and review within repair budget')
         self.status('RELEASE_REVIEW')
         records=self.all_ai_records();human=None
         release_target=digest({'paper':built['paper_sha256'],'claims':digest(claims),'protocol':digest(protocol),'records':[r['response_digest'] for r in records]})
@@ -439,6 +473,6 @@ class Controller:
         with controller_lock(self.root):
             try:return self._run()
             except Exception as e:
-                self.store.event('BLOCKER',{'type':type(e).__name__,'message':str(e)});self.status('WAITING_REVIEW_PROVIDERS' if isinstance(e,ReviewUnavailable) else getattr(e,'status','WAITING_RESEARCH_PROVIDER') if isinstance(e,ResearchUnavailable) else 'BLOCKED')
+                self.store.event('BLOCKER',{'type':type(e).__name__,'message':str(e)});self.status('WAITING_REVIEW_PROVIDERS' if isinstance(e,ReviewUnavailable) else getattr(e,'status','WAITING_RESEARCH_PROVIDER') if isinstance(e,ResearchUnavailable) else getattr(e,'status','BLOCKED'))
                 write_json(self.root/'blocker.json',{'type':type(e).__name__,'message':str(e),'completed_artifacts_preserved':True})
                 raise

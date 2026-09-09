@@ -10,9 +10,11 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install -e '.[dev,excel]'
       - run: python -m cumcm_harness verify-vendor
-      - run: python -m pytest -q --ignore=tests/test_algorithm_upgrade.py --ignore=tests/test_algorithm_integration.py --junitxml=reports/ci-infrastructure.xml
+      - run: python -m pytest -q --ignore=tests/test_algorithm_upgrade.py --ignore=tests/test_algorithm_integration.py --ignore=tests/test_audit_20260908_graph_overflow.py --junitxml=reports/ci-infrastructure.xml
       - run: docker build -t cumcm-egoharness:0.3.0 .
       - run: docker build -f Dockerfile.test -t cumcm-egoharness:0.3.0-test .
+      - run: docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
+      - run: python scripts/validate_audit_isolation.py --out reports/ci-isolation-validation
       - run: python scripts/validate_algorithm_upgrade.py --out reports/ci-algorithm-validation --seeds 2 --seed-start 201
       - uses: actions/upload-artifact@v4
         if: always()
@@ -20,6 +22,7 @@ jobs:
           name: deterministic-validation-evidence
           path: |
             reports/ci-infrastructure.xml
+            reports/ci-isolation-validation/summary.json
             reports/ci-algorithm-validation/*.json
             reports/ci-algorithm-validation/tests/*.xml
             reports/ci-algorithm-validation/*-logs/*.log

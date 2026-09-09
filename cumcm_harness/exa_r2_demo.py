@@ -26,7 +26,7 @@ def r2_responder(role, schema, packet):
             seen.add(source['url'])
             selections.append({'source_id':source['id'],'hypothesis_ids':ids,'critical':True,'expanded':False,
                 'reason':'Read the original limited fixture passage for exact scope evidence.'})
-        return {'selections':selections}
+        return {'selections':selections,'counter_dispositions':[{'source_id':source['id'],'disposition':'READ' if source['id'] in {s['source_id'] for s in selections} else 'EXCLUDE','reason':'Same work already selected; independently check duplicate evidence.'} for source in packet['sources'] if source.get('purpose') in ('counterexample','limitations')]}
     if schema=='hypothesis_audit_r2':
         result=fixture_responder(role,'hypothesis_audit',packet);known={s['id']:s for s in packet['sources']}
         for check in result['checks']:

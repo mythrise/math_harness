@@ -116,6 +116,7 @@ def test_legacy_profiles_stay_offline_and_online_profile_is_explicit():
 
 def test_doctor_requires_exa_key_only_for_online_profile(monkeypatch):
     from cumcm_harness.cli import doctor, parser
+    monkeypatch.setattr('cumcm_harness.tex_sandbox.probe',lambda:{'backend':'DOCKER_TEX','image_id':'fixture'})
     monkeypatch.delenv('EXA_API_KEY', raising=False)
     monkeypatch.setattr('cumcm_harness.cli.shutil.which', lambda name: '/fixture/'+name)
     assert doctor()['ready_for_live'] is True
@@ -128,6 +129,7 @@ def test_doctor_requires_exa_key_only_for_online_profile(monkeypatch):
 
 def test_doctor_probes_the_selected_image(monkeypatch):
     from cumcm_harness.cli import doctor
+    monkeypatch.setattr('cumcm_harness.tex_sandbox.probe',lambda:{'backend':'DOCKER_TEX','image_id':'fixture'})
     from cumcm_harness.sandbox import Executor
     seen = []
     monkeypatch.setattr('cumcm_harness.cli.shutil.which', lambda name: '/fixture/'+name)

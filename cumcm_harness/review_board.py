@@ -6,7 +6,7 @@ process state, budget exhaustion and valid negative reviews do not fail open.
 from __future__ import annotations
 import copy
 import time
-from .common import Blocked, IntegrityError, digest, write_json, file_hash
+from .common import Blocked, IntegrityError, digest, write_json, file_hash, ScientificRejection, canonical
 from .contracts import validate
 
 
@@ -15,6 +15,23 @@ class ProviderFailure(Blocked):
     def __init__(self, provider: str, code: str, *, retryable: bool = True):
         self.provider, self.code, self.retryable = provider, code, retryable
         super().__init__(f'{provider} provider unavailable: {code}')
+
+
+def clarification_packet(packet,signal):
+    return {**packet,'clarification_signals':[signal],
+        'clarification_requirement':'Address this preserved malformed negative signal explicitly. It is not a formal verdict. Return clarification_responses with its signal_digest and a substantive reason.'}
+
+
+def bound_packet_digest(packet,record):
+    signal=record['receipt'].get('clarification_signal')
+    return digest(clarification_packet(packet,signal) if signal else packet)
+
+
+class NeedsClarification(Blocked):
+    status='NEEDS_CLARIFICATION'
+    def __init__(self,signal,receipt):
+        self.signal,self.receipt=signal,receipt
+        super().__init__('Malformed substantive review requires an explicitly bound clarification')
 
 
 class ReviewUnavailable(Blocked):
@@ -38,7 +55,7 @@ class ReviewBoard:
         saved = self.c.store.get(result_key)
         if saved:
             record = self.c.store.load(saved)
-            if record['receipt']['packet_digest'] != digest(packet) or record['receipt']['response_digest'] != digest(record['result']):
+            if record['receipt']['packet_digest'] != bound_packet_digest(packet,record) or record['receipt']['response_digest'] != digest(record['result']):
                 raise IntegrityError('Cached provider receipt mismatch')
             return record
         failures = []
@@ -53,20 +70,30 @@ class ReviewBoard:
             try:
                 record = self.c._call_one(call_key, role, schema, packet,
                     provider_kind=kind, images=images, managed_failure=True)
+            except NeedsClarification as exc:
+                if packet.get('clarification_signals'):raise
+                revised=clarification_packet(packet,exc.signal)
+                record=self.invoke(call_key+':clarify',role,schema,revised,primary=kind,images=images)
+                responses=record['result'].get('clarification_responses',[])
+                if {r['signal_digest'] for r in responses}!={exc.signal['signal_digest']}:raise IntegrityError('Clarification ignored the preserved negative signal')
+                record=copy.deepcopy(record)
+                record['receipt']['clarification_signal']=exc.signal
             except ProviderFailure:
                 self.c.store.set(pending_key, None)
                 raise
             receipt = record['receipt']
-            if receipt.get('packet_digest') != digest(packet) or receipt.get('response_digest') != digest(record['result']):
+            if receipt.get('packet_digest') != bound_packet_digest(packet,record) or receipt.get('response_digest') != digest(record['result']):
                 raise IntegrityError('Review provider receipt mismatch; no failover')
-            self.c.store.set(self._health_key(kind), {'open_until': 0, 'last_failure': None})
+            selected=receipt.get('availability',{}).get('selected',kind) if receipt.get('clarification_signal') else kind
+            self.c.store.set(self._health_key(selected), {'open_until': 0, 'last_failure': None})
             record = copy.deepcopy(record)
+            if receipt.get('clarification_signal'):record['receipt']['clarification_availability']=copy.deepcopy(receipt.get('availability',{}))
             record['receipt']['availability'] = {
-                'primary': primary, 'selected': kind, 'failures': prior_failures,
-                'degraded': kind != primary, 'fresh_context': True}
-            if kind != primary:
+                'primary': primary, 'selected': selected, 'failures': prior_failures,
+                'degraded': selected != primary, 'fresh_context': True}
+            if selected != primary:
                 self.c.store.event('PROVIDER_FAILOVER', {'key': key, 'role': role,
-                    'from': primary, 'to': kind, 'failures': prior_failures})
+                    'from': primary, 'to': selected, 'failures': prior_failures})
             self.c.store.set(result_key, self.c.store.put(record))
             self.c.store.set(pending_key, None)
             return record
@@ -126,19 +153,20 @@ class ReviewBoard:
                                          primary='claude' if seat == 0 and role != 'paper_reviewer' else 'codex',
                                          images=images if role == 'paper_reviewer' else ())
                     record['receipt']['review_seat'] = f'{role}:{seat}'
-                    record['receipt']['review_packet'] = digest(request)
+                    record['receipt']['review_packet'] = bound_packet_digest(request,record)
                     records.append(record)
             self.c.store.set(cache_key, self.c.store.put(records))
         for record in records:
             role, seat = record['receipt']['review_seat'].rsplit(':', 1)
             view = 'specialist: reconstruct validity from original evidence' if seat == '0' else 'crosscheck: actively seek counterexamples and missed failure cases'
             request = {**packet, 'review_seat':f'{role}:{seat}', 'independent_viewpoint':view}
-            if record['receipt']['packet_digest'] != digest(request):
+            if record['receipt']['packet_digest'] != bound_packet_digest(request,record):
                 raise IntegrityError('Cached board does not bind the current review packet')
         report_path = self.c.root/'reviews'/(digest(identity)+'.json')
         try:
             quorum = check_board(records, packet['target_digest'], roles, seats, allow_fixture=self.c.demo)
-        except Blocked:
+        except ScientificRejection as exc:
+            exc.records=tuple(records)
             write_json(report_path, {'status':'REJECTED_OR_INCOMPLETE','records':records})
             raise
         self.c.store.event('REVIEW_GATE', quorum)
@@ -161,12 +189,12 @@ def check_board(records, target, roles, seats=2, *, allow_fixture=False):
         if receipt.get('review_packet') != receipt.get('packet_digest'):
             raise IntegrityError('Review packet binding changed')
         if not allow_fixture and (receipt.get('transport') != 'LIVE_CLI' or receipt.get('provider') not in ('claude', 'codex')):
-            raise Blocked('Only live Codex/Claude CLI review receipts can satisfy a live board')
+            raise ScientificRejection('Only live Codex/Claude CLI review receipts can satisfy a live board')
         if result['verdict'] != 'PASS':
             negative.append({'seat': seat, 'verdict': result['verdict'], 'findings': result['findings'], 'unverified': result['unverified']})
         seen.add(seat); ids.add(receipt['invocation_id']); providers.add(receipt['provider'])
-    if seen != expected: raise Blocked('Required review seats missing: ' + str(sorted(expected-seen)))
-    if negative: raise Blocked('Substantive review rejection (no provider shopping): ' + str(negative))
+    if seen != expected: raise ScientificRejection('Required review seats missing: ' + str(sorted(expected-seen)))
+    if negative: raise ScientificRejection('Substantive review rejection (no provider shopping): ' + canonical(negative).decode())
     status = 'DEMO_QUORUM' if allow_fixture else ('PASS_MIXED' if providers == {'codex', 'claude'} else 'PASS_DEGRADED_SINGLE_PROVIDER')
     return {'status': status, 'target_digest': target, 'roles': sorted(roles), 'seats': sorted(seen),
             'providers': sorted(providers), 'fresh_context_not_statistical_independence': True}

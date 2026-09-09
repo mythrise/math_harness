@@ -113,7 +113,7 @@ def merge_sources(*collections):
     return result
 
 
-def source_packet(sources, max_characters=40000):
+def source_packet(sources, max_characters=40000, *, windows=None):
     """Bound source characters explicitly; metadata is retained for every source.
 
     Prefix offsets are supplied so a critic can locate an exact original quote.
@@ -124,10 +124,17 @@ def source_packet(sources, max_characters=40000):
     for i,source in enumerate(sources):
         cap=remaining//max(1,len(sources)-i)
         text=source.get('text') or source.get('highlight_text') or ''
-        selected=text[:cap];remaining-=len(selected)
+        window=(windows or {}).get(source['id'],source.get('requested_window',{}))
+        start=window.get('offset',0)
+        section=window.get('section')
+        if section is not None:
+            if not isinstance(section,str) or not section or section not in text:raise IntegrityError('Requested source section is absent')
+            start=text.index(section)
+        if type(start) is not int or not 0<=start<=len(text):raise IntegrityError('Invalid requested source offset')
+        selected=text[start:start+cap];remaining-=len(selected)
         row={k:copy.deepcopy(v) for k,v in source.items() if k not in ('text','highlights','highlight_text','generated_summary','provider_output')}
         row.update(text=selected,packet_coverage={'characters':len(selected),'source_characters':len(text),
-                   'truncated':len(selected)<len(text),'offset_start':0,'offset_end':len(selected),
+                   'truncated':len(selected)<len(text),'offset_start':start,'offset_end':start+len(selected),
                    'kind':'SOURCE_TEXT' if source.get('text') else 'EXTRACTED_HIGHLIGHT'})
         if source.get('generated_summary') or source.get('provider_output'):
             row['generated_navigation_available']=True
@@ -136,7 +143,7 @@ def source_packet(sources, max_characters=40000):
 
 
 def locate_audit(cards, audit, sources):
-    known={s['id']:s for s in sources};legacy=copy.deepcopy(audit);locations=[]
+    known={s['id']:s for s in sources};legacy=copy.deepcopy(audit);legacy.pop('clarification_responses',None);locations=[]
     for check in legacy['checks']:
         for ref in check['evidence']:
             source=known.get(ref['source_id'])

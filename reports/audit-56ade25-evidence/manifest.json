@@ -1,0 +1,88 @@
+{
+  "files": {
+    "cross-lane-regression.xml": {
+      "sha256": "5d1dd9fee60d12de8f1a2206fa9204b1ae90c926456669798ff4d68e919437b0",
+      "bytes": 4380
+    },
+    "final-targeted.xml": {
+      "sha256": "ee3c75d487e793b04773f9cc799867196ef46e3f3cae95b7a3b1cf9a5139dc65",
+      "bytes": 12130
+    },
+    "full-tests.xml.gz": {
+      "sha256": "bc2e749c750a3abe47f5ee031b55703eb250d34158e08ca6dd2b4b91e58300e8",
+      "bytes": 15959
+    },
+    "full-validation.json": {
+      "sha256": "68b450596c06173993ce48bd34761f08be9886de0d6004f4397604d66611d710",
+      "bytes": 673
+    },
+    "handoff-integrity.json": {
+      "sha256": "85a8d15d059829b342358949d7ce504b1aeba9446fab5952a27b4538f00d8d82",
+      "bytes": 211
+    },
+    "historical-live.json": {
+      "sha256": "328e3a81bd293b8cca30d26ef9bad1ec598f79c3befbbee4f1d29e4f80928da9",
+      "bytes": 13847
+    },
+    "infrastructure.xml.gz": {
+      "sha256": "d78370957d1e40903b4b14e15834adf2c9496d22a6341eb36dcd27817285b577",
+      "bytes": 14625
+    },
+    "isolation.json": {
+      "sha256": "f9775bb757b92310f078ac732aacfc7249e7f9cc047e15340278ef59dc01f05f",
+      "bytes": 1436
+    },
+    "lab-1-receipt.json": {
+      "sha256": "c0ad187d8ddd2e59e63fe1bb157e55191994f6aae7b733dd47ec673d394fe820",
+      "bytes": 2776
+    },
+    "lab-2-receipt.json": {
+      "sha256": "a06e88b6e0479fad42eccc3a7c0bc5d1abca889d69ee32a07f165635746c1010",
+      "bytes": 2776
+    },
+    "live-exa.json": {
+      "sha256": "f73600e8f6cd1fd6063bbf3c36b3cc6040dab81a78b56c2fc519ed7741f4e8d7",
+      "bytes": 2900
+    },
+    "numerical-1.json": {
+      "sha256": "5b1c5d0d549b05174755080ef6eea9777fbc06f2f5443b44070d9fa70ae226fc",
+      "bytes": 12537
+    },
+    "numerical-2.json": {
+      "sha256": "4deec16610fc067b9f8faeffdf0eaea3ed834e64c5601fa164ddb5822ae9e51d",
+      "bytes": 12537
+    },
+    "paper-repair.json": {
+      "sha256": "399796269349a2ba47c6b21a7b6c1093c2b85ee8e629c7aca47a0f5bad28eb62",
+      "bytes": 6766
+    },
+    "runtime-source.json": {
+      "sha256": "c56cbd5477ab49099aea98cda1a1de65d3acde39ba47c5e480639e0cf7571d5f",
+      "bytes": 4269
+    },
+    "tests-receipt.json": {
+      "sha256": "295ee8b3168e00c651e1fc0745cebbd88782dddb4cf8f601ede8474feac2c1f9",
+      "bytes": 2458
+    },
+    "vendor.json": {
+      "sha256": "3a169879e701560e361784a2011d02da089b877b07f5e155e736a40e0e076e8b",
+      "bytes": 128
+    },
+    "visual-sample.json": {
+      "sha256": "0dfb6b3f1ae02d6f11c34e4d8f0ded5600ada0f50c65704b7cdbd6aab413d7a0",
+      "bytes": 1325
+    },
+    "before-hotfix.xml.gz": {
+      "sha256": "4af19e5918572610dd3cc0fe031a0eda8ff02da75d5e4a686cb1622cfb0da3b9",
+      "bytes": 4263,
+      "uncompressed_sha256": "3cf1ec2ad7a1dfd8b84b249731e784dd5ce97cf2cc395f2f8296d65eb85307cd"
+    },
+    "cross-lane-before.log.gz": {
+      "sha256": "faf2bf0bb38c559cf0eabe79f2249963595337a10b5c9d7ead6a68e8179866f9",
+      "bytes": 801,
+      "uncompressed_sha256": "e94e6d653ec4939366fcabb141304856c44c563816c1df19417652732c966e43"
+    }
+  },
+  "full_tests_uncompressed_sha256": "095c9463045595d72d50eaa214c4a82c0d08af95c9b5585ae2a2a3ad02e25cfe",
+  "scope": "Curated local evidence; raw model packets, private inputs and credentials excluded"
+}

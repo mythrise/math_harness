@@ -10,6 +10,9 @@ deployment status. The original `reports/TEST_REPORT_CN.md` describes the archiv
 For the later Docker image and local Claude CLI configuration, read
 `reports/live-configuration/STATUS.md`. Claude inherits user auth/model settings in
 safe mode; CLI/image probes do not establish successful upstream model responses.
+Paper compilation additionally requires `cumcm-egoharness-tex:0.3.1` built with
+`Dockerfile.tex`; host XeLaTeX is not the execution backend. Read
+`docs/AUDIT_56ADE25_REPAIR_CN.md` for isolated builds, typed failures, and Exa lease recovery.
 
 Read README.md, docs/ARCHITECTURE_CN.md and reports/TEST_REPORT_CN.md first.
 

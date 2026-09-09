@@ -1,0 +1,90 @@
+{
+  "evidence": "LIVE_EXA_HTTP",
+  "leases": [],
+  "ledger": {
+    "http_attempts_reserved": 3,
+    "known_cost_dollars": 0.016,
+    "max_http_attempts": 6,
+    "remote_exactly_once_billing": false,
+    "requests": [
+      {
+        "attempts": 1,
+        "id": "fb74002fb453df7cf46a064d046b1ee670eca528477f058182e699bcea2e8c01",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "8b2d5a4323d766f80d6aaacbd3b06eb5ba404ae03256b9112c35c212887608ca",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "0f289066f452668189e22cd7c06a77d44445273d0e09bbbed7fe9a555a7c22d2",
+        "status": "DONE"
+      }
+    ],
+    "stage_consumption": {
+      "adversary": 1,
+      "final_verification": 0,
+      "primary_source_fetch": 1,
+      "repair_reserve": 0,
+      "scouting": 1
+    },
+    "unknown_cost_attempts": 0
+  },
+  "max_http_attempts": 6,
+  "operations": [
+    {
+      "kind": "search",
+      "profile": "foundations",
+      "query": "heliostat field optical efficiency shading blocking ray tracing",
+      "snapshots": [
+        "64b9f0df205c001a47fd351433963b5f4cfa12e429e63ea533a8faba86fe61aa",
+        "96ac2d79aa7ae767761b4b0ad337753435375e9dde16f08d3e7f62439d23754d",
+        "4c0c1ade1421aa3e15bc3d9d17c5a284282776a6bd6e0631f13e93b0e699fdd8",
+        "770e884881f97f2237625518f4ce3b3ee10eab434b67417bb59e254b7ecd5444",
+        "75aea24fec6da1c829657fbe0838c568c0ca1129355c748b196b992832d1cd41",
+        "a959c8383432415b24c0ba925d8745cb55daab403c9b6170cbddc92c98bde590"
+      ],
+      "sources": 6
+    },
+    {
+      "kind": "contents",
+      "source_text_characters": [
+        23820,
+        5937
+      ],
+      "sources_with_text": 2,
+      "statuses": [
+        {
+          "id": "https://doi.org/10.62051/kjxscg84",
+          "source": "cached",
+          "status": "success"
+        },
+        {
+          "id": "https://doi.org/10.1016/j.renene.2021.09.045",
+          "source": "cached",
+          "status": "success"
+        }
+      ]
+    },
+    {
+      "kind": "search",
+      "profile": "counterexamples",
+      "query": "heliostat field shading blocking approximation limitations validation",
+      "snapshots": [
+        "7c0c6a96024d301bedc7474ab91f3905ef56b5114ae60875df0a7009c9921067",
+        "6bae17b7dd841b1f2e72f8d2faf2b727172c7283a45d34ef6429ad3ccd293860",
+        "91e9bc626a8ef9140711b42288af99cfd291f4b075d2f50c831b33f756a672be",
+        "79136a7a683d658a1e1eb8828fa164ea2891a99cb26f93eaf0371a0eb770de65",
+        "838d08a273248b5e0589a01342a54471c80e9c3c50176fe0f83cb34b92d7b95c",
+        "adef58326a8d0ce2508ac8ae2aa423cbfec492f85933e7eaa2b3dc60eeb82202",
+        "5184773cb5e72fd2f7e5d05d1e619e70a3892b1d280ffb49aa2dde238a75e9e8",
+        "4619962b394fbc1a8536ffce5f7cf3c328f32dd63d32b9a2d0f3b138d38e0d19"
+      ],
+      "sources": 8
+    }
+  ],
+  "queries_are_public_generic_methods": true,
+  "status": "PASS"
+}
