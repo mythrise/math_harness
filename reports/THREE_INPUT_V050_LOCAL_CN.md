@@ -10,9 +10,9 @@
 | 完整 pytest | Docker 739 项通过，无跳过 | 包含数值测试与 161 项三模式测试 |
 | 宿主基础设施 | 648 项通过 | 数值算法测试留在 Docker；不执行模型代码 |
 | 数值重复 | 两次各 98 行、9 类诊断，原始结果与诊断相同 | 2 个种子，CPU 有界诊断；外部候选执行和全局晋级均为 0 |
-| idea + R2 | DONE，22 个 Docker 实验任务，完整 PDF/支撑包 | 模型/HTTP 是固定回复；实验与 XeLaTeX 实际执行 |
-| scratch + R2 | DONE，22 个 Docker 实验任务，完整 PDF/支撑包 | 同上 |
-| revise | DONE，0 个研究实验任务，导出与 CAS 审计通过 | 固定编辑与独立审查回复；未重跑原实验 |
+| idea + R2 | `DEMO_COMPLETE_NOT_LIVE_VALIDATED`，22 个 Docker 实验任务，完整 PDF/支撑包 | 模型/HTTP 是固定回复；实验与 XeLaTeX 实际执行 |
+| scratch + R2 | `DEMO_COMPLETE_NOT_LIVE_VALIDATED`，22 个 Docker 实验任务，完整 PDF/支撑包 | 同上 |
+| revise | `REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED`，0 个研究实验任务，导出与 CAS 审计通过 | 固定编辑与独立审查回复；未重跑原实验 |
 | 三路 replay | 产物摘要不变，新增模型/HTTP/实验/TeX 调用均为 0 | 重放时将新增调用入口设为失败哨兵 |
 | 真实新角色 CLI | Codex / Claude 各 3 次，6/6 有效结构化回复 | 包含虚假成绩、绕过审查指令和数字保护；不是整题完成 |
 | 真实 Exa | 4 次公开 HTTP；同工作区重放新增 HTTP 为 0 | 支持/反例检索、正文读取和结构化输出能力烟测；不发送题面附件 |
@@ -40,7 +40,9 @@ idea 夹具的 4 条初版建议分别为 2 条 MODIFY、2 条 REJECT，保留�
 
 已使用此前指定的公开 2023 A 题原始 PDF、官方附件/模板和无损坐标 CSV 启动新的 idea 实调。既有建模要求单独作为 prior 输入，来源标为未报告的本机历史材料，不能冒充网页会话或题面权威。原 workspace 没有修改。预算上限为 100 次模型调用、32 次 Exa HTTP；所有模型生成代码仍须经 Docker。
 
-**首次提交时该历史题仍在运行**：题意合同第一轮因 `Invalid constraint mapping` 被拒绝，当前处于有界返工，尚未进入实验。最终状态以同目录 JSON 和后续验收补记为准。完整历史题解答、raw 初稿到最终代码/结果的逐条比较目前不成立，不能据此宣称三模式已通过真实赛题完整验收。
+**最终为 `BLOCKED / ScientificRejection`**，已结束且没有 RUNNING 步骤：共 7 次真实 CLI 回执（Codex 6、Claude 1），另有 1 条导入材料来源记录，后者不计模型调用；4 次 Exa HTTP 均为 DONE。题意首轮因 `Invalid constraint mapping` 返工，第二轮进入真实审查；审查提出目标/可行域定义、光学模型、布局和算法适用性仍需明确。有效否定意见被保留，耗尽该阶段的有界返工后停止，没有换提供方绕过，也没有进入实验。冻结输入、事件链和 Exa 尝试经只读审计通过。
+
+完整历史题解答、raw 初稿到最终计划/代码/结果的逐条比较未完成。因此本次完成的是三模式工程升级与分层验证，不能宣称已通过真实赛题整题验收。详见 [历史题回执](three-inputs-v050/historical-2023A-summary.json)。
 
 未提供可核验来源的真实网页初稿，因此相关专项为 `NOT_RUN`；已完成的是固定对抗样例和有界真实新角色调用。没有人工签核、正式提交、获奖保证或稳定版认证。版本保持 `0.5.0-rc1`。
 
@@ -48,4 +50,9 @@ idea 夹具的 4 条初版建议分别为 2 条 MODIFY、2 条 REJECT，保留�
 
 机器可读汇总：[THREE_INPUT_V050_LOCAL.json](THREE_INPUT_V050_LOCAL.json)。筛选后的测试 XML、模型摘要、HTTP 摘要、数值/渲染/重放回执与六张修订前后页面见 [three-inputs-v050/](three-inputs-v050/)。公开测试 XML 中的伪密钥参数已脱敏，测试数与判定保留，原始摘要另存。原始模型提示、日志、历史题输入、私有凭证和冻结工作区均未纳入 Git。
 
-GitHub 提交与两个工作流的最终状态在推送后单独核验，不以“已运行 git push”代替远程 SHA 与 CI 结果。
+代码提交 `2c8f0d0137b51b3e6d8f17e1f8f99e6e76b61b62` 已推送 `main`，远程 SHA 实际核对一致。两条 GitHub 工作流均成功：
+
+- [deterministic-contract-tests](https://github.com/mythrise/math_harness/actions/runs/34362332290)：下载并检查 648 项宿主 / 739 项 Docker / 86 项 PaperKit 测试，无失败或跳过；两次 98 行数值重复、旧入口/R2 重放、支撑包、隔离与论文返工回执通过。
+- [three-input-modes](https://github.com/mythrise/math_harness/actions/runs/34362332271)：161 项新测试，idea/scratch 各 22 个完成任务、三路零调用重放、支撑包与 DOCX/TeX 渲染通过。下载的 4 页 DOCX/TeX 前后图已逐页查看，公式、表格、脚注与引用显示正常。
+
+机器摘要为 [GitHub 内核验收](three-inputs-v050/github-deterministic.json) 和 [GitHub 三模式验收](three-inputs-v050/github-three-inputs.json)。本次后续补记仅改 `reports/`，运行代码、测试、配置和工作流与上述受测提交一致；不重新消耗模型调用或实验预算。

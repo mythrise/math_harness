@@ -1,6 +1,24 @@
 {
   "auto_submission": false,
-  "ci": "PENDING_FIRST_PUSH",
+  "ci": {
+    "downloaded_artifacts_verified": true,
+    "followup_scope": "REPORTS_ONLY_NO_RUNTIME_CHANGE",
+    "github_document_pages_viewed": 4,
+    "status": "PASS",
+    "validated_code_commit": "2c8f0d0137b51b3e6d8f17e1f8f99e6e76b61b62",
+    "workflows": [
+      {
+        "id": 34362332290,
+        "status": "success",
+        "url": "https://github.com/mythrise/math_harness/actions/runs/34362332290"
+      },
+      {
+        "id": 34362332271,
+        "status": "success",
+        "url": "https://github.com/mythrise/math_harness/actions/runs/34362332271"
+      }
+    ]
+  },
   "document_visual_review": {
     "docx_pages_viewed": 4,
     "initial_missing_formula": "PRESERVED_FAILURE_FIXED_BY_LIBREOFFICE_MATH",
@@ -20,6 +38,11 @@
     "docx-supplied-after.png": "4cfa4002736dc958ca6704c8f1dde842721e32dbe184151d571631629baedd77",
     "docx-supplied-before.png": "05c01c80f6eae1c975cb98414a598886710affb23b134b2ae23535281c8063b2",
     "exa-public-summary.json": "21a400ac18fc746a296c217d26513b88f26124836f6b39a0b643b92be7e612a7",
+    "github-deterministic.json": "0e83312093ab63d30b93cf8a0f99e553de1972f082ba6cb8298e08f9b80f0ea9",
+    "github-three-inputs.json": "4685218d617c84b71f1251a1f9ce1ab1a5f86294d96fe8faf2b304f780b73086",
+    "historical-2023A-summary.json": "b058d1c40784314bcb251feb55a6f43c5ab2eeb53cc722bc18fcda043e69236a",
+    "historical-audit.json": "ceba3fea7862811a68287e426b6daa45315ea2a1836c1578cebbfc646256a3a5",
+    "historical-exa-status.json": "44e8fdfbbe37ce878f283933eaa60763b70e863babcffb34b561d81d8e7bd1fa",
     "idea-r2-replay.json": "8d60dddcc8dab33049670c46c3b1c4d82900de6c3b9e97475d37df92ecb5996d",
     "idea-r2-validation.json": "839e511e2278966f8aa46413b84b2acecd910ae05c9dbe2f3d79cbafc047b333",
     "ideas-public-summary.json": "e052e0e0aca080bb6293a3df1c55441b7170b5e13eae9491b04ed87d86fd7590",
@@ -45,31 +68,21 @@
     "vendor.json": "3a169879e701560e361784a2011d02da089b877b07f5e155e736a40e0e076e8b"
   },
   "historical_2023A": {
-    "acceptance": "RUNNING",
-    "calls_reserved": 4,
+    "acceptance": "BLOCKED",
+    "actual_cli_receipts": {
+      "claude": 1,
+      "codex": 6
+    },
+    "calls_reserved": 7,
     "full_scientific_completion": "NOT_ESTABLISHED",
+    "http_attempts": 4,
+    "imported_external_records_not_model_calls": 1,
     "job_statuses": {},
-    "pending": [
-      {
-        "key": "model:materials:brief:1",
-        "status": "RUNNING"
-      }
-    ],
-    "reason": null,
-    "repairs": [
-      {
-        "attempt": 0,
-        "diagnostic": {
-          "error": "Invalid constraint mapping",
-          "records": []
-        },
-        "stage": "brief"
-      }
-    ],
-    "report_sha256": "a56d8a5b439e8659a41136c2b49a381a313698b65236db39c250db2dcd1ce9cf",
-    "scope": "ORIGINAL_PUBLIC_PDF_AND_OFFICIAL_DATA_SEPARATE_FROM_EXISTING_METHOD_NOTES",
-    "state": "MATERIALS_PREPARATION",
-    "typed_failure": null,
+    "pending": [],
+    "reason": "Materials stage exhausted its bounded repairs: brief",
+    "report_sha256": "b058d1c40784314bcb251feb55a6f43c5ab2eeb53cc722bc18fcda043e69236a",
+    "state": "BLOCKED",
+    "typed_failure": "ScientificRejection",
     "web_source": "UNREPORTED_LOCAL_PRIOR_NOT_WEB_ATTESTED"
   },
   "human_approval": "NOT_SIGNED",

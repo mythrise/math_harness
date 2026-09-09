@@ -1,0 +1,30 @@
+{
+  "workflow_id": 34362332271,
+  "workflow": "three-input-modes",
+  "code_commit": "2c8f0d0137b51b3e6d8f17e1f8f99e6e76b61b62",
+  "status": "PASS",
+  "tests": 161,
+  "modes": {
+    "idea": {
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+      "replay_unchanged": true,
+      "new_fixture_calls": 0,
+      "job_count": 22
+    },
+    "scratch": {
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+      "replay_unchanged": true,
+      "new_fixture_calls": 0,
+      "job_count": 22
+    },
+    "revise": {
+      "status": "REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED",
+      "replay_unchanged": true,
+      "new_fixture_calls": 0,
+      "job_count": 0
+    }
+  },
+  "support": "PASS",
+  "documents": "PASS",
+  "tex": "PASS"
+}

@@ -1,0 +1,37 @@
+{
+  "http_attempts_reserved": 4,
+  "known_cost_dollars": 0.028,
+  "leases": [],
+  "max_http_attempts": 32,
+  "remote_exactly_once_billing": false,
+  "requests": [
+    {
+      "attempts": 1,
+      "id": "4865a9d074ea635f4c4839b209d877f54976cf528ac852207f8ed1683986fd74",
+      "status": "DONE"
+    },
+    {
+      "attempts": 1,
+      "id": "a8813d0146a651ef5462fab360aec0d33fb3f81d514e244cc7aabbffaeed304e",
+      "status": "DONE"
+    },
+    {
+      "attempts": 1,
+      "id": "7a3d0ff2760df76e5bf90a20d1bfadc481c70ce6a4aec4b4da2027cca9dcc7f9",
+      "status": "DONE"
+    },
+    {
+      "attempts": 1,
+      "id": "8b51eb22a93db4c1bd14615ef0867386835f71febecf141aeef08877e186dd3b",
+      "status": "DONE"
+    }
+  ],
+  "stage_consumption": {
+    "adversary": 0,
+    "final_verification": 0,
+    "primary_source_fetch": 0,
+    "repair_reserve": 0,
+    "scouting": 4
+  },
+  "unknown_cost_attempts": 0
+}

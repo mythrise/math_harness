@@ -1,0 +1,95 @@
+{
+  "actual_receipts": {
+    "UNREPORTED:USER_REPORTED_EXTERNAL_SOURCE": 1,
+    "claude:LIVE_CLI": 1,
+    "codex:LIVE_CLI": 6
+  },
+  "audit": {
+    "authority": "LOCAL_SQLITE",
+    "events": 84,
+    "integrity": "PASS",
+    "root_hash": "e930909cd7570dc4010f18103484b0060e017c8189534bb465ea842122544b68"
+  },
+  "auto_submission": false,
+  "automatic_retry_after_scientific_rejection": false,
+  "calls_reserved": 7,
+  "error_type": "ScientificRejection",
+  "exa": {
+    "http_attempts_reserved": 4,
+    "known_cost_dollars": 0.028,
+    "max_http_attempts": 32,
+    "remote_exactly_once_billing": false,
+    "requests": [
+      {
+        "attempts": 1,
+        "id": "4865a9d074ea635f4c4839b209d877f54976cf528ac852207f8ed1683986fd74",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "a8813d0146a651ef5462fab360aec0d33fb3f81d514e244cc7aabbffaeed304e",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "7a3d0ff2760df76e5bf90a20d1bfadc481c70ce6a4aec4b4da2027cca9dcc7f9",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "8b51eb22a93db4c1bd14615ef0867386835f71febecf141aeef08877e186dd3b",
+        "status": "DONE"
+      }
+    ],
+    "stage_consumption": {
+      "adversary": 0,
+      "final_verification": 0,
+      "primary_source_fetch": 0,
+      "repair_reserve": 0,
+      "scouting": 4
+    },
+    "unknown_cost_attempts": 0
+  },
+  "exa_http_attempt_limit": 32,
+  "exact_live_receipts": {
+    "claude": 1,
+    "codex": 6
+  },
+  "full_scientific_completion": false,
+  "genuine_web_draft": "NOT_ATTESTED_BY_THIS_VALIDATOR",
+  "human_approval": "NOT_SIGNED",
+  "imported_external_records_not_model_calls": 1,
+  "input_mode": "idea",
+  "job_statuses": {},
+  "model_call_limit": 100,
+  "problem_digest": "3e2507025f0a776e3ba8e340e646d2105896482b055cdd6a22862dedbf89311b",
+  "raw_report_sha256": "844c11ebdd812f32052dc71da2c24caffc9c4d55cbe8bdbb3bcda18c10a7e834",
+  "real_historical_contest_problem": "BLOCKED_BEFORE_EXPERIMENTS",
+  "reason": "Materials stage exhausted its bounded repairs: brief",
+  "receipt_digests": [
+    "2115be0c0c8750ba7c83d7401bb29d2fa815f40e29c40757d85cdcc294262798",
+    "bee129976384fd6d16990b78755571a11ad1754087119955b60393566610d28d",
+    "93d632139df3e540717b00b726413d1b3fd6f521a6e376ebb9baaf4093284830",
+    "535be055011612c8c44961144a211eeb4954470f41bb7d2c359165996b93cb10",
+    "9ec7a50a79de6115a0ee9bb5df85d2ee7570463afd0d63cebae1824f666ad121",
+    "5c1489b4437253dd8760b012c9b84e2e8541d48a1cfba5171871ae5ad860de60",
+    "fdc80146bacdf83f6c213017febc9add1cf83f9fd9e565f311b3245d9d33a594",
+    "f5c734b9a892a713d00beb36e5747b42ab6523e3fc79a66a2b1aba3221bf39eb"
+  ],
+  "review_findings_summary": [
+    "审查要求进一步冻结目标与可行域定义。",
+    "审查要求明确光学模型、变量域、布局构造和算法适用性。"
+  ],
+  "scope": "REAL_SERVICES_AND_DOCKER_ON_OPERATOR_SELECTED_INPUT",
+  "skill_digests": [
+    "2e81ea195f1fc8010c81f65796cf6642a9f5d4691defb3d3144014b836dfb54f",
+    "88c30bf6db0b7d922933e9bb5e67313aeb85886911a42f9a63d616a414699c72",
+    "9e64cc0c5f7a55daae196fe83e0721398bdda73f86087f17cbe56f490d26c049",
+    "NOT_APPLICABLE",
+    "ed86c170a38553aaedb158c4ad42d994fe2fc69ad03f11be2664782783e283bf"
+  ],
+  "source_separation": "ORIGINAL_PUBLIC_PDF_OFFICIAL_DATA_PRIOR_NOTES_FROZEN_SEPARATELY",
+  "state": "BLOCKED",
+  "status": "BLOCKED",
+  "unfinished_steps": []
+}
