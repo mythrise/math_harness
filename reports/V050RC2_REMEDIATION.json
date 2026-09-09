@@ -1,0 +1,13 @@
+{
+  "tested_sha": "fefa1ba1d0acda7c77cc6fba8d3b8066c59957bc",
+  "engineering": "PASS",
+  "real_problem": "BLOCKED_ScientificRejection",
+  "release": "RC",
+  "test_count_report": "v050rc2-acceptance/test-counts.json",
+  "test_sets_overlap": true,
+  "live_report": "v050rc2-acceptance/live-summary.json",
+  "layout_report": "v050rc2-acceptance/actual-document-layout-summary.json",
+  "source_diff": "v050rc2-acceptance/code-changes.patch",
+  "human_approval": "NOT_SIGNED",
+  "genuine_web_draft": "NOT_PROVIDED_NOT_RUN"
+}

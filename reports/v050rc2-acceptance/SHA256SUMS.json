@@ -1,0 +1,23 @@
+{
+  "README.md": "2b2af74c62639cff10b4ed0d8101493bc34005b285016b2d174bc491db3130f9",
+  "actual-document-layout-summary.json": "49fbb9b0e1cd645b24caf23f2f4a11769c1415dd99db51dfcdccbf1e481c0fd7",
+  "ci-algorithm-validation.json": "13663350e19884861f307022701801be9503e4e53135a185b51ab0cbd9c80157",
+  "ci-isolation-validation.json": "7dc64b836d97263212c9b262ff075adf41454eb3d474b8918e515fec56ff645c",
+  "ci-paperkit-validation.json": "8349ee7c29fc757efc57ccdf69b30578ad06ed959a49a6699ca186ae3c060f30",
+  "ci-support-reproduction.json": "adb485b5112ee6f4bf48def3a531f4274968cc02b5cfb1ae1a1ce86726f1ce90",
+  "code-changes.patch": "22e2cd454c8262acf99188e1163a1fc259ee9bdda61e94378e11a5a5c1ebf0a4",
+  "code-diff.json": "a2e3d95ecfc059028e514c56358a23cb75589b20abbc4d2fa634a7fb3b85a0dc",
+  "docx-after.png": "ec51e460810f30709e0747e918b6c81013063e0b8092444d5edf462528f0ff8b",
+  "docx-before.png": "91b03118862b74f440cc55e78313a68dceaf9fdbbec3e4fec6224fcbcb36f444",
+  "github-deterministic.json": "4d3e15e1e1bf81ce54b406c3ee90dfabd000ad22bb0580c91c73084a8f6c9f67",
+  "github-three-inputs.json": "7f311d777404ac05abdf28058357d7e7f96e0afab2685527fba862f00192ffc0",
+  "idea-final-audit.json": "919414a4c3f6cb76d90603b06edca6814304b13289f66bc629a5a930aaacf9a6",
+  "live-summary.json": "3a8d255a7ac7c62ccc7e092dc40a6ad166d970d7f6e0d4be8e93ee7b898c3e4b",
+  "revise-final-audit.json": "a3f65befbbb19794e25c247b49030d776536c1a72c09db4bd84b9d4e69b0d555",
+  "runtime-parity-final.json": "01f170bd175a87ee9fc1efa27b75d78fd40452786c3a5cd7e5cc9e165108296f",
+  "scratch-final-audit.json": "140f29a2669b233658c750fd8ca313cc8612662881f433e27a898dbb92af1ac8",
+  "test-counts.json": "f048a2350e74a922b323956c25ac3e4455e21c5035e5e8bc3b48c77e9bcb426a",
+  "tex-after.png": "63c8d15fb050b794a4a247d4d7337cf7fd17153d1e34640177b4b8c6a4277101",
+  "tex-before.png": "fcf3163932d93d8d149cc447b45591f57d6da4057a5912e965236873111f1fe3",
+  "three-modes-final.json": "0d10aab7454d93729a7c8249e657e963c8c09dc245df84a06a89d1ee66a3bd20"
+}

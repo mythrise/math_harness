@@ -1,0 +1,60 @@
+{
+  "tested_sha": "fefa1ba1d0acda7c77cc6fba8d3b8066c59957bc",
+  "sets_overlap_do_not_sum": true,
+  "reports": [
+    {
+      "path": "reports/v050rc2/host-tests-final.xml",
+      "sha256": "2b6bb3e37a9af04ab53f047f9fd06a74a6967780b43d455d11acf950baf9cdba",
+      "tests": 786,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 18.413
+    },
+    {
+      "path": "reports/v050rc2/full-docker-final/tests/pytest.xml",
+      "sha256": "47a8bf2d8d34cd8d1418f0199f9a544da148df0aec0b8da9f63b4c0e4c37b97d",
+      "tests": 877,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 30.711
+    },
+    {
+      "path": "reports/v050rc2/ci-three-inputs/reports/three-input-tests.xml",
+      "sha256": "be629e5a6eebe4bf4e27e7ab512368896ebe178b94f4efde7b78d6982ab1ffc4",
+      "tests": 298,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 13.447
+    },
+    {
+      "path": "reports/v050rc2/ci-deterministic/reports/ci-infrastructure.xml",
+      "sha256": "f8741d3f1a567159826a1f443936e7c0b1535e2a3fd5dc3ce186f18932816b44",
+      "tests": 786,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 30.174
+    },
+    {
+      "path": "reports/v050rc2/ci-deterministic/reports/ci-paperkit-validation/reference/reference-tests.xml",
+      "sha256": "df57af8ef7c534408206feb755224a505281012fd4e84c1f4c9eb06905f80bef",
+      "tests": 86,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 20.215
+    },
+    {
+      "path": "reports/v050rc2/ci-deterministic/reports/ci-algorithm-validation/tests/pytest.xml",
+      "sha256": "72aadd6b5bc57f357acad6d56a3457f2686f73d301db0e17540d53a0c6a652e2",
+      "tests": 877,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 24.135
+    }
+  ]
+}

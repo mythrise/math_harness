@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "job_statuses": [
+        "DONE"
+      ],
+      "jobs": 22,
+      "mode": "idea",
+      "new_fixture_calls": 71,
+      "outputs": {
+        "paper.pdf": "2956374bcc52e23983f28b45e6776d57963201f30458e75c6fe06a432168b0eb",
+        "submission-manifest.json": "f083259b0deeeebdd6d4ed1291bcc2f8ecc480b4bb824e4cee762d8ea963557e",
+        "support.zip": "ac185bd8d733983571a55e9e97549c04039ff24b422d28b73f88b0dd01841c59"
+      },
+      "real_exa_http": 0,
+      "real_model_calls": 0,
+      "replay_new_fixture_calls": 0,
+      "replay_unchanged": true,
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED"
+    },
+    {
+      "job_statuses": [
+        "DONE"
+      ],
+      "jobs": 22,
+      "mode": "scratch",
+      "new_fixture_calls": 58,
+      "outputs": {
+        "paper.pdf": "0a2646b0dc895f8abd276dd55e566989836cc3065967977674a33b29e8f71e2d",
+        "submission-manifest.json": "59bd2900ca3170eecd35a6697f6387bf36529cc9122d735626172be891e62920",
+        "support.zip": "da58ac5c0245c72baf8e3392f27861bb187cf22acf762605922a627c46fff122"
+      },
+      "real_exa_http": 0,
+      "real_model_calls": 0,
+      "replay_new_fixture_calls": 0,
+      "replay_unchanged": true,
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED"
+    },
+    {
+      "job_statuses": [],
+      "jobs": 0,
+      "mode": "revise",
+      "new_fixture_calls": 5,
+      "outputs": {
+        "AI工具使用详情.md": "929b0fa34150bb58ce859e36b7eb93a11d842707a83025e9317e697eb3c8de23",
+        "ai_usage.json": "cbd0461dc507bb09fef544dc73474a102d3498f05a82276ebeaa041618dbca61",
+        "layout-report.json": "57c17bee4aa2edfc515c7884d2470aeaac17e06d9792b1ab3b87e1135a277000",
+        "research_handoff.md": "258802dd8fe7a3a704402187f7e926fcb5ff187d130e853a01e4b883c4b80f61",
+        "revised.md": "97392855713558387be689934696e419bccdb9d8177f9f5a6f8a0796bab730f8",
+        "revision-report.json": "5b37e5392d96097336bd8599e7097d4c7ed0a7ee94b8397e4eeddb226a6953b0"
+      },
+      "real_exa_http": 0,
+      "real_model_calls": 0,
+      "replay_new_fixture_calls": 0,
+      "replay_unchanged": true,
+      "status": "REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED"
+    }
+  ],
+  "scope": "FIXTURE_RESPONSES_REAL_DOCKER_AND_TEX_IN_RESEARCH_MODES",
+  "status": "PASS",
+  "tested_sha": "fefa1ba1d0acda7c77cc6fba8d3b8066c59957bc"
+}

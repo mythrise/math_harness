@@ -1,0 +1,65 @@
+{
+  "pairs": [
+    {
+      "format": "docx",
+      "images": [
+        {
+          "path": "docx-before.png",
+          "sha256": "91b03118862b74f440cc55e78313a68dceaf9fdbbec3e4fec6224fcbcb36f444",
+          "side": "before"
+        },
+        {
+          "path": "docx-after.png",
+          "sha256": "ec51e460810f30709e0747e918b6c81013063e0b8092444d5edf462528f0ff8b",
+          "side": "after"
+        }
+      ],
+      "machine_checks": {
+        "no_replacement_glyphs": true,
+        "no_text_outside_page": true,
+        "original_and_modified_equations_visible": true,
+        "page_count_preserved": true,
+        "rendered_numeric_formula_citation_tokens_unchanged": true
+      },
+      "modified_sha256": "f6fe6738369e45ba526e79ee2dc4662d6508f6d77dbc9dd8f7aa4fde739e31de",
+      "not_a_controller_review_receipt": true,
+      "not_a_human_approval": true,
+      "observed": "Formula, table, citation and footnote retained; only documented wording changed; no new clipping observed.",
+      "original_science_revalidated": false,
+      "source_sha256": "fe3f4881488881fc80e9826b223856aff3460d5e2385e9d80355e7ff02e0dab4",
+      "visual_inspection": "ASSISTANT_VISUAL_INSPECTION_PASS_ON_THE_RECORDED_ACTUAL_RENDER_IMAGES"
+    },
+    {
+      "format": "tex",
+      "images": [
+        {
+          "path": "tex-before.png",
+          "sha256": "fcf3163932d93d8d149cc447b45591f57d6da4057a5912e965236873111f1fe3",
+          "side": "before"
+        },
+        {
+          "path": "tex-after.png",
+          "sha256": "63c8d15fb050b794a4a247d4d7337cf7fd17153d1e34640177b4b8c6a4277101",
+          "side": "after"
+        }
+      ],
+      "machine_checks": {
+        "no_replacement_glyphs": true,
+        "no_text_outside_page": true,
+        "original_and_modified_equations_visible": true,
+        "page_count_preserved": true,
+        "rendered_numeric_formula_citation_tokens_unchanged": true
+      },
+      "modified_sha256": "e0434d6c1a83d8634f2c80d14df09d994ff0f7c53ada439cfbcb3ee3a3cd460a",
+      "not_a_controller_review_receipt": true,
+      "not_a_human_approval": true,
+      "observed": "Formula, table, citation and footnote retained; only documented wording changed; no new clipping observed.",
+      "original_science_revalidated": false,
+      "source_sha256": "017750901f7625d24a90e1b0df1ad0deaf5e5f4169c14894304524e988ee81ce",
+      "visual_inspection": "ASSISTANT_VISUAL_INSPECTION_PASS_ON_THE_RECORDED_ACTUAL_RENDER_IMAGES"
+    }
+  ],
+  "render_component_unchanged_by_fefa_mapping_followup": true,
+  "scope": "FIXTURE_EDITORIAL_RESPONSES_REAL_SOURCE_EDITS_AND_PRODUCTION_DOCKER_RENDERER",
+  "status": "PASS_FOR_THESE_EXACT_TEST_SOURCE_PAIRS"
+}

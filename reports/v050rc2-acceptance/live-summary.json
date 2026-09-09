@@ -1,0 +1,279 @@
+{
+  "status": "BLOCKED",
+  "release_status": "REMAIN_RC",
+  "scope": "REAL_SERVICES_ON_SELECTED_HISTORICAL_PROBLEM",
+  "runs": [
+    {
+      "status": "BLOCKED",
+      "error_type": "ProviderFailure",
+      "reason": "codex provider unavailable: TIMEOUT",
+      "calls_reserved": 4,
+      "model_cost": {
+        "calls_with_known_cost": 0,
+        "known_cost_usd": 0,
+        "reserved_calls_without_known_cost": 4,
+        "total_cost_usd": null
+      },
+      "model_usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 74437,
+        "output_tokens": 11252
+      },
+      "audit": {
+        "authority": "LOCAL_SQLITE",
+        "events": 60,
+        "integrity": "PASS",
+        "root_hash": "1dc50f25959b88f3e2ee37d9fe62bf8e53027300b743ed41ca8a55d2bbbcdd5f"
+      },
+      "receipt_digests": [
+        "2115be0c0c8750ba7c83d7401bb29d2fa815f40e29c40757d85cdcc294262798",
+        "f9d7728b7052e76843fb10760a50264faa18be2140e72b514fa42c8f55e02af8",
+        "48881ea81eb8189378bc06044b59657745bcd5ba581376ed5ef75da96722486e",
+        "02ab63f23f9f2c6dc4b61db7d8cf612884a8ff690e0a876222fe56625ccea4a2",
+        "caa7fd48dd04170fdebae52e14c237a628c2ee41d3f9fca5d3b11411925b7ac5"
+      ],
+      "coverage_ledger": "NOT_REACHED",
+      "idea_plan_alignment": "NOT_REACHED",
+      "job_statuses": {},
+      "workspace": "workspace-idea-01",
+      "tested_sha": "9bb61e12541a54688d88e1f248b6f0088416604c",
+      "source_report_sha256": "f4f8ff2399b183989c4e6b2379642bd41269cc16c2036561fad503b5648c4946",
+      "provider_termination_counts": {
+        "codex:TIMEOUT": 1,
+        "codex:EXITED": 3
+      },
+      "reviews": [],
+      "exa": {
+        "http_attempts_reserved": 4,
+        "known_cost_dollars": 0.028,
+        "unknown_cost_attempts": 0,
+        "remote_exactly_once_billing": false
+      },
+      "running_steps": 0,
+      "running_jobs": 0,
+      "exa_states": {
+        "RESPONDED": 4
+      },
+      "process_terminations": [
+        {
+          "invocation_id": "47bea488-058b-4773-847f-1fec9d650751",
+          "provider": "codex",
+          "status": "TIMEOUT",
+          "returncode": -9,
+          "seconds": 300.0045151660015
+        },
+        {
+          "invocation_id": "76402609-32bf-4ebd-b86c-30a0210932d1",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 14.701358874997823
+        },
+        {
+          "invocation_id": "8532c538-b041-4e96-89e0-0f5dd5ee9b5a",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 52.57487404200219
+        },
+        {
+          "invocation_id": "88344f1e-0f0d-4b9a-9055-9aec438c82d9",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 296.7731834159931
+        }
+      ]
+    },
+    {
+      "status": "BLOCKED",
+      "error_type": "ScientificRejection",
+      "reason": "Materials stage exhausted its bounded repairs: brief",
+      "calls_reserved": 10,
+      "model_cost": {
+        "calls_with_known_cost": 0,
+        "known_cost_usd": 0,
+        "reserved_calls_without_known_cost": 10,
+        "total_cost_usd": null
+      },
+      "model_usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 285898,
+        "output_tokens": 28671
+      },
+      "audit": {
+        "authority": "LOCAL_SQLITE",
+        "events": 107,
+        "integrity": "PASS",
+        "root_hash": "6de436562879ae7a44ed9045a48dc8c166ef9dab26f0dbb23f02d671683c84a5"
+      },
+      "receipt_digests": [
+        "2115be0c0c8750ba7c83d7401bb29d2fa815f40e29c40757d85cdcc294262798",
+        "4ea74a38edcb26c7400c77261f371372e8d077449bf51e4ebf592147a305d320",
+        "7237d80e000752cf6c9ef0acca519d95b11d8601e8af495d9b4dbd7341324893",
+        "e275c5fbfa9d2e2c8789fcb6c6d5a30f81b8dd841a8055a888c71bb69516b309",
+        "908f5a9139a79327eae6d6f27a2b25e9bde67e888324db2c01f475e600bc71b5",
+        "6a8126494b04045186d434b97099041dc39d6398b953a1162166de8a3842dd3e",
+        "7412ffa318af658b9669e34ab0d3d35de2ff2eb2c20d876a5695a9b17dd00d38",
+        "3aaca55278685dfbf61850e2adf48af05fdbdb5895113ac6457ade88e1004e6e",
+        "88b2dcbc91a7b5ca010f7cb27fd1fd2cf4fdb1a5ce66ec8c53c2a0a2bf4b2f40",
+        "279d41e36ff74ce0b92f218bc16e426d1642ab2bd15d7fb4b8d71d95f392ce1a",
+        "1d41104030925911aac1c2d1c4dcf55f7f664610811a930f5f41e55a5ff53081"
+      ],
+      "coverage_ledger": "NOT_REACHED",
+      "idea_plan_alignment": "NOT_REACHED",
+      "job_statuses": {},
+      "workspace": "workspace-idea-02",
+      "tested_sha": "fefa1ba1d0acda7c77cc6fba8d3b8066c59957bc",
+      "source_report_sha256": "ca1f661486a97cef243f5eb200e14cc3de695d7c5bda22a97c141e35f30a7c99",
+      "provider_termination_counts": {
+        "codex:EXITED": 8,
+        "claude:TIMEOUT": 2
+      },
+      "reviews": [
+        {
+          "key": "model:materials:brief:0:math_reviewer:seat0:cycle1:codex:attempt0",
+          "artifact_digest": "fa762131d19a944c1d8e7fdca4088dbc12b55fa22aee199eba87db18a28eded2",
+          "verdict": "FAIL",
+          "scope": "problem_brief：仅核对原题目标、硬约束、已知量、问题与交付物的完整性及精确锚定；不认证执行。"
+        },
+        {
+          "key": "model:materials:brief:0:math_reviewer:seat1:cycle1:codex:attempt0",
+          "artifact_digest": "a18c6d57bc95c17cf3f9ea931f3279be5ca20582dda4643b96c7423a63afbff0",
+          "verdict": "FAIL",
+          "scope": "problem_brief：仅验收原题目标、硬约束、已知量、问题及交付物的完整性与精确锚定；不验收模型实现、算法比较或实验执行。"
+        },
+        {
+          "key": "model:materials:brief:1:math_reviewer:seat0:cycle1:codex:attempt0",
+          "artifact_digest": "2d35731c7218fb26e29321a66557a60dff0ea64e4526b20c0cf9db024c0f463b",
+          "verdict": "FAIL",
+          "scope": "problem_brief：仅验收原题目标、硬约束、已知量、问题和交付物的完整性及精确锚定；不认证执行，也不要求本阶段提供后续模型推导或实验结果。"
+        },
+        {
+          "key": "model:materials:brief:1:math_reviewer:seat1:cycle1:codex:attempt0",
+          "artifact_digest": "eba52702ba6c42783b5a2e4df2fae9bab91f1f03cb36da9d64f18b7d378e00fb",
+          "verdict": "FAIL",
+          "scope": "problem_brief：仅审核原题目标、硬约束、已知量、三问及交付物的完整性与精确锚点忠实性；不认证模型实现或执行结果。"
+        }
+      ],
+      "exa": {
+        "http_attempts_reserved": 4,
+        "known_cost_dollars": 0.028,
+        "unknown_cost_attempts": 0,
+        "remote_exactly_once_billing": false
+      },
+      "running_steps": 0,
+      "running_jobs": 0,
+      "exa_states": {
+        "RESPONDED": 4
+      },
+      "process_terminations": [
+        {
+          "invocation_id": "14373d88-bf9b-4b88-a23c-668a6631ac85",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 34.815838957998494
+        },
+        {
+          "invocation_id": "c9d2ecb8-5c15-4ca5-a3f3-50ebf2720648",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 33.30580662500142
+        },
+        {
+          "invocation_id": "ce90acf0-4468-42a4-b8f2-f69432e2f379",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 15.528223250003066
+        },
+        {
+          "invocation_id": "8bf60196-849b-4bf6-9db5-0da953d1bd5d",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 32.2724628750002
+        },
+        {
+          "invocation_id": "c8eadd22-cb97-4fdb-a087-a3f6f7b27af2",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 49.35219379100454
+        },
+        {
+          "invocation_id": "59450c47-981f-4dd8-9d9f-8ee494164f2f",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 30.271753832996183
+        },
+        {
+          "invocation_id": "146d2a11-b9af-4548-9e4a-b7895c0cca5d",
+          "provider": "claude",
+          "status": "TIMEOUT",
+          "returncode": -9,
+          "seconds": 180.0459412919954
+        },
+        {
+          "invocation_id": "1893d4c0-285b-4a52-9ac3-11c01b2ec24e",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 393.1483369999987
+        },
+        {
+          "invocation_id": "1e3e5942-561b-4b17-b4f5-73c821a2b079",
+          "provider": "codex",
+          "status": "EXITED",
+          "returncode": 0,
+          "seconds": 335.8807179590003
+        },
+        {
+          "invocation_id": "d330c445-fd57-4093-af16-1af58615c0ba",
+          "provider": "claude",
+          "status": "TIMEOUT",
+          "returncode": -9,
+          "seconds": 180.05567333300132
+        }
+      ]
+    }
+  ],
+  "cumulative": {
+    "models_reserved": 14,
+    "model_authorization_cap": 100,
+    "exa_http_reserved": 8,
+    "exa_authorization_cap": 32,
+    "exa_known_usd": 0.056,
+    "model_total_usd": null,
+    "model_price_unknown_not_free": true,
+    "reported_input_tokens": 360335,
+    "reported_output_tokens": 39923,
+    "tokens_may_omit_timed_out_work": true
+  },
+  "shared_exa_active_lease_rows": 0,
+  "real_experiment_jobs": 0,
+  "genuine_web_draft": "NOT_PROVIDED_NOT_RUN",
+  "existing_local_source_units": 69,
+  "idea_dispositions": "NOT_REACHED",
+  "source_provenance": "EXISTING_LOCAL_REQUIREMENTS_NOT_ATTESTED_WEB_CHAT",
+  "final_failure_categories": [
+    "Missing anchored given definitions and dangling requirement references",
+    "Already specified time convention reopened as an ambiguity"
+  ],
+  "observed_capacity": {
+    "brief_requirements": 120,
+    "schema_maxItems": 120,
+    "causal_attribution": "Capacity saturation observed; it does not prove the cap was the sole cause of omissions. Valid rejection remains unchanged."
+  },
+  "not_run": [
+    "REAL_FULL_PROBLEM_EXPERIMENTS",
+    "REAL_FINAL_PAPER",
+    "GENUINE_WEB_DRAFT_TO_PAPER",
+    "USER_SUPPLIED_FUNCTION_PROBE_ATTACHMENT_NOT_RECEIVED"
+  ],
+  "human_approval": "NOT_SIGNED",
+  "auto_submission": false
+}

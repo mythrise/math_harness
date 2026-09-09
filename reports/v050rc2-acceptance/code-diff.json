@@ -1,0 +1,9 @@
+{
+  "base_sha": "c5d807b556af217432d4f9d63b92e80784c52759",
+  "tested_sha": "fefa1ba1d0acda7c77cc6fba8d3b8066c59957bc",
+  "files": 52,
+  "insertions": 1049,
+  "deletions": 97,
+  "patch_sha256": "22e2cd454c8262acf99188e1163a1fc259ee9bdda61e94378e11a5a5c1ebf0a4",
+  "protected_vendor_changes": false
+}
