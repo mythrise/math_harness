@@ -19,7 +19,8 @@ FACT=obj(kind={'enum':['background','given','constraint','deliverable']},
     source_unit_ids={**arr(ID,1),'maxItems':12},question_ids=arr(ID,1),declarations=arr(DECLARATION))
 QUESTION=deepcopy(BRIEF_QUESTION)
 QUESTION['properties'].pop('constraint_ids');QUESTION['required'].remove('constraint_ids')
-QUESTION['properties']['source_unit_ids']={**arr(ID,1),'maxItems':24};QUESTION['required'].append('source_unit_ids')
+QUESTION['properties']['source_unit_ids']={**arr(ID,1),'maxItems':512,
+    'description':'Locators for actual question clauses and dependencies. Shared-given locators are optional here; exhaustive fact coverage is checked in later source batches and per-question gates.'};QUESTION['required'].append('source_unit_ids')
 AMBIGUITY=obj(id=ID,kind={'enum':['missing_information','source_conflict']},subject=S,
     issue=S,impact=S,resolution=S,related_requirement_ids=arr(ID))
 SCHEMAS['brief_page_text']=obj(status={'enum':['COMPLETE','NEEDS_SOURCE']},
@@ -48,7 +49,11 @@ def check_outline(value,units):
     _unique([q['id'] for q in value['questions']],'outlined question')
     topo(value['questions'])
     for q in value['questions']:
-        if not _unique(q['source_unit_ids'],'question source')<=known:raise IntegrityError('Question has a foreign source anchor')
+        foreign=_unique(q['source_unit_ids'],'question source')-known
+        if foreign:
+            raise BriefContractError([{'code':'UNKNOWN_OUTLINE_SOURCE','location':q['id']+'.source_unit_ids',
+                'detail':','.join(sorted(foreign)),'allowed_source_ids':sorted(known),
+                'required_fix':'Select exact supplied IDs. Never append suffixes, invent aliases or silently remap an unknown ID. This outline uses question locators; complete given-fact mapping follows in source batches.'}])
     return value
 
 

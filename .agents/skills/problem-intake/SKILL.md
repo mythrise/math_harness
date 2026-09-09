@@ -11,6 +11,7 @@ PDF 文本层只是阅读辅助。收到原页图像时，对照实际图像记�
 数学表达可使用 Markdown/LaTeX 转录，但必须忠实于所见原页；完整公式和表格不要在中间插入空行。图中无法辨认的信息写进 unreadable 并返回 NEEDS_SOURCE。禁止使用记忆、网页查询或后续模型反推去“补全原题”。
 
 ## 实际问题与类型
+当合同为 brief_outline，只输出简洁概览：实际小问、直接目标、输入类别/文件、输出和明确依赖。source_unit_ids 定位原题小问及依赖条款，可补充共享条件位置，但不是每问完整事实覆盖表；不要在 inputs 中重写整套公式与条件。后续 brief_facts 对全部来源单元逐批完整提取，最终逐问门再检查共享已知量、公式定义和交付物覆盖。概览中的实际陈述仍须忠实于所供原文；不能借此省略原题小问或交付目标。来源 ID 只能逐字选择，不加 _get、P1 等后缀，不自造别名。引用列表容量与每批24条事实的回复上限是不同合同。
 按原题真实数量建立问题ID，不套“三问”“四问”。区分背景 background、已知条件 given、硬约束 constraint、交付物 deliverable；推断目标不是新的硬约束。独立确认数据与外部初版建议不属于此阶段的原题事实。
 在 source-ledger-v1 中仅选择控制器提供的 source_unit_ids 和 question_ids，不自行发明偏移或 constraint_ids；分类型引用由控制器统一生成。第一来源必须属于当前批次，邻接 context_units 可补充同一公式或定义，但不能用只读上下文替代未覆盖的当前原文。
 旧 legacy 合同的 constraint_ids 仍只能引用 kind=constraint；不要为通过检查把 given 或 deliverable 改叫约束。

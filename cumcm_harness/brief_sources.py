@@ -112,6 +112,18 @@ def paragraph_units(text,anchor,page_id,*,identity,visual=False):
     return units
 
 
+def source_packet_units(units):
+    """Complete unit text for model packets; original-page anchors stay frozen.
+
+    A PDF unit's raw anchor contains its entire original page. Repeating that
+    page once for every paragraph multiplies tokens and reintroduces garbled
+    text-layer fragments. Models select IDs, while the controller supplies exact
+    anchors from the immutable full ledger after validation.
+    """
+    return [{key:u[key] for key in ('id','page_id','text','text_sha256','visual','source_status')}
+            for u in units]
+
+
 def make_batches(units,*,max_units=4,max_chars=9000):
     if type(max_units) is not int or max_units<1 or type(max_chars) is not int or max_chars<1:
         raise IntegrityError('Positive batch bounds required')

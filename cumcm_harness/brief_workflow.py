@@ -8,7 +8,7 @@ from copy import deepcopy
 from pathlib import Path
 from .common import (Blocked,IntegrityError,ScientificRejection,UnknownExternalState,
     BudgetExhausted,DeadlineReached,digest,write_json,read_json,file_hash)
-from .brief_sources import (load_snapshot,paragraph_units,make_batches,NeedsSourceInput)
+from .brief_sources import (load_snapshot,paragraph_units,make_batches,NeedsSourceInput,source_packet_units)
 from .brief_contracts import (check_outline,check_facts,assemble,check_complete,
     check_ambiguities,apply_local_patch,MAX_FACTS_PER_CALL)
 from .brief_validation import BriefContractError,definition_conflicts
@@ -126,7 +126,7 @@ class BriefWorkflow:
         positions=[i for i,u in enumerate(self.source_units) if u['id'] in owned]
         neighborhood=self.source_units[max(0,min(positions)-2):max(positions)+3] if positions else []
         context_units=[u for u in neighborhood if u['id'] not in owned]
-        packet={'source_units':batch,'context_units':context_units,'questions':outline['questions'],
+        packet={'source_units':source_packet_units(batch),'context_units':source_packet_units(context_units),'questions':outline['questions'],
             'max_facts':MAX_FACTS_PER_CALL,
             'required':('Extract ALL substantive givens, definitions, formulas, hard constraints and deliverables in these source units. '
                 'A fact is self-contained: no see G37, no dangling internal IDs. The first source_unit_id must be owned by this batch; '
@@ -182,7 +182,7 @@ class BriefWorkflow:
             used={u for r in facts for u in r['source_unit_ids']}
             target={'question':q,'requirements':facts,'ambiguities':brief['ambiguities']}
             rs=self.c.reviews(key+':question:'+q['id']+':'+digest(target),target,roles=('math_reviewer',),
-                stage='source_question',context={'sources':[u for u in units if u['id'] in used],
+                stage='source_question',context={'sources':source_packet_units([u for u in units if u['id'] in used]),
                     'required':SCOPE,'scope_boundary':'Check this actual question and its givens. A baseline choice, derivation or future execution is not required here.'})
             self.records.append({'question':q['id'],'reviews':[digest(r) for r in rs]})
         target={'questions':brief['questions'],'ambiguities':brief['ambiguities'],
@@ -192,7 +192,7 @@ class BriefWorkflow:
         rs=self.c.reviews(key+':global:'+digest(target),target,roles=('math_reviewer',),stage='source_global',
             context={'required':SCOPE+' Check cross-question consistency; a declared source convention may not be reopened as missing information.',
                      'local_source_reviews_completed':True,
-                     'excluded_sources':[u for u in units if u['id'] in {e['source_unit_id'] for e in exclusions}]})
+                     'excluded_sources':source_packet_units([u for u in units if u['id'] in {e['source_unit_id'] for e in exclusions}])})
         self.records.append({'global_reviews':[digest(r) for r in rs]})
 
     def run(self,pi,audit):
@@ -205,9 +205,11 @@ class BriefWorkflow:
             raise NeedsSourceInput('Question-outline packet exceeds 60000 characters. Prepare a verified scoped problem before starting; no silent truncation.')
         # Independent of imported user ideas. Those enter only after the existing
         # materials/data/baseline preparation completes.
-        outline_packet={'source_units':units,'data_schema':[{'file':x['file'],'status':x.get('status','UNREPORTED')} for x in audit.get('files',[])],
-            'requirements':'Identify the actual questions, original goals, inputs, outputs and dependencies. Do not fill a full mathematical model. '
-                'Select source_unit_ids; never generate constraint IDs. Known conventions remain givens. Preserve original problem count, not tutorial examples.'}
+        outline_packet={'source_units':source_packet_units(units),'data_schema':[{'file':x['file'],'status':x.get('status','UNREPORTED')} for x in audit.get('files',[])],
+            'requirements':'Return a compact outline of actual questions, original goals, input categories/files, outputs and dependencies. '
+                'Do not repeat the full fact register or mathematical model in inputs. source_unit_ids locate the original question clauses and dependencies; '
+                'shared-given locators may be included but exhaustive fact coverage follows in source batches and final per-question review. '
+                'Select exact supplied source_unit_ids with no invented suffixes; never generate constraint IDs. Known conventions remain givens. Preserve original problem count, not tutorial examples.'}
         outline=self._produce('brief:outline:'+digest(source),'brief_outline',outline_packet,
                                lambda v:check_outline(v,units),stage='source_outline')
         facts=[];exclusions=[]
@@ -239,7 +241,7 @@ class BriefWorkflow:
                 if attempt>=self.c.config['repair_attempts']:
                     raise ScientificRejection('Assembled brief rejected after bounded source-preserving repairs',records=feedback) from exc
                 old=deepcopy(brief)
-                patch_packet={'base_digest':digest(old),'current_brief':old,'source_units':units,'objections':feedback,
+                patch_packet={'base_digest':digest(old),'current_brief':old,'source_units':source_packet_units(units),'objections':feedback,
                     'requirements':'Return bounded updates/additions only (max 12 each); do not rewrite the whole brief. Preserve IDs, source coverage, '
                         'hard constraints, given conventions and original question set. Supply exact before_digest for each updated requirement. '
                         'No unsupported new fact, no deletion, no no-op pass. Resolve only the cited current defects.'}

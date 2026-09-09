@@ -9,7 +9,7 @@ from .common import *
 from .contracts import validate, SCHEMAS
 from .process import run_process, clean_env
 from .review_board import ProviderFailure, NeedsClarification
-from .provider_schema import codex_schema, normalize_codex_response
+from .provider_schema import codex_schema, normalize_codex_response, source_bound_schema
 
 ROLES={
  'supervisor': 'You are the research PI. Set priorities and falsifiable search directions. You cannot waive gates, change frozen evaluation or assert unmeasured superiority.',
@@ -62,7 +62,7 @@ class CLIProvider:
         missing=[x for x in flags if x not in help_text]
         if missing:raise ProviderFailure(self.kind, 'UNSUPPORTED_SAFE_FLAGS', retryable=False)
         return binary,version
-    def command(self,binary,work:Path,schema_name:str):
+    def command(self,binary,work:Path,schema_name:str,*,response_schema=None):
         if self.kind=='codex':
             cmd=[binary,'exec','--ignore-user-config','--sandbox','read-only','--skip-git-repo-check','--ephemeral',
                  '--json','-c','features.shell_tool=false','-c','features.unified_exec=false',
@@ -74,7 +74,7 @@ class CLIProvider:
         # Safe mode suppresses customizations while retaining auth and model settings.
         cmd=[binary,'--safe-mode','-p','--tools','','--disallowedTools','mcp__*','--setting-sources','user',
              '--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--no-session-persistence',
-             '--permission-mode','dontAsk','--output-format','json','--json-schema',canonical(SCHEMAS[schema_name]).decode(),
+             '--permission-mode','dontAsk','--output-format','json','--json-schema',canonical(SCHEMAS[schema_name] if response_schema is None else response_schema).decode(),
              '--max-turns','3']
         if self.effort is not None:cmd+=['--effort',self.effort]
         # None means unlimited: omit the CLI flag, rather than passing "None" or 0.
@@ -104,9 +104,10 @@ class CLIProvider:
         (logdir/'prompt.txt').chmod(0o600)
         with tempfile.TemporaryDirectory(prefix='cumcm-agent-') as td:
             work=Path(td)
-            transport_schema=codex_schema(SCHEMAS[schema_name]) if self.kind=='codex' else SCHEMAS[schema_name]
+            bound_schema=source_bound_schema(schema_name,SCHEMAS[schema_name],packet)
+            transport_schema=codex_schema(bound_schema) if self.kind=='codex' else bound_schema
             write_json(work/'schema.json',transport_schema)
-            command=self.command(binary,work,schema_name)
+            command=self.command(binary,work,schema_name,response_schema=transport_schema)
             if images:
                 if self.kind!='codex':raise Blocked('Visual packets require the Codex image-input adapter')
                 for i,image in enumerate(images):

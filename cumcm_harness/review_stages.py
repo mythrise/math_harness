@@ -31,7 +31,7 @@ SOURCE_REVIEW_STAGES = {
  'source_page': ('The attached original page and its transcription only.',
    'Check every visible formula, definition, table field/row/unit, example and diagram/control relation on this page. Missing or unreadable material is blocking.'),
  'source_outline': ('The question outline only, against the supplied source units.',
-   'Check the actual question count, goals, inputs, outputs, dependencies and source mapping. A full fact register is assembled and checked in subsequent source batches.'),
+   'Check the actual question count, goals, input categories/files, outputs and dependencies against all supplied source units. source_unit_ids locate original question clauses and dependencies; they are not an exhaustive per-question register of shared givens. Do not demand every formula/definition ID in this outline. Still reject wrong statements or missing original questions/deliverables. Complete fact extraction, definition coverage and per-question fact mapping are mandatory at source_facts and source_question.'),
  'source_facts': ('The owned source_units in this batch only; context_units are read-only supporting evidence.',
    'Check every substantive assertion in owned units, self-contained equations/definitions, source grounding, question mapping and justified exclusions. Do not require facts owned by other batches.'),
  'source_consistency': ('Explicit declarations and ambiguity decisions in the assembled facts only.',

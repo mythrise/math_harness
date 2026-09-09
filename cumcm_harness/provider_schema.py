@@ -3,6 +3,30 @@ from copy import deepcopy
 from jsonschema import Draft202012Validator
 
 
+def source_bound_schema(name, schema, packet):
+    """Constrain source-lane choices at transport without changing local policy.
+
+    These enums guide generation, not evidence acceptance. An invalid source ID
+    still reaches the controller's source checker and bounded chunk repair; it
+    is never recast here as provider unavailability or automatically corrected.
+    No packet-provided schema or arbitrary override is accepted.
+    """
+    out=deepcopy(schema)
+    if name not in ('brief_outline','brief_facts'):return out
+    sources=list(dict.fromkeys(u['id'] for u in packet.get('source_units',[])))
+    if not sources:return out
+    if name=='brief_outline':
+        out['properties']['questions']['items']['properties']['source_unit_ids']['items']={'type':'string','enum':sources}
+    else:
+        available=list(dict.fromkeys([*sources,*[u['id'] for u in packet.get('context_units',[])]]))
+        fact=out['properties']['facts']['items']['properties']
+        fact['source_unit_ids']['items']={'type':'string','enum':available}
+        questions=list(dict.fromkeys(q['id'] for q in packet.get('questions',[])))
+        if questions:fact['question_ids']['items']={'type':'string','enum':questions}
+        out['properties']['exclusions']['items']['properties']['source_unit_id']={'type':'string','enum':sources}
+    return out
+
+
 def codex_schema(schema):
     if not isinstance(schema, dict):
         return deepcopy(schema)
