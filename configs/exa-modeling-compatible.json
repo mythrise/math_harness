@@ -13,6 +13,7 @@
   "review_backoff_seconds": 0.25,
   "max_model_calls": 180,
   "claude_call_budget_usd": null,
-  "claude_model": null,
-  "codex_model": null
+  "claude_model": "claude-opus-5",
+  "codex_model": null,
+  "claude_effort": "max"
 }

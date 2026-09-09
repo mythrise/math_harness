@@ -16,7 +16,7 @@ import sys,json,pathlib
 args=sys.argv[1:]
 if '--version' in args: print('FAKE_CLI_TEST_ONLY 0');sys.exit(0)
 if '--help' in args:
- print('--output-schema --output-last-message --sandbox --ephemeral --ignore-user-config --json-schema --tools --no-session-persistence --bare --safe-mode --setting-sources --strict-mcp-config --image');sys.exit(0)
+ print('--output-schema --output-last-message --sandbox --ephemeral --ignore-user-config --json-schema --tools --no-session-persistence --bare --safe-mode --setting-sources --strict-mcp-config --image --effort');sys.exit(0)
 prompt=sys.stdin.read()
 result=REVIEW
 MODE
@@ -33,8 +33,13 @@ def test_codex_real_adapter_fake_process(fake_cli,tmp_path):
     fake_cli('codex');r=CLIProvider('codex').invoke('paper_reviewer','review',{'target_digest':'a'*64},tmp_path/'logs')
     assert r['result']==REVIEW;assert r['receipt']['cli_version'].startswith('FAKE_CLI_TEST_ONLY')
 def test_claude_real_adapter_fake_process(fake_cli,tmp_path):
-    fake_cli('claude');r=CLIProvider('claude').invoke('math_reviewer','review',{'target_digest':'a'*64},tmp_path/'logs')
+    from cumcm_harness.controller import DEFAULT_CONFIG
+    fake_cli('claude');r=CLIProvider('claude',model=DEFAULT_CONFIG['claude_model'],effort=DEFAULT_CONFIG['claude_effort']).invoke('math_reviewer','review',{'target_digest':'a'*64},tmp_path/'logs')
     assert r['result']==REVIEW;assert r['receipt']['model_reported']=='UNREPORTED'
+    command=r['receipt']['argv']
+    assert command[command.index('--model')+1]=='claude-opus-5'
+    assert command[command.index('--effort')+1]=='max'
+    assert r['receipt']['effort_requested']=='max'
 @pytest.mark.parametrize('mode',['malformed','error','missing'])
 def test_claude_bad_envelope(fake_cli,tmp_path,mode):
     fake_cli('claude',mode)

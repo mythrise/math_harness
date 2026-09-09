@@ -50,3 +50,9 @@ Docker 镜像 `cumcm-egoharness:0.1.0` 已构建，使用官方 Python 3.11 Book
 初始安装与演示记录位于 `reports/local-deployment/`；后续 Docker / Claude 配置以 `reports/live-configuration/STATUS.md` 为准。
 压缩包自带的其他 reports 和 `examples/validated_run` 是上游交付证据，不属于本机新运行。
 原始分发清单保持不变；本地适配器、测试、指引的变更另行记录，既有工作区结果不改写。核心源码改变后应初始化新工作区。
+
+## Claude 默认模型与推理强度（2026-09-09）
+
+新工作区默认显式使用 `claude_model: "claude-opus-5"` 和 `claude_effort: "max"`，适配器向 Claude CLI 传递 `--model claude-opus-5 --effort max`。通用练习、竞赛和 Exa 配置已同步。认证继续由本机 Claude CLI 读取。`claude_effort: null` 可选择继承 CLI 默认推理强度。
+
+已有工作区的冻结配置和回执保持原样；源码或模型配置变化后应初始化新工作区。以 Fable、Opus 4.6 命名的历史专用配置仍显式选择其原模型。

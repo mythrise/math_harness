@@ -31,9 +31,11 @@ class PromptPacketTooLarge(Blocked):
 
 class CLIProvider:
     live=True
-    def __init__(self,kind:str, *, model:str|None=None, timeout=600, max_budget_usd:float|None=None):
+    def __init__(self,kind:str, *, model:str|None=None, effort:str|None=None, timeout=600, max_budget_usd:float|None=None):
         if kind not in ('codex','claude'):raise ValueError(kind)
-        self.kind=kind;self.model=model;self.timeout=timeout;self.max_budget_usd=max_budget_usd
+        if effort not in (None,'low','medium','high','xhigh','max'):raise ValueError('Invalid effort')
+        if kind!='claude' and effort is not None:raise ValueError('Effort option is Claude-only')
+        self.kind=kind;self.model=model;self.effort=effort;self.timeout=timeout;self.max_budget_usd=max_budget_usd
     def probe(self):
         binary=shutil.which(self.kind)
         if not binary:raise ProviderFailure(self.kind, 'NOT_INSTALLED', retryable=False)
@@ -44,6 +46,7 @@ class CLIProvider:
             return r.stdout+r.stderr
         version=get(['--version']).strip();help_text=get(['exec','--help'] if self.kind=='codex' else ['--help'])
         flags=['--output-schema','--output-last-message','--sandbox','--ephemeral','--ignore-user-config'] if self.kind=='codex' else ['--json-schema','--tools','--no-session-persistence','--safe-mode','--setting-sources','--strict-mcp-config']
+        if self.kind=='claude' and self.effort is not None:flags+=['--effort']
         missing=[x for x in flags if x not in help_text]
         if missing:raise ProviderFailure(self.kind, 'UNSUPPORTED_SAFE_FLAGS', retryable=False)
         return binary,version
@@ -61,6 +64,7 @@ class CLIProvider:
              '--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--no-session-persistence',
              '--permission-mode','dontAsk','--output-format','json','--json-schema',canonical(SCHEMAS[schema_name]).decode(),
              '--max-turns','3']
+        if self.effort is not None:cmd+=['--effort',self.effort]
         # None means unlimited: omit the CLI flag, rather than passing "None" or 0.
         if self.max_budget_usd is not None:cmd+=['--max-budget-usd',str(self.max_budget_usd)]
         if self.model and self.model.startswith('claude-fable-'):
@@ -98,7 +102,9 @@ class CLIProvider:
             receipt.update({'provider':self.kind,'transport':'LIVE_CLI','invocation_id':invocation,'role':role,
                  'cli_version':version,'model_requested':self.model or 'CLI_DEFAULT','model_reported':'UNREPORTED',
                  'prompt_sha256':digest(prompt),'packet_digest':digest(packet)})
-            if self.kind=='claude':receipt['configuration_mode']='LOCAL_CLI_USER_SETTINGS_SAFE_MODE'
+            if self.kind=='claude':
+                receipt['configuration_mode']='LOCAL_CLI_USER_SETTINGS_SAFE_MODE'
+                receipt['effort_requested']=self.effort or 'CLI_DEFAULT'
             write_json(logdir/'process.json',receipt)
             if receipt['status']!='EXITED' or receipt['returncode']!=0:
                 stderr=(logdir/'stderr.log').read_text('utf-8')

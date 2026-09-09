@@ -22,7 +22,7 @@ DEFAULT_CONFIG={
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
  'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_call_budget_usd':None,
- 'codex_model':None,'claude_model':'claude-fable-5','docker_image':'cumcm-egoharness:0.3.0',
+ 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.3.0',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
  'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
  'review_members_per_role':2,'review_attempts_per_provider':2,'review_cooldown_seconds':60,
@@ -62,6 +62,7 @@ REVIEW_STAGES={
 def validate_config(c):
     if set(c)!=set(DEFAULT_CONFIG):raise IntegrityError('Unexpected/missing configuration keys')
     if c['mode'] not in ('practice','contest'):raise IntegrityError('Invalid mode')
+    if c['claude_effort'] not in (None,'low','medium','high','xhigh','max'):raise IntegrityError('Invalid config claude_effort')
     for key in ('workers','cpu_threads','total_cpu_threads','memory_mb','total_memory_mb','trial_timeout','fe_budget','max_candidates','repair_attempts','max_model_calls','model_timeout'):
         if not isinstance(c[key],(int,float)) or isinstance(c[key],bool) or c[key]<=0:raise IntegrityError('Invalid config '+key)
     if c['max_candidates']>20 or c['repair_attempts']>5:raise IntegrityError('Unbounded research/repair is not supported')
@@ -86,7 +87,7 @@ class Controller:
         self.demo=fixture_provider is not None
         if self.demo and self.config['mode']=='contest':raise Blocked('Fixtures cannot run in contest mode')
         self.providers={'codex':fixture_provider or CLIProvider('codex',model=self.config['codex_model'],timeout=self.config['model_timeout']),
-                        'claude':fixture_provider or CLIProvider('claude',model=self.config['claude_model'],timeout=self.config['model_timeout'],max_budget_usd=self.config['claude_call_budget_usd'])}
+                        'claude':fixture_provider or CLIProvider('claude',model=self.config['claude_model'],effort=self.config['claude_effort'],timeout=self.config['model_timeout'],max_budget_usd=self.config['claude_call_budget_usd'])}
         self.executor=executor or Executor('docker',self.config['docker_image']);self.problem=(self.root/'problem.md').read_text('utf-8')
         self.base={'problem':self.problem,'data_profiles':self.intake['profiles'],'private_data_schema':self.intake['private_schema'],
                    'confirmation_scope':self.intake['confirmation_scope'],'methods':route_methods(self.problem,top_k=10),
