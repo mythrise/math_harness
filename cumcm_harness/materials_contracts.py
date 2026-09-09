@@ -71,7 +71,10 @@ def check_brief(value, problem):
     if covered!=qids or deliverables!=qids:raise IntegrityError('Every question needs an anchored deliverable')
     constraints={r['id'] for r in value['requirements'] if r['kind']=='constraint'}
     for q in value['questions']:
-        if not set(q['constraint_ids'])<=constraints:raise IntegrityError('Invalid constraint mapping')
+        invalid=sorted(set(q['constraint_ids'])-constraints)
+        if invalid:
+            kinds={r['id']:r['kind'] for r in value['requirements']}
+            raise IntegrityError('Invalid constraint mapping for '+q['id']+': '+str({ref:kinds.get(ref,'UNKNOWN_ID') for ref in invalid})+'; constraint_ids may reference only requirements with kind=constraint. Given facts remain linked through requirement.question_ids; do not relabel them merely to bypass this check.')
     return value
 
 

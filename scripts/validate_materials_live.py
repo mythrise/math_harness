@@ -39,7 +39,9 @@ def main():
     parser.add_argument('--external-ai-records',type=Path)
     parser.add_argument('--max-model-calls',type=int,default=100)
     parser.add_argument('--max-http-attempts',type=int,default=32)
+    parser.add_argument('--model-timeout',type=int,default=300)
     args=parser.parse_args();root=args.workspace.resolve()
+    if not 30<=args.model_timeout<=900:parser.error('Model timeout must be 30..900 seconds')
     if not 1<=args.max_model_calls<=100 or not 1<=args.max_http_attempts<=32:parser.error('Existing authorization permits at most 100 model calls and 32 HTTP attempts')
     if bool(args.problem)!=bool(args.data):parser.error('--problem and --data must be supplied together')
     if args.prior_idea and not args.problem:parser.error('--prior-idea requires an explicit problem and data')
@@ -59,12 +61,12 @@ def main():
     policy=read_json(ROOT/'configs/exa-policy-r2.json')
     config={**DEFAULT_CONFIG,**profile,'materials_workflow':True,'literature_enabled':True,
         'network_policy':'EXA_ABSTRACT_QUERIES','max_candidates':1,'repair_attempts':1,
-        'fe_budget':192,'max_model_calls':args.max_model_calls,'model_timeout':300,'review_timeout':180,
+        'fe_budget':192,'max_model_calls':args.max_model_calls,'model_timeout':args.model_timeout,'review_timeout':180,
         'exa_max_requests':args.max_http_attempts,'exa_results_per_query':4,'exa_timeout':45,
         'review_attempts_per_provider':1}
     report={'status':'NOT_RUN','scope':'REAL_SERVICES_AND_DOCKER_ON_FIXED_PUBLIC_SYNTHETIC_INPUT',
         'real_historical_contest_problem':'NOT_RUN','human_approval':'NOT_SIGNED','auto_submission':False,
-        'model_call_limit':args.max_model_calls,'exa_http_attempt_limit':args.max_http_attempts,'configuration_profile_sha256':digest(profile),'exa_policy_source_sha256':digest(policy),'problem_digest':digest(PROBLEM)}
+        'model_timeout_seconds':args.model_timeout,'model_call_limit':args.max_model_calls,'exa_http_attempt_limit':args.max_http_attempts,'configuration_profile_sha256':digest(profile),'exa_policy_source_sha256':digest(policy),'problem_digest':digest(PROBLEM)}
     report['doctor']=doctor(True,config);write_json(args.report,report)
     if not report['doctor']['ready_for_live']:
         report.update(status='BLOCKED',reason='Required live infrastructure is unavailable')

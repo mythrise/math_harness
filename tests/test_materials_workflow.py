@@ -91,3 +91,21 @@ def test_plan_human_target_covers_preparation():
     first=plan_attestation_target(plan,{'materials_preparation':{'brief':b}})
     b['unit_risks'].append('单位变化')
     assert first!=plan_attestation_target(plan,{'materials_preparation':{'brief':b}})
+
+
+def test_brief_repair_receives_exact_invalid_reference_and_latest_artifact(tmp_path):
+    from cumcm_harness.materials_contracts import check_brief
+    c=StubController(tmp_path);good=copy.deepcopy(samples()[0]);bad=copy.deepcopy(good)
+    bad['questions'][0]['constraint_ids'].append('R1')
+    packets=[]
+    def proposer(packet):
+        packets.append(copy.deepcopy(packet))
+        return {'result':bad if not packet['repair_feedback'] else good,'receipt':{'fixture':True}}
+    c.behavior['problem_brief']=proposer
+    result=MaterialsWorkflow(c)._stage('brief','problem_analyst','problem_brief',{'problem':PROBLEM},lambda v:check_brief(v,PROBLEM),('math_reviewer',))
+    assert result==good and len(packets)==2
+    feedback=packets[1]['repair_feedback'][-1]
+    assert 'Q1' in feedback['error'] and 'R1' in feedback['error'] and 'deliverable' in feedback['error']
+    assert feedback['prior_artifact']==bad
+    assert not packets[0]['repair_feedback']
+    assert 'prior_artifact' not in __import__('json').loads(next(e['payload'] for e in c.store.events() if e['kind']=='MATERIALS_REPAIR'))['diagnostic']

@@ -24,11 +24,14 @@ class MaterialsWorkflow:
         self.c=controller
 
     def _stage(self,key,role,schema,packet,checker,review_roles):
-        feedback=[]
+        feedback=[];latest=None
         for attempt in range(self.c.config['repair_attempts']+1):
             try:
+                repairs=copy.deepcopy(feedback)
+                if repairs and latest is not None:repairs[-1]['prior_artifact']=latest
                 record=self.c.call(f'materials:{key}:{attempt}',role,schema,
-                    {**packet,'repair_feedback':copy.deepcopy(feedback)})
+                    {**packet,'repair_feedback':repairs})
+                latest=copy.deepcopy(record['result'])
                 value=checker(record['result'])
                 reviews=self.c.reviews(f'materials:{key}:{attempt}',value,roles=review_roles,
                     stage={'problem_brief':'problem_brief','data_plan':'data_policy','model_portfolio':'model_portfolio'}[schema],context={'input_contract':packet,
@@ -59,6 +62,8 @@ class MaterialsWorkflow:
                     'Prefer relevant exact_anchor_candidates and copy start/end/quote together verbatim; '
                     'these are Python Unicode character offsets, not bytes. Never guess offsets. '
                     'Never impose three/four questions from a tutorial. Inferred goals are distinct from explicit requirements. '
+                    'questions[].constraint_ids may reference ONLY requirements whose kind is constraint. '
+                    'Keep given facts classified as given and link them via each requirement.question_ids; do not put given IDs into constraint_ids. '
                     'No results have been computed at this stage.'}
         brief=self._stage('brief','problem_analyst','problem_brief',packet,
                           lambda v:check_brief(v,c.problem),('math_reviewer',))

@@ -6,7 +6,7 @@
 
 此次整改增加阶段审查范围、逐句初稿覆盖账本、独立基线到实验的摘要绑定、实体与数值关联保护，以及实际修改稿的隔离渲染。缺版式证据只输出待核验编辑副本。细节见 [rc2 整改说明](docs/V050RC2_REMEDIATION_CN.md)。
 
-先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[本轮测试报告](reports/THREE_INPUT_V050_LOCAL_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/v050-remediation-worktree`，进入该目录再运行下列命令。
+先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[本轮测试报告](reports/V050RC2_REMEDIATION_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/v050-remediation-worktree`，进入该目录再运行下列命令。
 
 ```bash
 ./scripts/cumcm doctor --live --config configs/input-idea.json --exa-policy configs/exa-policy-r2.json
