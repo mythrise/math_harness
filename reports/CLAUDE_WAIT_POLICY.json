@@ -1,0 +1,37 @@
+{
+  "scope": "CLAUDE_WAIT_POLICY_ENGINEERING_VALIDATION",
+  "claude_timeout_seconds": null,
+  "review_timeout_applies_to": "CODEX_ONLY",
+  "model_timeout_applies_to": "CODEX_ONLY",
+  "local_claude_forwarder_timeout_seconds": null,
+  "proxy_reload": "RELOADED_WHEN_NO_TCP_CLIENT_CONNECTIONS",
+  "old_frozen_workspaces_modified": false,
+  "tests": [
+    {
+      "path": "reports/claude-wait-policy/targeted-tests.xml",
+      "sha256": "224f57ab9831ac654ffa19ff62863c9028a0d0ce523f948af9258463eab041eb",
+      "tests": 255,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "path": "reports/claude-wait-policy/infrastructure-tests.xml",
+      "sha256": "bba43487c7dbfde8773265956f99986e8a09087129f422502425818001636689",
+      "tests": 806,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "new_live_model_call": "NOT_RUN_NOT_REQUIRED_FOR_WAIT_LOOP_REGRESSION",
+  "tested_code_sha": "65a0b9cb3ee461a29dc71f6918046821e39a806e",
+  "ci_runs": [
+    {
+      "url": "https://github.com/mythrise/math_harness/actions/runs/34379495656",
+      "status_at_report": "IN_PROGRESS"
+    },
+    {
+      "url": "https://github.com/mythrise/math_harness/actions/runs/34379495626",
+      "status_at_report": "IN_PROGRESS"
+    }
+  ]
+}
