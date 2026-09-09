@@ -77,7 +77,12 @@ def create_workspace(root:Path,problem:Path,data:Path,config:dict,*,confirmation
         snapshot=freeze_policy(exa_policy,cutoff=research_cutoff)
     elif research_cutoff is not None:raise IntegrityError('Research cutoff requires an Exa policy')
     root.mkdir(parents=True,exist_ok=True)
-    text=read_problem(problem);atomic_write(root/'problem.md',text)
+    if config.get('brief_pipeline','legacy')=='source-ledger-v1':
+        from .brief_sources import read_source_problem,snapshot_problem
+        text=read_source_problem(problem)
+    else:text=read_problem(problem)
+    atomic_write(root/'problem.md',text)
+    source_manifest=snapshot_problem(root,problem,text) if config.get('brief_pipeline','legacy')=='source-ledger-v1' else None
     public=root/'inputs/development';copy_inputs(data,public)
     confirm=root/'inputs/confirmation';copy_inputs(confirmation or data,confirm)
     for phase,private in (('development',private_dev),('confirmation',private_confirm)):
@@ -91,6 +96,7 @@ def create_workspace(root:Path,problem:Path,data:Path,config:dict,*,confirmation
           'confirmation_scope':'HELD_OUT_DATASET' if confirmation else 'SEED_REPLICATION_SAME_INSTANCE',
           'profiles':[profile(p) for p in sorted(public.rglob('*')) if p.is_file()],
           'private_schema':[profile(p,expose_rows=False) for p in sorted((root/'evaluation_inputs/development/private').rglob('*')) if p.is_file()]}
+    if source_manifest is not None:info['problem_source_manifest']=source_manifest
     write_json(root/'intake.json',info);write_json(root/'config.json',config)
     from .store import Store
     frozen={'intake':digest(info),'config':digest(config),'problem':file_hash(root/'problem.md')}
@@ -111,4 +117,5 @@ def verify_inputs(root:Path):
     for key,folder in [('development','inputs/development'),('confirmation','inputs/confirmation'),
                         ('eval_development','evaluation_inputs/development'),('eval_confirmation','evaluation_inputs/confirmation')]:
         verify_tree(root/folder,i[key])
+    if 'problem_source_manifest' in i:verify_tree(root/'problem_source',i['problem_source_manifest'])
     return i,c

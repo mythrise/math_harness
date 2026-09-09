@@ -17,9 +17,20 @@ BRIEF_QUESTION = obj(id=ID, title=S, direct_goal=S, inferred_goal=S,
     family={'enum':['optimization','prediction','evaluation','graph','dynamics','simulation','statistics','mixed']})
 SCHEMAS['problem_brief']=obj(problem_sha256={'type':'string','pattern':'^[0-9a-f]{64}$'},
     questions={**arr(BRIEF_QUESTION,1),'maxItems':24},
-    requirements={**arr(REQUIREMENT,1),'maxItems':120},
+    requirements={**arr(REQUIREMENT,1),'maxItems':512},
     ambiguities=arr(obj(id=ID,issue=S,impact=S,resolution=S)),
     unit_risks=arr(S), completion_criteria=arr(S,1))
+# Source-ledger fields are controller-produced; legacy callers remain readable.
+REQUIREMENT['properties'].update({
+    'anchors':arr(SPAN,1),'source_unit_ids':arr(ID,1),
+    'anchor_space':{'enum':['original_problem','reviewed_source_unit']},
+    'category':{'enum':['prose','formula','definition','table','geometry','time']},
+    'declarations':arr(obj(subject=S,quote=S)),'references':arr(ID)})
+BRIEF_QUESTION['properties'].update({'given_ids':arr(ID),'deliverable_ids':arr(ID)})
+SCHEMAS['problem_brief']['properties']['ambiguities']['items']['properties'].update({
+    'kind':{'enum':['missing_information','source_conflict']},'subject':S,
+    'related_requirement_ids':arr(ID)})
+
 TRANSFORM = obj(file=S, operation={'enum':['none','impute','flag_outlier','transform','select_features','derive_features']},
     columns=arr(S), reason=S, fit_scope={'enum':['none','training_fold_only']},
     time_causal=B, raw_immutable=B, output_path=S, verification=S)
@@ -53,7 +64,7 @@ def _unique(values, label):
     return set(values)
 
 
-def check_brief(value, problem):
+def check_brief(value, problem, *, source_units=None):
     validate('problem_brief',value)
     if value['problem_sha256']!=digest(problem):raise IntegrityError('Brief is bound to another problem')
     qids=_unique([q['id'] for q in value['questions']], 'brief question')
@@ -62,7 +73,17 @@ def check_brief(value, problem):
     covered=set();deliverables=set()
     for r in value['requirements']:
         a=r['anchor'];start,end=a['start'],a['end']
-        if not 0<=start<end<=len(problem) or problem[start:end]!=a['quote']:
+        if r.get('anchor_space')=='reviewed_source_unit':
+            # A PDF transcript has its own coordinate space. Never pretend its
+            # offsets refer to a possibly garbled raw PDF text layer.
+            known_sources={u['id']:u for u in (source_units or [])}
+            source_ids=r.get('source_unit_ids',[])
+            if not source_ids or any(k not in known_sources for k in source_ids):
+                raise IntegrityError('Reviewed-source anchor requires the frozen source ledger')
+            unit=known_sources[source_ids[0]]
+            if not unit.get('visual') or a!={'start':0,'end':len(unit['text']),'quote':unit['text']}:
+                raise IntegrityError('Reviewed-source anchor differs from its complete source unit')
+        elif not 0<=start<end<=len(problem) or problem[start:end]!=a['quote']:
             raise IntegrityError('Requirement must quote exact frozen problem offsets')
         linked=_unique(r['question_ids'],'requirement/question mapping')
         if not linked<=qids:raise IntegrityError('Unknown question in requirement')
@@ -75,6 +96,8 @@ def check_brief(value, problem):
         if invalid:
             kinds={r['id']:r['kind'] for r in value['requirements']}
             raise IntegrityError('Invalid constraint mapping for '+q['id']+': '+str({ref:kinds.get(ref,'UNKNOWN_ID') for ref in invalid})+'; constraint_ids may reference only requirements with kind=constraint. Given facts remain linked through requirement.question_ids; do not relabel them merely to bypass this check.')
+    from .brief_validation import typed_links, check_reference_graph, definition_conflicts
+    typed_links(value);check_reference_graph(value,problem);definition_conflicts(value)
     return value
 
 

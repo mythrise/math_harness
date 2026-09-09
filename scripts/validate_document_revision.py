@@ -156,7 +156,7 @@ def worker(input_dir,out):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True)
     p.add_argument('--source',type=Path);p.add_argument('--renderer',type=Path)
-    p.add_argument('--image',default='cumcm-egoharness:0.5.0-rc2-documents')
+    p.add_argument('--image',default='cumcm-egoharness:0.5.0-rc3-documents')
     p.add_argument('--input',type=Path);p.add_argument('--worker',action='store_true')
     a=p.parse_args()
     if a.worker:worker(a.input,a.out);return

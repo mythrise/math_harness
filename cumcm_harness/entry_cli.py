@@ -69,7 +69,7 @@ def main(argv=None):
         except Exception as exc:
             print(json.dumps({'status':getattr(exc,'status','BLOCKED'),'error':type(exc).__name__,'reason':str(exc)},ensure_ascii=False),file=sys.stderr);return 2
     if args and args[0]=='schema':
-        from . import idea_workflow,paper_revision
+        from . import idea_workflow,paper_revision,brief_contracts
     from .cli import main as legacy
     return legacy(args)
 

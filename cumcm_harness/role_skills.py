@@ -60,6 +60,8 @@ STAGE_SKILLS={
  'editorial':['independent-review-board','existing-paper-revision'],
  'editorial_layout':['independent-review-board','existing-paper-revision'],
 }
+from .review_stages import SOURCE_REVIEW_STAGES
+STAGE_SKILLS.update({stage:['independent-review-board','problem-intake'] for stage in SOURCE_REVIEW_STAGES})
 
 def load_skills(role,root=None,*,stage=None):
     if role not in ROLE_SKILLS:raise IntegrityError('Unknown skill-bound role')

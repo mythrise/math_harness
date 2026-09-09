@@ -22,6 +22,25 @@ IDEAS='建议在同预算可靠基准之外调用原版 MOSAIC 搜索折中前�
 
 
 def fixture(role,schema,packet):
+    if schema=='brief_outline':
+        legacy=base.fixture(role,'problem_brief',{})
+        questions=copy.deepcopy(legacy['questions'])
+        for q in questions:
+            q.pop('constraint_ids');q['source_unit_ids']=[u['id'] for u in packet['source_units']]
+        return {'questions':questions,'unit_risks':legacy['unit_risks'],'completion_criteria':legacy['completion_criteria']}
+    if schema=='brief_facts':
+        # Only this exact prewritten public fixture is supported. No model code
+        # or problem-specific live solver is executed by the fixture responder.
+        units=packet['source_units']
+        if len(units)!=1 or units[0]['text']!=base.PROBLEM:raise IntegrityError('Unexpected fixed source fixture')
+        legacy=base.fixture(role,'problem_brief',{})
+        facts=[{'kind':r['kind'],'category':'prose','statement':r['statement'],
+            'source_unit_ids':[units[0]['id']],'question_ids':r['question_ids'],'declarations':[]} for r in legacy['requirements']]
+        for text in ['合成双目标工件选择与排序工程测试，不是官方国赛题。','数据由测试程序明确生成，只能用于算法和管线诊断，不能作为真实生产观测。']:
+            facts.append({'kind':'background','category':'prose','statement':text,'source_unit_ids':[units[0]['id']],
+                'question_ids':['q1','q2'],'declarations':[]})
+        return {'status':'COMPLETE','facts':facts,'exclusions':[],'unreadable':[],'reason':''}
+    if schema=='brief_ambiguities':return {'ambiguities':[],'accepted_definitions':[]}
     if schema=='idea_catalog':
         return {'items':[{'id':f'a{i}','block_id':b['id'],'start':0,'end':len(b['text']),'quote':b['text'],
            'kind':'assumption' if '假设' in b['text'] else 'claimed_result' if '99%' in b['text'] else 'instruction' if '忽略' in b['text'] else 'method',
@@ -59,9 +78,10 @@ def identity(root):
             'deliverables':tree_manifest(root/'deliverables'),'exa':exa}
 
 
-def run(root,mode,*,local=False,replay=False,r2=False):
+def run(root,mode,*,local=False,replay=False,r2=False,source_brief=False):
     root=Path(root).resolve()
     if mode=='revise' and r2:raise Blocked('Editorial validation does not execute R2 research')
+    if mode=='revise' and source_brief:raise Blocked('Editorial validation does not extract a problem brief')
     if not replay:
         source=root.parent/(root.name+'-fixed-inputs');source.mkdir(parents=True,exist_ok=False)
         problem=source/'problem.md';atomic_write(problem,base.PROBLEM)
@@ -75,6 +95,7 @@ def run(root,mode,*,local=False,replay=False,r2=False):
         paper=source/'existing.md';atomic_write(paper,'# 合成编辑样例\n\n本文模型的误差为 0.25，原有结论仍需根据真实证据核验。\n\n这里不对原始实验进行重新验证。\n\n约束为 $x \\ge 0$。')
         cfg={**DEFAULT_CONFIG,'materials_workflow':True,'max_candidates':1,'fe_budget':192,
              'review_backoff_seconds':0,'review_cooldown_seconds':3600,'allow_research_algorithms':True}
+        if source_brief:cfg.update(brief_pipeline='source-ledger-v1',max_model_calls=240)
         policy=None
         if mode!='revise':cfg.update(network_policy='EXA_ABSTRACT_QUERIES',literature_enabled=True,exa_max_requests=80)
         if r2 and mode!='revise':
@@ -86,6 +107,8 @@ def run(root,mode,*,local=False,replay=False,r2=False):
     elif not (root/'entry.json').is_file():raise Blocked('Replay requires a completed frozen validation workspace')
     if load_entry(root)['input_mode']!=mode:raise IntegrityError('Wrong frozen input mode')
     if (root/'exa-policy.json').exists()!=r2:raise IntegrityError('Requested R2 mode differs from the frozen validation workspace')
+    if (read_json(root/'config.json').get('brief_pipeline')=='source-ledger-v1')!=source_brief:
+        raise IntegrityError('Requested source lane differs from the frozen validation workspace')
     before=identity(root) if replay else None
     def never(*a,**k):raise AssertionError('Replay attempted new work')
     def response(role,schema,packet):
@@ -119,6 +142,7 @@ def run(root,mode,*,local=False,replay=False,r2=False):
     result['three_input_validation']={'input_mode':mode,'model_responses':'PREWRITTEN_FIXTURE_NOT_LIVE',
        'retrieval':'NOT_APPLICABLE' if mode=='revise' else 'R2_FIXED_TRANSPORT' if r2 else 'LEGACY_FIXED_TRANSPORT','real_exa_http':'NOT_RUN',
        'numeric_and_tex':'LOCAL_FIXED_COMPONENTS_NOT_PRODUCTION_ISOLATION' if local else 'DOCKER' if mode!='revise' else 'NOT_APPLICABLE',
+       'brief_pipeline':'source-ledger-v1' if source_brief else 'legacy',
        'replay':replay,'replay_unchanged':before==after if replay else None,'identity':after,
        'new_fixture_calls':provider.count,'full_original_research_path':mode!='revise',
        'world_best_or_award_claim':'NOT_ESTABLISHED'}
@@ -129,5 +153,6 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',type=Path,required=True)
     parser.add_argument('--input-mode',choices=['idea','scratch','revise'],required=True)
     parser.add_argument('--r2',action='store_true');parser.add_argument('--local-fixture-components',action='store_true');parser.add_argument('--replay',action='store_true')
-    a=parser.parse_args();r=run(a.out,a.input_mode,local=a.local_fixture_components,replay=a.replay,r2=a.r2)
+    parser.add_argument('--source-brief',action='store_true')
+    a=parser.parse_args();r=run(a.out,a.input_mode,local=a.local_fixture_components,replay=a.replay,r2=a.r2,source_brief=a.source_brief)
     print(json.dumps({'status':r['status'],'validation':r['three_input_validation']},ensure_ascii=False,indent=2))

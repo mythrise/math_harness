@@ -24,3 +24,24 @@ REVIEW_STAGES['idea_alignment'] = {'certifies_execution': False, 'scope': 'Idea 
 REVIEW_STAGES['editorial'] = {'certifies_execution': False, 'scope': 'Meaning-preserving editing of this supplied document.', 'required': 'Check entity, metric, value, unit, direction, negation and causal strength associations, formulas, citations and faithful source preservation. Scientific changes must go to research handoff.', 'boundary': 'Do not require rederiving the entire original research or future experiments. Layout certification requires rendering the actual modified document at a separate gate.'}
 
 REVIEW_STAGES['editorial_layout'] = {'certifies_execution': True, 'scope': 'Rendered original and actual modified document pages only.', 'required': 'Inspect every supplied page pair for clipping, changed formula/citation rendering, misplaced values, broken tables, pagination and unreadable content. Require hash-bound actual rendering receipts.', 'boundary': 'This checks editorial layout and source preservation, not original scientific correctness or citation truth. No future render may be called complete.'}
+
+# Trusted controller scopes: a local packet cannot redefine its own gate through
+# instructions in DATA. Each gate certifies only the evidence actually supplied.
+SOURCE_REVIEW_STAGES = {
+ 'source_page': ('The attached original page and its transcription only.',
+   'Check every visible formula, definition, table field/row/unit, example and diagram/control relation on this page. Missing or unreadable material is blocking.'),
+ 'source_outline': ('The question outline only, against the supplied source units.',
+   'Check the actual question count, goals, inputs, outputs, dependencies and source mapping. A full fact register is assembled and checked in subsequent source batches.'),
+ 'source_facts': ('The owned source_units in this batch only; context_units are read-only supporting evidence.',
+   'Check every substantive assertion in owned units, self-contained equations/definitions, source grounding, question mapping and justified exclusions. Do not require facts owned by other batches.'),
+ 'source_consistency': ('Explicit declarations and ambiguity decisions in the assembled facts only.',
+   'Check accepted definitions and genuine missing information or conflicting source declarations. Do not reopen a supplied convention without contradictory original witnesses.'),
+ 'source_question': ('The single supplied question and its mapped requirements only.',
+   'Check its complete goals, givens, constraints and deliverables against supplied sources and prior local source coverage. Missing material for this question remains blocking.'),
+ 'source_global': ('Cross-question consistency, explicit declarations, completion criteria and exclusions only.',
+   'Check consistency of the supplied registers and justified excluded sources, using completed local source reviews. Do not demand a repeated full fact register in this global packet.'),
+}
+for _name, (_scope, _required) in SOURCE_REVIEW_STAGES.items():
+    REVIEW_STAGES[_name] = {'certifies_execution': False, 'scope': _scope,
+        'required': _required,
+        'boundary': 'Source fidelity only. In-scope omissions and unsupported facts remain blocking. Future modeling derivations, algorithms, experiments and paper artifacts are outside this gate. PASS does not certify later stages.'}

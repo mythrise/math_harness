@@ -65,8 +65,12 @@ class MaterialsWorkflow:
                     'questions[].constraint_ids may reference ONLY requirements whose kind is constraint. '
                     'Keep given facts classified as given and link them via each requirement.question_ids; do not put given IDs into constraint_ids. '
                     'No results have been computed at this stage.'}
-        brief=self._stage('brief','problem_analyst','problem_brief',packet,
-                          lambda v:check_brief(v,c.problem),('math_reviewer',))
+        if c.config.get('brief_pipeline','legacy')=='source-ledger-v1':
+            from .brief_workflow import BriefWorkflow
+            brief=BriefWorkflow(c).run(pi,audit)
+        else:
+            brief=self._stage('brief','problem_analyst','problem_brief',packet,
+                              lambda v:check_brief(v,c.problem),('math_reviewer',))
         data=self._stage('data-plan','data_steward','data_plan',
                         {'brief':brief,'data_audit':audit,'problem':c.problem,
                          'requirements':'Account for each file and observed read limitation. Preserve originals. '

@@ -1,0 +1,20 @@
+{
+  "mode": "practice",
+  "materials_workflow": true,
+  "brief_pipeline": "source-ledger-v1",
+  "network_policy": "EXA_ABSTRACT_QUERIES",
+  "literature_enabled": true,
+  "exa_max_requests": 80,
+  "exa_results_per_query": 6,
+  "exa_timeout": 45,
+  "max_model_calls": 240,
+  "repair_attempts": 2,
+  "model_timeout": 600,
+  "review_timeout": 240,
+  "review_attempts_per_provider": 1,
+  "review_members_per_role": 2,
+  "docker_image": "cumcm-egoharness:0.5.0-rc3",
+  "review_cooldown_seconds": 900,
+  "review_backoff_seconds": 0.5,
+  "claude_timeout": null
+}

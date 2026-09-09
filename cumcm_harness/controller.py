@@ -22,12 +22,12 @@ DEFAULT_CONFIG={
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
  'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_timeout':None,'claude_call_budget_usd':None,
- 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.5.0-rc2',
+ 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.5.0-rc3',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
  'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
  'review_members_per_role':2,'review_attempts_per_provider':2,'review_cooldown_seconds':60,
  'review_backoff_seconds':0.25,'review_timeout':180,
- 'materials_workflow':False,'literature_enabled':False,'exa_timeout':35,'exa_results_per_query':4,'exa_max_requests':32,'exa_approved_queries':[]}
+ 'materials_workflow':False,'brief_pipeline':'legacy','literature_enabled':False,'exa_timeout':35,'exa_results_per_query':4,'exa_max_requests':32,'exa_approved_queries':[]}
 
 IO_CONTRACT={
  'solver_entry':'main.py --input PUBLIC_DATA_DIR --out EMPTY_OUTPUT_DIR --seed INT --budget INT --variant ID',
@@ -47,6 +47,7 @@ from .review_stages import REVIEW_STAGES
 def validate_config(c):
     if set(c)!=set(DEFAULT_CONFIG):raise IntegrityError('Unexpected/missing configuration keys')
     if type(c['materials_workflow']) is not bool:raise IntegrityError('materials_workflow must be Boolean')
+    if c['brief_pipeline'] not in ('legacy','source-ledger-v1') or not isinstance(c['brief_pipeline'],str):raise IntegrityError('Unknown brief_pipeline')
     if c['mode'] not in ('practice','contest'):raise IntegrityError('Invalid mode')
     if c['claude_effort'] not in (None,'low','medium','high','xhigh','max'):raise IntegrityError('Invalid config claude_effort')
     for key in ('workers','cpu_threads','total_cpu_threads','memory_mb','total_memory_mb','fe_budget','max_candidates','repair_attempts','max_model_calls'):
@@ -132,6 +133,9 @@ class Controller:
         if remaining<=0:raise DeadlineReached('Configured deadline has passed; no new live operations')
         if research and remaining<=self.config['paper_reserve_seconds']:raise PaperReserveReached('Paper time reserve reached; freeze research scope')
     def call(self,key,role,schema,packet,*,images=()):
+        if schema in ('hypotheses','hypothesis_audit','hypothesis_audit_r2') and self.base.get('brief_source_contract'):
+            packet={**packet,'original_problem_reading':self.base['problem_source_projection'],
+                    'reading_status':'Checked source projection, not a literature citation or experimental result.'}
         if role in ('writer','abstract_editor') and getattr(self,'ideas',None):self.ideas.require_resolved('paper')
         if role in ('verifier_author','hypothesis_critic','idea_adversary'):
             return self.review_board.invoke(key,role,schema,packet,primary='claude',images=images)
@@ -187,10 +191,17 @@ class Controller:
         return record
     def reviews(self,key,target,*,roles=('math_reviewer','experiment_reviewer'),context=None,images=(),stage='execution'):
         if stage not in REVIEW_STAGES:raise IntegrityError('Unknown review stage')
+        from .review_stages import SOURCE_REVIEW_STAGES
+        if stage!='problem_brief' and stage not in SOURCE_REVIEW_STAGES and self.base.get('brief_source_contract'):
+            context={**(context or {}),'original_problem_reading':self.base['problem_source_projection'],
+                     'reading_status':'Checked source projection; original frozen pages remain authoritative.'}
         packet={'problem':self.problem,'artifact':target,'target_digest':digest(target),
                 'review_stage':stage,'stage_requirements':REVIEW_STAGES[stage],
                 'required_check':'PASS only when all in-scope checks are supported; unresolved P0/P1 or unknown required checks must FAIL/BLOCK.',
                 'context':context or {}}
+        if stage in SOURCE_REVIEW_STAGES:
+            packet.pop('problem')
+            packet['original_problem_digest']=digest(self.problem)
         return self.review_board.review(key,packet,roles,images=images)
     def produce_reviewed(self,key,role,schema,packet,*,extra_review=None,entry=None):
         if getattr(self,'ideas',None):self.ideas.require_resolved('modeling' if role=='modeler' else 'code')
@@ -330,6 +341,17 @@ class Controller:
             # Production generation needs Codex. Optional Claude is checked
             # lazily by the board; it is never a startup single point of failure.
             self.providers['codex'].probe()
+        if self.config.get('brief_pipeline','legacy')=='source-ledger-v1' and self.materials:
+            # Source reading precedes both PI recommendations and paid literature
+            # scouting. Later MaterialsWorkflow reuses the exact cached brief.
+            # No imported idea, held-out reference or external search enters here.
+            self.status('SOURCE_BRIEF')
+            from .brief_workflow import BriefWorkflow
+            from .materials_data import audit_development
+            public=self.root/'inputs/development';manifest=tree_manifest(public)
+            audit=self.store.step('materials:data-audit',{'manifest':manifest},lambda:audit_development(public))
+            if audit['manifest']!=manifest or tree_manifest(public)!=manifest:raise IntegrityError('Source-stage data audit changed')
+            self.base['source_brief']=BriefWorkflow(self).run({},audit)
         self.status('PLANNING')
         pi=self.call('pi-initial','supervisor','supervisor',self.base)['result']
         if self.literature:

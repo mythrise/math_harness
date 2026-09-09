@@ -19,17 +19,17 @@ jobs:
       - run: |
           sudo apt-get update
           sudo apt-get install -y inkscape fonts-noto-cjk
-      - run: python -m pytest -q tests/test_three_inputs_*.py tests/test_v050_remediation.py tests/test_revision_actual_layout.py tests/test_claude_wait_policy.py --junitxml=reports/three-input-tests.xml
+      - run: python -m pytest -q tests/test_three_inputs_*.py tests/test_v050_remediation.py tests/test_revision_actual_layout.py tests/test_claude_wait_policy.py tests/test_brief*.py --junitxml=reports/three-input-tests.xml
       - run: python -m cumcm_harness verify-vendor
-      - run: docker build -t cumcm-egoharness:0.5.0-rc2 .
+      - run: docker build -t cumcm-egoharness:0.5.0-rc3 .
       - run: docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
-      - run: docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc2-test .
-      - run: docker build -f Dockerfile.document-test -t cumcm-egoharness:0.5.0-rc2-documents .
+      - run: docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc3-test .
+      - run: docker build -f Dockerfile.document-test -t cumcm-egoharness:0.5.0-rc3-documents .
       - name: Full fixed-response idea and scratch pipelines with frozen R2
         run: |
           for MODE in idea scratch; do
-            python scripts/validate_three_inputs.py --out workspaces/three-input-$MODE --input-mode "$MODE" --r2
-            python scripts/validate_three_inputs.py --out workspaces/three-input-$MODE --input-mode "$MODE" --r2 --replay
+            python scripts/validate_three_inputs.py --out workspaces/three-input-$MODE --input-mode "$MODE" --r2 --source-brief
+            python scripts/validate_three_inputs.py --out workspaces/three-input-$MODE --input-mode "$MODE" --r2 --source-brief --replay
           done
       - name: Editorial mode and replay
         run: |

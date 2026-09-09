@@ -40,6 +40,6 @@ def r2_responder(role, schema, packet):
 if __name__=='__main__':
     import argparse,json
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('workspace',type=Path)
-    p.add_argument('--image',default='cumcm-egoharness:0.5.0-rc2');a=p.parse_args()
+    p.add_argument('--image',default='cumcm-egoharness:0.5.0-rc3');a=p.parse_args()
     result=run_resilience_demo(a.workspace,r2=True,executor=Executor(image=a.image))
     print(json.dumps(result,ensure_ascii=False,indent=2))

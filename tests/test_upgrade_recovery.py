@@ -23,7 +23,13 @@ def test_new_workspace_runtime_tracks_the_installed_release(tmp_path):
     assert json.loads((workspace/'config.json').read_text())['docker_image']==expected
     assert Executor().image==expected
     for path in (ROOT/'configs').glob('*.json'):
-        assert {**DEFAULT_CONFIG,**json.loads(path.read_text())}['docker_image']==expected,path
+        profile=json.loads(path.read_text())
+        # Explicit older profiles remain pinned; only new/default profiles track
+        # this release. Reading a new release must not migrate frozen workspaces.
+        if profile.get('brief_pipeline')=='source-ledger-v1' or 'docker_image' not in profile:
+            assert {**DEFAULT_CONFIG,**profile}['docker_image']==expected,path
+        else:
+            assert profile['docker_image']=='cumcm-egoharness:0.5.0-rc2',path
     assert Executor(image='custom-harness:frozen').image=='custom-harness:frozen'
 
 

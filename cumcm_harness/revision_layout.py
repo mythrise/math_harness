@@ -6,7 +6,7 @@ from .common import (digest,file_hash,tree_manifest,verify_tree,write_json,read_
 from .entry_documents import apply_edits
 from .sandbox import Executor,Limits
 
-DOCUMENT_IMAGE='cumcm-egoharness:0.5.0-rc2-documents'
+DOCUMENT_IMAGE='cumcm-egoharness:0.5.0-rc3-documents'
 
 
 def render_actual_pair(before,after,folder):

@@ -1,5 +1,5 @@
 # Document regression only; no office parser is added to the solver runtime.
-ARG RUNTIME_IMAGE=cumcm-egoharness:0.5.0-rc2-test
+ARG RUNTIME_IMAGE=cumcm-egoharness:0.5.0-rc3-test
 FROM ${RUNTIME_IMAGE}
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     libreoffice-writer libreoffice-math poppler-utils fonts-dejavu-core fonts-liberation \
