@@ -1,0 +1,262 @@
+{
+  "docx_visual_pixels_identical_to_inspected_b02_pair": true,
+  "human_approval": "NOT_ATTESTED",
+  "image_build_note": "Production built from Dockerfile. Final local test and document images reuse dependency layers and overlay the full current production application without network; all 72 core file hashes match. Canonical test/document Dockerfiles will also be exercised in GitHub CI.",
+  "numerical": {
+    "diagnostics_per_run": 9,
+    "external_candidates_run": 0,
+    "global_promotions": 0,
+    "numerical_runs": 2,
+    "protocol_digest": "bfaa9a02e9629d7a0078c133de5c4cd9c9fa8a4ea336c74244c91722ef68f09f",
+    "receipts": {
+      "lab-1": "9380a432cd47cb4d8ff6f9e7240b0e6a61d8200d65ca6e47ddd81387a7a3edbf",
+      "lab-2": "49c6857fe1d023da635d981ed204285ca10c4bfdc91c448384d277774bd79876",
+      "tests": "985675991e2551647bb8a5d446e93a264de206c6ace151ff244961ec41dd24df"
+    },
+    "reproducibility": {
+      "diagnostics.json": true,
+      "raw_results.json": true
+    },
+    "rows_per_run": 98,
+    "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+    "status": "PASS"
+  },
+  "real_historical_test": {
+    "completed_first_attempt": {
+      "calls": 17,
+      "cause": "Outline foreign source IDs and source-mapping objection",
+      "exa_http": 0,
+      "pages": 4,
+      "scientific_jobs": 0,
+      "source_units": 58,
+      "status": "BLOCKED",
+      "visual_passes": 8
+    },
+    "cumulative_model_cap": 240,
+    "second_attempt_model_cap": 223,
+    "status": "BLOCKED",
+    "completed_second_attempt": {
+      "schema_version": "rc3-live-terminal/1",
+      "recorded_utc": "2026-09-09T19:46:37.274187+00:00",
+      "code_commit": "7324f92",
+      "status": "BLOCKED",
+      "exit_code": 2,
+      "cause": "ScientificRejection: declaration subject literal-source mismatch after bounded repairs in batch 11",
+      "running_steps": 0,
+      "model_calls": 54,
+      "providers": {
+        "codex": 43,
+        "claude": 11
+      },
+      "exa_http": 0,
+      "scientific_jobs": 0,
+      "source_pages": 4,
+      "source_units": 58,
+      "source_ledger_sha256": "be53d838cdc41bcc6c414aea278989c8921177b23ef7b5bea0c498e647d44a3b",
+      "source_batches_initial": 15,
+      "accepted_batches": 10,
+      "accepted_facts": 57,
+      "visual_review_passes": 8,
+      "outline_review_passes": 2,
+      "accepted_brief": false,
+      "remaining_batches_not_run": 4,
+      "original_workspace_modified": false,
+      "human_approval": "NOT_ATTESTED",
+      "claude_all_timeouts_null": true,
+      "all_provider_calls_exited_zero": true,
+      "all_model_reported": [
+        "UNREPORTED"
+      ],
+      "review_verdicts": {
+        "PASS": 30
+      },
+      "review_findings_by_severity": {
+        "P2": 18
+      },
+      "claude_seconds": {
+        "min": 141.19026758300606,
+        "max": 284.87860154199734,
+        "sum": 2199.587044084001
+      },
+      "codex_seconds": {
+        "min": 17.904461165999237,
+        "max": 67.01175312499981,
+        "sum": 1277.5233330819974
+      },
+      "diagnostic_counts": {
+        "subject_not_literal": 2,
+        "quote_failures_in_final_artifact": 0
+      },
+      "private_terminal_report_sha256": "2a7417fea1ad039b748cb549598e92d4dfdd4632f2512bafa2b3821918e01728"
+    },
+    "cumulative_actual_model_calls": 71,
+    "real_exa": "NOT_RUN",
+    "real_solver": "NOT_RUN",
+    "full_real_paper": "NOT_RUN"
+  },
+  "retained_component_checks_from_b02b8a7": {
+    "isolation": {
+      "status": "PASS",
+      "summary_sha256": "845db8b937d1eb70c97cb3849d78bdcfcc8f3cb142d5eca89c899e98cde5589c"
+    },
+    "legacy_r2_pipeline": {
+      "replay_unchanged": true,
+      "report_sha256": "edf1817ca0b4ab86b2a043a48174c40e256cd5932e56ca86cb459fcf5919fb01",
+      "status": "PASS"
+    },
+    "paper_repair": {
+      "report_sha256": "65287ea4f593874ca72c5059bec9430e76b4c5e5ecc7dd3e78f19a8a837bb531",
+      "status": "PASS"
+    },
+    "paperkit": {
+      "reference_tests": 86,
+      "status": "PASS",
+      "summary_sha256": "a7be227995892d36dfe345612c7c48b7a21015331eba8d680c94c125e738b1e1"
+    },
+    "tex-revision": {
+      "status": "PASS",
+      "summary_sha256": "e3b9a7cf1bc723ba7d89aadf965d79a44866b0d64994574b328aeaf93b8b80e8"
+    },
+    "visual_inspection": {
+      "docx_pair": {
+        "after": "c6c48b5cbdd9b9d4fc59649c5f1211fc212cd1ee52bffc006a2194bc5ea7889f",
+        "before": "05f920f4b00c304576a42bf046b6c9408847c9a3c8a7be4dcee0faf8e71d21b3"
+      },
+      "human_approval": "NOT_ATTESTED",
+      "idea_observation": "Title, abstract, keywords and explicit fixture statement visible; this spot-check is not full-page human approval",
+      "idea_title_page": "104390497d738dd8a89a9e3c0d89acbd4cd39288619a1a6d61d85c3d98efbae8",
+      "observations": [
+        "Sentence changed from 本文模型 to 本文所用模型; 0.25 preserved",
+        "Formula x=1, table, image, numbering, citation and footnote remain visible with unchanged placement",
+        "No clipping or overlaps observed on the one-page pair"
+      ],
+      "reviewer": "Codex current-session visual inspection, not operator attestation",
+      "status": "PASS_WITHIN_INSPECTED_PAGES",
+      "tex_after": "94e5f08beff4f00b4de1bbce89095312d9581736839a6650e4d807a76363ac59",
+      "tex_observation": "Equation, table, citation and footnote visible without clipping; semantic tests and actual Docker compilation are separately recorded"
+    }
+  },
+  "runtime_images": {
+    "cumcm-egoharness:0.5.0-rc3": {
+      "all_core_hashes_match_host": true,
+      "code_commit": "7324f92",
+      "core_files": 72,
+      "id": "sha256:cd700d24c95e436351b8e87b7cfd39559e4d43ae74af457e10ff3cce3f0b73b2"
+    },
+    "cumcm-egoharness:0.5.0-rc3-documents": {
+      "all_core_hashes_match_host": true,
+      "code_commit": "7324f92",
+      "core_files": 72,
+      "id": "sha256:af7ba140931b7492be03341a4a4b521f0ce7520d275d1648ce713474cbc891b6"
+    },
+    "cumcm-egoharness:0.5.0-rc3-test": {
+      "all_core_hashes_match_host": true,
+      "code_commit": "7324f92",
+      "core_files": 72,
+      "id": "sha256:836828a5c0a01b4c41448a0fdea1392076cd4a802a4a8f9d297f003dc760de75"
+    }
+  },
+  "schema_version": "rc3-local-engineering/1",
+  "source_fixtures": {
+    "idea": {
+      "brief_pipeline": "source-ledger-v1",
+      "deliverables": {
+        "paper.pdf": "2792912560b25eb4501f7bf3684e57c7fe0709cdafc689b24665f498e678a99b",
+        "submission-manifest.json": "828ac2fc2843c2c3bacb3a990d241e113c91f4d50007d5725c072e4ee4525b97",
+        "support.zip": "b770ff49cecfdf10b38f013ff333153c1cf5186c6fad4d13b7a4a49b78a3ccaf"
+      },
+      "docker_jobs": 22,
+      "fixture_calls": 83,
+      "real_exa_http": "NOT_RUN",
+      "replay_calls": 0,
+      "replay_unchanged": true,
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED"
+    },
+    "revise": {
+      "brief_pipeline": "legacy",
+      "deliverables": {
+        "AI工具使用详情.md": "929b0fa34150bb58ce859e36b7eb93a11d842707a83025e9317e697eb3c8de23",
+        "ai_usage.json": "b5ed677d4f54f4613ea7cb16fc2143a8130bf8887eb898a953aecc85c2881593",
+        "layout-report.json": "57c17bee4aa2edfc515c7884d2470aeaac17e06d9792b1ab3b87e1135a277000",
+        "research_handoff.md": "258802dd8fe7a3a704402187f7e926fcb5ff187d130e853a01e4b883c4b80f61",
+        "revised.md": "97392855713558387be689934696e419bccdb9d8177f9f5a6f8a0796bab730f8",
+        "revision-report.json": "5b37e5392d96097336bd8599e7097d4c7ed0a7ee94b8397e4eeddb226a6953b0"
+      },
+      "docker_jobs": 0,
+      "fixture_calls": 5,
+      "real_exa_http": "NOT_RUN",
+      "replay_calls": 0,
+      "replay_unchanged": true,
+      "status": "REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED"
+    },
+    "scratch": {
+      "brief_pipeline": "source-ledger-v1",
+      "deliverables": {
+        "paper.pdf": "1d8e1650671399934f76cbd6ce8455af8d4dd886b8fffca30926286ba2b9f287",
+        "submission-manifest.json": "85e84e926d6a68cb8ef332888b1f300c10a2ba3bdebc821ad679c9b1326da39a",
+        "support.zip": "b97003236323f50f33288d5f394b516a8d76fe2e4407987e6ba194d7095d422e"
+      },
+      "docker_jobs": 22,
+      "fixture_calls": 70,
+      "real_exa_http": "NOT_RUN",
+      "replay_calls": 0,
+      "replay_unchanged": true,
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED"
+    }
+  },
+  "source_packet_measurement": {
+    "all_text_preserved": true,
+    "compact_complete_unit_json_bytes": 21088,
+    "original_full_unit_json_bytes": 169435,
+    "original_workspace_modified": false,
+    "reduction_percent": 87.6,
+    "source_units": 58,
+    "status": "MEASURED_PROJECTION_ONLY_NOT_A_NEW_MODEL_RESPONSE"
+  },
+  "status": "ENGINEERING_PASS_REAL_SOURCE_GATE_BLOCKED",
+  "support": {
+    "document-revision": {
+      "status": "PASS",
+      "summary_sha256": "a07b5d9602d0f2a9a7791a3f6f63130a98f6e1e41f9b328efb7abe8131ba9fe3"
+    },
+    "support-reproduction": {
+      "status": "PASS",
+      "summary_sha256": "c78117b843fb559027cc3259a472caaf49e640d4bba88cdae6d53fcd344fa1d4"
+    }
+  },
+  "tested_code_commit": "7324f92",
+  "tests": {
+    "counts_are_overlapping_not_additive": true,
+    "docker_full_repository": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1024,
+      "xml_sha256": "02b784484f4162180232ec0e6e31f252a06cb2552d5ae5877722bbda1cde329b"
+    },
+    "host_infrastructure": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 933,
+      "xml_sha256": "4e71589bc5fbcafde3a3a775b13a855dcbc7e84d995db3d1e6ebcc5c7f505a59"
+    },
+    "upstream_tool_suite": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 27,
+      "xml_sha256": "1df515fa1348b6a21906362a0c470a42571175421de630e7311031fcccca0546"
+    }
+  },
+  "upstream_checksums": {
+    "passed": 56,
+    "total": 56
+  },
+  "upstream_package_sha256": "7fb2365fd623990d98fa64da5ded4e8c17e552c3070d7246f35a95df0fbcbf5f",
+  "vendor": {
+    "files": 408,
+    "manifest_sha256": "4d5d665f6511cc5c345c936194512a43a3e821d50afb14b634e9c9438c059034",
+    "status": "PASS"
+  }
+}

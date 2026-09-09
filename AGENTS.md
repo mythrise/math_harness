@@ -52,6 +52,18 @@ Use exa-status to inspect all attempts before recover-exa; unknown inflight work
 must be reconciled, not automatically repeated. Dynamic/deep remain opt-in.
 R2 citations require source snapshot and original-text offsets plus semantic review.
 
+## 0.5 rc3 source briefs
+
+Read `docs/BRIEF_RC3_CN.md` and `reports/BRIEF_RC3_LOCAL_CN.md` before new source-ledger work.
+Use the new `configs/input-idea-brief-rc3.json` or `configs/input-scratch-brief-rc3.json`
+with the explicit R2 policy and a new workspace. Preserve original pages, reviewed
+source units, batch objections and bounded repair outcomes. Stage scopes come from
+the controller; complete fact coverage remains mandatory at batch and final gates.
+Declarations require literal source subjects and quotes; inspect the failed fields
+before diagnosing a generic declaration error. Do not rewrite frozen output to pass.
+Claude retains no local deadline. The current real historical run stopped at batch
+11; engineering fixture completion is not a successful real problem solution.
+
 
 ## 0.4 materials contracts
 

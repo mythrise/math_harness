@@ -1,0 +1,96 @@
+{
+  "release": "0.5.0-rc3-source-ledger",
+  "base_commit": "2fa229f5e7cee48af3914703567f6e4f7ee1eff3",
+  "files": [
+    {
+      "path": ".agents/skills/problem-intake/SKILL.md",
+      "old_blob": "d88a5ff0fef000f5f0e2599295b56afb3881aead",
+      "new_sha256": "fa8374109017b9b654932bb511d95c5e87c58d3e899c69110305d67428653f84"
+    },
+    {
+      "path": "configs/input-idea-brief-rc3.json",
+      "old_blob": null,
+      "new_sha256": "a5f22230a3afbb8a5adc6c15dd489553fa58451d5a6ade09312ce5cabbb60b10"
+    },
+    {
+      "path": "configs/input-scratch-brief-rc3.json",
+      "old_blob": null,
+      "new_sha256": "a5f22230a3afbb8a5adc6c15dd489553fa58451d5a6ade09312ce5cabbb60b10"
+    },
+    {
+      "path": "cumcm_harness/brief_contracts.py",
+      "old_blob": null,
+      "new_sha256": "adcfc26f65f0df5cda02ccc387c2e437d52588a655385a54b96c4dffc6ed6dd1"
+    },
+    {
+      "path": "cumcm_harness/brief_sources.py",
+      "old_blob": null,
+      "new_sha256": "819af9e80edc4f35248f7f65b79e552741448e9700c5a845b01077a06d5219c0"
+    },
+    {
+      "path": "cumcm_harness/brief_tools.py",
+      "old_blob": null,
+      "new_sha256": "e3f88de1bde58f0072f7356e618db64c8de141b8b4eb0c8339f19fbe7337bd41"
+    },
+    {
+      "path": "cumcm_harness/brief_validation.py",
+      "old_blob": null,
+      "new_sha256": "9fdbe15163e0127baef7d2844e85b18a83779e6e2da0ecf41ab3900e915a87b3"
+    },
+    {
+      "path": "cumcm_harness/brief_workflow.py",
+      "old_blob": null,
+      "new_sha256": "5daeb8d497bc12fceeb49b37d804ac68491ca69bb14f1946f6c4b5dd867c316d"
+    },
+    {
+      "path": "cumcm_harness/intake.py",
+      "old_blob": "395fc4750378f4da88900822e087206d54055ad1",
+      "new_sha256": "3fc41687077b1a36a0241ff92930bca52f5c4f405955a87ff60b415ed5d7e8c2"
+    },
+    {
+      "path": "cumcm_harness/materials_contracts.py",
+      "old_blob": "2284c9e5936a7d17393f70e2ecc0068fbf79c947",
+      "new_sha256": "6b56cf072a3d3b262f64a3024b1b5c4f3c1375dedc47d93c4cdbd451a8537072"
+    },
+    {
+      "path": "cumcm_harness/materials_workflow.py",
+      "old_blob": "ef50dc72c24719d52a6a459eccf1a3e5d1a995e2",
+      "new_sha256": "6304773efbdb2bfad99776cac66801f4f8644c0c88e96f278639cb1f2c083e14"
+    },
+    {
+      "path": "tests/test_brief_rc3.py",
+      "old_blob": null,
+      "new_sha256": "a40df090f662273c962b6e8b819d96832374585167e67488b81840b32fef9375"
+    },
+    {
+      "path": "tests/test_brief_rc3_integration.py",
+      "old_blob": null,
+      "new_sha256": "a78eaffbac0fa5653aca5f673fb5fd0d1926866d656a36dcd937816858a9a7ae"
+    }
+  ],
+  "transforms": [
+    {
+      "path": "cumcm_harness/controller.py",
+      "old_blob": "666400abf78deb19307cfd59dae2575029b98604",
+      "kind": "controller"
+    },
+    {
+      "path": "cumcm_harness/__init__.py",
+      "old_blob": "aa55756ec193bc8610227ea30b3214acbab9b789",
+      "kind": "version"
+    },
+    {
+      "path": "pyproject.toml",
+      "old_blob": "f00fca036eb840e372cc975f0923ab57b69265b9",
+      "kind": "version"
+    },
+    {
+      "path": "cumcm_harness/entry_cli.py",
+      "old_blob": "e8c13391e1bcade49000608e3b79da222fbe5b21",
+      "kind": "schema_cli"
+    }
+  ],
+  "scope": "SOURCE_LEDGER_UPGRADE_NOT_COMPLETE_GITHUB_CHECKOUT",
+  "remote_writes": false,
+  "initial_inspected_commit": "526ecc1760baa1923b27e4a2ccffef58b1011502"
+}

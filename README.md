@@ -1,21 +1,23 @@
-# CUMCM-EgoHarness 0.5.0-rc2
+# CUMCM-EgoHarness 0.5.0-rc3
 
 三个输入模式已接入原确定性内核。`idea` 分开冻结原题、官方数据和外部初版，先独立理解题意与基准，再逐条审查和映射建议，继续完整研究链；`scratch` 不要求初版；`revise` 诊断并修订已有论文的安全正文，科学修改转交新的研究工作区。
 
-17 个角色绑定 17 份项目技能。Python 分发版本为 `0.5.0rc2`，运行镜像为 `cumcm-egoharness:0.5.0-rc2`，TeX 继续使用 `cumcm-egoharness-tex:0.3.1`。新 `init` 入口默认启用资料合同层；旧冻结工作区保持原配置。保留 RC 状态，完整工程测试不能替代真实历史题解答与人工审查。
+17 个角色绑定 17 份项目技能。Python 分发版本为 `0.5.0rc3`，运行镜像为 `cumcm-egoharness:0.5.0-rc3`，TeX 继续使用 `cumcm-egoharness-tex:0.3.1`。新 `init` 入口默认启用资料合同层；旧冻结工作区保持原配置。保留 RC 状态，完整工程测试不能替代真实历史题解答与人工审查。
 
-此次整改增加阶段审查范围、逐句初稿覆盖账本、独立基线到实验的摘要绑定、实体与数值关联保护，以及实际修改稿的隔离渲染。缺版式证据只输出待核验编辑副本。细节见 [rc2 整改说明](docs/V050RC2_REMEDIATION_CN.md)。
+本次 rc3 增加原页保留与视觉转录、来源分批、类型化引用和局部补丁，审查分别限定为原页、概览、事实批次、定义一致性、单问与全局核对。见 [rc3 来源通道](docs/BRIEF_RC3_CN.md)和[本机验收](reports/BRIEF_RC3_LOCAL_CN.md)。
 
-先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[本轮测试报告](reports/V050RC2_REMEDIATION_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/v050-remediation-worktree`，进入该目录再运行下列命令。
+此前 rc2 整改增加阶段审查范围、逐句初稿覆盖账本、独立基线到实验的摘要绑定、实体与数值关联保护，以及实际修改稿的隔离渲染。缺版式证据只输出待核验编辑副本。细节见 [rc2 整改说明](docs/V050RC2_REMEDIATION_CN.md)。
+
+先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[历史 rc2 测试报告](reports/V050RC2_REMEDIATION_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/source-brief-rc3-worktree`，进入该目录再运行下列命令。
 
 ```bash
-./scripts/cumcm doctor --live --config configs/input-idea.json --exa-policy configs/exa-policy-r2.json
+./scripts/cumcm doctor --live --config configs/input-idea-brief-rc3.json --exa-policy configs/exa-policy-r2.json
 ./scripts/cumcm init workspaces/idea-NEW --input-mode idea \
   --problem /absolute/problem.pdf --data /absolute/official-data \
-  --prior-idea /absolute/prior.md --config configs/input-idea.json \
+  --prior-idea /absolute/prior.md --config configs/input-idea-brief-rc3.json \
   --exa-policy configs/exa-policy-r2.json
 ./scripts/cumcm init workspaces/scratch-NEW --input-mode scratch \
-  --problem /absolute/problem.md --config configs/input-scratch.json \
+  --problem /absolute/problem.md --config configs/input-scratch-brief-rc3.json \
   --exa-policy configs/exa-policy-r2.json
 ./scripts/cumcm init workspaces/revise-NEW --input-mode revise \
   --paper /absolute/paper.docx --config configs/input-revise.json
@@ -35,14 +37,14 @@ DOCX 中数学、图表和其他 ZIP 成员保留原字节；批注或修订跟�
 ### Docker 验证
 
 ```bash
-docker build -t cumcm-egoharness:0.5.0-rc2 .
+docker build -t cumcm-egoharness:0.5.0-rc3 .
 docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
-docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc2-test .
+docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc3-test .
 ./.venv/bin/python scripts/validate_algorithm_upgrade.py \
   --out workspaces/algorithm-validation-01 --seeds 12 --seed-start 201
 ```
 
-验证器在无网络、只读源码、单 CPU 和 2 GB 内存的 Docker 中运行全套测试与两次数值诊断，保留协议、输出和进程回执。使用新的空目录；结果是工程与算法诊断，不是实际赛题、真实 LLM 整题论文联跑或外部模型成绩。升级改变代码指纹，旧赛题工作区保留，新任务须重新 `init`。新工作区、示例配置与 Executor 默认使用 `cumcm-egoharness:0.5.0-rc2`；已冻结工作区的显式镜像配置不改。
+验证器在无网络、只读源码、单 CPU 和 2 GB 内存的 Docker 中运行全套测试与两次数值诊断，保留协议、输出和进程回执。使用新的空目录；结果是工程与算法诊断，不是实际赛题、真实 LLM 整题论文联跑或外部模型成绩。升级改变代码指纹，旧赛题工作区保留，新任务须重新 `init`。未显式指定镜像的新工作区、rc3 source profile 与 Executor 默认使用 `cumcm-egoharness:0.5.0-rc3`；已有 profile 的 rc2 显式镜像及已冻结工作区不改。
 
 以下保留 0.2 的文献与审查使用说明。
 
@@ -78,7 +80,7 @@ Codex CLI 需要有效认证。Claude CLI 使用既有用户认证／服务地�
 ```bash
 ./scripts/cumcm set-exa-key
 
-docker build -t cumcm-egoharness:0.5.0-rc2 .
+docker build -t cumcm-egoharness:0.5.0-rc3 .
 python -m cumcm_harness doctor --live --config configs/exa-resilient.json
 python -m cumcm_harness init workspaces/exa-new \
   --problem /absolute/path/problem.md \
