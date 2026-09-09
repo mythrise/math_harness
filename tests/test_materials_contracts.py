@@ -10,7 +10,7 @@ def test_all_sample_contracts():
     assert check_brief(b,PROBLEM)==b
     assert check_data_plan(d,a)==d
     assert check_portfolio(p,b,m)==p
-    assert check_plan_alignment(plan,{'brief':b})
+    assert check_plan_alignment(plan,{'brief':b,'portfolio':p})
     assert check_paper_map(pm,draft,plan,claims,e)['status']=='STRUCTURAL_PASS_SEMANTIC_REVIEW_REQUIRED'
     validate('plan',plan);validate('paper',draft)
 
@@ -64,8 +64,8 @@ def test_portfolio_rejects_unverified_executability(mutation):
     lambda p:p['variables'][0].update(unit='待补充'),
 ])
 def test_plan_handoff_integrity(mutation):
-    b,_,_,_,_,p,*_=samples();mutation(p)
-    with pytest.raises(IntegrityError):check_plan_alignment(p,{'brief':b})
+    b,_,_,portfolio,_,p,*_=samples();mutation(p)
+    with pytest.raises(IntegrityError):check_plan_alignment(p,{'brief':b,'portfolio':portfolio})
 
 @pytest.mark.parametrize('mutation',[
     lambda m:m.update(draft_digest='0'*64),

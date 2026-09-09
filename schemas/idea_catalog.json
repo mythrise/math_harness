@@ -58,6 +58,46 @@
       "minItems": 0,
       "maxItems": 96
     },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "unit_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "disposition": {
+            "enum": [
+              "EXTRACTED",
+              "MERGED",
+              "EXCLUDED",
+              "NEEDS_READING"
+            ]
+          },
+          "item_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 12
+          }
+        },
+        "required": [
+          "unit_id",
+          "disposition",
+          "item_ids",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
     "excluded_blocks": {
       "type": "array",
       "items": {
@@ -84,6 +124,7 @@
   },
   "required": [
     "items",
+    "coverage",
     "excluded_blocks"
   ],
   "additionalProperties": false

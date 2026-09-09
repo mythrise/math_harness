@@ -28,6 +28,37 @@
       "minItems": 0,
       "type": "array"
     },
+    "baseline_implementation": {
+      "additionalProperties": false,
+      "properties": {
+        "binding_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "implementation_summary": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "source_paths": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "variant": {
+          "const": "baseline"
+        }
+      },
+      "required": [
+        "binding_digest",
+        "variant",
+        "source_paths",
+        "implementation_summary"
+      ],
+      "type": "object"
+    },
     "files": {
       "items": {
         "additionalProperties": false,

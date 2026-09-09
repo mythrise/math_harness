@@ -197,6 +197,8 @@ def protected_tokens(text):
 def validate_edit(before,after):
     if not isinstance(after,str) or not after.strip() or len(after)>max(3000,len(before)*2):raise IntegrityError('Invalid editorial replacement')
     if SECRET.search(after) or '\x00' in after or '^^' in after:raise IntegrityError('Unsafe editorial replacement')
+    from .editorial_associations import association_records
+    if association_records(before)!=association_records(after):raise IntegrityError('Editorial entity/metric/value/unit/direction associations changed')
     if protected_tokens(before)!=protected_tokens(after):raise IntegrityError('Editorial changes may not alter numbers, formulas, citations, code or technical tokens')
     if any(x in after for x in ('<script','javascript:','\\write','\\input','\\include')) and after!=before:raise IntegrityError('Editorial output contains executable markup')
     return after

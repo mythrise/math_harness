@@ -51,10 +51,20 @@ ROLE_PURPOSES.update({'idea_curator':'网页与人工初版思路的逐项映射
 ROLE_STAGE.update({'idea_curator':'外部思路整理','idea_adversary':'外部思路审查','paper_editor':'已有论文修订'})
 
 
-def load_skills(role,root=None):
+STAGE_SKILLS={
+ 'problem_brief':['independent-review-board','problem-intake'],
+ 'data_policy':['independent-review-board','data-provenance'],
+ 'model_portfolio':['independent-review-board','algorithm-library-upgrade','mosaic-multiobjective'],
+ 'idea_fidelity':['independent-review-board','external-idea-intake'],
+ 'idea_alignment':['independent-review-board','external-idea-intake'],
+ 'editorial':['independent-review-board','existing-paper-revision'],
+ 'editorial_layout':['independent-review-board','existing-paper-revision'],
+}
+
+def load_skills(role,root=None,*,stage=None):
     if role not in ROLE_SKILLS:raise IntegrityError('Unknown skill-bound role')
     root=Path(root or ROOT);base=root/'.agents/skills';manifest={};texts=[]
-    for name in ['materials-principles',*ROLE_SKILLS[role]]:
+    for name in ['materials-principles',*STAGE_SKILLS.get(stage,ROLE_SKILLS[role])]:
         path=base/name/'SKILL.md'
         if path.is_symlink() or any(p.is_symlink() for p in (path.parent,base)):
             raise IntegrityError('Skill symlink is not a trusted instruction')
@@ -67,17 +77,24 @@ def load_skills(role,root=None):
         manifest[name]=file_hash(path);texts.append('## TRUSTED SKILL '+name+'\n'+text)
     joined='\n\n'.join(texts)
     if len(joined)>20000:raise IntegrityError('Role skill packet exceeds explicit budget')
-    return {'text':joined,'files':manifest,'digest':digest({'role':role,'files':manifest})}
+    return {'text':joined,'files':manifest,'digest':digest({'role':role,'stage':stage,'files':manifest})}
 
 
 def skill_fingerprint(root=None):
     result={}
     for role in sorted(ROLE_SKILLS):result[role]=load_skills(role,root)['files']
-    return {'registry_digest':digest(ROLE_SKILLS),'roles':result,'digest':digest(result)}
+    from .review_stages import REVIEW_STAGES
+    stages={stage:load_skills('math_reviewer',root,stage=stage)['files'] for stage in STAGE_SKILLS}
+    return {'registry_digest':digest([ROLE_SKILLS,STAGE_SKILLS,REVIEW_STAGES]),'roles':result,'stages':stages,'digest':digest([result,stages,REVIEW_STAGES])}
 
 
 def build_prompt(role,schema,packet,role_text,review_scope='',root=None):
-    skills=load_skills(role,root)
+    from .review_stages import REVIEW_STAGES
+    stage=packet.get('review_stage') if schema=='review' else None
+    if stage is not None and stage not in REVIEW_STAGES:raise IntegrityError('Unknown review stage')
+    skills=load_skills(role,root,stage=stage)
+    if stage:
+        review_scope+=' CONTROLLER GATE (takes precedence over generic role skill requirements): '+json.dumps(REVIEW_STAGES[stage],ensure_ascii=False)+'\n'
     # JSON encodes angle brackets so source strings cannot close the visible DATA delimiter.
     encoded=canonical(packet).decode().replace('<','\\u003c').replace('>','\\u003e')
     prompt=('TASK: '+role_text+review_scope+'\n'+skills['text']+
@@ -92,7 +109,7 @@ def build_prompt(role,schema,packet,role_text,review_scope='',root=None):
     return prompt,skills,disclosure
 
 
-def freeze_role_skills(store,role):
+def freeze_role_skills(store,role,*,stage=None):
     current=skill_fingerprint()
     store.step('freeze-role-skills',current,lambda:current)
-    return load_skills(role)['digest']
+    return load_skills(role,stage=stage)['digest']

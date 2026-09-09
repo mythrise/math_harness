@@ -47,8 +47,8 @@ def numeric_content(value):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--out',type=Path,required=True)
-    p.add_argument('--image',default='cumcm-egoharness:0.5.0-rc1')
-    p.add_argument('--test-image',default='cumcm-egoharness:0.5.0-rc1-test')
+    p.add_argument('--image',default='cumcm-egoharness:0.5.0-rc2')
+    p.add_argument('--test-image',default='cumcm-egoharness:0.5.0-rc2-test')
     p.add_argument('--seeds',type=int,default=12)
     p.add_argument('--seed-start',type=int,default=201)
     p.add_argument('--seconds',type=int,default=900)

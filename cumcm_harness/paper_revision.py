@@ -9,6 +9,7 @@ from pathlib import Path
 import copy
 import difflib
 import json
+import shutil
 from .common import (Blocked,IntegrityError,ScientificRejection,digest,file_hash,read_json,write_json,
     atomic_write,tree_manifest,verify_tree,UnknownExternalState)
 from .contracts import SCHEMAS,obj,arr,S,ID,validate
@@ -106,7 +107,7 @@ class RevisionController(Controller):
                     record=self.review_board.invoke(key,'paper_editor','revision_patch',
                         {**packet,'repair_feedback':copy.deepcopy(feedback)},primary='codex')
                     patch=check_patch(record['result'],document,[b['id'] for b in batch])
-                    rs=self.reviews(key+':review',patch,roles=('math_reviewer','paper_reviewer'),stage='plan_design',context={
+                    rs=self.reviews(key+':review',patch,roles=('math_reviewer','paper_reviewer'),stage='editorial',context={
                         'source_window':batch,'required':'Check faithful editing and semantic equivalence against this source window. '
                         'This gate certifies only proposed editorial changes, NOT original numeric results, citations or full paper correctness. '
                         'Preserve negation, inequalities, causal strength and uncertainty. Reject unsupported strengthening. '
@@ -121,11 +122,28 @@ class RevisionController(Controller):
         edits=[e for p in patches for e in p['edits']];check_edits(document,edits)
         requests=[r for p in patches for r in p['research_requests']]
         diagnosis=[d for p in patches for d in p['diagnosis']]
+        from .revision_layout import prepare_revision
+        prepared=prepare_revision(self.store,self.root/row['path'],document,edits,fixture=self.demo)
+        layout=copy.deepcopy(prepared['layout']);prepared_dir=self.root/prepared['directory']
+        if layout['status']=='RENDERED_PENDING_VISUAL_REVIEW':
+            page_root=prepared_dir/'render/output'
+            from itertools import zip_longest
+            before_pages=sorted((page_root/'before/pages').glob('page-*.png'));after_pages=sorted((page_root/'after/pages').glob('page-*.png'))
+            images=[p for pair in zip_longest(before_pages,after_pages) for p in pair if p is not None]
+            if not images:raise IntegrityError('Actual document render is missing page images')
+            layout_reviews=[]
+            for offset in range(0,len(images),6):
+                pages=images[offset:offset+6]
+                target_pages={'layout':layout,'page_images':[{'path':str(p.relative_to(prepared_dir)),'sha256':file_hash(p)} for p in pages]}
+                rs=self.reviews('revision:layout:'+digest(target_pages),target_pages,roles=('paper_reviewer',),stage='editorial_layout',images=pages,context={'source_reading_limits':document['warnings'],'required':'These are actual original/edited pages. Inspect layout and meaning associations, including math, citations, tables and values; technical token equality alone is insufficient.'})
+                layout_reviews.extend(rs)
+            layout['status']='LAYOUT_REVIEW_COMPLETE_NOT_SCIENTIFIC_REVALIDATION'
+            layout['review_receipt_digests']=[digest(r) for r in layout_reviews];reviews.extend(layout_reviews)
         all_records=self.all_ai_records()
-        target=digest({'entry':self.entry,'patches':patches,'reviews':[digest(r) for r in reviews],
+        target=digest({'entry':self.entry,'prepared_manifest':prepared['manifest'],'actual_layout':layout,'patches':patches,'reviews':[digest(r) for r in reviews],
             'record_digests':[r['response_digest'] for r in all_records]})
         human=None
-        if self.config['mode']=='contest':
+        if self.config['mode']=='contest' and layout['status']=='LAYOUT_REVIEW_COMPLETE_NOT_SCIENTIFIC_REVALIDATION':
             from . import approval
             import os
             pending=approval.request(self.root,'release',target,[r['response_digest'] for r in all_records],
@@ -135,17 +153,23 @@ class RevisionController(Controller):
         suffix='.md' if document['format']=='pdf' else '.'+document['format']
         dest=self.root/'deliverables'/('revised'+suffix)
         def publish():
-            result=apply_edits(self.root/row['path'],document,edits,dest)
+            dest.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(prepared_dir/prepared['revised_name'],dest)
+            result=copy.deepcopy(prepared['edited'])
+            result['path']=dest.name
+            if (prepared_dir/'render/output/after/after.pdf').is_file():
+                shutil.copy2(prepared_dir/'render/output/after/after.pdf',self.root/'deliverables/revised.pdf')
+            write_json(self.root/'deliverables/layout-report.json',layout)
             known={b['id']:b for b in document['blocks']}
             changes=[]
             for e in edits:
                 b=known[e['block_id']]
                 changes.append({'block_id':b['id'],'before':b['text'],'after':e['replacement'],'reason':e['reason'],
-                    'technical_tokens_preserved':True,'diff':''.join(difflib.unified_diff(b['text'].splitlines(True),e['replacement'].splitlines(True),fromfile='original',tofile='revised'))})
+                    'technical_tokens_preserved':True,'association_guard':'PASS_CONSERVATIVE_CLAUSE_BINDING_PLUS_INDEPENDENT_REVIEW','diff':''.join(difflib.unified_diff(b['text'].splitlines(True),e['replacement'].splitlines(True),fromfile='original',tofile='revised'))})
             write_json(self.root/'deliverables/revision-report.json',{'source_sha256':document['source_sha256'],
                 'diagnosis':diagnosis,'changes':changes,'research_requests':requests,'source_reading_limits':document['warnings'],
                 'protected_blocks':[b['id'] for b in document['blocks'] if not b['editable']],
-                'scientific_revalidation':'NOT_RUN','original_layout_render_review':'NOT_RUN',
+                'scientific_revalidation':'NOT_RUN','original_layout_render_review':layout['status'],'actual_modified_document_sha256':file_hash(dest),'document_status':'EDITED_COPY_PENDING_ORIGINAL_SCIENCE_AND_HUMAN_REVIEW',
                 'original_ai_history':'NOT_IMPORTED; preserve and reconcile the original truthful AI disclosure before contest submission',
                 'original_citations':'PRESERVED_NOT_REVERIFIED','original_source_unchanged':True,'contest_ready':False})
             handoff=['# 需要重新进入完整建模流程的事项','',
@@ -162,7 +186,7 @@ class RevisionController(Controller):
                     '用途：论文文字与技术含义保持检查。','响应摘要：'+r['response_digest'],
                     '人工采纳、修改与核验：'+('见真实签核记录' if human else 'NOT_ATTESTED'),'']
             atomic_write(self.root/'deliverables/AI工具使用详情.md','\n'.join(usage))
-            if self.config['mode']=='contest':
+            if self.config['mode']=='contest' and human:
                 from .paper import build_ai_details
                 ai=build_ai_details(self.root/'deliverables',all_records,human,demo=False)
                 result['ai_details']=ai
@@ -170,10 +194,10 @@ class RevisionController(Controller):
             return {'edited':result,'output_manifest':tree_manifest(self.root/'deliverables')}
         result=self.store.step('revision:publish:'+target,{'target':target,'source':document['source_sha256']},publish)
         verify_tree(self.root/'deliverables',result['output_manifest']);load_entry(self.root,required=True)
-        status='REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED' if self.demo else 'EDITORIAL_REVIEW_COMPLETE_NOT_SCIENTIFIC_REVALIDATION'
+        status='REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED' if self.demo else ('EDITORIAL_REVIEW_COMPLETE_NOT_SCIENTIFIC_REVALIDATION' if layout['status']=='LAYOUT_REVIEW_COMPLETE_NOT_SCIENTIFIC_REVALIDATION' else 'EDITORIAL_COPY_DRAFT_PENDING_LAYOUT')
         summary={'status':status,'input_mode':'revise','patches':len(edits),'research_requests':len(requests),
             'result':result,'source_sha256':document['source_sha256'],'live_llm_calls':not self.demo,
-            'full_research_run':False,'contest_ready':False,'pdf_only_reflow':document['format']=='pdf',
+            'full_research_run':False,'contest_ready':False,'layout_status':layout['status'],'pdf_only_reflow':document['format']=='pdf',
             'remaining_gate':'Review original science, original layout and local rules; follow research_handoff.md for substantive issues.'}
         write_json(self.root/'revision_summary.json',summary);self.status(status);self.store.audit();return summary
 

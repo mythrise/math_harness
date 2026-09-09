@@ -1,5 +1,5 @@
 # Validation tools only. Production trial images remain free of test dependencies.
-ARG RUNTIME_IMAGE=cumcm-egoharness:0.5.0-rc1
+ARG RUNTIME_IMAGE=cumcm-egoharness:0.5.0-rc2
 FROM ${RUNTIME_IMAGE}
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     inkscape fonts-noto-cjk && rm -rf /var/lib/apt/lists/*

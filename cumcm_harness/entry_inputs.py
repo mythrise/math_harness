@@ -144,8 +144,8 @@ def initialize(root,*,input_mode,problem=None,data=None,config,ideas=(),paper=No
     """Validate all documents first; atomically publish a fresh workspace."""
     from .intake import create_workspace,read_problem
     from .store import Store
-    from .controller import validate_config
-    root=Path(root).expanduser().resolve();config=validate_config(copy.deepcopy(config))
+    from .controller import DEFAULT_CONFIG,validate_config
+    root=Path(root).expanduser().resolve();config=validate_config({**DEFAULT_CONFIG,**copy.deepcopy(config)})
     if root.exists():raise Blocked('Use a new absent workspace path; initialized runs are immutable')
     if data is not None:
         data_root=Path(data).resolve()

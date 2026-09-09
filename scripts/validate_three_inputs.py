@@ -25,7 +25,8 @@ def fixture(role,schema,packet):
     if schema=='idea_catalog':
         return {'items':[{'id':f'a{i}','block_id':b['id'],'start':0,'end':len(b['text']),'quote':b['text'],
            'kind':'assumption' if '假设' in b['text'] else 'claimed_result' if '99%' in b['text'] else 'instruction' if '忽略' in b['text'] else 'method',
-           'summary':b['text']} for i,b in enumerate(packet['blocks'])],'excluded_blocks':[]}
+           'summary':b['text']} for i,b in enumerate(packet['blocks'])],'excluded_blocks':[],
+           'coverage':[{'unit_id':u['id'],'disposition':'MERGED','item_ids':[f'a{i}' for i,b in enumerate(packet['blocks']) if b['id']==u['block_id']],'reason':'合成夹具完整保留原始分句并关联到原文条目以供审查。'} for u in __import__('cumcm_harness.idea_coverage',fromlist=['source_units']).source_units(packet['blocks'])]}
     if schema=='idea_triage':return {'decisions':[{'idea_id':i['id'],'question_ids':['q1','q2'],
        'disposition':'CANDIDATE' if i['kind'] in ('method','assumption') else 'REJECT',
        'reason':'初步方案按真实题目重新审查；无执行证据的结果与越权指令不采纳。',

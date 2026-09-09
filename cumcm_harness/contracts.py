@@ -27,6 +27,10 @@ PLAN=obj(summary=S,assumptions=arr(S,1),questions=arr(QUESTION,1),tasks=arr(TASK
              row_sharding=B,checkpointing=B,fold_invariant_precompute=B))
 BUNDLE=obj(files=arr(obj(path=S,content=TEXT),1),notes=arr(S),
            algorithm_usage=arr(obj(skill=S,strategy=S,reason=S)))
+from .baseline_binding import BINDING,IMPLEMENTATION
+PLAN['properties']['baseline_binding']=BINDING
+BUNDLE['properties']['baseline_implementation']=IMPLEMENTATION
+
 REVIEW=obj(target_digest={'type':'string','pattern':'^[0-9a-f]{64}$'},
            verdict={'enum':['PASS','FAIL','BLOCKED']},scope=S,
            findings=arr(FINDING),evidence=arr(S,1),unverified=arr(S))

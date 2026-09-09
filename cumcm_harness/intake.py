@@ -66,6 +66,8 @@ def copy_inputs(source:Path,destination:Path):
 def create_workspace(root:Path,problem:Path,data:Path,config:dict,*,confirmation:Path|None=None,
                      private_dev:Path|None=None,private_confirm:Path|None=None,
                      exa_policy:dict|None=None,research_cutoff:str|None=None):
+    from .controller import DEFAULT_CONFIG,validate_config
+    config=validate_config({**DEFAULT_CONFIG,**config})
     if root.exists() and any(root.iterdir()):raise Blocked('Workspace must be new; use run/status to resume')
     snapshot=None
     if exa_policy is not None:

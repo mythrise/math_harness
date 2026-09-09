@@ -123,6 +123,9 @@ def check_portfolio(value,brief,method_cards):
 
 
 def check_plan_alignment(plan,preparation):
+    from .baseline_binding import check_binding
+    if 'portfolio' not in preparation:raise IntegrityError('Independent portfolio is required for plan alignment')
+    check_binding(plan,preparation['portfolio'])
     brief=preparation['brief'];qids={q['id'] for q in brief['questions']}
     if {q['id'] for q in plan['questions']}!=qids:raise IntegrityError('Plan omits or invents a question')
     expected={q['id']:q['answer_type'] for q in brief['questions']}

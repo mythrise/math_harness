@@ -16,6 +16,7 @@ def freeze_protocol(plan,config,intake,evaluator_digest):
        'evaluator_digest':evaluator_digest,'bootstrap_seed':config['bootstrap_seed'],'bootstrap_replicates':5000,
        'scope':intake['confirmation_scope'],'max_candidates':config['max_candidates'],
        'variants':['full']+[x['id'] for x in plan['ablations']+plan['sensitivity']],
+       'baseline_binding':plan.get('baseline_binding'),'baseline_binding_digest':digest(plan.get('baseline_binding')),
        'intake_digest':digest(intake),'config_digest':digest(config),'plan_digest':digest(plan),
        'selection':'development only; baseline remains immutable','inference':'one pre-registered selected-vs-baseline confirmation; other variants descriptive'}
     return p
@@ -58,10 +59,14 @@ class ResearchRunner:
                         inputs,lambda:inputs)
         return inputs
     def cell(self,candidate,bundle,verifier,phase,seed,variant):
+        from .baseline_binding import check_implementation
+        check_implementation(bundle,self.protocol.get('baseline_binding'))
+        if (candidate=='baseline') != (variant=='baseline'):raise IntegrityError('Baseline candidate must execute the bound baseline variant exclusively')
         root=self.store.root;code=self.store.publish_bundle(bundle);evaluation=self.store.publish_bundle(verifier)
         data=root/'inputs'/phase;edata=root/'evaluation_inputs'/phase
         inputs=self._phase_inputs(phase)
         intent={'candidate':candidate,'code':digest(bundle),'evaluation':digest(verifier),'phase':phase,'seed':seed,'variant':variant,
+                'baseline_binding_digest':self.protocol.get('baseline_binding_digest'),
                 'protocol':digest(self.protocol),'data':digest(inputs['public']),
                 'evaluation_data':digest(inputs['evaluation']),
                 'environment':digest(environment()),'backend':self.executor.probe()}
@@ -112,6 +117,7 @@ class ResearchRunner:
             self.store.fail_job(job_id,f'{type(exc).__name__}: {exc}')
             raise
         result={'candidate':candidate,'variant':variant,'phase':phase,'seed':seed,'job_id':job_id,
+                'baseline_binding_digest':self.protocol.get('baseline_binding_digest'),
                 'evaluation':ev,'code_digest':digest(bundle),'evaluator_digest':digest(verifier),'scope':self.protocol['scope']}
         receipt={'intent':intent,'solver':sr,'evaluator':er,'result':result};write_json(base/'receipt.json',receipt)
         self.store.finish_job(job_id,receipt)

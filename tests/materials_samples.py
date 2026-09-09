@@ -47,4 +47,8 @@ def samples():
     for i in range(2):mapping['questions'].append({'question_id':f'Q{i+1}',
         'bindings':[{'step':k,'section_indices':[1],'state':'PRESENT','reason':'定位到当前模型和结果段落，语义充分性仍需审查。'} for k in STEPS],
         'claim_ids':['result_error'] if i==0 else [],'qualitative_evidence_ids':['qe_a'] if i else []})
+    from cumcm_harness.baseline_binding import independent_baselines,baseline_summary
+    old=independent_baselines(portfolio)
+    plan['baseline_binding']={**old,'questions':[{'question_id':r['question_id'],'independent_id':r['independent_id'],'independent_digest':r['independent_digest'],'disposition':'KEEP','selected_method_card_id':r['method_card_id'],'selected_description':r['description'],'applicability_reason':'本测试保留独立提出的适用基准，不更改模型的输入目标与边界约束。','comparison_strength':'本测试保留相同预算和独立评测程序，未改用更弱的比较对象。'} for r in old['questions']]}
+    plan['baseline']=baseline_summary(plan['baseline_binding'])
     return brief,data,audit,portfolio,methods,plan,draft,claims,ev,mapping

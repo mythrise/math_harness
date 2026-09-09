@@ -1,10 +1,12 @@
-# CUMCM-EgoHarness 0.5.0-rc1
+# CUMCM-EgoHarness 0.5.0-rc2
 
 三个输入模式已接入原确定性内核。`idea` 分开冻结原题、官方数据和外部初版，先独立理解题意与基准，再逐条审查和映射建议，继续完整研究链；`scratch` 不要求初版；`revise` 诊断并修订已有论文的安全正文，科学修改转交新的研究工作区。
 
-17 个角色绑定 17 份项目技能。Python 分发版本为 `0.5.0rc1`，运行镜像为 `cumcm-egoharness:0.5.0-rc1`，TeX 继续使用 `cumcm-egoharness-tex:0.3.1`。新 `init` 入口默认启用资料合同层；旧冻结工作区保持原配置。保留 RC 状态，完整工程测试不能替代真实历史题解答与人工审查。
+17 个角色绑定 17 份项目技能。Python 分发版本为 `0.5.0rc2`，运行镜像为 `cumcm-egoharness:0.5.0-rc2`，TeX 继续使用 `cumcm-egoharness-tex:0.3.1`。新 `init` 入口默认启用资料合同层；旧冻结工作区保持原配置。保留 RC 状态，完整工程测试不能替代真实历史题解答与人工审查。
 
-先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[本轮测试报告](reports/THREE_INPUT_V050_LOCAL_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/three-inputs-v050-worktree`，进入该目录再运行下列命令。
+此次整改增加阶段审查范围、逐句初稿覆盖账本、独立基线到实验的摘要绑定、实体与数值关联保护，以及实际修改稿的隔离渲染。缺版式证据只输出待核验编辑副本。细节见 [rc2 整改说明](docs/V050RC2_REMEDIATION_CN.md)。
+
+先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[本轮测试报告](reports/THREE_INPUT_V050_LOCAL_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/v050-remediation-worktree`，进入该目录再运行下列命令。
 
 ```bash
 ./scripts/cumcm doctor --live --config configs/input-idea.json --exa-policy configs/exa-policy-r2.json
@@ -20,7 +22,7 @@
 ./scripts/cumcm run workspaces/idea-NEW
 ```
 
-DOCX 中数学、图表和其他 ZIP 成员保留原字节；批注或修订跟踪会使正文整体受到保护，必要时停止并要求已核验的正文材料。TeX 含命令或公式的段落不自动编辑，也不自动展开子文件。PDF 仅作文本导入，不能保证恢复原布局。修订导出与科学复现是不同结果，格式保留必须另行编译或渲染验证。
+DOCX 中数学、图表和其他 ZIP 成员保留原字节；批注或修订跟踪会使正文整体受到保护，必要时停止并要求已核验的正文材料。TeX 含命令或公式的段落不自动编辑，也不自动展开子文件。PDF 仅作文本导入，不能保证恢复原布局。修订导出与科学复现是不同结果，生产流程会对实际 DOCX/独立 TeX 修改稿隔离渲染并审查；缺工具或检查未通过时明确标记 DRAFT_PENDING_LAYOUT。
 
 0.4 资料合同层与 191 张参考卡仍保留；参考卡只供检索，不是可执行算法。历史接入证据见 [0.4 报告](reports/MATERIALS_V040_LOCAL_CN.md)。
 
@@ -33,14 +35,14 @@ DOCX 中数学、图表和其他 ZIP 成员保留原字节；批注或修订跟�
 ### Docker 验证
 
 ```bash
-docker build -t cumcm-egoharness:0.5.0-rc1 .
+docker build -t cumcm-egoharness:0.5.0-rc2 .
 docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
-docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc1-test .
+docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc2-test .
 ./.venv/bin/python scripts/validate_algorithm_upgrade.py \
   --out workspaces/algorithm-validation-01 --seeds 12 --seed-start 201
 ```
 
-验证器在无网络、只读源码、单 CPU 和 2 GB 内存的 Docker 中运行全套测试与两次数值诊断，保留协议、输出和进程回执。使用新的空目录；结果是工程与算法诊断，不是实际赛题、真实 LLM 整题论文联跑或外部模型成绩。升级改变代码指纹，旧赛题工作区保留，新任务须重新 `init`。新工作区、示例配置与 Executor 默认使用 `cumcm-egoharness:0.5.0-rc1`；已冻结工作区的显式镜像配置不改。
+验证器在无网络、只读源码、单 CPU 和 2 GB 内存的 Docker 中运行全套测试与两次数值诊断，保留协议、输出和进程回执。使用新的空目录；结果是工程与算法诊断，不是实际赛题、真实 LLM 整题论文联跑或外部模型成绩。升级改变代码指纹，旧赛题工作区保留，新任务须重新 `init`。新工作区、示例配置与 Executor 默认使用 `cumcm-egoharness:0.5.0-rc2`；已冻结工作区的显式镜像配置不改。
 
 以下保留 0.2 的文献与审查使用说明。
 
@@ -76,7 +78,7 @@ Codex CLI 需要有效认证。Claude CLI 使用既有用户认证／服务地�
 ```bash
 ./scripts/cumcm set-exa-key
 
-docker build -t cumcm-egoharness:0.5.0-rc1 .
+docker build -t cumcm-egoharness:0.5.0-rc2 .
 python -m cumcm_harness doctor --live --config configs/exa-resilient.json
 python -m cumcm_harness init workspaces/exa-new \
   --problem /absolute/path/problem.md \

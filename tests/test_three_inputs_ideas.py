@@ -24,7 +24,7 @@ def idea_fixture(role,schema,packet):
         for i,b in enumerate(packet['blocks']):
             text=b['text'];kind=('assumption' if '假设' in text else 'claimed_result' if '99%' in text else 'reference' if '文献线索' in text else 'instruction' if '忽略' in text else 'method')
             items.append({'id':'a'+str(i+1),'block_id':b['id'],'start':0,'end':len(text),'quote':text,'kind':kind,'summary':text})
-        return {'items':items,'excluded_blocks':[]}
+        return {'items':items,'excluded_blocks':[],'coverage':[{'unit_id':u['id'],'disposition':'MERGED','item_ids':[i['id'] for i in items if i['block_id']==u['block_id']],'reason':'固定合成测试逐句保留到完整原文条目，另由审查检查语义。'} for u in source_units(packet['blocks'])]}
     if schema=='idea_triage':return {'decisions':[{'idea_id':i['id'],'question_ids':['q1','q2'],
         'disposition':'CANDIDATE' if i['kind'] in ('method','assumption') else 'REJECT','reason':'这是待验证的初版建议，不是题目事实或已运行结果。',
         'validation_plan':'继续进入完整建模、文献对抗和独立评价流程。'} for i in packet['items']],
@@ -54,6 +54,7 @@ def controller(tmp_path,fn=idea_fixture,mode='idea'):
 def proposal():
     b={'id':'idea_01_b0001','text':'建议检查线性模型的适用性。'}
     v={'items':[{'id':'a1','block_id':b['id'],'start':0,'end':len(b['text']),'quote':b['text'],'kind':'method','summary':'待验证的线性建模建议。'}],'excluded_blocks':[]}
+    v['coverage']=[{'unit_id':u['id'],'disposition':'EXTRACTED','item_ids':['a1'],'reason':'完整保留此句原文并映射到待验证建议条目。'} for u in source_units([b])]
     return b,v
 
 
@@ -76,7 +77,7 @@ def test_unfaithful_extraction_is_rejected(proposal,mutation):
 
 def test_irrelevant_block_can_be_explicitly_excluded(proposal):
     b,v=proposal
-    assert check_catalog({'items':[],'excluded_blocks':[{'block_id':b['id'],'reason':'明确不相关的聊天内容，保留排除原因供复核。'}]},[b])
+    assert check_catalog({'items':[],'coverage':[{**r,'disposition':'EXCLUDED','item_ids':[]} for r in v['coverage']],'excluded_blocks':[{'block_id':b['id'],'reason':'明确不相关的聊天内容，保留排除原因供复核。'}]},[b])
 
 @pytest.mark.parametrize('kind',['claimed_result','reference','instruction'])
 def test_external_authority_cannot_be_promoted(kind):
@@ -104,6 +105,7 @@ def test_blind_preparation_then_ideas_then_normal_plan(tmp_path):
     firstidea=next(i for i,x in enumerate(seen) if x[1]=='idea_catalog')
     assert all(next(i for i,x in enumerate(seen) if x[1]==s)<firstidea for s in ('problem_brief','data_plan','model_portfolio'))
     plan=copy.deepcopy(PLAN);plan['variables'][0]['symbol']=r'\pi'
+    plan=fx.bind_fixture_plan(plan,prep)
     c.ideas.align_plan(plan)
     assert check_plan_alignment(plan,prep)
     public=read_json(c.root/'ideas/public_summary.json')

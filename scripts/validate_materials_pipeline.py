@@ -24,6 +24,16 @@ PROBLEM=('合成双目标工件选择与排序工程测试，不是官方国赛�
  '数据由测试程序明确生成，只能用于算法和管线诊断，不能作为真实生产观测。')
 
 
+def bind_fixture_plan(plan,preparation):
+    from cumcm_harness.baseline_binding import independent_baselines,baseline_summary
+    old=independent_baselines(preparation['portfolio'])
+    binding={**old,'questions':[{'question_id':q['question_id'],'independent_id':q['independent_id'],'independent_digest':q['independent_digest'],
+        'disposition':'KEEP','selected_method_card_id':q['method_card_id'],'selected_description':q['description'],
+        'applicability_reason':'固定合成测试保留独立提出的同预算基准并遵守原解码约束。',
+        'comparison_strength':'固定合成测试使用相同目标评价预算和同一独立重算评测器。'} for q in old['questions']]}
+    plan['baseline_binding']=binding;plan['baseline']=baseline_summary(binding)
+    return plan
+
 def fixture(role,schema,packet):
     if schema=='problem_brief':
         req=[]
@@ -64,7 +74,11 @@ def fixture(role,schema,packet):
             'claim_ids':['result_hv'] if q['id']=='q1' else ['result_reward','result_duration'],'qualitative_evidence_ids':[]} for q in plan['questions']],
             'symbols':plan['variables'],'abstract_claim_ids':['result_hv','result_reward','result_duration'],'limitations':['仅固定合成测试，不建立获奖结论。']}
     value=fixture_responder(role,schema,packet)
-    if role=='modeler' and schema=='plan':value['variables'][0]['symbol']=r'\pi'
+    if role=='modeler' and schema=='plan':
+        value['variables'][0]['symbol']=r'\pi'
+        if packet.get('materials_preparation'):bind_fixture_plan(value,packet['materials_preparation'])
+    if role=='coder' and schema=='bundle' and packet.get('plan',{}).get('baseline_binding'):
+        value['baseline_implementation']={'binding_digest':digest(packet['plan']['baseline_binding']),'variant':'baseline','source_paths':['main.py'],'implementation_summary':'合成夹具的 main.py baseline 分支执行同预算均匀随机搜索并独立重算。'}
     if role=='writer' and schema=='paper':
         last=next(s for s in value['sections'] if s['heading']=='结果与适用范围')
         last['text']='代表运行的归一化超体积为{{claim:result_hv}}。'+last['text']

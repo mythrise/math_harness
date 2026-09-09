@@ -12,8 +12,8 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y inkscape fonts-noto-cjk
       - run: python -m cumcm_harness verify-vendor
       - run: python -m pytest -q --ignore=tests/test_algorithm_upgrade.py --ignore=tests/test_algorithm_integration.py --ignore=tests/test_audit_20260908_graph_overflow.py --junitxml=reports/ci-infrastructure.xml
-      - run: docker build -t cumcm-egoharness:0.5.0-rc1 .
-      - run: docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc1-test .
+      - run: docker build -t cumcm-egoharness:0.5.0-rc2 .
+      - run: docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc2-test .
       - run: docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
       - run: docker build -f Dockerfile.paperkit-test -t cumcm-paperkit-validation:1.0.0 .
       - run: python scripts/validate_paperkit.py --out reports/ci-paperkit-validation

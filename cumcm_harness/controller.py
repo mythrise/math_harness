@@ -3,7 +3,7 @@ independent reviewers decide whether artifacts may advance. No automatic contest
 submission exists. Recovery replays completed receipts rather than conversation.
 """
 from __future__ import annotations
-import os, shutil
+import os, shutil, math
 from pathlib import Path
 from .common import *
 from .contracts import validate, SCHEMAS
@@ -22,7 +22,7 @@ DEFAULT_CONFIG={
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
  'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_call_budget_usd':None,
- 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.5.0-rc1',
+ 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.5.0-rc2',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
  'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
  'review_members_per_role':2,'review_attempts_per_provider':2,'review_cooldown_seconds':60,
@@ -42,30 +42,25 @@ IO_CONTRACT={
  'bounded_task_dag':'For a long trial, implement task shards with cumcm_harness.task_dag.execute(tasks, handlers, checkpoint_dir, identity={code/input/protocol digests}). Tasks have id, depends_on and bounded shards; handlers run inside the solver Docker process. Completed shards verify manifests; an interrupted RUNNING shard must be explicitly reconciled. A resources.checkpointing declaration alone does not prove runtime use.',
  'custom_algorithm':'from cumcm_harness.algorithms import mosaic_solve, mosaic_modules. Attached algorithm is already installed. Do not retype or replace MOSAIC with a generic GA.'}
 
-REVIEW_STAGES={
- 'plan_design':{
-  'certifies_execution':False,
-  'scope':'Review the prospective mathematical model and executable experimental specification before code exists.',
-  'required':'Check derivations, dimensions, explicit assumptions, decoder construction, objective fidelity, frozen budgets/seeds, resource strategy, test design and measurable acceptance criteria. Missing definitions or unsupported mathematical claims remain P0/P1.',
-  'boundary':'Do not require future solver runs, measured convergence, profiling or final paper artifacts to exist at this gate. Require the plan to specify how they will be tested and blocked on failure. PASS authorizes implementation only; it does not certify numerical correctness, runtime feasibility or scientific results.'},
- 'source_code':{
-  'certifies_execution':False,
-  'scope':'Review exact implementation source before scientific experiments. Supplied bounded preflight receipts are real execution evidence for those tests only.',
-  'required':'Check mathematical fidelity, executable interfaces, algorithm applicability, FE accounting, adversarial tests and evaluator independence. Missing essential source or an identifiable defect remains blocking.',
-  'boundary':'Distinguish static source evidence, any supplied preflight receipts, and future scientific execution. A known failing preflight remains blocking. Do not demand future field/solver receipts here. PASS authorizes the bounded pilot only; later experiment gates still require actual successful execution.'},
- 'execution':{
-  'certifies_execution':True,
-  'scope':'Review actual execution evidence for the current completed stage.',
-  'required':'Require real outputs, independent checks and receipts for every in-scope empirical claim. Proposed tests or source alone are not evidence of passing. Missing required execution, unknown checks, invalid measurements and unsupported claims must FAIL/BLOCK.',
-  'boundary':'Do not infer later-stage completion or waive P0/P1. Review only the supplied stage; paper completion still requires actual compilation and visual review.'}}
+from .review_stages import REVIEW_STAGES
 
 def validate_config(c):
     if set(c)!=set(DEFAULT_CONFIG):raise IntegrityError('Unexpected/missing configuration keys')
     if type(c['materials_workflow']) is not bool:raise IntegrityError('materials_workflow must be Boolean')
     if c['mode'] not in ('practice','contest'):raise IntegrityError('Invalid mode')
     if c['claude_effort'] not in (None,'low','medium','high','xhigh','max'):raise IntegrityError('Invalid config claude_effort')
-    for key in ('workers','cpu_threads','total_cpu_threads','memory_mb','total_memory_mb','trial_timeout','fe_budget','max_candidates','repair_attempts','max_model_calls','model_timeout'):
-        if not isinstance(c[key],(int,float)) or isinstance(c[key],bool) or c[key]<=0:raise IntegrityError('Invalid config '+key)
+    for key in ('workers','cpu_threads','total_cpu_threads','memory_mb','total_memory_mb','fe_budget','max_candidates','repair_attempts','max_model_calls'):
+        if type(c[key]) is not int or c[key]<=0:raise IntegrityError('Invalid integer config '+key)
+    for key in ('trial_timeout','model_timeout','paper_reserve_seconds'):
+        if type(c[key]) not in (int,float) or not math.isfinite(c[key]) or c[key]<=0:raise IntegrityError('Invalid positive finite config '+key)
+    for key in ('development_seeds','confirmation_seeds'):
+        values=c[key]
+        if not isinstance(values,list) or not values or any(type(x) is not int or x<0 for x in values) or len(set(values))!=len(values):raise IntegrityError('Invalid integer seeds '+key)
+    if set(c['development_seeds']) & set(c['confirmation_seeds']):raise IntegrityError('Development and confirmation seeds must be disjoint')
+    if type(c['bootstrap_seed']) is not int or c['bootstrap_seed']<0:raise IntegrityError('Invalid bootstrap_seed')
+    budget=c['claude_call_budget_usd']
+    if budget is not None and (type(budget) not in (int,float) or not math.isfinite(budget) or budget<=0):raise IntegrityError('Invalid Claude budget')
+    if type(c['allow_research_algorithms']) is not bool:raise IntegrityError('allow_research_algorithms must be Boolean')
     if c['max_candidates']>20 or c['repair_attempts']>5:raise IntegrityError('Unbounded research/repair is not supported')
     if c['fe_budget']<32:raise IntegrityError('FE budget must support at least one population')
     if c['network_policy'] not in ('LOCAL_EVIDENCE_ONLY','EXA_ABSTRACT_QUERIES'):raise IntegrityError('Unknown network policy')
@@ -135,13 +130,14 @@ class Controller:
         if remaining<=0:raise DeadlineReached('Configured deadline has passed; no new live operations')
         if research and remaining<=self.config['paper_reserve_seconds']:raise PaperReserveReached('Paper time reserve reached; freeze research scope')
     def call(self,key,role,schema,packet,*,images=()):
+        if role in ('writer','abstract_editor') and getattr(self,'ideas',None):self.ideas.require_resolved('paper')
         if role in ('verifier_author','hypothesis_critic','idea_adversary'):
             return self.review_board.invoke(key,role,schema,packet,primary='claude',images=images)
         return self._call_one(key,role,schema,packet,provider_kind='codex',images=images)
     def _call_one(self,key,role,schema,packet,*,provider_kind,images=(),managed_failure=False):
         kind=provider_kind;provider=self.providers[kind]
         from .role_skills import freeze_role_skills
-        skill_identity=freeze_role_skills(self.store,role)
+        skill_identity=freeze_role_skills(self.store,role,stage=packet.get('review_stage') if schema=='review' else None)
         if isinstance(provider,CLIProvider) and (schema=='review' or role=='hypothesis_critic'):
             provider=__import__('copy').copy(provider)
             provider.timeout=min(provider.timeout,self.config['review_timeout'])
@@ -195,6 +191,7 @@ class Controller:
                 'context':context or {}}
         return self.review_board.review(key,packet,roles,images=images)
     def produce_reviewed(self,key,role,schema,packet,*,extra_review=None,entry=None):
+        if getattr(self,'ideas',None):self.ideas.require_resolved('modeling' if role=='modeler' else 'code')
         feedback=[];latest_plan=None
         for attempt in range(self.config['repair_attempts']+1):
             # Snapshot feedback: previous prompts/receipts must never change as
@@ -212,11 +209,18 @@ class Controller:
                     if self.materials:
                         from .materials_contracts import check_plan_alignment
                         check_plan_alignment(artifact,self.base['materials_preparation'])
+                        if any(q['disposition']=='REPLACE' for q in artifact['baseline_binding']['questions']):
+                            self.reviews(f'{key}:r{attempt}:baseline-replacement',artifact,roles=('math_reviewer','experiment_reviewer'),stage='model_portfolio',context={'independent_portfolio':self.base['materials_preparation']['portfolio'],'required':'Independently assess each comparator replacement, its applicability and comparison strength. Reject unjustified weaker comparison. A prose assertion of equivalence is not proof.'})
                     if self.literature:
                         self.literature.repairing=attempt>0
                         self.literature.assess(artifact)
+                if role=='coder' and 'plan' in packet:
+                    from .baseline_binding import check_implementation
+                    check_implementation(artifact,packet['plan'].get('baseline_binding'))
                 review_context={k:self.base[k] for k in ('experiment_contract','source_registry','io_contract','limits','hypothesis_contract','materials_preparation','modeling_coverage_contract') if k in self.base}
-                if 'plan' in packet:review_context['plan']=packet['plan']
+                if 'plan' in packet:
+                    review_context['plan']=packet['plan']
+                    review_context['baseline_requirement']='Inspect actual baseline source paths and branch against the plan comparator. Metadata alone does not prove fidelity; reject weaker or missing implementations and require independent tests.'
                 review_context.update(extra_review or {})
                 if role=='verifier_author' and not self.demo:
                     diagnostic=self.verifier_preflight(artifact)
@@ -352,6 +356,7 @@ class Controller:
         self.status('SMOKE_AND_TESTS')
         for runtime_attempt in range(self.config['repair_attempts']+1):
             try:
+                if self.ideas:self.ideas.require_resolved('experiment')
                 smoke=runner.cell('baseline',bundle,verifier,'development',protocol['development_seeds'][0],'baseline')
                 tests=self.selftests(runner,verifier,smoke)
                 self.reviews('smoke-review:'+digest(bundle),{'smoke':smoke,'tests':tests,'code':bundle,'verifier':verifier},context={'plan':plan})
@@ -376,6 +381,7 @@ class Controller:
                 if self.demo:self.executor.trusted_hashes.add(digest({f['path']:__import__('hashlib').sha256(f['content'].encode()).hexdigest() for f in bundle['files']}))
         bundles={'baseline':bundle,'c0':bundle}
         self.status('DEVELOPMENT')
+        if self.ideas:self.ideas.require_resolved('experiment')
         baseline_rows=runner.matrix('baseline',bundle,verifier,'development',['baseline'])
         development=list(baseline_rows)
         current=bundle

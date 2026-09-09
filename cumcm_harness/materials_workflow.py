@@ -31,7 +31,7 @@ class MaterialsWorkflow:
                     {**packet,'repair_feedback':copy.deepcopy(feedback)})
                 value=checker(record['result'])
                 reviews=self.c.reviews(f'materials:{key}:{attempt}',value,roles=review_roles,
-                    stage='plan_design',context={'input_contract':packet,
+                    stage={'problem_brief':'problem_brief','data_plan':'data_policy','model_portfolio':'model_portfolio'}[schema],context={'input_contract':packet,
                         'scope':'Review proposed requirements/methods/data policies, not future experimental success. '
                                 'Anchors must entail the requirement; include every actual question and constraint. '
                                 'No arbitrary page/algorithm/figure quotas; reject synthetic observations and data leakage.'})
@@ -80,7 +80,8 @@ class MaterialsWorkflow:
                  'A textbook/catalog entry is not an installed implementation. Compare principle, fit, limits, '
                  'resource cost and falsification. A single simple correct model is allowed; never invent novelty.'},
             lambda v:check_portfolio(v,brief,c.base['methods']),('math_reviewer','experiment_reviewer'))
-        preparation={'schema_version':'materials-preparation/1','brief':brief,'data_plan':data,
+        from .baseline_binding import independent_baselines
+        preparation={'baseline_contract':independent_baselines(portfolio),'schema_version':'materials-preparation/1','brief':brief,'data_plan':data,
             'portfolio':portfolio,'reference_catalog_sha256':references['catalog_sha256'],'data_audit':audit,'empirical_validation':'NOT_RUN',
             'reading_limits_are_explicit':True}
         if getattr(c,'ideas',None):
@@ -91,6 +92,7 @@ class MaterialsWorkflow:
         c.store.step('materials:freeze-preparation',preparation,lambda:preparation)
         write_json(c.root/'materials/preparation.json',preparation)
         c.base['materials_preparation']=preparation
+        c.base['baseline_binding_contract']='Final plan.baseline_binding must copy independent IDs/digests; KEEP copies method and description exactly, REPLACE needs suitability/strength reasons and independent review. plan.baseline must equal sorted question lines: question_id + ": " + selected_method_card_id + " — " + selected_description. Solver baseline_implementation binds digest, baseline variant and actual source paths; reviewers inspect its implementation.'
         c.base['modeling_coverage_contract']={'actual_question_ids':[q['id'] for q in brief['questions']],
             'required_content':['input_goal_constraints','assumptions','units','derivation',
                                 'algorithm','execution','results','validation'],

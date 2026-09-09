@@ -35,6 +35,78 @@
       "minLength": 1,
       "type": "string"
     },
+    "baseline_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "portfolio_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "questions": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "applicability_reason": {
+                "minLength": 20,
+                "type": "string"
+              },
+              "comparison_strength": {
+                "minLength": 20,
+                "type": "string"
+              },
+              "disposition": {
+                "enum": [
+                  "KEEP",
+                  "REPLACE"
+                ]
+              },
+              "independent_digest": {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              "independent_id": {
+                "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+                "type": "string"
+              },
+              "question_id": {
+                "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$",
+                "type": "string"
+              },
+              "selected_description": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "selected_method_card_id": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "question_id",
+              "independent_id",
+              "independent_digest",
+              "disposition",
+              "selected_method_card_id",
+              "selected_description",
+              "applicability_reason",
+              "comparison_strength"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "variant": {
+          "const": "baseline"
+        }
+      },
+      "required": [
+        "portfolio_digest",
+        "variant",
+        "questions"
+      ],
+      "type": "object"
+    },
     "constraints": {
       "items": {
         "minLength": 1,

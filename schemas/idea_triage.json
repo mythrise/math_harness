@@ -49,8 +49,62 @@
     "unresolved": {
       "type": "array",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "severity": {
+            "enum": [
+              "P0",
+              "P1",
+              "P2",
+              "INFO"
+            ]
+          },
+          "affects_stage": {
+            "enum": [
+              "intake",
+              "modeling",
+              "code",
+              "experiment",
+              "paper"
+            ]
+          },
+          "idea_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "OPEN",
+              "DEFERRED"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "severity",
+          "affects_stage",
+          "idea_ids",
+          "issue",
+          "required_action",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "minItems": 0
     },
