@@ -1,8 +1,16 @@
 {
   "files": {
     "ai-preflight.json": "c4732e2fc6dc675b1502e81cf80d71a125284f3c8a1de0098ac60ebcf729d322",
+    "ci-full-validation.json": "bd1620179046bd838ce907b721ca5677696798f7b24697e0bee043a78ed11788",
+    "ci-harness-tests.xml.gz": "d71e0bb885cb9637debd077e1337b71c844b3bd9cb2911d5c5310fc8131b3456",
+    "ci-infrastructure-tests.xml.gz": "7c5709e4b1fcd298d6328e5d68dd471f74a6dc10178e151f5c91a5417fe280ce",
+    "ci-isolation.json": "2635579d2fdf66402d751fe4c909da9022d570fd9adb20a93d604bb804769657",
+    "ci-paper-repair.json": "b74c721280b4647b8650575b819315433903bfc968015f15a20ca915283a0971",
+    "ci-reference-tests.xml.gz": "2d6d91321458413912eadfdd2d859266833acc53e348802c964380add5af2190",
+    "ci-template-validation.json": "8c2912f9766a2cfadf0830e1e784822154514617a77578fe7d73b9d60a63c572",
     "full-tests.xml.gz": "4665105c0da93f6e72bcffe5e2a707a8194bee662b643e3f084cf6ebd9703e1a",
     "full-validation.json": "1e097292c67e923079b0e6cc59952c1c5cda8fabe32126de5a77df45d1dd770f",
+    "github-ci.json": "864253d54ab67c86093152d9c069a651bc6a8a2de659cade6b827e9b419ace51",
     "isolation.json": "efc6536455fbb904fbb2f83f69700aef38fcacf313b238c6b6b78af790686bb3",
     "numerical-1.json": "17f49e291e67fd8c11d42bc1ea04d010f32b0a31d748d70942d846c5b3978783",
     "numerical-2.json": "122a3439f50e4455e4ba3e3769518d3e662517613e57491aaa0c6d1665da6c96",

@@ -49,9 +49,21 @@
     "variant_selftests": 4,
     "versions": 2
   },
-  "publication": "PENDING_PUSH_AND_CI",
+  "publication": {
+    "branch": "main",
+    "ci_completed_at": "2026-09-09T08:33:32Z",
+    "ci_tests": {
+      "harness": 464,
+      "infrastructure": 373,
+      "reference": 86
+    },
+    "ci_url": "https://github.com/mythrise/math_harness/actions/runs/34329234220",
+    "code_commit": "0f31a0604ed2afb01a07c121052257f0ee83d193",
+    "receipt_only_followup": "No production code changes after tested commit",
+    "status": "PUSHED_AND_CI_PASS"
+  },
   "reference_tests_scope": "UNMODIFIED_SUPPLIED_PAPERKIT_IN_DOCKER",
-  "status": "LOCAL_ACCEPTANCE_PASS",
+  "status": "LOCAL_AND_GITHUB_CI_ACCEPTANCE_PASS",
   "tests": {
     "harness": 464,
     "reference": 86,

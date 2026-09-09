@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "case": "bundle-shadow-cumcm_harness",
+      "status": "PASS"
+    },
+    {
+      "case": "bundle-shadow-json",
+      "status": "PASS"
+    },
+    {
+      "case": "bundle-shadow-numpy",
+      "status": "PASS"
+    },
+    {
+      "case": "bundle-shadow-sitecustomize",
+      "status": "PASS"
+    },
+    {
+      "case": "installed-worker-isolated-startup",
+      "receipt_digest": "95ecc2651787107cb46bc8300a7e731e73c43d1d572971d940f72675ba1218c9",
+      "status": "PASS"
+    },
+    {
+      "case": "missing-receipt",
+      "observed_process_status": "EXITED",
+      "status": "PASS"
+    },
+    {
+      "case": "invalid-receipt",
+      "observed_process_status": "EXITED",
+      "status": "PASS"
+    },
+    {
+      "case": "output-bomb",
+      "observed_process_status": "OUTPUT_LIMIT",
+      "status": "PASS"
+    },
+    {
+      "case": "timeout",
+      "observed_process_status": "TIMEOUT",
+      "status": "PASS"
+    },
+    {
+      "case": "tex-legal-matrix-and-immutable-replay",
+      "receipt_digest": "0a0b6507e8c5bc9142dadb15ef19d3e989659b4df584166b68777b4a2601e30e",
+      "status": "PASS"
+    },
+    {
+      "case": "artificial-host-canary-not-mounted",
+      "status": "PASS"
+    }
+  ],
+  "runtime": {
+    "backend": "DOCKER",
+    "image_id": "sha256:e2ce4a975b10a3504316eb1d2fdbe59e13bedeb4c88a9a5da6171e9c2d24fc31"
+  },
+  "scope": "REAL_DOCKER_AND_TEX_NO_MODEL_OR_NETWORK_CALLS",
+  "status": "PASS"
+}
