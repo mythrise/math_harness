@@ -33,7 +33,12 @@
   "live_exa_http_attempts": 3,
   "live_numeric_jobs": 0,
   "remaining_inflight_steps": 0,
-  "ci": "PENDING_AFTER_PUSH",
+  "ci": {
+    "status": "PASS",
+    "source_commit": "0885514996d2e8b7aa90152e5d97ab3f1d9b09ec",
+    "url": "https://github.com/mythrise/math_harness/actions/runs/34345927061",
+    "receipt": "materials-v040/ci-receipt.json"
+  },
   "evidence_files": {
     "docker-tests.xml": "30c05f530ac1a65cda6f7c14fbf587d381060b621d75aedafe32443296e33aa5",
     "infrastructure.xml": "ef18627f8ab69044838b87eaaa3bf4cb3bd428e4999e23fc4867e01b8d877ac8",
@@ -51,6 +56,7 @@
     "support-reproduction.json": "f77314a36134c9ccaaf94b82a95c1d6e9cd5047c7adb4e13faca91032aba8bc4",
     "upstream-tools.xml": "b05dffe326181f477067aa228248e84640f94c21dd71b0331c05ab4a80b24526",
     "visual-contact.png": "31eeace7822d699f853c965863c77422425d5ce9a843d586d3ac35a62edfc96d",
-    "visual.json": "ee6631429c7d2228d511d8ce5bbe4b3467a237a7646c7e63668a70aa790b9a51"
+    "visual.json": "ee6631429c7d2228d511d8ce5bbe4b3467a237a7646c7e63668a70aa790b9a51",
+    "ci-receipt.json": "11dd0a143c4f1f826ee6518f4cdaa452a925afbdaf5bb91b5aecceac59fdaad5"
   }
 }

@@ -16,7 +16,7 @@
 |---|---|---|
 | 当前宿主基础设施测试 | 483 PASS，0 fail/skip | 排除数值执行类文件；不是额外 483 个独立于全量的测试 |
 | 当前 Docker 完整测试 | 574 PASS，0 fail/skip | 新隔离测试镜像中的完整测试集合 |
-| 十族数值验证 | 两次均为 98 行、9 项诊断 | raw_results 与 diagnostics 跨运行一致；不是 LIVE LLM，也没有全局算法晋级 |
+| 十族数值验证 | 两次均为 98 行、9 项诊断 | raw_results 与 diagnostics 按冻结协议排除耗时字段后跨运行一致；不是 LIVE LLM，也没有全局算法晋级 |
 | legacy 与 R2 资料全链路 | 各 22 个 DONE 数值作业，实际 TeX 编译与封存完成 | 模型、检索、Claude 故障均为显式夹具；R2 使用真实冻结策略及账本 |
 | 两条链路重放 | PASS | 禁止新增模型/HTTP/Executor/TeX 调用；PDF、ZIP、封存清单与预约/作业状态一致 |
 | 支撑 ZIP 独立复现 | PASS | 41 个附录源文件字节一致；只挂载解包内容，在 Docker 对 baseline/c0 各复现 1 个冻结确认种子，答案和评估字节相同 |
@@ -44,4 +44,4 @@
 
 [机器摘要](MATERIALS_V040_LOCAL.json)与 `materials-v040/` 中的 JUnit、数值/重放/复现/运行指纹及 LIVE 摘要可检查。摘要已移除本机绝对路径；原始模型 prompt、认证文件、私有账本、旧工作区和临时 ZIP 均不提交。保留的视觉联系表为合成工程示例。
 
-GitHub 提交与 CI：等待推送后的精确提交验收，随后补充独立回执。
+源码已推送 `main`：[`0885514`](https://github.com/mythrise/math_harness/commit/0885514996d2e8b7aa90152e5d97ab3f1d9b09ec)。[GitHub CI 34345927061](https://github.com/mythrise/math_harness/actions/runs/34345927061) 全部成功；下载产物后核对：483 基础设施测试、574 Docker 全量测试、86 PaperKit 参考测试均 0 fail/skip；两条资料链各 22 个 DONE 作业，重放 0 新调用；两次各 98 行数值及 9 项诊断按原冻结协议排除耗时字段后一致，原文件保留实际耗时差异。独立支撑复现、论文返工、11 项隔离回归均通过。CI 在 Linux 重新构建全部镜像，所有证据都绑定该源码提交，详见 [CI 回执](materials-v040/ci-receipt.json)。后续仅补充本段与验证回执，不改源码，使用 `[skip ci]` 提交标记。

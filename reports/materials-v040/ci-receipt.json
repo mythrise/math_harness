@@ -1,0 +1,245 @@
+{
+  "status": "PASS",
+  "run": {
+    "databaseId": 34345927061,
+    "headSha": "0885514996d2e8b7aa90152e5d97ab3f1d9b09ec",
+    "conclusion": "success",
+    "status": "completed",
+    "url": "https://github.com/mythrise/math_harness/actions/runs/34345927061",
+    "createdAt": "2026-09-09T11:30:33Z",
+    "updatedAt": "2026-09-09T11:40:22Z"
+  },
+  "all_steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python -m pip install -e '.[dev,excel]'",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run sudo apt-get update && sudo apt-get install -y inkscape fonts-noto-cjk",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python -m cumcm_harness verify-vendor",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python -m pytest -q --ignore=tests/test_algorithm_upgrade.py --ignore=tests/test_algorithm_integration.py --ignore=tests/test_audit_20260908_graph_overflow.py --junitxml=reports/ci-infrastructure.xml",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run docker build -t cumcm-egoharness:0.4.0-rc1 .",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run docker build -f Dockerfile.test -t cumcm-egoharness:0.4.0-rc1-test .",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run docker build -f Dockerfile.paperkit-test -t cumcm-paperkit-validation:1.0.0 .",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_paperkit.py --out reports/ci-paperkit-validation",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_materials_pipeline.py --out workspaces/ci-materials-legacy",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_materials_pipeline.py --out workspaces/ci-materials-legacy --replay",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_materials_pipeline.py --out workspaces/ci-materials-r2 --r2",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_materials_pipeline.py --out workspaces/ci-materials-r2 --r2 --replay",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_support_reproduction.py --workspace workspaces/ci-materials-r2 --out reports/ci-support-reproduction",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python -m cumcm_harness.exa_r2_demo workspaces/ci-r2-legacy-regression",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_paper_repair.py --workspace workspaces/ci-paperkit-repair --report reports/ci-paperkit-repair.json",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_audit_isolation.py --out reports/ci-isolation-validation",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/validate_algorithm_upgrade.py --out reports/ci-algorithm-validation --seeds 2 --seed-start 201",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/upload-artifact@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-python@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "tests": {
+    "reports/ci-infrastructure.xml": {
+      "tests": 483,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reports/ci-algorithm-validation/tests/pytest.xml": {
+      "tests": 574,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reports/ci-paperkit-validation/reference/reference-tests.xml": {
+      "tests": 86,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "chains": {
+    "legacy": {
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+      "jobs_done": 22,
+      "replay_unchanged": true,
+      "new_model_calls_on_replay": 0,
+      "sealed_files": {
+        "paper.pdf": "62b192cf88f527444f89d6be91efc9b2176c8e34386436b9091d85ae9e1886e4",
+        "submission-manifest.json": "77ab67ccdb9661d78210928ead19bcb1af992d14080a045bc0868f6bfe1252e7",
+        "support.zip": "0e44b4cefa6c66b3d8b754d00c68f4d815d3fe988fe92380b48a7e8e7cb7523d"
+      }
+    },
+    "r2": {
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+      "jobs_done": 22,
+      "replay_unchanged": true,
+      "new_model_calls_on_replay": 0,
+      "sealed_files": {
+        "paper.pdf": "2c13b9bb9a653951984b63525651ae0df72aaaeb72a253b346c7b8234514fceb",
+        "submission-manifest.json": "765d108da86671b34c083d33ea16ecdf4cdcb423657d1527a9954add9f7ad600",
+        "support.zip": "36beea1a08a1cf8262ff095c7aac5bc9ad4537b1cec7d4f8506ef2479c7a190f"
+      }
+    }
+  },
+  "numerics": {
+    "diagnostics_per_run": 9,
+    "external_candidates_run": 0,
+    "global_promotions": 0,
+    "numerical_runs": 2,
+    "protocol_digest": "47d59becc1430c0ff3df68662ba9fecc6f566717dedf0c7c9fc9806c8f80d2f6",
+    "receipts": {
+      "lab-1": "db5f4a375dfcee5ba1ff29ea4ed9a9b9103669fd90c41f2b56e33d46f2bbbdc2",
+      "lab-2": "627126ed5ad80d1fd0496304a6c3f3334963fd9fc5fd0fa13fac03461d8456f5",
+      "tests": "b1b4240414ec93002449cc4481ee8038300f2028d01009f06c9977245c483f88"
+    },
+    "reproducibility": {
+      "diagnostics.json": true,
+      "raw_results.json": true
+    },
+    "rows_per_run": 98,
+    "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+    "status": "PASS"
+  },
+  "numerical_comparison_policy": "Every result and diagnostic except elapsed seconds; raw files retain observed timing differences.",
+  "support_reproduction": {
+    "status": "PASS",
+    "method_count": 2,
+    "source_count": 41
+  },
+  "paper_repair": {
+    "status": "PASS",
+    "negative_preserved": true
+  },
+  "isolation": {
+    "status": "PASS",
+    "count": 11
+  },
+  "scope": "FRESH_LINUX_CI_DOCKER_NUMERICS_TEX_AND_FIXTURE_MODELS_NOT_LIVE_LLM",
+  "artifact_files": {
+    "reports/ci-algorithm-validation/lab-1/custom_dependencies.json": "e6934ab31541ff5540fae86118a71dc34f2e33352757081211cb236ba138971a",
+    "reports/ci-algorithm-validation/lab-1/diagnostics.json": "1287ecd08fb475eb99901b118ce3077c0f637f3b293c4cd120bffca729cffe03",
+    "reports/ci-algorithm-validation/lab-1/environment.json": "62f1893f685eaf12fda6a5d9a6c7c9c9b6dc17749fc9d7f2fca7820858886d2d",
+    "reports/ci-algorithm-validation/lab-1/external_candidates.json": "13ea754bccb198ba61e09e4969a2a16b15532570d83c088180b5cb5e7fdb28fb",
+    "reports/ci-algorithm-validation/lab-1/protocol.json": "bdf53a4516692e12ba3c856636ccb53537ff7a79210f190b02f3bd95056b4ec9",
+    "reports/ci-algorithm-validation/lab-1/raw_results.json": "57932dc818a4721680586edcf2d29e36ff8f46899a5a084ec8f7c63206d38057",
+    "reports/ci-algorithm-validation/lab-1/summary.json": "5e887943afb656cc4abbb00eca2e0c53621f7413e6e794f71ff93238658ad91a",
+    "reports/ci-algorithm-validation/lab-1-logs/process_receipt.json": "7229edb17570221ead40eedcd14f8c5e681cf6440eddb14d20f9510cda207bba",
+    "reports/ci-algorithm-validation/lab-1-logs/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reports/ci-algorithm-validation/lab-1-logs/stdout.log": "70ec2368659a21adb36e35f2c6f3fa0f2522545df82c120cee1d96cdfb2f9908",
+    "reports/ci-algorithm-validation/lab-1-receipt.json": "a050d8b7dd02b581d422e15d99779b529f05b77c4704d1c382ac3829596e465b",
+    "reports/ci-algorithm-validation/lab-2/custom_dependencies.json": "e6934ab31541ff5540fae86118a71dc34f2e33352757081211cb236ba138971a",
+    "reports/ci-algorithm-validation/lab-2/diagnostics.json": "1287ecd08fb475eb99901b118ce3077c0f637f3b293c4cd120bffca729cffe03",
+    "reports/ci-algorithm-validation/lab-2/environment.json": "62f1893f685eaf12fda6a5d9a6c7c9c9b6dc17749fc9d7f2fca7820858886d2d",
+    "reports/ci-algorithm-validation/lab-2/external_candidates.json": "13ea754bccb198ba61e09e4969a2a16b15532570d83c088180b5cb5e7fdb28fb",
+    "reports/ci-algorithm-validation/lab-2/protocol.json": "bdf53a4516692e12ba3c856636ccb53537ff7a79210f190b02f3bd95056b4ec9",
+    "reports/ci-algorithm-validation/lab-2/raw_results.json": "e3d4fa2de2f621625b373a8a04ea25dcd52ec96348edfe0385af6337ae60738c",
+    "reports/ci-algorithm-validation/lab-2/summary.json": "adf6041a474b27b464254be7caa2ccf5d1330735e17828930c2fffc256d163ed",
+    "reports/ci-algorithm-validation/lab-2-logs/process_receipt.json": "990d9eb9a29a46a54e5389d8a05c43908686d6a96a859c35a1796b5486c19dce",
+    "reports/ci-algorithm-validation/lab-2-logs/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reports/ci-algorithm-validation/lab-2-logs/stdout.log": "752c0a4666d266019506c1463e9dc687f636339c8b986772758b4b1451ec6316",
+    "reports/ci-algorithm-validation/lab-2-receipt.json": "576026f47ccfd7fb5b0685cec75fb813229386f19cf62ede91eec130f00fbfb2",
+    "reports/ci-algorithm-validation/protocol.json": "9cf6d19d58d79390f743128aaf235687b63983f8b47ab2f4761416b1df53d4c9",
+    "reports/ci-algorithm-validation/summary.json": "3dad594074beb3849cdc89dc1f1e907d71b6ccd1e19ad22776bc6fd68f9d665e",
+    "reports/ci-algorithm-validation/tests/pytest.xml": "900e5c292d6e6cfef19c9f494136904b3fda1fb524e485f6d58bdf35d3876490",
+    "reports/ci-algorithm-validation/tests-logs/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reports/ci-algorithm-validation/tests-logs/stdout.log": "e526481bba89a5e4eb5381df7c7907eca6506950e9eaebb2cace8e3520f7d1ed",
+    "reports/ci-algorithm-validation/tests-receipt.json": "f40131568253f79b9a19b72fbc937aea5345187b413fb868f6a2ef56893fcbee",
+    "reports/ci-infrastructure.xml": "b55a221bab5ba54a905e0676ba3f301e4bb3b552c8adc1eea3a006799a80c0ac",
+    "reports/ci-isolation-validation/summary.json": "5195d343bd726a2b9855c3b9a165c84e3d0e0f637ffa79135fd43524818ff62c",
+    "reports/ci-paperkit-repair.json": "a4f4b7ff460fa4ed196d0e2b24e9fede123c7e0937426e0069b8f16d69667272",
+    "reports/ci-paperkit-validation/long-title/preflight.json": "06dbe65100a67807f3b37e53e77ed840cce4d6f887e5b40c186beea4104c7856",
+    "reports/ci-paperkit-validation/native/preflight.json": "4b54c4de6187358182c2f4417176863c08b99b5302a5f2dcfc9f751e3aabfd34",
+    "reports/ci-paperkit-validation/reference/reference-tests.xml": "e90876ed664f5a19d5b0291086b65b28743d63c0553dbb92bff0f50ec3a33179",
+    "reports/ci-paperkit-validation/reference-logs/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reports/ci-paperkit-validation/reference-logs/stdout.log": "ff10a73bdc706e67c6a20009f051bb90b0995767a77ed9646d1a05be1f75d791",
+    "reports/ci-paperkit-validation/starter-unused-no-materials/preflight.json": "9304b26594c688009cdb1bb09926b68c504478d59040ad6d554e3696f931d506",
+    "reports/ci-paperkit-validation/starter-used-no-program/preflight.json": "deb5bbd7ffdd1d142282f2b9e6e12882711e483fbbf0655cb492fa92a9c0951d",
+    "reports/ci-paperkit-validation/summary.json": "97b8eaf9b7f2faabea8c7589aa6d7b4e1132bf3b47a25fc9c88b8cd4e426c6e1",
+    "reports/ci-support-reproduction/summary.json": "9e44d0e0954e0bd43a2ffd7b409b3d4c577e15aa361c38586f9480afe6a5b7be",
+    "workspaces/ci-materials-legacy/deliverables/submission-manifest.json": "77ab67ccdb9661d78210928ead19bcb1af992d14080a045bc0868f6bfe1252e7",
+    "workspaces/ci-materials-legacy/materials-replay.json": "0b8ffb8e6d7af6625c29f4495e3ee505d966349fdba5e1e28555097fd6cf6813",
+    "workspaces/ci-materials-legacy/materials-validation.json": "f5439cff2beb848c6afb8403b65e41e896b3fd2db8545c2ee76cfde580d12b65",
+    "workspaces/ci-materials-legacy/paper/ai_details_preflight.json": "575daab4d3a366811033d9bc314eca5a2e73d0911520933baaa8c6e11f09adcb",
+    "workspaces/ci-materials-legacy/paper/preflight.json": "b5f4e0104dc308e56f6972e408dc8e577a0d647ec97d471556db109f3c7e23ad",
+    "workspaces/ci-materials-r2/deliverables/submission-manifest.json": "765d108da86671b34c083d33ea16ecdf4cdcb423657d1527a9954add9f7ad600",
+    "workspaces/ci-materials-r2/materials-replay.json": "8942ea69d097a35ef3ca69995cc653502dec3791d7388a8b889a8da3a047d1b0",
+    "workspaces/ci-materials-r2/materials-validation.json": "fad5a24279c9d03a42b8ae9e7b944cbe5defcfd4cc18db96ebb9c4b9e47e9e25",
+    "workspaces/ci-materials-r2/paper/ai_details_preflight.json": "a7f8426bb1d48f809d425b7306d0ebdbccb4f0ee2ffca23a1184cb1c05915132",
+    "workspaces/ci-materials-r2/paper/preflight.json": "6f01a5d01d380e049fe685e92fe4caf3d623b77f966e2bb6db998473c53e80b3",
+    "workspaces/ci-r2-legacy-regression/resilience_acceptance.json": "d542c6cfc866fb68c28bd8a643db5cfc7a2770be0dc1033e3211fce89140a9af"
+  }
+}
