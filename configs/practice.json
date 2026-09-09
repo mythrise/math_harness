@@ -34,5 +34,6 @@
   "total_memory_mb": 4096,
   "trial_timeout": 120,
   "workers": 2,
-  "claude_effort": "max"
+  "claude_effort": "max",
+  "claude_timeout": null
 }

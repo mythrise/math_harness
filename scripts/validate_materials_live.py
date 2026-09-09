@@ -66,7 +66,7 @@ def main():
         'review_attempts_per_provider':1}
     report={'status':'NOT_RUN','scope':'REAL_SERVICES_AND_DOCKER_ON_FIXED_PUBLIC_SYNTHETIC_INPUT',
         'real_historical_contest_problem':'NOT_RUN','human_approval':'NOT_SIGNED','auto_submission':False,
-        'model_timeout_seconds':args.model_timeout,'model_call_limit':args.max_model_calls,'exa_http_attempt_limit':args.max_http_attempts,'configuration_profile_sha256':digest(profile),'exa_policy_source_sha256':digest(policy),'problem_digest':digest(PROBLEM)}
+        'model_timeout_seconds':args.model_timeout,'claude_timeout_seconds':config['claude_timeout'],'model_call_limit':args.max_model_calls,'exa_http_attempt_limit':args.max_http_attempts,'configuration_profile_sha256':digest(profile),'exa_policy_source_sha256':digest(policy),'problem_digest':digest(PROBLEM)}
     report['doctor']=doctor(True,config);write_json(args.report,report)
     if not report['doctor']['ready_for_live']:
         report.update(status='BLOCKED',reason='Required live infrastructure is unavailable')

@@ -119,3 +119,5 @@ reports/                         分开记录真实数值、夹具与尚未运�
 ```
 
 其他设计和历史部署细节：`docs/ARCHITECTURE_CN.md`、`docs/LOCAL_CODEX_SETUP_CN.md`、`reports/live-configuration/STATUS.md`、`benchmarks/PROTOCOL_CN.md`。本机私有日志、凭证、赛题数据与运行工作区不纳入 Git。
+
+Claude 默认无本地调用时限（`claude_timeout: null`），不再受 180 秒审查/600 秒生成时限截断；详见 [等待策略](docs/CLAUDE_WAIT_POLICY_CN.md)。

@@ -14,5 +14,6 @@
   "max_model_calls": 180,
   "claude_call_budget_usd": null,
   "claude_model": null,
-  "codex_model": null
+  "codex_model": null,
+  "claude_timeout": null
 }

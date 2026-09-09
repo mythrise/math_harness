@@ -15,5 +15,6 @@
   "claude_call_budget_usd": null,
   "claude_model": "claude-opus-5",
   "codex_model": null,
-  "claude_effort": "max"
+  "claude_effort": "max",
+  "claude_timeout": null
 }

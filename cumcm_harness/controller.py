@@ -21,7 +21,7 @@ DEFAULT_CONFIG={
  'mode':'practice','workers':2,'cpu_threads':1,'total_cpu_threads':2,'memory_mb':2048,'total_memory_mb':4096,
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
- 'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_call_budget_usd':None,
+ 'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_timeout':None,'claude_call_budget_usd':None,
  'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.5.0-rc2',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
  'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
@@ -60,6 +60,8 @@ def validate_config(c):
     if type(c['bootstrap_seed']) is not int or c['bootstrap_seed']<0:raise IntegrityError('Invalid bootstrap_seed')
     budget=c['claude_call_budget_usd']
     if budget is not None and (type(budget) not in (int,float) or not math.isfinite(budget) or budget<=0):raise IntegrityError('Invalid Claude budget')
+    timeout=c['claude_timeout']
+    if timeout is not None and (type(timeout) not in (int,float) or not math.isfinite(timeout) or timeout<=0):raise IntegrityError('Invalid Claude timeout')
     if type(c['allow_research_algorithms']) is not bool:raise IntegrityError('allow_research_algorithms must be Boolean')
     if c['max_candidates']>20 or c['repair_attempts']>5:raise IntegrityError('Unbounded research/repair is not supported')
     if c['fe_budget']<32:raise IntegrityError('FE budget must support at least one population')
@@ -83,7 +85,7 @@ class Controller:
         self.demo=fixture_provider is not None
         if self.demo and self.config['mode']=='contest':raise Blocked('Fixtures cannot run in contest mode')
         self.providers={'codex':fixture_provider or CLIProvider('codex',model=self.config['codex_model'],timeout=self.config['model_timeout']),
-                        'claude':fixture_provider or CLIProvider('claude',model=self.config['claude_model'],effort=self.config['claude_effort'],timeout=self.config['model_timeout'],max_budget_usd=self.config['claude_call_budget_usd'])}
+                        'claude':fixture_provider or CLIProvider('claude',model=self.config['claude_model'],effort=self.config['claude_effort'],timeout=self.config['claude_timeout'],max_budget_usd=self.config['claude_call_budget_usd'])}
         self.executor=executor or Executor('docker',self.config['docker_image']);self.problem=(self.root/'problem.md').read_text('utf-8')
         self.base={'problem':self.problem,'data_profiles':self.intake['profiles'],'private_data_schema':self.intake['private_schema'],
                    'confirmation_scope':self.intake['confirmation_scope'],'methods':route_methods(self.problem,top_k=10),
@@ -138,7 +140,7 @@ class Controller:
         kind=provider_kind;provider=self.providers[kind]
         from .role_skills import freeze_role_skills
         skill_identity=freeze_role_skills(self.store,role,stage=packet.get('review_stage') if schema=='review' else None)
-        if isinstance(provider,CLIProvider) and (schema=='review' or role=='hypothesis_critic'):
+        if isinstance(provider,CLIProvider) and kind!='claude' and (schema=='review' or role=='hypothesis_critic'):
             provider=__import__('copy').copy(provider)
             provider.timeout=min(provider.timeout,self.config['review_timeout'])
         image_refs=[{'name':p.name,'sha256':file_hash(p)} for p in images]

@@ -56,7 +56,7 @@ class RevisionController(Controller):
         if self.demo and self.config['mode']=='contest':raise Blocked('Fixture cannot satisfy contest revision')
         self.providers={'codex':fixture_provider or CLIProvider('codex',model=self.config['codex_model'],timeout=self.config['model_timeout']),
             'claude':fixture_provider or CLIProvider('claude',model=self.config['claude_model'],effort=self.config['claude_effort'],
-                timeout=self.config['model_timeout'],max_budget_usd=self.config['claude_call_budget_usd'])}
+                timeout=self.config['claude_timeout'],max_budget_usd=self.config['claude_call_budget_usd'])}
         self.review_board=ReviewBoard(self);self.review_cycle=0;self.ideas=None;self.materials=None;self.literature=None
         self.base={};self.intake={}
 

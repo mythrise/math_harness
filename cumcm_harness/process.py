@@ -1,6 +1,6 @@
-"""Bounded subprocess execution. No shell strings and no quiet timeout fallback."""
+"""Subprocess execution with explicit optional deadlines and recorded outcomes."""
 from __future__ import annotations
-import os, signal, stat, subprocess, time
+import math, os, signal, stat, subprocess, time
 from pathlib import Path
 from .common import *
 
@@ -24,10 +24,11 @@ def output_usage(root,byte_limit,file_limit):
             if size>byte_limit:return False,size,count
     return True,size,count
 
-def run_process(argv:list[str], *, cwd:Path, out:Path, env:dict[str,str], timeout:float,
+def run_process(argv:list[str], *, cwd:Path, out:Path, env:dict[str,str], timeout:float|None,
                 stdin:str|None=None, max_log_bytes=8_000_000, output_watch=None) -> dict:
     if not argv or not all(isinstance(x,str) for x in argv):raise IntegrityError('Command must be an argument vector')
-    if timeout<=0:raise IntegrityError('Positive timeout required')
+    if timeout is not None and (type(timeout) not in (int,float) or not math.isfinite(timeout) or timeout<=0):
+        raise IntegrityError('Timeout must be None or a positive finite number')
     out.mkdir(parents=True,exist_ok=True)
     stdout=out/'stdout.log';stderr=out/'stderr.log';start=time.monotonic()
     input_path=out/'stdin.txt'
@@ -37,7 +38,7 @@ def run_process(argv:list[str], *, cwd:Path, out:Path, env:dict[str,str], timeou
         state='EXITED'
         try:
             while p.poll() is None:
-                if time.monotonic()-start>timeout:state='TIMEOUT';terminate(p);break
+                if timeout is not None and time.monotonic()-start>timeout:state='TIMEOUT';terminate(p);break
                 if stdout.stat().st_size+stderr.stat().st_size>max_log_bytes:state='LOG_LIMIT';terminate(p);break
                 if output_watch is not None:
                     try:within,_,_=output_usage(*output_watch)
@@ -49,6 +50,7 @@ def run_process(argv:list[str], *, cwd:Path, out:Path, env:dict[str,str], timeou
     if state=='EXITED' and stdout.stat().st_size+stderr.stat().st_size>max_log_bytes:state='LOG_LIMIT'
     if output_watch is not None and not output_usage(*output_watch)[0]:state='OUTPUT_LIMIT'
     result={'argv':argv,'returncode':p.returncode,'status':state,'seconds':time.monotonic()-start,
+            'timeout_seconds':timeout,
             'stdout_sha256':file_hash(stdout),'stderr_sha256':file_hash(stderr)}
     write_json(out/'process_receipt.json',result)
     return result

@@ -19,7 +19,7 @@ jobs:
       - run: |
           sudo apt-get update
           sudo apt-get install -y inkscape fonts-noto-cjk
-      - run: python -m pytest -q tests/test_three_inputs_*.py tests/test_v050_remediation.py tests/test_revision_actual_layout.py --junitxml=reports/three-input-tests.xml
+      - run: python -m pytest -q tests/test_three_inputs_*.py tests/test_v050_remediation.py tests/test_revision_actual_layout.py tests/test_claude_wait_policy.py --junitxml=reports/three-input-tests.xml
       - run: python -m cumcm_harness verify-vendor
       - run: docker build -t cumcm-egoharness:0.5.0-rc2 .
       - run: docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .

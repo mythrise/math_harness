@@ -38,13 +38,15 @@ ROLES.update({
 class PromptPacketTooLarge(Blocked):
     """Deterministic request-size failure; changing providers is not a repair."""
 
+_DEFAULT_TIMEOUT=object()
 
 class CLIProvider:
     live=True
-    def __init__(self,kind:str, *, model:str|None=None, effort:str|None=None, timeout=600, max_budget_usd:float|None=None):
+    def __init__(self,kind:str, *, model:str|None=None, effort:str|None=None, timeout=_DEFAULT_TIMEOUT, max_budget_usd:float|None=None):
         if kind not in ('codex','claude'):raise ValueError(kind)
         if effort not in (None,'low','medium','high','xhigh','max'):raise ValueError('Invalid effort')
         if kind!='claude' and effort is not None:raise ValueError('Effort option is Claude-only')
+        if timeout is _DEFAULT_TIMEOUT:timeout=None if kind=='claude' else 600
         self.kind=kind;self.model=model;self.effort=effort;self.timeout=timeout;self.max_budget_usd=max_budget_usd
     def probe(self):
         binary=shutil.which(self.kind)

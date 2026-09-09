@@ -13,5 +13,6 @@
   "repair_attempts": 2,
   "max_model_calls": 90,
   "model_timeout": 600,
-  "claude_call_budget_usd": null
+  "claude_call_budget_usd": null,
+  "claude_timeout": null
 }

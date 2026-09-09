@@ -24,5 +24,6 @@
   "max_model_calls": 90,
   "model_timeout": 600,
   "claude_call_budget_usd": null,
-  "claude_model": "claude-fable-5"
+  "claude_model": "claude-fable-5",
+  "claude_timeout": null
 }
