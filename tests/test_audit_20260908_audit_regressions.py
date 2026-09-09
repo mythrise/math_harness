@@ -81,6 +81,24 @@ def make_runner(tmp_path,mode='ok'):
 def rows(runner):
     with runner.store.connect() as conn:return [dict(x) for x in conn.execute('SELECT * FROM jobs')]
 
+def test_parallel_matrix_freezes_shared_input_before_worker_jobs(tmp_path,monkeypatch):
+    import time
+    r,e,b,v=make_runner(tmp_path)
+    r.config['workers']=2;r.protocol['confirmation_seeds']=[701,702]
+    r.store.publish_bundle(b);r.store.publish_bundle(v)
+    original=r.store.put
+    def slow_input_persistence(value):
+        # Reproduce an ordinary filesystem delay after STEP_START and before
+        # STEP_DONE; a second worker must not mistake this for unknown work.
+        if isinstance(value,dict) and set(value)=={'public','evaluation'}:time.sleep(.25)
+        return original(value)
+    monkeypatch.setattr(r.store,'put',slow_input_persistence)
+    first=r.matrix('baseline',b,v,'confirmation',['baseline'])
+    assert [item['seed'] for item in first]==[701,702]
+    assert len(e.calls)==4 and all(row['status']=='DONE' for row in rows(r))
+    assert r.matrix('baseline',b,v,'confirmation',['baseline'])==first
+    assert len(e.calls)==4
+
 @pytest.mark.parametrize('mode',['missing','malformed','invalid_utf8','wrong_metric','wrong_coverage','contradiction'])
 def test_observed_invalid_evaluation_is_failed_not_running(tmp_path,mode):
     r,e,b,v=make_runner(tmp_path,mode)

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cumcm2026-paperkit"
+version = "1.0.0"
+description = "Patched ModelingPaperKit CUMCM profile with verified build receipts and math_harness adapter"
+requires-python = ">=3.11"
+dependencies = ["PyMuPDF>=1.24,<2", "jsonschema>=4.21,<5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+cumcm-paper = "cumcm2026.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cumcm2026 = ["assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

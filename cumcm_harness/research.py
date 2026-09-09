@@ -49,14 +49,18 @@ def choose_development(rows,protocol):
 class ResearchRunner:
     def __init__(self,store,executor,config,protocol,plan):
         self.store=store;self.executor=executor;self.config=config;self.protocol=protocol;self.plan=plan
-    def cell(self,candidate,bundle,verifier,phase,seed,variant):
-        root=self.store.root;code=self.store.publish_bundle(bundle);evaluation=self.store.publish_bundle(verifier)
-        data=root/'inputs'/phase;edata=root/'evaluation_inputs'/phase
+    def _phase_inputs(self,phase):
+        data=self.store.root/'inputs'/phase;edata=self.store.root/'evaluation_inputs'/phase
         inputs={'public':tree_manifest(data),'evaluation':tree_manifest(edata)}
         # Bind private reference labels as well as public inputs. A changed phase
         # cannot reuse a score or launch another cell under the same protocol.
         self.store.step('runner-inputs:'+digest({'protocol':self.protocol,'phase':phase}),
                         inputs,lambda:inputs)
+        return inputs
+    def cell(self,candidate,bundle,verifier,phase,seed,variant):
+        root=self.store.root;code=self.store.publish_bundle(bundle);evaluation=self.store.publish_bundle(verifier)
+        data=root/'inputs'/phase;edata=root/'evaluation_inputs'/phase
+        inputs=self._phase_inputs(phase)
         intent={'candidate':candidate,'code':digest(bundle),'evaluation':digest(verifier),'phase':phase,'seed':seed,'variant':variant,
                 'protocol':digest(self.protocol),'data':digest(inputs['public']),
                 'evaluation_data':digest(inputs['evaluation']),
@@ -115,6 +119,9 @@ class ResearchRunner:
         return result
     def matrix(self,candidate,bundle,verifier,phase,variants):
         seeds=self.protocol[phase+'_seeds'];cells=[(s,v) for v in sorted(variants) for s in sorted(seeds)]
+        # Complete the shared durable record before workers are launched. Each
+        # cell still rechecks current bytes, and unknown prior work still blocks.
+        self._phase_inputs(phase)
         def run(pair):return self.cell(candidate,bundle,verifier,phase,pair[0],pair[1])
         with ThreadPoolExecutor(max_workers=self.config['workers']) as pool:rows=list(pool.map(run,cells))
         return sorted(rows,key=lambda r:(r['variant'],r['seed']))

@@ -1,0 +1,8 @@
+采用平方残差和作为目标函数：
+\begin{equation}\min_{a,b}\sum_{i=1}^{n}(y_i-a x_i-b)^2.\end{equation}
+对斜率和截距求偏导并令其为零，可得到
+\begin{equation}
+a=\frac{\sum_i(x_i-\bar{x})(y_i-\bar{y})}{\sum_i(x_i-\bar{x})^2},\qquad
+b=\bar{y}-a\bar{x}.
+\end{equation}
+程序先验证输入长度、有限性及非零方差，再按以上公式计算；结果写入结构化文件，便于与论文表格逐项核对。

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "title": "无程序与无人工智能使用分支的排版示例",
+  "keywords": [
+    "最小二乘",
+    "解析复核",
+    "合成数据",
+    "工程验证"
+  ],
+  "abstract": "sections/abstract.tex",
+  "references": "sections/references.tex",
+  "sections": [
+    {
+      "heading": "问题重述",
+      "path": "sections/problem.tex"
+    },
+    {
+      "heading": "分析与结论",
+      "path": "sections/analysis.tex"
+    }
+  ],
+  "program_used": false,
+  "code_roots": [],
+  "support_files": [],
+  "figures": [],
+  "ai_status": "unused",
+  "ai_usage": "ai_usage.json",
+  "ai_details_filename": "AI工具使用详情.pdf",
+  "example": true,
+  "identity_denylist": []
+}

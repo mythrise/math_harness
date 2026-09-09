@@ -1,0 +1,4 @@
+# Versions actually available in the packaging environment.
+PyMuPDF==1.26.7
+jsonschema==4.26.0
+pytest==9.0.2

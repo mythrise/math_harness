@@ -59,7 +59,7 @@ def main():
     root.mkdir(parents=True,exist_ok=True)
     before=verify_vendor();code=root/'code';code.mkdir();data=root/'data';data.mkdir()
     labcode=root/'lab-code';labcode.mkdir()
-    for name in ('cumcm_harness','tests','vendor','configs','schemas','examples'):
+    for name in ('cumcm_harness','tests','vendor','configs','schemas','examples','templates','third_party'):
         shutil.copytree(ROOT/name,code/name,ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.nbc','*.nbi','.DS_Store'))
     shutil.copy2(ROOT/'pyproject.toml',code/'pyproject.toml')
     (code/'validate.py').write_text(ENTRY)

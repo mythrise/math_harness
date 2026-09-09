@@ -1,0 +1,12 @@
+{
+  "body_pages": null,
+  "bytes": 91925,
+  "errors": [],
+  "margin_violations": [],
+  "pages": 15,
+  "pdf_sha256": "2c4d788e4326f6f8e7436e22ac436d8bf8eb49fba9cfb2ae3fa7e1a4cc171dd0",
+  "release_ready": false,
+  "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+  "status": "PASS",
+  "warnings": []
+}

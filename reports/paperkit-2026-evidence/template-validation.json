@@ -1,0 +1,223 @@
+{
+  "auto_submission": false,
+  "human_review": "NOT_SIGNED",
+  "model_calls": 0,
+  "native": {
+    "long-title": {
+      "body_pages": 1,
+      "compiler_replay_identical": true,
+      "pages": 3,
+      "paper_sha256": "f001f098729d3df875548ff992ce672be1219d2924d4686034933a71b3cea0ce",
+      "status": "PASS"
+    },
+    "missing-figure": {
+      "error": "Isolated LaTeX compile failed; logs: <HARNESS_ROOT>/reports/paperkit-acceptance-final/missing-figure/_tex_builds/2672dff12ac083d487e717033ccec4f0f831b5fa7b188de3aa13db944e83180e",
+      "status": "EXPECTED_FAILURE"
+    },
+    "native": {
+      "body_pages": 1,
+      "compiler_replay_identical": true,
+      "pages": 3,
+      "paper_sha256": "b10083f85c8c90e76198a9a29a728f543b7e23d14c6f27d11b97a1af2e77bd79",
+      "status": "PASS"
+    }
+  },
+  "native_profile_digest": "1602df263ed810eff28dcef28b3de87db140ca9a486004b3429cb0082a9f62bf",
+  "reference": {
+    "examples": {
+      "examples": {
+        "unused_ai_no_program": {
+          "abstract_end_page": 1,
+          "ai_brief_purpose": "",
+          "ai_build": null,
+          "ai_filename": "AI工具使用详情.pdf",
+          "ai_preflight": null,
+          "ai_status": "unused",
+          "appendix_start_page": 3,
+          "build": {
+            "engine": "XeTeX 3.141592653-2.6-0.999994 (TeX Live 2022/Debian)",
+            "errors": [],
+            "passes": 3,
+            "pdf_sha256": "e04d3b61df53b8415a18bc927d33bfe06507d04763aa08ff5c5ed13f3c3d88c5",
+            "shell_escape": false,
+            "source_sha256": "2e7e298961f27e7e5884283c2152e181222be3a18651ed8b2eedcf28fdc0e1c8",
+            "trusted_tex_required": true
+          },
+          "bundle_digest": "c99570800a511255bb4e6472c3c900765544b58709e1b57e52cceb8934c686c5",
+          "example": true,
+          "input_hashes": {
+            "ai_usage.json": "8506a033a2c6af545596b3ee70b7fe0d48940a2626f4e98bb68e64e25e23e0b3",
+            "project.json": "fd00e07f5c4f00cfc7d0a6fed7a15fdce818f6c79917e36bc4e5520e67a30020",
+            "sections/abstract.tex": "89da5f5447e78fdd0b5ff33b10894024e6844037a21f72e5e220535f2203f910",
+            "sections/analysis.tex": "b5251a0c38121d4d837773d3bc99b4a00584bacd6b7b7a75263137b3746fe62f",
+            "sections/problem.tex": "9e7c6c804aed1e7478aeeadc338456a02fee996a6c820a3fb1c77c8c552d17f7",
+            "sections/references.tex": "0b17470192369ebf5c8833b901c2773c2dd8c40150c9b17f48787929ef4c65ce"
+          },
+          "limits": [
+            "No proof of scientific correctness, source completeness outside declared roots, true human review, or total anonymity.",
+            "20MB checked conservatively as decimal bytes. PDF/screenshot binary identity review remains manual."
+          ],
+          "official_certification": false,
+          "outputs": {
+            "paper.pdf": "e04d3b61df53b8415a18bc927d33bfe06507d04763aa08ff5c5ed13f3c3d88c5"
+          },
+          "preflight": {
+            "body_pages": 1,
+            "bytes": 74757,
+            "errors": [],
+            "margin_violations": [],
+            "pages": 3,
+            "pdf_sha256": "e04d3b61df53b8415a18bc927d33bfe06507d04763aa08ff5c5ed13f3c3d88c5",
+            "release_ready": false,
+            "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+            "status": "PASS",
+            "warnings": [
+              "Example mode: not a contest submission, regardless of machine pass"
+            ]
+          },
+          "profile_digest": "70d3b6906532cfb509305e55c004ca3d77a2e62f90ca014ef088cecfbcbd51fa",
+          "project_digest": "92764967b4bf4d87c3ac94a6880da4873f8d23ff8ed894e17b920d0762600515",
+          "release_ready": false,
+          "rules_checked_on": "2026-09-09",
+          "schema_version": 1,
+          "source_inventory": {},
+          "status": "EXAMPLE_MACHINE_PASS_NOT_FOR_SUBMISSION",
+          "support_hashes": {},
+          "support_inventory": []
+        },
+        "used_ai": {
+          "abstract_end_page": 1,
+          "ai_brief_purpose": "合成工程示例的代码审查流程演示",
+          "ai_build": {
+            "engine": "XeTeX 3.141592653-2.6-0.999994 (TeX Live 2022/Debian)",
+            "errors": [],
+            "passes": 3,
+            "pdf_sha256": "91cd0b8762c3496280707697ac1db932e33842ba76f5d6095a1ac4fa71255785",
+            "shell_escape": false,
+            "source_sha256": "3140ff068fa80832aa502699675136b5a3c01f7ad719b3d95ce46b1f79be01c4",
+            "trusted_tex_required": true
+          },
+          "ai_filename": "AI工具使用详情.pdf",
+          "ai_preflight": {
+            "body_pages": null,
+            "bytes": 79123,
+            "errors": [],
+            "margin_violations": [],
+            "pages": 1,
+            "pdf_sha256": "91cd0b8762c3496280707697ac1db932e33842ba76f5d6095a1ac4fa71255785",
+            "release_ready": false,
+            "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+            "status": "PASS",
+            "warnings": []
+          },
+          "ai_status": "used",
+          "appendix_start_page": 4,
+          "build": {
+            "engine": "XeTeX 3.141592653-2.6-0.999994 (TeX Live 2022/Debian)",
+            "errors": [],
+            "passes": 3,
+            "pdf_sha256": "b53224869bc9951c76b6b33a4a4bb87691c31d6d650e1f70013dbe285cf1e53b",
+            "shell_escape": false,
+            "source_sha256": "2e7e298961f27e7e5884283c2152e181222be3a18651ed8b2eedcf28fdc0e1c8",
+            "trusted_tex_required": true
+          },
+          "bundle_digest": "529061a6c2737898cb06530443f9bc1fac9f27eee6caced6f6098188d7bb4d82",
+          "example": true,
+          "input_hashes": {
+            "ai_usage.json": "e912dc30b94a99808d08ddbcb0c22fe9b463fa6cfcb51eb2b132de61818c7600",
+            "code/README.txt": "87061267977b1f5c97253a9f497b1e605798cda52bb9be72885035800e3710ec",
+            "code/solve.py": "211b5862315e5d0105a0d12cf36b278cf28088cd20ad817b1eee46f1d76b3b8a",
+            "code/test_solve.py": "4a830d5b0a6083c797a440338c80ecf6e0107a9fbe22b6bf1487486a789bcadc",
+            "project.json": "4bd2e33a75843b89c2db166e2bca62e1dabd76efd6b6b635c194dc9f72d460bf",
+            "results/solution.json": "55806a7573c32a8d2b92cec35e2722b5976cea2cc3e941a1346616e64fd49822",
+            "sections/abstract.tex": "3858383be8d260b1aabd30ea106a2e3ac3ba1039da543d3adf41c44a8caf81e2",
+            "sections/assumptions.tex": "9320f927abd4a51ec185dd649ad5d137c0977b8f5a1a606a1d08089be8ec706f",
+            "sections/evaluation.tex": "cb089d257cdd160d04eca65a7f5256024b6ee8843bc670182b1dffae3a9300e8",
+            "sections/model.tex": "d8a5affdd9278aabf199252b068aeccbba7e84af76e5e47cb9f0dd1c290049d8",
+            "sections/problem.tex": "04fdfdda2fa12126c05b3fb4faf1e45cdca076a32204383e1789d5f3a8c7452b",
+            "sections/references.tex": "cbc3f5cf59aea9bd2f979613402e34d04e792e3e68eef1cf5e54a328883d5cf8",
+            "sections/results.tex": "553bf48b103cb771b03a4a093eef382fcde322daa8a4ea6006cd6280edef22ee"
+          },
+          "limits": [
+            "No proof of scientific correctness, source completeness outside declared roots, true human review, or total anonymity.",
+            "20MB checked conservatively as decimal bytes. PDF/screenshot binary identity review remains manual."
+          ],
+          "official_certification": false,
+          "outputs": {
+            "paper.pdf": "b53224869bc9951c76b6b33a4a4bb87691c31d6d650e1f70013dbe285cf1e53b",
+            "support.zip": "57c10e3b9b8445fb0b3e26e618c42eef0c7a370df781db6f50bc4f73b377eab9"
+          },
+          "preflight": {
+            "body_pages": 2,
+            "bytes": 202456,
+            "errors": [],
+            "margin_violations": [],
+            "pages": 5,
+            "pdf_sha256": "b53224869bc9951c76b6b33a4a4bb87691c31d6d650e1f70013dbe285cf1e53b",
+            "release_ready": false,
+            "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+            "status": "PASS",
+            "warnings": [
+              "Example mode: not a contest submission, regardless of machine pass"
+            ]
+          },
+          "profile_digest": "70d3b6906532cfb509305e55c004ca3d77a2e62f90ca014ef088cecfbcbd51fa",
+          "project_digest": "9cfa082b6ec0116905f7b52f18b4fb6339c7cc9a664bbb94aff3aa7b99dc7213",
+          "release_ready": false,
+          "rules_checked_on": "2026-09-09",
+          "schema_version": 1,
+          "source_inventory": {
+            "code/README.txt": "87061267977b1f5c97253a9f497b1e605798cda52bb9be72885035800e3710ec",
+            "code/solve.py": "211b5862315e5d0105a0d12cf36b278cf28088cd20ad817b1eee46f1d76b3b8a",
+            "code/test_solve.py": "4a830d5b0a6083c797a440338c80ecf6e0107a9fbe22b6bf1487486a789bcadc"
+          },
+          "status": "EXAMPLE_MACHINE_PASS_NOT_FOR_SUBMISSION",
+          "support_hashes": {
+            "AI工具使用详情.pdf": "91cd0b8762c3496280707697ac1db932e33842ba76f5d6095a1ac4fa71255785",
+            "code/README.txt": "87061267977b1f5c97253a9f497b1e605798cda52bb9be72885035800e3710ec",
+            "code/solve.py": "211b5862315e5d0105a0d12cf36b278cf28088cd20ad817b1eee46f1d76b3b8a",
+            "code/test_solve.py": "4a830d5b0a6083c797a440338c80ecf6e0107a9fbe22b6bf1487486a789bcadc",
+            "results/solution.json": "55806a7573c32a8d2b92cec35e2722b5976cea2cc3e941a1346616e64fd49822"
+          },
+          "support_inventory": [
+            "AI工具使用详情.pdf",
+            "code/README.txt",
+            "code/solve.py",
+            "code/test_solve.py",
+            "results/solution.json"
+          ]
+        }
+      },
+      "profile_digest": "70d3b6906532cfb509305e55c004ca3d77a2e62f90ca014ef088cecfbcbd51fa"
+    },
+    "image_id": "sha256:d2731eda2d973228aa3e3c0b222f863e836d774c383cb6147a0047470041225c",
+    "receipt_sha256": "9938b937e91f0dc706a4f59bb181d3f8f11da796cc4a32e85248bc766075fe7d",
+    "reference_manifest_sha256": "db6f0677e00ee19a013551ce9a6ecffaddb8b2ca8542daa589262bfc17f020bf",
+    "status": "PASS",
+    "test_count": 86
+  },
+  "scope": "SYNTHETIC_TEMPLATE_VALIDATION_WITH_REAL_DOCKER_TEX_NOT_LIVE_CONTEST",
+  "starter": {
+    "unconfirmed": {
+      "error": "Isolated LaTeX compile failed; logs: <HARNESS_ROOT>/reports/paperkit-acceptance-final/starter-unconfirmed/_tex_builds/222980f62fb87c77272570e664554b8da5b3c0db85ad6d81f1a54ffe18de9318",
+      "status": "EXPECTED_FAILURE"
+    },
+    "unused-no-materials": {
+      "pages": 3,
+      "paper_sha256": "550952d730dd5f53e56a3d4ec294654c5cf4a0357cfdc60300e79959fca4c985",
+      "scope": "LAYOUT_BRANCH_FIXTURE_NOT_A_CONTEST_DELIVERABLE",
+      "status": "PASS"
+    },
+    "used-no-program": {
+      "pages": 3,
+      "paper_sha256": "0c2771c755b3b894749c24f5bc887f57b49d39dd0a61b400976989a23b82703e",
+      "scope": "LAYOUT_BRANCH_FIXTURE_NOT_A_CONTEST_DELIVERABLE",
+      "status": "PASS"
+    },
+    "used-without-support": {
+      "error": "Isolated LaTeX compile failed; logs: <HARNESS_ROOT>/reports/paperkit-acceptance-final/starter-used-without-support/_tex_builds/e9f0fe06b3a3fff040c89aa31d74e6a07361ebd8ff9ae20a29546d33abc7cc58",
+      "status": "EXPECTED_FAILURE"
+    }
+  },
+  "status": "PASS"
+}

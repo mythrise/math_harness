@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "title": "基于最小二乘估计的线性观测拟合与实现检验",
+  "keywords": [
+    "最小二乘",
+    "解析复核",
+    "合成数据",
+    "工程验证"
+  ],
+  "abstract": "sections/abstract.tex",
+  "references": "sections/references.tex",
+  "sections": [
+    {
+      "heading": "问题重述",
+      "path": "sections/problem.tex"
+    },
+    {
+      "heading": "模型假设与符号说明",
+      "path": "sections/assumptions.tex"
+    },
+    {
+      "heading": "模型建立与求解",
+      "path": "sections/model.tex"
+    },
+    {
+      "heading": "结果与检验",
+      "path": "sections/results.tex"
+    },
+    {
+      "heading": "模型评价与适用边界",
+      "path": "sections/evaluation.tex"
+    }
+  ],
+  "program_used": true,
+  "code_roots": [
+    "code"
+  ],
+  "support_files": [
+    "results/solution.json"
+  ],
+  "figures": [],
+  "ai_status": "used",
+  "ai_usage": "ai_usage.json",
+  "ai_details_filename": "AI工具使用详情.pdf",
+  "example": true,
+  "identity_denylist": []
+}

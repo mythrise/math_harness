@@ -11,7 +11,7 @@ from .contracts import validate
 RULES={
  'format_url':'https://www.mcm.edu.cn/html_cn/node/4cd596519c9eb9fbd866398f6df0caa3.html',
  'ai_url':'https://www.mcm.edu.cn/html_cn/node/fef94648f2836ab6cc81586f4c38512b.html',
- 'checked_on':'2026-09-05','profile':'self-developed, based on official 2026 rules',
+ 'checked_on':'2026-09-09','profile':'self-developed, based on official 2026 rules',
  'a4':True,'minimum_margin_mm':25,'abstract_first_page':True,'body_max_pages':30,
  'toc':False,'electronic_cover_pages':False,'paper_max_bytes':20_000_000,'support_max_bytes':20_000_000,
  'ai_statement_before_references':True,'ai_details_filename':'AI工具使用详情.pdf',
@@ -112,31 +112,25 @@ def claim_registry(rows,selection,inference):
             'evidence':[{'job_id':representative['job_id'],'evaluation_digest':digest(representative['evaluation']),'selector':'measurements.'+m['id']}]}
     return claims,representative
 
-PREAMBLE=r'''\documentclass[UTF8,fontset=fandol,a4paper,zihao=-4]{ctexart}
-\usepackage[top=25mm,bottom=25mm,left=25mm,right=25mm,includefoot]{geometry}
-\usepackage{amsmath,amssymb,graphicx,booktabs,longtable,fancyhdr,fvextra,xurl,hyperref}
-\IfFontExistsTF{DejaVu Sans Mono}{\setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]}{\IfFontExistsTF{Noto Sans Mono}{\setmonofont{Noto Sans Mono}[Scale=MatchLowercase]}{}}
-\hypersetup{hidelinks,pdfauthor={},pdfsubject={},pdfcreator={XeLaTeX},pdftitle={Mathematical Modeling Report}}
-\pagestyle{fancy}\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}
-\setlength{\headheight}{0pt}\setlength{\parindent}{2em}
-\setlength{\parskip}{3pt}\emergencystretch=3em
-\graphicspath{{figures/}}
-\begin{document}
-'''
+from .paper_profile import PREAMBLE, prepare_style, PROFILE, profile_digest
+
 
 def compile_tex(folder:Path,main='main.tex'):
     from .tex_sandbox import compile_isolated
+    prepare_style(folder)
     sandbox=compile_isolated(folder,main)
     pdf=folder/Path(main).with_suffix('.pdf')
     if not pdf.is_file():raise IntegrityError('Compiler exited without PDF')
     log=folder/Path(main).with_suffix('.log')
-    text=log.read_text('utf-8',errors='replace') if log.exists() else ''
-    if 'Missing character:' in text or 'LaTeX Warning: Reference' in text or 'undefined references' in text:raise PaperCompilationFailure('PDF contains missing glyphs or undefined references')
+    if not log.is_file():raise PaperCompilationFailure('Required compiler log is missing')
+    text=log.read_text('utf-8',errors='replace')
+    markers=('Missing character:', 'LaTeX Warning: Reference', 'undefined references', 'undefined citations', r'Overfull \hbox', r'Overfull \vbox')
+    if any(marker in text for marker in markers):raise PaperCompilationFailure('PDF contains missing glyphs, unresolved references/citations or overfull boxes')
     return {'source_sha256':file_hash(folder/main),'pdf_sha256':file_hash(pdf),
-            'engine':'XeLaTeX','shell_escape':False,'passes':2,'overfull_boxes':text.count(r'Overfull \hbox'),
+            'engine':'XeLaTeX','shell_escape':False,'passes':2,'paperkit_profile':PROFILE,'paperkit_profile_digest':profile_digest(),'overfull_boxes':text.count(r'Overfull \hbox'),
             'compiler_version':text.splitlines()[0] if text else 'UNREPORTED','sandbox':sandbox}
 
-def preflight(pdf:Path, *, denylist=(),require_ai=True,trusted_appendix_page=None):
+def preflight(pdf:Path, *, denylist=(),require_ai=True,trusted_appendix_page=None,demo=False):
     import fitz
     r=fitz.open(pdf);texts=[p.get_text() or '' for p in r];whole='\n'.join(texts)
     failures=[];warnings=[]
@@ -163,7 +157,16 @@ def preflight(pdf:Path, *, denylist=(),require_ai=True,trusted_appendix_page=Non
         if x and (x in whole or x in str(r.metadata)):failures.append('identity denylist match')
     if r.metadata and r.metadata.get('author'):failures.append('nonempty PDF author metadata')
     if re.search(r'目\s*录\s*\n',whole):warnings.append('possible forbidden table of contents; inspect')
+    from .paper_layout import inspect_pdf
+    aux=pdf.with_suffix('.aux')
+    labels=aux.read_text('utf-8',errors='replace') if aux.exists() else ''
+    end=re.search(r'\\newlabel\{abstract-end\}\{\{[^}]*\}\{(\d+)\}',labels)
+    extra=inspect_pdf(pdf,denylist=denylist,require_ai=require_ai,example=demo,
+        abstract_end=int(end.group(1)) if end else None,appendix_page=trusted_appendix_page)
+    failures.extend(e['code']+': '+e['detail'] for e in extra['errors'])
+    warnings.extend(extra['warnings'])
     return {'status':'PASS' if not failures else 'FAIL','pages':len(r),'body_pages':appendix-1 if appendix is not None else None,
+            'paperkit_checks':extra,'release_ready':False,
             'bytes':pdf.stat().st_size,'failures':failures,'warnings':warnings,'pdf_sha256':file_hash(pdf),
             'visual_check':'REQUIRED_SEPARATELY','anonymity':'denylist/metadata checks do not prove complete anonymity'}
 
@@ -210,7 +213,7 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
     inventory=planned_support_files(root,source_files)
     write_json(folder/'support_inventory.json',inventory)
     write_json(folder/'claims.json',claims);write_json(folder/'ai_records.json',ai_records)
-    lines=[PREAMBLE,r'\begin{center}{\LARGE\bfseries '+esc(draft['title'])+r'}\end{center}',r'\section*{摘要}',
+    lines=[PREAMBLE,r'\PaperKitTitle{'+esc(draft['title'])+'}',r'\section*{摘要}',
            bind_prose(draft['abstract'],claims,sources=known),r'\par\noindent\textbf{关键词：}'+esc('；'.join(draft['keywords']))]
     if demo:lines.append(r'\par\medskip\noindent\textbf{演示说明：} 本文是合成问题上的工程演示，不是当届国赛解答。模型调用与独立审查为显式测试夹具；数值计算为实际运行。')
     lines.append(r'\label{abstract-end}\clearpage')
@@ -226,9 +229,9 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
               r'\begin{figure}[htbp]\centering\includegraphics[width=.98\linewidth]{ourwork.pdf}\caption{'+esc(draft['figure_caption'])+r'}\end{figure}',
               r'\section{适用范围与不足}']
     for t in draft['limitations']:lines.append(bind_prose(t,claims,sources=known)+r'\par')
-    lines += [r'\section*{AI工具使用声明}',
+    lines += [r'\FloatBarrier',r'\section*{AI工具使用声明}',
         ('本工程演示由人工智能辅助构建；本次演示的 Codex 与 Claude 子进程没有实际调用，审查夹具不能代替独立模型审查或人工核验。实际使用情况与状态见支撑材料。' if demo else
-         '本研究使用了人工智能工具，辅助问题分析、建模建议、代码生成与调试、实验审查、绘图和论文起草。具体工具版本、主要提示方式、采纳、修改与人工核验情况见支撑材料中的使用详情。'),
+         '本参赛队在竞赛过程中使用了AI工具，主要用于问题分析、建模建议、代码生成与调试、实验审查、绘图和论文起草，详细使用情况见支撑材料。'),
         (r'\renewcommand{\refname}{参考文献}' if draft['citation_ids'] else r'\section*{参考文献}')]
     if draft['citation_ids']:
         lines.append(r'\begin{thebibliography}{99}')
@@ -236,7 +239,7 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
             s=known[cid];lines.append(r'\bibitem{'+cid+'} '+esc(s['title'])+'. '+r'\url{'+s['url']+'}.')
         lines.append(r'\end{thebibliography}')
     else:lines.append('本演示的算法来源为随包提供的 MOSAIC 实现，问题为合成实例；未编造外部参考文献。正式研究应补入经过核验且在正文引用的文献。')
-    lines += [r'\clearpage\appendix\section{附录：支撑材料与完整源程序}\label{harness-appendix-start}',
+    lines += [r'\clearpage\appendix\section*{附录：支撑材料与完整源程序}\label{harness-appendix-start}',
               '支撑材料包含运行配置、数据清单、实际数值结果、评测器、求解器、定制算法依赖、证据映射、图表源数据和人工智能使用详情。原始附件是否包含在支撑材料中，以数据来源配置与清单为准。',
               r'\subsection*{源程序文件清单}']
     for rel in inventory:
@@ -259,13 +262,13 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
     if not appendix_label:raise PaperCompilationFailure('Missing trusted appendix boundary label')
     build['appendix_start_page']=int(appendix_label.group(1))
     qa=preflight(folder/'main.pdf',denylist=read_json(root/'config.json')['identity_denylist'],
-                 trusted_appendix_page=build['appendix_start_page'])
+                 trusted_appendix_page=build['appendix_start_page'],demo=demo)
     write_json(folder/'build.json',build);write_json(folder/'preflight.json',qa)
     if qa['status']!='PASS':raise PaperCompilationFailure('Paper preflight failed: '+str(qa['failures']))
     return {'paper_sha256':file_hash(folder/'main.pdf'),'build':build,'preflight':qa,'claims_digest':digest(claims),'source_inventory':source_files}
 
 def build_ai_details(folder:Path,records:list[dict],human:dict|None,*,demo=False):
-    lines=[PREAMBLE,r'\begin{center}{\LARGE\bfseries AI工具使用详情}\end{center}',
+    lines=[PREAMBLE,r'\PaperKitTitle{AI工具使用详情}',
         '本文件记录工具、使用阶段、主要提示方式，以及输出的采纳、修改和核验情况。工具回执中的未运行或未报告字段按实际状态保留，不以推测填充。',
         r'\section*{使用与核验状态}',
         ('工程测试模式：下列多角色回执来自预先编写的测试夹具，不是实际 Codex 或 Claude 调用。数值实验独立执行，但尚无正式参赛人工签核。' if demo else
@@ -283,4 +286,9 @@ def build_ai_details(folder:Path,records:list[dict],human:dict|None,*,demo=False
         if rev:lines.append(esc(f'采纳：{rev["adopted"]}；人工修改：{rev["modification"]}；人工核验：{rev["verification"]}')+r'\par')
         else:lines.append('采纳、人工修改和核验：尚未取得对应的逐项人工签核；不能据此认定满足正式提交条件。'+r'\par')
     lines.append(r'\end{document}');atomic_write(folder/'ai_details.tex','\n'.join(lines));receipt=compile_tex(folder,'ai_details.tex')
+    from .paper_layout import inspect_pdf
+    qa=inspect_pdf(folder/'ai_details.pdf',kind='ai_details',require_ai=False)
+    write_json(folder/'ai_details_preflight.json',qa)
+    if qa['status']!='PASS':raise PaperCompilationFailure('AI details preflight failed: '+str(qa['errors']))
+    receipt['paperkit_checks']=qa
     dest=folder/'AI工具使用详情.pdf';shutil.copy2(folder/'ai_details.pdf',dest);return {'path':dest.name,'sha256':file_hash(dest),'build':receipt}

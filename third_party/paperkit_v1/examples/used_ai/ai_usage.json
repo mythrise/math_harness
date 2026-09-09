@@ -1,0 +1,20 @@
+{
+  "status": "used",
+  "brief_purpose": "合成工程示例的代码审查流程演示",
+  "records": [
+    {
+      "id": "fixture-001",
+      "tool": "测试夹具（非真实模型调用）",
+      "version_or_model": "fixture-v1",
+      "stage": "模板工程回归",
+      "purpose": "演示完整的 AI 使用披露字段，不构成实际使用证明",
+      "prompting": "测试输入要求检查最小二乘程序的边界条件；该交互为预置夹具",
+      "process": "将预置测试记录输入详情生成器，检查排版、文件名与支撑材料收录",
+      "language_polishing_only": false,
+      "adoption": "示例字段；没有实际模型输出被作为竞赛结论采纳",
+      "human_modification": "示例字段；不宣称存在真实参赛队人工修改记录",
+      "human_verification": "示例字段；数值单元测试已实际执行，但它不是参赛队人工签核",
+      "artifact": "code/solve.py 与 results/solution.json"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+% !TeX program = xelatex
+% Electronic paper. Paper-only official front pages are merged by the print command.
+\documentclass[UTF8,a4paper,zihao=-4,fontset=fandol]{ctexart}
+\usepackage{paperkit-cumcm2026}
+\input{generated/meta.tex}
+\begin{document}
+\setcounter{page}{1}
+\PaperKitTitle{\PaperTitle}
+\section*{摘要}
+\input{sections/abstract.tex}
+\keywords{\PaperKeywords}
+\input{generated/example_notice.tex}
+\label{abstract-end}\clearpage
+\label{body-start}
+\input{generated/body.tex}
+\input{generated/ai_statement.tex}
+\input{sections/references.tex}
+\clearpage
+\appendix
+\section*{附录：支撑材料与完整源程序}\label{appendix-start}
+\input{generated/appendix.tex}
+\end{document}

@@ -1,5 +1,7 @@
 # CUMCM-EgoHarness 0.3.0
 
+论文模板已按 `CUMCM2026_PaperKit_Harness_v1.0.0` 接入修订版式、长标题换行、AI 声明和实际 PDF 边界/页码检查，并保留现有 Docker 隔离编译、源码附录、证据绑定和返工流程。参见 [PaperKit 接入说明](docs/PAPERKIT_2026_INTEGRATION_CN.md) 与 [本机验收报告](reports/PAPERKIT_2026_LOCAL_CN.md)。新工作区的 Claude 默认模型为 `claude-opus-5`，推理强度为 `max`。
+
 0.3.0 在原有 Exa、审查板和执行内核上集成十个方法族的 CPU 算法库：LP/MILP 核验、原版 MOSAIC 前沿审计、训练内预测选模、滚动时序选模、固定锚点评价、最短路、ODE、QMC 和统计诊断。旧数学函数保留；关键词路由只负责检索，不能代替算法适用性核验。参见 [算法 API](docs/algorithm-upgrade/API_CN.md) 与 [设计及已知负结果](docs/algorithm-upgrade/RESEARCH_AND_DESIGN_CN.md)。
 
 包内 `benchmarks/algorithm-upgrade/` 保留上游测试与数值记录；[本机 0.3.0 升级验收](reports/ALGORITHM_UPGRADE_LOCAL_CN.md) 单独记录当前完整仓库的验证。21 个外部候选均未运行，残差回归默认关闭，没有全局性能晋级。当前版本也修复返工输入膨胀：文献全文按内容哈希完整留档，提示携带全部审查意见、引用和最新方案；任务合同与可引用文献明确区分。

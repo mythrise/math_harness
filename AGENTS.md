@@ -13,6 +13,10 @@ safe mode; CLI/image probes do not establish successful upstream model responses
 Paper compilation additionally requires `cumcm-egoharness-tex:0.3.1` built with
 `Dockerfile.tex`; host XeLaTeX is not the execution backend. Read
 `docs/AUDIT_56ADE25_REPAIR_CN.md` for isolated builds, typed failures, and Exa lease recovery.
+PaperKit v1 template corrections are integrated natively; read
+`docs/PAPERKIT_2026_INTEGRATION_CN.md`. Keep the style source fingerprint-bound,
+use `scripts/validate_paperkit.py` for template regression, and preserve the
+controller-supplied appendix boundary and explicit fixture/live distinction.
 
 Read README.md, docs/ARCHITECTURE_CN.md and reports/TEST_REPORT_CN.md first.
 

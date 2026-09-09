@@ -1,0 +1,60 @@
+{
+  "auto_submission": false,
+  "base_commit": "7e91cfa766a42821ea418222cb53643ad8c76d71",
+  "date": "2026-09-09",
+  "formal_human_approvals": "NOT_SIGNED",
+  "harness_tests_scope": "ALL_REPOSITORY_TESTS_IN_DOCKER",
+  "input_archive_sha256": "dbc6c34dae2e987d36814c8e7642d1b1dd61bd3c3839a6488b30bcd2d47b28de",
+  "isolation_checks": 11,
+  "live_exa": "NOT_RUN",
+  "live_models": "NOT_RUN_FOR_THIS_TEMPLATE_TASK",
+  "local_workspace": "isolated worktree; original source directory was found missing at task start",
+  "native_profile_digest": "1602df263ed810eff28dcef28b3de87db140ca9a486004b3429cb0082a9f62bf",
+  "negative_outcomes": [
+    {
+      "pending_jobs_after_stop": 0,
+      "pending_steps_after_stop": 0,
+      "resolved_by": "Freeze shared inputs before launching matrix workers",
+      "run": "paperkit-repair-01",
+      "status": "STOPPED_INPUT_FREEZE_RACE"
+    },
+    {
+      "resolved_by": "FloatBarrier prevents figure insertion between bibliography entries",
+      "run": "paperkit-repair-02",
+      "status": "SUPERSEDED_VISUAL_LAYOUT_ISSUE"
+    },
+    {
+      "resolved_by": "Use reference build/support AI details path; rerun in new directory",
+      "run": "paperkit-validation-01",
+      "status": "VALIDATOR_RENDER_PATH_ERROR"
+    }
+  ],
+  "numerical_rows_per_run": 98,
+  "numerical_runs": 2,
+  "paper": {
+    "ai_detail_pages": 15,
+    "ai_details_sha256": "2c4d788e4326f6f8e7436e22ac436d8bf8eb49fba9cfb2ae3fa7e1a4cc171dd0",
+    "all_source_bytes_match": true,
+    "body_pages": 3,
+    "pages_rendered": 127,
+    "pdf_sha256": "0684b655fa41bc26a5ae4d2aad116b2f04f2f2072a726125cb76ebce7ce70df9",
+    "source_inventory_count": 41,
+    "support_bytes": 984545,
+    "support_files": 177
+  },
+  "paper_repair": {
+    "figures_before_declaration_and_references": true,
+    "numerical_jobs": 22,
+    "replay_unchanged": true,
+    "variant_selftests": 4,
+    "versions": 2
+  },
+  "publication": "PENDING_PUSH_AND_CI",
+  "reference_tests_scope": "UNMODIFIED_SUPPLIED_PAPERKIT_IN_DOCKER",
+  "status": "LOCAL_ACCEPTANCE_PASS",
+  "tests": {
+    "harness": 464,
+    "reference": 86,
+    "targeted": 60
+  }
+}

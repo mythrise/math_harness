@@ -1,0 +1,28 @@
+{
+  "anonymity": "denylist/metadata checks do not prove complete anonymity",
+  "body_pages": 3,
+  "bytes": 605968,
+  "failures": [],
+  "pages": 127,
+  "paperkit_checks": {
+    "body_pages": 3,
+    "bytes": 605968,
+    "errors": [],
+    "margin_violations": [],
+    "pages": 127,
+    "pdf_sha256": "0684b655fa41bc26a5ae4d2aad116b2f04f2f2072a726125cb76ebce7ce70df9",
+    "release_ready": false,
+    "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+    "status": "PASS",
+    "warnings": [
+      "Example mode: not a contest submission, regardless of machine pass"
+    ]
+  },
+  "pdf_sha256": "0684b655fa41bc26a5ae4d2aad116b2f04f2f2072a726125cb76ebce7ce70df9",
+  "release_ready": false,
+  "status": "PASS",
+  "visual_check": "REQUIRED_SEPARATELY",
+  "warnings": [
+    "Example mode: not a contest submission, regardless of machine pass"
+  ]
+}

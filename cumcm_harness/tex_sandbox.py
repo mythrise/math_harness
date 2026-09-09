@@ -22,6 +22,12 @@ def compile_isolated(folder,main,*,image=TEX_IMAGE,timeout=180,output_bytes=30_0
     tex_filename(main)
     if Path(main).name!=main:raise IntegrityError('TeX entry must be a file in the build root')
     candidates=[folder/main]
+    from .paper_profile import STYLE_NAME, STYLE
+    style=folder/STYLE_NAME
+    if style.exists() or style.is_symlink():
+        if style.is_symlink() or not style.is_file() or style.read_bytes()!=STYLE.encode('utf-8'):
+            raise IntegrityError('Only the fingerprint-bound PaperKit style may enter TeX inputs')
+        candidates.append(style)
     for name in ('code','figures'):
         base=folder/name
         if base.is_symlink():raise IntegrityError('TeX input directory cannot be a symlink')

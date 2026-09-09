@@ -60,12 +60,19 @@ def main():
     assert before == after, 'Replay changed reservations, jobs or frozen artifacts'
     assert len(versions) == 2 and len({file_hash(p) for p in versions}) == 2
     assert len(list((root/'selftests').glob('*/out/tests.json'))) == 4
+    import fitz,re
+    with fitz.open(root/'deliverables/paper.pdf') as document:
+        visible=re.sub(r'\s+','','\n'.join(page.get_text(sort=True) for page in document))
+    declaration=visible.index('AI工具使用声明')
+    assert visible.index('图1确认阶段的实际得分')<declaration
+    assert visible.index('图2基于所提供矢量绘图代码')<declaration, 'A deferred figure entered the declaration/bibliography'
     write_json(args.report, {'status':'PASS',
         'scope':'SYNTHETIC_MODEL_EXA_WITH_REAL_DOCKER_NUMERICS_AND_TEX',
         'acceptance_scope':result['acceptance_scope'],
         'versions':[{'draft':p.parent.name,'pdf_sha256':file_hash(p)} for p in versions],
         'before':before,'after':after,'numerical_jobs':len(before['jobs']),
-        'variant_selftests':4,'valid_negative_preserved':True})
+        'variant_selftests':4,'valid_negative_preserved':True,
+        'figures_before_declaration_and_references':True})
     print('PASS: actual Docker/TeX, rejected PDF -> new PDF, unchanged complete replay')
 
 

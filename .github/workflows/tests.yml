@@ -14,6 +14,10 @@ jobs:
       - run: docker build -t cumcm-egoharness:0.3.0 .
       - run: docker build -f Dockerfile.test -t cumcm-egoharness:0.3.0-test .
       - run: docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
+      - run: docker build -f Dockerfile.paperkit-test -t cumcm-paperkit-validation:1.0.0 .
+      - run: python scripts/validate_paperkit.py --out reports/ci-paperkit-validation
+      - run: sudo apt-get update && sudo apt-get install -y inkscape
+      - run: python scripts/validate_paper_repair.py --workspace workspaces/ci-paperkit-repair --report reports/ci-paperkit-repair.json
       - run: python scripts/validate_audit_isolation.py --out reports/ci-isolation-validation
       - run: python scripts/validate_algorithm_upgrade.py --out reports/ci-algorithm-validation --seeds 2 --seed-start 201
       - uses: actions/upload-artifact@v4
@@ -22,6 +26,11 @@ jobs:
           name: deterministic-validation-evidence
           path: |
             reports/ci-infrastructure.xml
+            reports/ci-paperkit-validation/summary.json
+            reports/ci-paperkit-validation/reference/reference-tests.xml
+            reports/ci-paperkit-validation/reference-logs/*.log
+            reports/ci-paperkit-validation/*/preflight.json
+            reports/ci-paperkit-repair.json
             reports/ci-isolation-validation/summary.json
             reports/ci-algorithm-validation/*.json
             reports/ci-algorithm-validation/tests/*.xml

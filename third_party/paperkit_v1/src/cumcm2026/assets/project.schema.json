@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CUMCM2026 Paper Project",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "title",
+    "keywords",
+    "abstract",
+    "references",
+    "sections",
+    "program_used",
+    "example",
+    "code_roots",
+    "support_files",
+    "figures",
+    "ai_status",
+    "ai_usage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "abstract": {
+      "type": "string",
+      "minLength": 1
+    },
+    "references": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "heading",
+          "path"
+        ],
+        "properties": {
+          "heading": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "program_used": {
+      "type": "boolean"
+    },
+    "example": {
+      "type": "boolean"
+    },
+    "code_roots": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "support_files": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "figures": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "ai_status": {
+      "enum": [
+        "unconfirmed",
+        "used",
+        "unused"
+      ]
+    },
+    "ai_usage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ai_details_filename": {
+      "enum": [
+        "AI工具使用详情.pdf",
+        "AI 工具使用详情.pdf"
+      ]
+    },
+    "ai_filename_override_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identity_denylist": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "excluded_code_files": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,19 @@
+{
+  "diagnostics_per_run": 9,
+  "external_candidates_run": 0,
+  "global_promotions": 0,
+  "numerical_runs": 2,
+  "protocol_digest": "5cf59cb041b8f1c0add92e591e8ffec99ad62f6715f15a5e557b9a235701796d",
+  "receipts": {
+    "lab-1": "558834f24a37b19e1fcb38ca974f50b7791b256ec27307c0b423c37a62be0e56",
+    "lab-2": "64502080851b8dd828a955dae42d4605b3318fe559719315e1d9097b7bc43a78",
+    "tests": "b4c0b8c9957f7d878c7355224393024c5aabdbc16c2b000552284436eaa11559"
+  },
+  "reproducibility": {
+    "diagnostics.json": true,
+    "raw_results.json": true
+  },
+  "rows_per_run": 98,
+  "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+  "status": "PASS"
+}

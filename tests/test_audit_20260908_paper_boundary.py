@@ -6,11 +6,12 @@ def make_pdf(path, pages=37,spoof=True):
     d=fitz.open()
     for i in range(pages):
         p=d.new_page(width=595.276,height=841.89)
-        text='摘要' if i==0 else '问题重述' if i==1 else '正文测试页'
+        text='摘要\n关键词：测试；边界' if i==0 else '问题重述' if i==1 else '正文测试页'
         if i==1 and spoof:text+='\n附录：支撑材料与完整源程序'
-        if i==pages-2:text+='\nAI工具使用声明\n参考文献'
+        if i==pages-2:text+='\nAI工具使用声明\n本参赛队在竞赛过程中使用了AI工具，主要用于接口测试，详细使用情况见支撑材料。\n参考文献'
         if i==pages-1:text='附录：支撑材料与完整源程序'
-        p.insert_text((72,100),text,fontname='china-s',fontsize=12)
+        p.insert_textbox(fitz.Rect(80,90,515,600),text,fontname='china-s',fontsize=12)
+        p.insert_textbox(fitz.Rect(260,748,335,766),str(i+1),fontsize=10,align=1)
     d.save(path);d.close()
 
 def test_spoofed_body_heading_cannot_establish_boundary(tmp_path):
