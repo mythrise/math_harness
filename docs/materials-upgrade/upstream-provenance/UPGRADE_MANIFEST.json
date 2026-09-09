@@ -1,0 +1,252 @@
+{
+  "version": "0.4.0-rc1",
+  "base_commit": "f1ff48beebf7084ada6f16fc135801f484605a52",
+  "publication": "CANDIDATE_REQUIRES_LIVE_AND_FULL_REPOSITORY_VALIDATION",
+  "files": [
+    {
+      "path": ".agents/skills/abstract-editor/SKILL.md",
+      "sha256": "0f62202d0f6523fe4fc14825310dc74ca7494eafeeaf4107630170727c76ed19",
+      "previous_git_blob": null
+    },
+    {
+      "path": ".agents/skills/ai-usage-disclosure/SKILL.md",
+      "sha256": "5a1b8e418b13cc214ced383f4f0d49ec861a40942501c513792df0b58038d24f",
+      "previous_git_blob": null
+    },
+    {
+      "path": ".agents/skills/algorithm-library-upgrade/SKILL.md",
+      "sha256": "f5b8622cb03f3caa67bdd265d05ce5ed0877d6985c46ecd53373e967f376d8c4",
+      "previous_git_blob": "ae550c9568c110fb3853c4e114c02eabaa9bb145"
+    },
+    {
+      "path": ".agents/skills/coding-experiments/SKILL.md",
+      "sha256": "31f14949481253627e9e0cce6c7aaea826d68d8cc4f5c42c46d274e59a5f2a4b",
+      "previous_git_blob": "2d4364f768a9abeb063815a99be93b85685fc4e9"
+    },
+    {
+      "path": ".agents/skills/cumcm-orchestrator/SKILL.md",
+      "sha256": "ece71994b6f8aff2f75b5ef66944273e37d061684fa9d682e7adad842d24abbd",
+      "previous_git_blob": "91a6b00f2866cf0076b68dafb7a9dac19e70be09"
+    },
+    {
+      "path": ".agents/skills/cumcm-paper-2026/SKILL.md",
+      "sha256": "5c7131cd05af896d958fec406a5398412168524bfdbda64d184a1974e3e1f05a",
+      "previous_git_blob": "c851650feb52694b59d9a60c685d330d073bee36"
+    },
+    {
+      "path": ".agents/skills/data-provenance/SKILL.md",
+      "sha256": "589fca2df5612495fb24c51684435e63d7302241e9164109c12037b84e7c9896",
+      "previous_git_blob": null
+    },
+    {
+      "path": ".agents/skills/deterministic-autoresearch/SKILL.md",
+      "sha256": "ac379aeecaa53fa6af28960ea2bfeb434464bd113f627218af9d1b26fe08f090",
+      "previous_git_blob": "6c52ccd43b707b90b6205caa1a1d4131e8ec5776"
+    },
+    {
+      "path": ".agents/skills/independent-review-board/SKILL.md",
+      "sha256": "18c92e970ccd39c2a1d875dae25a0669885724e51334d82ee28731441b73992b",
+      "previous_git_blob": "a0f12e98cc17c3065258f9ba187ac5fab99b8c65"
+    },
+    {
+      "path": ".agents/skills/literature-adversary/SKILL.md",
+      "sha256": "6d0f3e5394a52a3027dcbc911a462439a54e8a99ad694bb941286819697b972d",
+      "previous_git_blob": "68bb4afbfe75f1040093b06b52476dd796e4f74d"
+    },
+    {
+      "path": ".agents/skills/materials-principles/SKILL.md",
+      "sha256": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+      "previous_git_blob": null
+    },
+    {
+      "path": ".agents/skills/modeling-contract/SKILL.md",
+      "sha256": "0cf3cc0e796cfe7d2a87f79c25dc364c767287164eda73c767eb1224a00e4d3f",
+      "previous_git_blob": "835f03f330286387c6f85873bc304183bbbb5b51"
+    },
+    {
+      "path": ".agents/skills/mosaic-multiobjective/SKILL.md",
+      "sha256": "44f810fbbeea0015f7c0031be5b6aa5a1e1bcab1f49efb666a9917675853570e",
+      "previous_git_blob": "401e28e80d08954c2db3de58a6c83a2d232afe42"
+    },
+    {
+      "path": ".agents/skills/ourwork-svg-v16/SKILL.md",
+      "sha256": "f2d09b441b8d2d22e0e0969a8b99110d0a7f4ffe43d0e68dceec9656e02178c2",
+      "previous_git_blob": "882ca3b639fdcc8a5b1d924a20bb03665af22d6b"
+    },
+    {
+      "path": ".agents/skills/problem-intake/SKILL.md",
+      "sha256": "c63f9ee950636bb2e23fb895dc98ad8af4a9368f5ffd49ac66835195eedd1a4a",
+      "previous_git_blob": null
+    },
+    {
+      "path": "configs/materials-offline-validation.json",
+      "sha256": "eac2336860fddff12a02834181c6c729969661962a2734c215fab3f3830e1a55",
+      "previous_git_blob": null
+    },
+    {
+      "path": "configs/materials-practice.json",
+      "sha256": "dc63671ecfa0383d4fdfeed6f5c04d90468fc36f143a2049f8359fea7df49543",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/controller.py",
+      "sha256": "b303a324af078c07b05175e2bb9e938190108bdf838d90e88d7eefa838c29345",
+      "previous_git_blob": "b38d5f48e2e229a93f9cb33a7d5820b8749a0a59"
+    },
+    {
+      "path": "cumcm_harness/figures.py",
+      "sha256": "c7065458ab157872e5da4573b7a2fde46188f67881175a30291fb3590a034216",
+      "previous_git_blob": "f7c89b3b8f3e3dd263a651c95172fcaa10078168"
+    },
+    {
+      "path": "cumcm_harness/materials_catalog.py",
+      "sha256": "6f8688d5f85ff51fcfd31ff0e478f48e14e9ace695ffc7d11786870ea3e8f6d9",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/materials_cli.py",
+      "sha256": "d499259b0f6eb659b81183d4956ebbcc4af8ffb6fa6e20807177a7906ec38421",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/materials_contracts.py",
+      "sha256": "aa4d63f736fd06533e6d1c10d1c10089e274f80b2433929b1bda3a922d2e3ba5",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/materials_data.py",
+      "sha256": "e4e05dece20302c79dddd5b7fdb5ba9f32520dc45f968b27843e1cc767cb4ce5",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/materials_figures.py",
+      "sha256": "354eda6ff9f171dbcf5b0a8c30e22ac270b0564a9501ef7f5f98af5dcae86cfa",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/materials_paper.py",
+      "sha256": "961e281fc0a769785d4bda60debbfda3af569074c347254c678de3754745cfee",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/materials_workflow.py",
+      "sha256": "e53483f71bd8a45b7ca9e749d92c52f43fd082cea6bac51dd0058720a07e4185",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/packaging.py",
+      "sha256": "96aac98600ab35151464fd4a9c452ff3de89b033a338a9c4a8d6957951ef2ae7",
+      "previous_git_blob": "83e29abf6e2bf67ef0d9019fb75ce7d6ef619894"
+    },
+    {
+      "path": "cumcm_harness/paper.py",
+      "sha256": "46d07b19c1d2901a438d9d7d243fccff336bb3d9c54b0777b88cd2bcbcee47e7",
+      "previous_git_blob": "472d267d3b3a50f508be5ff3fd0879348735b3ef"
+    },
+    {
+      "path": "cumcm_harness/providers.py",
+      "sha256": "a8bf60fe011fa7033c9dac6d9786337600bb4078f6731945278e04dc77e753b6",
+      "previous_git_blob": "32545ce9368db4e0566170bd60f62dc7326d3c58"
+    },
+    {
+      "path": "cumcm_harness/role_skills.py",
+      "sha256": "d8e023e986b14d667f58a1af0c3359668ec4da2d41afda3211f6dfcd1405ad26",
+      "previous_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/submission_manifest.py",
+      "sha256": "38313559bbefa561f82953360b133cb4f299f8fbdd92ca411e45b8898fb43b85",
+      "previous_git_blob": null
+    },
+    {
+      "path": "docs/materials-upgrade/ARCHITECTURE_CN.md",
+      "sha256": "7b1b9be190c42f66f480c7cd83e24a22acbe3e67259102c811dc9a4bed224df8",
+      "previous_git_blob": null
+    },
+    {
+      "path": "docs/materials-upgrade/QUICKSTART_CN.md",
+      "sha256": "df1c281d58d33911c9cf58fc88727fb2dcc9ec6273ebc1847da1d87e6a221782",
+      "previous_git_blob": null
+    },
+    {
+      "path": "docs/materials-upgrade/SOURCE_ANALYSIS_CN.md",
+      "sha256": "6e58b53cff71b04919f65c5aa79acd9b06b9e0e172104742908a9386a2da940c",
+      "previous_git_blob": null
+    },
+    {
+      "path": "docs/materials-upgrade/SOURCE_MATERIALS.json",
+      "sha256": "5b6943256dfa8ba3a04125ba956ce27e2d7f1f3b9bd786e2c66864b53a1ed08b",
+      "previous_git_blob": null
+    },
+    {
+      "path": "docs/materials-upgrade/TEST_REPORT_CN.md",
+      "sha256": "9ac175dc6a861f55f7dcb43368b96f879965d3bc1c17392789cad59bedbdbcae",
+      "previous_git_blob": null
+    },
+    {
+      "path": "docs/materials-upgrade/source-model-catalog.json",
+      "sha256": "ccc8a33726b1c9f7f91b0bf5592bb9d946fb789d60cbf873dc4086d80e50a277",
+      "previous_git_blob": null
+    },
+    {
+      "path": "schemas/abstract_revision.schema.json",
+      "sha256": "3f7c432aa9d2e4ca2ca10a23090be7c37ecaaceda73b111e3c50f3a7ec94d1c3",
+      "previous_git_blob": null
+    },
+    {
+      "path": "schemas/data_plan.schema.json",
+      "sha256": "d7865d2aba63629950ab802653fa705ad59989ab30b008c68b3fd379e935adb2",
+      "previous_git_blob": null
+    },
+    {
+      "path": "schemas/model_portfolio.schema.json",
+      "sha256": "08aef1816cdc3d23f441035c080ed75d5c90f5af37360e96368947e6ff30bcbb",
+      "previous_git_blob": null
+    },
+    {
+      "path": "schemas/paper_map.schema.json",
+      "sha256": "217cc6cb83ce15d01068ef8500faf6b07e8c53288b83d324deb5dedc720fbf30",
+      "previous_git_blob": null
+    },
+    {
+      "path": "schemas/problem_brief.schema.json",
+      "sha256": "2dbd7ff5993680f5f408a4ca1618d4fdc0bddc27c23d421842ca6c16df5e219b",
+      "previous_git_blob": null
+    },
+    {
+      "path": "scripts/validate_materials_pipeline.py",
+      "sha256": "6b93eacbed4d65fb5e65679eee819696cd8672ac92f522d09624a06f4b59cd91",
+      "previous_git_blob": null
+    },
+    {
+      "path": "tests/materials_samples.py",
+      "sha256": "73751d985585f3c54fd5e4cbe2991f3721bc64b52c7ac12453e1a7ab294996b1",
+      "previous_git_blob": null
+    },
+    {
+      "path": "tests/test_materials_contracts.py",
+      "sha256": "1d92d67d499cc00428cbe39964bc8c96bb1af05289beffc8742875dbb1891730",
+      "previous_git_blob": null
+    },
+    {
+      "path": "tests/test_materials_figures.py",
+      "sha256": "04b97245dd967b1e780e0764bb2311c8b52ab891269479e7f3ab5a570b7fae0b",
+      "previous_git_blob": null
+    },
+    {
+      "path": "tests/test_materials_provider.py",
+      "sha256": "e5969e460ca4f33b75ca65f7c30d7dfd38952ea5dd38795ed4bdcdd3ce310699",
+      "previous_git_blob": null
+    },
+    {
+      "path": "tests/test_materials_runtime.py",
+      "sha256": "c398e940830e63c12ff3d6c8806511210cd6ecb7293141b2ae270cee23e18050",
+      "previous_git_blob": null
+    },
+    {
+      "path": "tests/test_materials_workflow.py",
+      "sha256": "75b458e8a8d0da5d9e432b13345d37e81abb4ac7c02eab5d1d0ff9475d7e612c",
+      "previous_git_blob": null
+    }
+  ]
+}

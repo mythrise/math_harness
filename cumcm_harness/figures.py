@@ -21,6 +21,9 @@ def framework(out:Path, *, questions=None):
     """New composition built with the exact SVG/node/arrow primitives supplied
     in the attachment. The original reference templates are never overwritten.
     """
+    if questions is not None:
+        from .materials_figures import question_framework
+        return question_framework(out,questions)
     runtime=ourwork()
     from ourwork_v3 import SVG,node,arrow
     s=SVG(w=1160,h=760)
@@ -56,7 +59,10 @@ def framework(out:Path, *, questions=None):
               'note':'new composition; does not claim exact-reference layout'})
     return out
 
-def score_plot(rows:list[dict],out:Path):
+def score_plot(rows:list[dict],out:Path,*,plan=None):
+    if plan is not None:
+        from .materials_figures import confirmation_plot
+        return confirmation_plot(rows,out,plan)
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt

@@ -1,0 +1,142 @@
+{
+  "type": "object",
+  "properties": {
+    "draft_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "step": {
+                  "enum": [
+                    "analysis",
+                    "assumptions",
+                    "symbols",
+                    "derivation",
+                    "algorithm",
+                    "execution",
+                    "results",
+                    "validation"
+                  ]
+                },
+                "section_indices": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "minItems": 0
+                },
+                "state": {
+                  "enum": [
+                    "PRESENT",
+                    "NOT_APPLICABLE"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "step",
+                "section_indices",
+                "state",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 8
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "qualitative_evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "question_id",
+          "bindings",
+          "claim_ids",
+          "qualitative_evidence_ids"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "symbols": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "minLength": 1
+          },
+          "meaning": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "symbol",
+          "meaning",
+          "unit"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "abstract_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+      },
+      "minItems": 0
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "draft_digest",
+    "questions",
+    "symbols",
+    "abstract_claim_ids",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

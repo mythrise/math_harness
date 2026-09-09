@@ -1,0 +1,18 @@
+{
+  "status": "PASS_SAMPLED_VISUAL_REVIEW",
+  "paper_pages_reviewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    127
+  ],
+  "paper_total_pages": 127,
+  "ai_pages_reviewed": [
+    1,
+    22
+  ],
+  "ai_total_pages": 22,
+  "observed": "No visible text clipping, missing Chinese glyphs, overlap or figure damage in sampled pages. All 4 body pages reviewed; appendix sampled first and last. Not full 127-page human review."
+}

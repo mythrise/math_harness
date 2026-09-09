@@ -1,16 +1,10 @@
 ---
 name: independent-review-board
-description: Role-based Claude and GPT/Codex review seats with bounded availability failover, immutable evidence and no verdict shopping.
+description: Independent dual-seat review with immutable dissent and typed failures
 ---
 
-# 多成员独立审查组
-
-数学、实验、文献以及论文审查按职责而不是厂商验收。每个职责默认两个新上下文席位：Claude 专家席与 GPT/Codex 反例交叉检查席。Claude 的终止性接口故障可由新的 GPT 调用接管；GPT 也故障时暂停并保留完成记录。多次同模型调用不是统计独立性证明。
-
-入口 `review_board.py`。只对 ProviderFailure 执行有限重试、退避、熔断和切换；真实 FAIL/BLOCKED、P0/P1、未核验必要项、摘要损坏、未知 RUNNING 状态与预算耗尽均不得以切换模型绕过。每个席位均需通过，不能投票平均消除严重错误。旧审查只可复用相同目标、上下文、模型配置与席位策略；记录所有失败与实际 provider。
-
-plan_design 只审模型与预定实验合同，不要求未来实验已经运行；source_code 审源码与已经完成的有界 preflight；execution 必须有真实原始输出。不要宣称超出当前阶段的验收。
-
-Claude 仍使用本机 CLI 的 `--safe-mode --setting-sources user` 读取现有认证与模型设置，工具及 MCP 禁用；不是 bare/API-only 适配器。指定 Fable 时仍保留禁止静默换模型的配置。跨厂商接管是 harness 显式记录的机制，不伪装成原模型。图像审查仅路由到支持图片的 Codex 适配器，缺少图像能力不能作已看图的证明。
-
-Fixture 回执只用于明示的工程测试，永远不能满足 LIVE 门禁。当前适配器依赖的安全 CLI 标志缺失时，可以切换另一个支持安全合同的 provider，但不得启用危险权限标志。
+# 独立审查组
+按角色逐席验收，Claude主审与GPT交叉检查保留；服务终止性故障才允许受控接管。有效FAIL、未知必需检查、损坏摘要、预算耗尽和未知在途不能靠切换模型抹去。结构损坏但有明确反对信号时请求澄清并保留信号，不把它当作普通无意见服务失败。
+plan_design核对题意/变量/单位/机制/测试计划，不要求未来已运行；source_code检查源码和已有preflight；execution核对实际回执、全部题目证据、独立单位、失败保留及复现。
+参考资料数量、模型名、公式数、图表数和页数不是科研评分器。代码跑通不是算法正确；多个相同模型的不同上下文不是统计独立审稿人。指定厂商/模型与实际接管必须如实记录。
+数学审查要重建推导，实验审查要寻找信息泄漏、错误比较与自报分数，论文审查要检查内容而非仅标题齐全。发现问题给出精确位置和可执行修复，不凭空预测国家级/省级奖项。

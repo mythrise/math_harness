@@ -1,0 +1,150 @@
+{
+  "status": "PASS",
+  "core_file_count": 56,
+  "source_hashes": {
+    "__init__.py": "f39f34f907df7a83d0ea37b7781bed5cafe9b6a6fd1bafbd6e99d2a6ad53b59d",
+    "__main__.py": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+    "algdecision.py": "fcd7bed12b43b190496a17fc3694990804e817c0e7d62c6be3fd4a07b73ed1af",
+    "alggraph.py": "14bcc929e62e82095d6c81123d374a137e6a0ebff6ab5a58434b4ca19cd4d10e",
+    "algopt.py": "6810590a49de677d6bdc450399baea95f86e0e185b9083ba26742e351f8daf6b",
+    "algorithm_lab.py": "10e64ca1ff95b95b0cb2b8eea5e2fc18ca71a185e2c4684948305de605f4bf71",
+    "algorithm_library.py": "ddc103f069f9616a0e33733092556f8fa4eacb9e7438393cd87aef7f4b98e6b2",
+    "algorithms.py": "7e088cd5133549c9cedafd7648ac06f049c3f8edcdaa42129ed99d2adb58d29f",
+    "algpredict.py": "96dcb07abb31716d8bc52a32c84f2d4dc4596e3f13101e0669852cf13ec53965",
+    "algpromotion.py": "48c9229878a2b0cdbb3a59fb3f81a2f4c1d6fbf657e72586c5089aab1d0ff824",
+    "algscience.py": "542845c161e87a97aecb6d62fcec8deb37eec27e31d979bcc895135998301885",
+    "approval.py": "5cf436458902032f2a2dd9e4f4b134b56cb9dec42998cf716790434ce20e5e73",
+    "cli.py": "cb7400d7cc42da0ed0a7f94822a4150cbdff2c5f211508162ad0633d3026d216",
+    "common.py": "17c8052c98e593f29d2f5514ba3f96705c8c04a9aa5ff0571f595291f6712480",
+    "contracts.py": "3774f8797404748af1ebdd5b231346c2e1d1c611b65f90f2779512d610a2458a",
+    "controller.py": "6a02723f256ea37935eb87569e534a76bd5e1ade9b79bed444ba1acfa31f8595",
+    "credentials.py": "94c40d09cc12dc78aea382895b3734e134b838147039cd60bffda4c22fe906a7",
+    "demo.py": "a9b549ce9497b410fcead2ffee223ce2d709737a1da710ce00bc04eb8c1efb99",
+    "ego_bridge.py": "d69cf97ef1f4e00f2d5602e2f4f4eaa554739e9b019614fd12dba2f3b46ae492",
+    "exa_authorization.py": "eb77256ffc210ffa3bae737ad6f043e0ee3df37c8cbfa57e8e2dfb10ed10f751",
+    "exa_contract.py": "163486f44e0fba27d2412f2dd089efd2d4706cca72619cc024267c7b1ea31598",
+    "exa_defaults.py": "e32f351e9ba8fe7d72c2d3041f4d0785b1f2b1e3a4a3ee4a55b196477204dab1",
+    "exa_evidence.py": "cbf913541dddc2981008028b99c6ff14ab5fa8cb990506f97c1f90f67a637e2d",
+    "exa_ledger.py": "a9c7fc7b844264f3ad7cd921c18714831d5970b410135db14cd66bbbee4b322b",
+    "exa_policy.py": "fc822ef06f2ea5cfd86d8ccbd65bb0a16ac2b9f6bab21b35d6818c100265cf37",
+    "exa_r2_demo.py": "0e1f48409f40643d7c6ac85258c90d98654e6351ad2bfc720186c8bd276a2440",
+    "exa_transport.py": "89ee2e0e34671138eaafe98ae330a82a8abe2c11f6ff2e1b28311f5c3b6bff02",
+    "figures.py": "c7065458ab157872e5da4573b7a2fde46188f67881175a30291fb3590a034216",
+    "intake.py": "c0505d54cdffbdc45589672b03cda159c0e4bf7e46082204b24c0ee859b1c8f7",
+    "literature.py": "ec103f4feb70f97cdf6a61bd4266c829bdc3dfac3b736e64497c84289c091375",
+    "literature_r2.py": "1f6b30546d28456917c8de7d2ecd40b0e25c886e675ec1006ea151b91e6ca443",
+    "materials_catalog.py": "6f8688d5f85ff51fcfd31ff0e478f48e14e9ace695ffc7d11786870ea3e8f6d9",
+    "materials_cli.py": "d499259b0f6eb659b81183d4956ebbcc4af8ffb6fa6e20807177a7906ec38421",
+    "materials_contracts.py": "aa4d63f736fd06533e6d1c10d1c10089e274f80b2433929b1bda3a922d2e3ba5",
+    "materials_data.py": "e4e05dece20302c79dddd5b7fdb5ba9f32520dc45f968b27843e1cc767cb4ce5",
+    "materials_figures.py": "843d74e8b0fb66e87c084d5a80808723899fea9f04ef743999b2ffdb233c837a",
+    "materials_paper.py": "6a6fa8f196d52bd165e56ca82106b5c79f1390e3c7c856d0cebd215878336dbf",
+    "materials_workflow.py": "e53483f71bd8a45b7ca9e749d92c52f43fd082cea6bac51dd0058720a07e4185",
+    "packaging.py": "96aac98600ab35151464fd4a9c452ff3de89b033a338a9c4a8d6957951ef2ae7",
+    "paper.py": "46d07b19c1d2901a438d9d7d243fccff336bb3d9c54b0777b88cd2bcbcee47e7",
+    "paper_layout.py": "c4233a99938233f026e20b501d57284ff468859e336031fe67dc18259f163991",
+    "paper_profile.py": "b1dce6507a32d7a4f414438dee4c3fb4f035ace8f71167ad5c46b263f6d4901a",
+    "process.py": "2d8c92b63492e5b7cafd0d55c0c80e2a2988040773fbbcffb34f8f0bbda139f0",
+    "provider_schema.py": "4efb53c70e6ca6e4f56d7eba32265c5bf45c6053e82e31fbf25d0b59b3a66333",
+    "providers.py": "a8bf60fe011fa7033c9dac6d9786337600bb4078f6731945278e04dc77e753b6",
+    "research.py": "03f2c2dfe67654921fbecb92ecdbb993249f364ce2f3e577a50d777c7648c31e",
+    "resilience_demo.py": "b1c0be7b2564ec43419f2664b32d5832d47bb64c2c90db401d582c870a1ef2db",
+    "review_board.py": "5323e5065306cfab1af86f7b8a418f69f6691a68ab3a58f3b18a636c3e50e8b9",
+    "role_skills.py": "d8e023e986b14d667f58a1af0c3359668ec4da2d41afda3211f6dfcd1405ad26",
+    "sandbox.py": "af69ee476dc8860118e46238c07d822d1fc6cb51392cc8e5df1af945a2da74d9",
+    "store.py": "d5dfe90f79400922f1bfd8ad693a22dc692307d965961045e3171a25cce9b0d2",
+    "submission_manifest.py": "38313559bbefa561f82953360b133cb4f299f8fbdd92ca411e45b8898fb43b85",
+    "task_dag.py": "51e2a46f03dc77c536c1623a0a7f81cd54ac02e373b3731d03011b0517b29544",
+    "tex_sandbox.py": "3c2e1adc7a8390c28a03a7bd4d038b24150cc690b4604df10c49f6605e1660fa",
+    "verifier_preflight.py": "13a260130b2124acb3252649970d84463e657309c08d23d2bdc3d8f490d272d8",
+    "worker.py": "2e3423ae7553a0dc078a84d83409f2fc9b09e44518038e5b9681c295a4b20e66"
+  },
+  "skills": {
+    "registry_digest": "06cbdeb6063f3d6e60629b11d89f81e5ce75efdff91c5662a71d21a949305dd4",
+    "roles": {
+      "abstract_editor": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "abstract-editor": "0f62202d0f6523fe4fc14825310dc74ca7494eafeeaf4107630170727c76ed19",
+        "cumcm-paper-2026": "5c7131cd05af896d958fec406a5398412168524bfdbda64d184a1974e3e1f05a"
+      },
+      "coder": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "coding-experiments": "31f14949481253627e9e0cce6c7aaea826d68d8cc4f5c42c46d274e59a5f2a4b",
+        "data-provenance": "589fca2df5612495fb24c51684435e63d7302241e9164109c12037b84e7c9896",
+        "algorithm-library-upgrade": "f5b8622cb03f3caa67bdd265d05ce5ed0877d6985c46ecd53373e967f376d8c4",
+        "mosaic-multiobjective": "44f810fbbeea0015f7c0031be5b6aa5a1e1bcab1f49efb666a9917675853570e"
+      },
+      "data_steward": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "data-provenance": "589fca2df5612495fb24c51684435e63d7302241e9164109c12037b84e7c9896"
+      },
+      "experiment_reviewer": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "independent-review-board": "18c92e970ccd39c2a1d875dae25a0669885724e51334d82ee28731441b73992b",
+        "deterministic-autoresearch": "ac379aeecaa53fa6af28960ea2bfeb434464bd113f627218af9d1b26fe08f090",
+        "data-provenance": "589fca2df5612495fb24c51684435e63d7302241e9164109c12037b84e7c9896"
+      },
+      "hypothesis_critic": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "literature-adversary": "6d0f3e5394a52a3027dcbc911a462439a54e8a99ad694bb941286819697b972d",
+        "independent-review-board": "18c92e970ccd39c2a1d875dae25a0669885724e51334d82ee28731441b73992b"
+      },
+      "literature_reviewer": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "literature-adversary": "6d0f3e5394a52a3027dcbc911a462439a54e8a99ad694bb941286819697b972d",
+        "independent-review-board": "18c92e970ccd39c2a1d875dae25a0669885724e51334d82ee28731441b73992b"
+      },
+      "literature_scout": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "literature-adversary": "6d0f3e5394a52a3027dcbc911a462439a54e8a99ad694bb941286819697b972d",
+        "algorithm-library-upgrade": "f5b8622cb03f3caa67bdd265d05ce5ed0877d6985c46ecd53373e967f376d8c4"
+      },
+      "math_reviewer": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "independent-review-board": "18c92e970ccd39c2a1d875dae25a0669885724e51334d82ee28731441b73992b",
+        "modeling-contract": "0cf3cc0e796cfe7d2a87f79c25dc364c767287164eda73c767eb1224a00e4d3f",
+        "mosaic-multiobjective": "44f810fbbeea0015f7c0031be5b6aa5a1e1bcab1f49efb666a9917675853570e"
+      },
+      "modeler": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "modeling-contract": "0cf3cc0e796cfe7d2a87f79c25dc364c767287164eda73c767eb1224a00e4d3f",
+        "algorithm-library-upgrade": "f5b8622cb03f3caa67bdd265d05ce5ed0877d6985c46ecd53373e967f376d8c4",
+        "mosaic-multiobjective": "44f810fbbeea0015f7c0031be5b6aa5a1e1bcab1f49efb666a9917675853570e"
+      },
+      "paper_reviewer": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "independent-review-board": "18c92e970ccd39c2a1d875dae25a0669885724e51334d82ee28731441b73992b",
+        "cumcm-paper-2026": "5c7131cd05af896d958fec406a5398412168524bfdbda64d184a1974e3e1f05a",
+        "ourwork-svg-v16": "f2d09b441b8d2d22e0e0969a8b99110d0a7f4ffe43d0e68dceec9656e02178c2",
+        "ai-usage-disclosure": "5a1b8e418b13cc214ced383f4f0d49ec861a40942501c513792df0b58038d24f"
+      },
+      "problem_analyst": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "problem-intake": "c63f9ee950636bb2e23fb895dc98ad8af4a9368f5ffd49ac66835195eedd1a4a"
+      },
+      "supervisor": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "cumcm-orchestrator": "ece71994b6f8aff2f75b5ef66944273e37d061684fa9d682e7adad842d24abbd",
+        "deterministic-autoresearch": "ac379aeecaa53fa6af28960ea2bfeb434464bd113f627218af9d1b26fe08f090"
+      },
+      "verifier_author": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "coding-experiments": "31f14949481253627e9e0cce6c7aaea826d68d8cc4f5c42c46d274e59a5f2a4b",
+        "independent-review-board": "18c92e970ccd39c2a1d875dae25a0669885724e51334d82ee28731441b73992b",
+        "data-provenance": "589fca2df5612495fb24c51684435e63d7302241e9164109c12037b84e7c9896"
+      },
+      "writer": {
+        "materials-principles": "134ee19149125f89dd780186c93da9f0e234a4a2cebeff7433873d07c0bfcf7a",
+        "cumcm-paper-2026": "5c7131cd05af896d958fec406a5398412168524bfdbda64d184a1974e3e1f05a",
+        "ourwork-svg-v16": "f2d09b441b8d2d22e0e0969a8b99110d0a7f4ffe43d0e68dceec9656e02178c2",
+        "ai-usage-disclosure": "5a1b8e418b13cc214ced383f4f0d49ec861a40942501c513792df0b58038d24f"
+      }
+    },
+    "digest": "c14e337bd20971fbab86502a3f838e00b76815410fff53c0dd01a4c821b2ebce"
+  },
+  "images": {
+    "cumcm-egoharness:0.4.0-rc1": "sha256:136df894d130bb3b4a609ab8dbdaa2d520f484753c1b0a23b956afec12f63000",
+    "cumcm-egoharness:0.4.0-rc1-test": "sha256:5d6b5633c30955768b6aef6f4689f6614f1066631a5b7cf693ecc8e1e5675f59",
+    "cumcm-egoharness-tex:0.3.1": "sha256:66cd6606c812977ca9b3da826c5fd8bfa0e1dfc65b40383e7e0ce4d020860a58"
+  }
+}

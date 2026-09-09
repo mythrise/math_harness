@@ -1,3 +1,11 @@
+# 0.4.0-rc1 当前接入
+
+本轮在 `.runtime/materials-v040-worktree` 新建隔离检出与独立 `.venv`，原主工作目录缺失的 `cumcm_harness/` 未被覆盖。请进入该检出后使用 `./scripts/cumcm` 或 `.venv/bin/python`。Python 包规范化版本为 `0.4.0rc1`，新运行镜像为 `cumcm-egoharness:0.4.0-rc1`；旧镜像与旧工作区不改。
+
+已有 Claude 用户认证、`claude-opus-5` 和 `max` 默认设置继续保留。原私有 Exa 文件未复制；公开 live 验证器可通过明确的 `--exa-credential-file` 与 `--exa-shared-ledger` 读取已有安全加载器和共享 HTTP 租约。其他运行继续使用现有 `EXA_API_KEY` 环境变量或当前检出的私有凭证位置，不把密钥写入配置。
+
+具体新增接口与本轮验证见 [0.4 接入说明](MATERIALS_V040_INTEGRATION_CN.md)。以下是先前部署记录，不能代替本轮运行回执。
+
 # 当前项目的 Codex 部署
 
 2026-09-08 算法库升级后，当前 editable 环境版本为 **0.3.0**。新工作区和示例配置默认使用 `cumcm-egoharness:0.3.0`，该生产镜像及 `0.3.0-test` 验证镜像已经构建。当前验收见 [0.3.0 本机报告](../reports/ALGORITHM_UPGRADE_LOCAL_CN.md)；下文的 0.1.0 安装和探针信息为原始部署记录。旧工作区保持冻结，升级后的真实任务重新初始化。

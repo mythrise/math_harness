@@ -1,0 +1,220 @@
+{
+  "type": "object",
+  "properties": {
+    "problem_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "direct_goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "inferred_goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "constraint_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "answer_type": {
+            "enum": [
+              "quantitative",
+              "qualitative"
+            ]
+          },
+          "family": {
+            "enum": [
+              "optimization",
+              "prediction",
+              "evaluation",
+              "graph",
+              "dynamics",
+              "simulation",
+              "statistics",
+              "mixed"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "direct_goal",
+          "inferred_goal",
+          "inputs",
+          "outputs",
+          "constraint_ids",
+          "depends_on",
+          "answer_type",
+          "family"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 24
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "kind": {
+            "enum": [
+              "background",
+              "given",
+              "constraint",
+              "deliverable"
+            ]
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "anchor": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "start",
+              "end",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "question_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "statement",
+          "anchor",
+          "question_ids"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 120
+    },
+    "ambiguities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "impact": {
+            "type": "string",
+            "minLength": 1
+          },
+          "resolution": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "issue",
+          "impact",
+          "resolution"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "unit_risks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "completion_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "problem_sha256",
+    "questions",
+    "requirements",
+    "ambiguities",
+    "unit_risks",
+    "completion_criteria"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,730 @@
+{
+  "auto_submission": false,
+  "confirmation_cells": 10,
+  "development_cells": 12,
+  "inference": {
+    "ci95": [
+      0.03707035445757254,
+      0.08476100966702467
+    ],
+    "decision": "KEEP_CANDIDATE",
+    "mean_improvement": 0.06703813104189041,
+    "n": 5,
+    "reason": "percentile paired bootstrap; applies only to declared replication unit, not a universal claim",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "winner_selected_before_confirmation": "c0"
+  },
+  "literature_status": "FIXTURE_EXA_TRANSPORT",
+  "live_llm_calls": false,
+  "materials_workflow": true,
+  "package": {
+    "contest_mode": false,
+    "file_count": 181,
+    "official_submission_sent": false,
+    "paper": "deliverables/paper.pdf",
+    "paper_bytes": 579442,
+    "paper_sha256": "7dcc82ae463a1ca4ff4430cab70c059afa8b23148314baca0414ecc4f363201b",
+    "support": "deliverables/support.zip",
+    "support_bytes": 1008208,
+    "support_sha256": "ba4a43d2b7024231a7b1dfaf6f2de6bd7980b8f33929425669c16dc00b379730"
+  },
+  "paper": {
+    "build": {
+      "appendix_start_page": 5,
+      "compiler_version": "This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022/Debian) (preloaded format=xelatex 2026.9.8)  8 SEP 2026 00:00",
+      "engine": "XeLaTeX",
+      "overfull_boxes": 0,
+      "paperkit_profile": "cumcm2026-paperkit/1.0.0-native",
+      "paperkit_profile_digest": "1602df263ed810eff28dcef28b3de87db140ca9a486004b3429cb0082a9f62bf",
+      "passes": 2,
+      "pdf_sha256": "7dcc82ae463a1ca4ff4430cab70c059afa8b23148314baca0414ecc4f363201b",
+      "sandbox": {
+        "backend": "DOCKER_TEX",
+        "host_mounts": "STAGED_INPUTS_AND_OUTPUT_ONLY",
+        "image": "cumcm-egoharness-tex:0.3.1",
+        "image_id": "sha256:66cd6606c812977ca9b3da826c5fd8bfa0e1dfc65b40383e7e0ce4d020860a58",
+        "network": "NONE",
+        "output_manifest": {
+          "main.aux": "cac29a9a27537280ce3c8e152cb0b8b2ea397a6d1f8b242eb7749d38375608bb",
+          "main.log": "58c027ce5c3cd9c549b5298a62fcd09eb91750b7c7204b00b3bf1dabbd937799",
+          "main.out": "0a20b757e7f6484dba555a9876e521c184ad3a3758fe63ddb2b6b5b00604a9a2",
+          "main.pdf": "7dcc82ae463a1ca4ff4430cab70c059afa8b23148314baca0414ecc4f363201b"
+        },
+        "receipts": [
+          {
+            "argv": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "cumcm-tex-ad46fa1c508ef1fa2d6a",
+              "--network",
+              "none",
+              "--read-only",
+              "--cap-drop",
+              "ALL",
+              "--security-opt",
+              "no-new-privileges",
+              "--pids-limit",
+              "128",
+              "--cpus",
+              "1",
+              "--memory",
+              "1024m",
+              "--memory-swap",
+              "1024m",
+              "--user",
+              "501:20",
+              "--tmpfs",
+              "/tmp:rw,noexec,nosuid,size=128m",
+              "--ulimit",
+              "fsize=30000000:30000000",
+              "--mount",
+              "type=bind,src=<WORKTREE>/workspaces/materials-r2-02/paper_versions/7fb08bdeee40ef7e594aac0aafa9f23f2fd21d865f7896eb05d6f13d443b6bb1/_tex_builds/69bb5cf657c5424352e7c375d9e504947108feff52ddaab0f4cb46916220ae88/inputs,dst=/inputs,readonly",
+              "--mount",
+              "type=bind,src=<WORKTREE>/workspaces/materials-r2-02/paper_versions/7fb08bdeee40ef7e594aac0aafa9f23f2fd21d865f7896eb05d6f13d443b6bb1/_tex_builds/69bb5cf657c5424352e7c375d9e504947108feff52ddaab0f4cb46916220ae88/out,dst=/out",
+              "-e",
+              "HOME=/tmp",
+              "-e",
+              "TEXMFVAR=/tmp/texmf-var",
+              "-e",
+              "TEXMFCONFIG=/tmp/texmf-config",
+              "-e",
+              "TEXMFOUTPUT=/out",
+              "--workdir",
+              "/inputs",
+              "sha256:66cd6606c812977ca9b3da826c5fd8bfa0e1dfc65b40383e7e0ce4d020860a58",
+              "-output-directory=/out",
+              "main.tex"
+            ],
+            "returncode": 0,
+            "seconds": 2.7317493749978894,
+            "status": "EXITED",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0400773b37f46b091ef8c9dc77a493812e88e6b39b2858c3067bf3aaef5593b7"
+          },
+          {
+            "argv": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "cumcm-tex-ad46fa1c508ef1fa2d6a",
+              "--network",
+              "none",
+              "--read-only",
+              "--cap-drop",
+              "ALL",
+              "--security-opt",
+              "no-new-privileges",
+              "--pids-limit",
+              "128",
+              "--cpus",
+              "1",
+              "--memory",
+              "1024m",
+              "--memory-swap",
+              "1024m",
+              "--user",
+              "501:20",
+              "--tmpfs",
+              "/tmp:rw,noexec,nosuid,size=128m",
+              "--ulimit",
+              "fsize=30000000:30000000",
+              "--mount",
+              "type=bind,src=<WORKTREE>/workspaces/materials-r2-02/paper_versions/7fb08bdeee40ef7e594aac0aafa9f23f2fd21d865f7896eb05d6f13d443b6bb1/_tex_builds/69bb5cf657c5424352e7c375d9e504947108feff52ddaab0f4cb46916220ae88/inputs,dst=/inputs,readonly",
+              "--mount",
+              "type=bind,src=<WORKTREE>/workspaces/materials-r2-02/paper_versions/7fb08bdeee40ef7e594aac0aafa9f23f2fd21d865f7896eb05d6f13d443b6bb1/_tex_builds/69bb5cf657c5424352e7c375d9e504947108feff52ddaab0f4cb46916220ae88/out,dst=/out",
+              "-e",
+              "HOME=/tmp",
+              "-e",
+              "TEXMFVAR=/tmp/texmf-var",
+              "-e",
+              "TEXMFCONFIG=/tmp/texmf-config",
+              "-e",
+              "TEXMFOUTPUT=/out",
+              "--workdir",
+              "/inputs",
+              "sha256:66cd6606c812977ca9b3da826c5fd8bfa0e1dfc65b40383e7e0ce4d020860a58",
+              "-output-directory=/out",
+              "main.tex"
+            ],
+            "returncode": 0,
+            "seconds": 2.640534458001639,
+            "status": "EXITED",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "403de716c704e2cf7980337fa99dd67d42e4a33b16a8784c421a2e2632a3c22e"
+          }
+        ],
+        "shell_escape": false,
+        "source_manifest": {
+          "code/baseline/main.py": "b1d64663f4fc75cdae7f08e5a1a04324e3ef3d74abab6221ce5a96af49fe1657",
+          "code/c0/main.py": "b1d64663f4fc75cdae7f08e5a1a04324e3ef3d74abab6221ce5a96af49fe1657",
+          "code/dependencies/cumcm_harness/__init__.py": "f39f34f907df7a83d0ea37b7781bed5cafe9b6a6fd1bafbd6e99d2a6ad53b59d",
+          "code/dependencies/cumcm_harness/algorithms.py": "7e088cd5133549c9cedafd7648ac06f049c3f8edcdaa42129ed99d2adb58d29f",
+          "code/dependencies/cumcm_harness/common.py": "17c8052c98e593f29d2f5514ba3f96705c8c04a9aa5ff0571f595291f6712480",
+          "code/dependencies/cumcm_harness/worker.py": "2e3423ae7553a0dc078a84d83409f2fc9b09e44518038e5b9681c295a4b20e66",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/__init__.py": "a98e0580a35cc67c13e26bece800e931e99c7eabd5537dc944c5fe2fbbc67524",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/bootstrap.py": "001b0cc1431a1c42ef21c841be2edcd7dc4dd29b32211b66f4e6c284add3d3e6",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/engine.py": "6040f00bc1a572bbf27f10e350ae6138770b349899e26a7ca793b6d0292dd373",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/fast.py": "674e4cb96173126b3f962ff0edc0dcb03bc78fbd3a89ec33ca390373580b725c",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/variants.py": "324bd1617cbd3b501a875efe9b08b04548ab3e393b5252bb42902505b7cbde06",
+          "code/dependencies/vendor/mosaic_v14/mosaic_solve.py": "c84b35d33035d2e267e2153507a67d3ac507fdd61284a34c1ac8ee4f5e81f9d7",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/__init__.py": "798ba60251bb57f33ac6df032710a38797ceff9025ba6b2f6bb3b348f381e46f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/api.py": "9254cc1eba9a6fb1d4dc063db5cd0ccdf420c8b6d5e44b761b7e95a402500661",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/bootstrap.py": "4c04a86867d46c602a346684179e11951aaea59825bcaaa52df3b7155886f607",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient.py": "2bb03289c8533438cafaf5954462116871e10a1dc2fd99e00582505cb221f496",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient_engine.py": "e91f4f7f6daf53fd4c940cd52e82a1af0d7f6c60c3f512cd1ef4c01e20ff52c2",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/metrics.py": "cc2ea2ca6f6cf011483fec902d57bfbf8a70f5e389bae15851355e4ea8691b89",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/model.py": "f7313839bfc496a59fe7c6cda90abd60163348d9c947191e41583f353764212f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/problems.py": "d43170245c5e0b0a6929e052de5c40aa89e96d1641a8f8ac03af685d17c25448",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/residual.py": "c058dcd9ee013f55661e325c514f2335ec13fa85c9cf8e245803c69ee109fbd7",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/data/rgv2018_parameters.json": "d85a6198c435284efbe515bcc70afb0d4a4e7bba87de6bd3b740a801a8a1870c",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/moo_core.py": "e4d0e73524822f1d3ea3a80cf8daee83c761fe3a69675be5c6f66c462de27c2e",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_lqmoe.py": "6e1f769385ac0ef6f894963b928b09aa52d2281c85dff3dc1bff41e8bbbd2e4b",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_sqmoe_v9.py": "53b711dbd949335466ccc6af09f6b57dbd7eb6cdb2593fb5b383eccb6ec96b84",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/__init__.py": "cf4386e7f00f7517b6e928c6bc0b4b8c0e3e39bc39177d93f8fa3f0dc42b6978",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/api.py": "da0c98c69ea60b2d02edd21e36e7fa63ac3d80373f22077dba985cf780f461d6",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extended_core.py": "9f4bb7bec1e8102fb23a8be2b98b7f00c1fee7351da3c1d5b9618e7fcbf03ae0",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extensions.py": "1b4f9918ea8c37c6ccacf25d49b340be44b1f618c1d90fc162c55731d11963ef",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/final.py": "0fb647dd289a1293e7cba18548b8483984246c438f99e529252bfba8fe215262",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/graph_search.py": "37dc28811e8b1cfa570f7a81f28d500faadb3ea03cd99bac60247a9b11ebb6d2",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/rgv.py": "f78beb2fba81c6308c15313871dc3de0143cbed68923e3d9ffa3d59673c3281e",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/typed_baseline.py": "0423a8341733d8dec8d8835096951d6a11995db282dea7f720419148c8a50bf6",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/bootstrap.py": "91f299e169a69569436299f7e898d5cd439e75d127f43e63bdf8f101127e5b9f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_api.py": "5130d24f94367c226a09f136fb8221ce882f4435e6bdb8d767ece78713ddaf3f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_v10.py": "de37e4e02772be758ca02544c8eea12a3e3cb7158ff35c63b4d6afbd21fec545",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/problems.py": "c9c46df4bf4133ed584c01d0db809f8a49477e5adeda1f97cc56f2dcfc4c7c59",
+          "code/reproduce.py": "184455ad8334cf1558ecb67c863d1930c1acc817b60bee41c20af9677c1944e9",
+          "code/verifier/evaluate.py": "99f583f524d46ed4e2b2b7f71ea9c2ae26f6855f4e789fffc2a65b0af4b9d9de",
+          "code/verifier/test_solver.py": "09f3fe6df78bae89705d5d3696b4df7268f6dad6433a6856e4247002ca887fb2",
+          "figures/confirmation.pdf": "b5e2fc9c3d0a1eb2901b637756a19391437cfa075501c46501ced6b394dce8a0",
+          "figures/confirmation.png": "0fd568b1a216eadf193b7694871ced132c81afcd4619c5fe287e117426a1e5b2",
+          "figures/confirmation.svg": "47c9a1b96852e5fbe1b35f79e5483cdbba29412a16c98be01a6e5f31afe51b25",
+          "figures/ourwork.pdf": "5c336fb65fe0edd8d6fd541665c30decc961c55cf0e9379a87d68a6813191e18",
+          "figures/ourwork.png": "25884478f7a22e90a24275e5a97d46ddfdf01e2f8dd090c96ff7f97c082212e3",
+          "figures/ourwork.svg": "f2e5eb94570908499504ea5f88ba335a86838c1044ed3a12422d42598441d8a1",
+          "main.tex": "77f442ff70a78e7c752930f2c64c3415aed4e4482190bb434d5c2570ac1db1dc",
+          "paperkit-cumcm2026.sty": "b3fe0e4ceb99e9962a098350596bce0042befed0e76c09c4a9be7a72c93ad5d7"
+        }
+      },
+      "shell_escape": false,
+      "source_sha256": "77f442ff70a78e7c752930f2c64c3415aed4e4482190bb434d5c2570ac1db1dc"
+    },
+    "claims_digest": "600269321af523324e3784b0d7ad7453a8dd638fb533c00f7d8424a438dfe109",
+    "materials_digest": "0a259c3c8a5fac1d7cf1b0ccbd7c99014d95c3a7da85095f58d7ba4aa0518b42",
+    "paper_sha256": "7dcc82ae463a1ca4ff4430cab70c059afa8b23148314baca0414ecc4f363201b",
+    "preflight": {
+      "anonymity": "denylist/metadata checks do not prove complete anonymity",
+      "body_pages": 3,
+      "bytes": 579442,
+      "failures": [],
+      "pages": 127,
+      "paperkit_checks": {
+        "body_pages": 3,
+        "bytes": 579442,
+        "errors": [],
+        "margin_violations": [],
+        "pages": 127,
+        "pdf_sha256": "7dcc82ae463a1ca4ff4430cab70c059afa8b23148314baca0414ecc4f363201b",
+        "release_ready": false,
+        "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+        "status": "PASS",
+        "warnings": [
+          "Example mode: not a contest submission, regardless of machine pass"
+        ]
+      },
+      "pdf_sha256": "7dcc82ae463a1ca4ff4430cab70c059afa8b23148314baca0414ecc4f363201b",
+      "release_ready": false,
+      "status": "PASS",
+      "visual_check": "REQUIRED_SEPARATELY",
+      "warnings": [
+        "Example mode: not a contest submission, regardless of machine pass"
+      ]
+    },
+    "source_inventory": [
+      "code/baseline/main.py",
+      "code/c0/main.py",
+      "code/dependencies/cumcm_harness/__init__.py",
+      "code/dependencies/cumcm_harness/algorithms.py",
+      "code/dependencies/cumcm_harness/common.py",
+      "code/dependencies/cumcm_harness/worker.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/engine.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/fast.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/variants.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic_solve.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient_engine.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/metrics.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/model.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/problems.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/residual.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/data/rgv2018_parameters.json",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/moo_core.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_lqmoe.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_sqmoe_v9.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extended_core.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extensions.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/final.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/graph_search.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/rgv.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/typed_baseline.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_v10.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/problems.py",
+      "code/reproduce.py",
+      "code/verifier/evaluate.py",
+      "code/verifier/test_solver.py"
+    ]
+  },
+  "plan_digest": "7605efdb55e1df628b5df3762be9f98b911d5cb3b50ffb4c4e8865299c07cb5f",
+  "review_failovers": [
+    {
+      "failures": [
+        {
+          "attempt": 0,
+          "code": "TIMEOUT",
+          "provider": "claude"
+        },
+        {
+          "attempt": 1,
+          "code": "TIMEOUT",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "materials:brief:0:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "materials:data-plan:0:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "materials:portfolio:0:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "materials:portfolio:0:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "counter:r2:45b74cdbf269a6e1b98995b42870cb3597691e91acd33df5e37ec4047b1e56e5:0",
+      "role": "hypothesis_critic",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "hypothesis-audit:r2:45b74cdbf269a6e1b98995b42870cb3597691e91acd33df5e37ec4047b1e56e5",
+      "role": "hypothesis_critic",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "literature:r2:45b74cdbf269a6e1b98995b42870cb3597691e91acd33df5e37ec4047b1e56e5:literature_reviewer:seat0",
+      "role": "literature_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "plan:r0:review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "plan:r0:review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "verifier:r0",
+      "role": "verifier_author",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "verifier:r0:review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "verifier:r0:review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "candidate:c0:r0:review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "candidate:c0:r0:review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "algorithm:c0:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "algorithm:c0:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "smoke-review:a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "smoke-review:a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "development:c0:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "development:c0:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "confirmation-review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "confirmation-review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    }
+  ],
+  "selection": {
+    "confirmation_seen": false,
+    "development_means": {
+      "baseline": 0.9332706766917295,
+      "c0": 0.9997762262799856
+    },
+    "protocol_digest": "0683e47f7f81a2163ab3bce2f9522262c9dc07af5f09e05315b968cc7315b72c",
+    "winner": "c0"
+  },
+  "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+  "submission_manifest": {
+    "path": "deliverables/submission-manifest.json",
+    "sha256": "826e3143b178388796c3f2624f2ebb0aaeebe900681f708692359bf709e37d41",
+    "submitted": false
+  },
+  "validation_scope": {
+    "exa": "REPLAYED_NOT_LIVE_HTTP",
+    "frozen_r2_sidecar": true,
+    "live_semantic_skill_quality": "NOT_RUN",
+    "model_responses": "FIXTURE_NOT_LLM",
+    "new_model_fixture_calls": 0,
+    "numeric_execution": "DOCKER",
+    "replay": true,
+    "replay_identity": {
+      "exa": {
+        "http_attempts_reserved": 5,
+        "known_cost_dollars": 0,
+        "max_http_attempts": 80,
+        "remote_exactly_once_billing": false,
+        "requests": [
+          {
+            "attempts": 1,
+            "id": "97206a4035667ec553f65d58a02a454466efd7f1c1f595deff9fbe5ec61cd1d1",
+            "status": "DONE"
+          },
+          {
+            "attempts": 1,
+            "id": "99f5d06dc86df7c1fff5cc1a924e8f76ae9a7e2ed132b9749091520b2561cd54",
+            "status": "DONE"
+          },
+          {
+            "attempts": 1,
+            "id": "c73722971a0301bd58675efa61c1d7d3282abd20f9c8d4ad2b0ffa26480ed8a3",
+            "status": "DONE"
+          },
+          {
+            "attempts": 1,
+            "id": "58ec46b417bb644835d2b9f0d13f01479df9bcfdb776f69308db8b9258535e3d",
+            "status": "DONE"
+          },
+          {
+            "attempts": 1,
+            "id": "a450f491eeed72b3587db8208026b62b84a14b7173b7e0bbecd8c914816f08fa",
+            "status": "DONE"
+          }
+        ],
+        "stage_consumption": {
+          "adversary": 1,
+          "final_verification": 0,
+          "primary_source_fetch": 2,
+          "repair_reserve": 0,
+          "scouting": 2
+        },
+        "unknown_cost_attempts": 5
+      },
+      "files": {
+        "paper.pdf": "7dcc82ae463a1ca4ff4430cab70c059afa8b23148314baca0414ecc4f363201b",
+        "submission-manifest.json": "826e3143b178388796c3f2624f2ebb0aaeebe900681f708692359bf709e37d41",
+        "support.zip": "ba4a43d2b7024231a7b1dfaf6f2de6bd7980b8f33929425669c16dc00b379730"
+      },
+      "jobs": [
+        {
+          "id": "00033c340d23d03bb992552298b7798a1c734ec5d094bcecabd6395af6d9fe7e",
+          "status": "DONE"
+        },
+        {
+          "id": "086122b7b58764b2b54d9e723356a7ba1af8b72b4ab9f5d59f8702ac0c2b39f2",
+          "status": "DONE"
+        },
+        {
+          "id": "178e07f5667bd18e9701e8d0392d7c1c79bb6089d9715304aa47974e0486751b",
+          "status": "DONE"
+        },
+        {
+          "id": "200dfd45a98e1fdf83059333ddfa1c5e034777cab273bdadb15bff4c7c5e2fb7",
+          "status": "DONE"
+        },
+        {
+          "id": "22cd4caa13a8639c755a071dcfaa5ef14d2023295a142b4b59e07e448c7f6d8b",
+          "status": "DONE"
+        },
+        {
+          "id": "2be54875d821239c2dcbb7349000721e9faa541c92144a1b2f5250091035fa0a",
+          "status": "DONE"
+        },
+        {
+          "id": "39b1c0af7d2c734753d864c3f385e64c0a8bf4721fb325aaff385e65e182c107",
+          "status": "DONE"
+        },
+        {
+          "id": "445ab5b637e3a3ff51796472a537b63864cc590e83a12f278b06d287f7898665",
+          "status": "DONE"
+        },
+        {
+          "id": "4686909e907b0e7226a519fc008127554d5c953c8c20ba55fa9b05771d6df24e",
+          "status": "DONE"
+        },
+        {
+          "id": "48cacc5592ccc19bb5e41d74be7e3b069a00bc787913c74f35ac79f664b5f659",
+          "status": "DONE"
+        },
+        {
+          "id": "6e588fd3e4c4a4cb16d83acaf68498dd91725eed3573c48575e3cabf7e784c84",
+          "status": "DONE"
+        },
+        {
+          "id": "6f3741dfaca3baff6c5285b2f720669b7e428cbc3114ce8e917e87f51c95b181",
+          "status": "DONE"
+        },
+        {
+          "id": "73a9a91efac2929d8a3f7131dc0e6d19005186006d1905fc0d2df1087cf3b20f",
+          "status": "DONE"
+        },
+        {
+          "id": "7c32a036ca7858636090ccbad9ce53f326991e3aa3f9338cf4b0954e07367d57",
+          "status": "DONE"
+        },
+        {
+          "id": "7dd428237d80fe992f3bacd5ddaf37c815191a553fb1e0bf6a4c160a74e0cd17",
+          "status": "DONE"
+        },
+        {
+          "id": "9510597a569c7f59602531dca12f07e06ba32c188249a7a284ee225c51681bf1",
+          "status": "DONE"
+        },
+        {
+          "id": "a45ead51b9b9b70267490dce75405ef798a85425ad7e25c431f628583adc2052",
+          "status": "DONE"
+        },
+        {
+          "id": "b4a7bc39f331acdc08f344eb75284fc21445c92e169d5b2e4e32ca0d8caa91ca",
+          "status": "DONE"
+        },
+        {
+          "id": "dcede24a697e062da1650f043137d7379da0547b7fb352ac1c06bc56a801793d",
+          "status": "DONE"
+        },
+        {
+          "id": "de9fa829aa8591c834090220b675e092d371939c0fcf66b9b6705e47ce6cf43a",
+          "status": "DONE"
+        },
+        {
+          "id": "edf573ed6b8ffe7a8c6c83189d84a0621030e12cfb86b9eca0ddf66f8f893aae",
+          "status": "DONE"
+        },
+        {
+          "id": "efcabbdae9da7d7020f0d52ad2784d9627ed957568b479db89b4751c971bcab3",
+          "status": "DONE"
+        }
+      ],
+      "model_calls_reserved": 60
+    },
+    "replay_unchanged": true,
+    "tex_execution": "DOCKER"
+  },
+  "verifier_digest": "588f9f2657858e1a9488e060cb74519bf89f80f399a63d0fe66492557b8c25c4",
+  "world_best_claim": "NOT_ESTABLISHED"
+}

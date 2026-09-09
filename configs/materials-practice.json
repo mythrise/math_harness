@@ -1,0 +1,9 @@
+{
+  "mode": "practice",
+  "materials_workflow": true,
+  "network_policy": "EXA_ABSTRACT_QUERIES",
+  "literature_enabled": true,
+  "exa_max_requests": 80,
+  "exa_results_per_query": 6,
+  "exa_timeout": 45
+}

@@ -22,12 +22,12 @@ DEFAULT_CONFIG={
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
  'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_call_budget_usd':None,
- 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.3.0',
+ 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.4.0-rc1',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
  'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
  'review_members_per_role':2,'review_attempts_per_provider':2,'review_cooldown_seconds':60,
  'review_backoff_seconds':0.25,'review_timeout':180,
- 'literature_enabled':False,'exa_timeout':35,'exa_results_per_query':4,'exa_max_requests':32,'exa_approved_queries':[]}
+ 'materials_workflow':False,'literature_enabled':False,'exa_timeout':35,'exa_results_per_query':4,'exa_max_requests':32,'exa_approved_queries':[]}
 
 IO_CONTRACT={
  'solver_entry':'main.py --input PUBLIC_DATA_DIR --out EMPTY_OUTPUT_DIR --seed INT --budget INT --variant ID',
@@ -61,6 +61,7 @@ REVIEW_STAGES={
 
 def validate_config(c):
     if set(c)!=set(DEFAULT_CONFIG):raise IntegrityError('Unexpected/missing configuration keys')
+    if type(c['materials_workflow']) is not bool:raise IntegrityError('materials_workflow must be Boolean')
     if c['mode'] not in ('practice','contest'):raise IntegrityError('Invalid mode')
     if c['claude_effort'] not in (None,'low','medium','high','xhigh','max'):raise IntegrityError('Invalid config claude_effort')
     for key in ('workers','cpu_threads','total_cpu_threads','memory_mb','total_memory_mb','trial_timeout','fe_budget','max_candidates','repair_attempts','max_model_calls','model_timeout'):
@@ -106,6 +107,8 @@ class Controller:
                    'source_registry':read_json(self.root/'sources.json') if (self.root/'sources.json').exists() else [],
                    'rules':'CUMCM 2026: team-led core modeling and itemized human review required for competition. Use Exa only for generic method queries; never post the current problem or raw/private data publicly.'}
         self.review_board=ReviewBoard(self)
+        from .materials_workflow import MaterialsWorkflow
+        self.materials=MaterialsWorkflow(self) if self.config['materials_workflow'] else None
         if (self.root/'exa-policy.json').exists():
             from .literature_r2 import R2LiteratureWorkflow
             self.literature=R2LiteratureWorkflow(self,exa_client)
@@ -126,11 +129,13 @@ class Controller:
         return self._call_one(key,role,schema,packet,provider_kind='codex',images=images)
     def _call_one(self,key,role,schema,packet,*,provider_kind,images=(),managed_failure=False):
         kind=provider_kind;provider=self.providers[kind]
+        from .role_skills import freeze_role_skills
+        skill_identity=freeze_role_skills(self.store,role)
         if isinstance(provider,CLIProvider) and (schema=='review' or role=='hypothesis_critic'):
             provider=__import__('copy').copy(provider)
             provider.timeout=min(provider.timeout,self.config['review_timeout'])
         image_refs=[{'name':p.name,'sha256':file_hash(p)} for p in images]
-        inputs={'role':role,'schema':schema,'packet':packet,'provider':kind,'model':getattr(provider,'model','FIXTURE'),'images':image_refs}
+        inputs={'role':role,'schema':schema,'packet':packet,'provider':kind,'model':getattr(provider,'model','FIXTURE'),'images':image_refs,'skill_digest':skill_identity}
         def invoke():
             self.check_deadline();count=self.store.get('model_calls_reserved',0)
             if count>=self.config['max_model_calls']:raise BudgetExhausted('Model-call budget exhausted; no success fabricated')
@@ -159,6 +164,7 @@ class Controller:
                     'model_execution_status':'NO_VALID_RESPONSE','call_index':count+1}
                 write_json(log/'receipt.json',receipt);write_json(log/'failure.json',failure)
                 return {'provider_failure':failure,'receipt':receipt}
+            if record['receipt'].get('skill_digest')!=skill_identity:raise IntegrityError('Returned prompt skills differ from the frozen invocation')
             record['receipt']['call_index']=count+1
             write_json(log/'receipt.json',record['receipt'])
             self.store.memory(role,{'key':key,'input_digest':digest(inputs),'output_digest':digest(record['result']),
@@ -191,10 +197,13 @@ class Controller:
                 if entry and entry not in [f['path'] for f in artifact['files']]:raise IntegrityError('Required entrypoint missing: '+entry)
                 if role=='modeler':
                     resource_gate(artifact,self.config)
+                    if self.materials:
+                        from .materials_contracts import check_plan_alignment
+                        check_plan_alignment(artifact,self.base['materials_preparation'])
                     if self.literature:
                         self.literature.repairing=attempt>0
                         self.literature.assess(artifact)
-                review_context={k:self.base[k] for k in ('experiment_contract','source_registry','io_contract','limits','hypothesis_contract') if k in self.base}
+                review_context={k:self.base[k] for k in ('experiment_contract','source_registry','io_contract','limits','hypothesis_contract','materials_preparation','modeling_coverage_contract') if k in self.base}
                 if 'plan' in packet:review_context['plan']=packet['plan']
                 review_context.update(extra_review or {})
                 if role=='verifier_author' and not self.demo:
@@ -289,7 +298,8 @@ class Controller:
         verify_vendor();backend=self.executor.probe()
         current_sources=read_json(self.root/'sources.json') if (self.root/'sources.json').exists() else []
         self.store.step('freeze-sources',{'sources':current_sources},lambda:current_sources)
-        fingerprint={'environment':environment(),'backend':backend,
+        from .role_skills import skill_fingerprint
+        fingerprint={'environment':environment(),'backend':backend,'role_skills':skill_fingerprint(),
             'core_source':{p.name:file_hash(p) for p in sorted((ROOT/'cumcm_harness').glob('*.py'))},
             'vendor_manifest':file_hash(ROOT/'vendor/MANIFEST.json')}
         old=self.store.get('runtime_fingerprint')
@@ -306,10 +316,14 @@ class Controller:
         if self.literature:
             self.status('EXA_LITERATURE_AND_HYPOTHESES')
             self.literature.collect_initial(pi)
+        if self.materials:
+            self.status('MATERIALS_PREPARATION');self.materials.prepare(pi)
         plan,_=self.produce_reviewed('plan','modeler','plan',{**self.base,'pi_priorities':pi})
         self.store.step('resource-gate',{'plan':plan,'config':self.config},lambda:resource_gate(plan,self.config))
         if self.config['mode']=='contest':
-            p=approval.request(self.root,'plan',digest(plan),[digest(plan)],'Team must lead and verify core model before implementation')
+            from .materials_workflow import plan_attestation_target
+            items=[digest(plan)]+([digest(self.base['materials_preparation'])] if self.materials else [])
+            p=approval.request(self.root,'plan',plan_attestation_target(plan,self.base),items,'Team must lead and verify the requirements, data policy and core model before implementation')
             self.status('WAITING_HUMAN_PLAN');approval.require(self.root,'plan',p,os.getenv('CUMCM_OPERATOR_KEY'))
         self.status('IMPLEMENTATION')
         verifier,_=self.produce_reviewed('verifier','verifier_author','bundle',{**self.base,'plan':plan},entry='evaluate.py')
@@ -399,7 +413,8 @@ class Controller:
         self.status('WRITING')
         source_registry=self.base.get('source_registry',[])
         self.store.step('freeze-paper-sources',{'sources':source_registry},lambda:source_registry)
-        packet={'hypothesis_contract':self.base.get('hypothesis_contract'),
+        packet={'materials_preparation':self.base.get('materials_preparation'),
+                'hypothesis_contract':self.base.get('hypothesis_contract'),
                 'hypothesis_execution':read_json(self.root/'literature/execution.json') if (self.root/'literature/execution.json').exists() else None,
                 'problem':self.problem,'plan':plan,'claims':claims,'inference':inference,'selection':selection,
                 'source_registry':source_registry,'scope':protocol['scope'],'demo':self.demo,
@@ -413,13 +428,16 @@ class Controller:
                 self.store.event('PAPER_DUPLICATE_DRAFT_REJECTED',{'attempt':attempt,'draft_digest':digest(draft)})
                 continue
             attempted_drafts.add(digest(draft))
-            folder=self.root/'paper_versions'/digest(draft)
+            folder=self.root/'paper_versions'/digest(draft);materials_context=None
             def compile_draft():
-                try:return build_paper(self.root,draft,claims,confirm,ai_records=self.all_ai_records(),code_bundles={**bundles,'verifier':verifier},source_registry=source_registry,demo=self.demo,build_dir=folder)
+                try:return build_paper(self.root,draft,claims,confirm,ai_records=self.all_ai_records(),code_bundles={**bundles,'verifier':verifier},source_registry=source_registry,demo=self.demo,build_dir=folder,materials=materials_context)
                 except (PaperCompilationFailure,IntegrityError) as exc:
                     return {'observed_build_failure':True,'error':str(exc),'error_type':type(exc).__name__}
             try:
-                candidate=self.store.step(f'paper-build:r{attempt}',{'draft':draft,'claims':claims,'rows':confirm,'bundles':bundles,'verifier':digest(verifier),'sources':source_registry},
+                if self.materials:
+                    draft,materials_context=self.materials.prepare_paper(draft,plan,claims,packet['question_evidence'],attempt)
+                    folder=self.root/'paper_versions'/digest(draft)
+                candidate=self.store.step(f'paper-build:r{attempt}',{'draft':draft,'claims':claims,'rows':confirm,'bundles':bundles,'verifier':digest(verifier),'sources':source_registry,'materials':materials_context},
                     compile_draft)
                 if candidate.get('observed_build_failure'):raise PaperCompilationFailure(candidate['error'])
                 if file_hash(folder/'main.pdf')!=candidate['paper_sha256']:raise IntegrityError('Frozen PDF was changed')
@@ -463,8 +481,10 @@ class Controller:
         if file_hash(self.root/'paper'/ai['path'])!=ai['sha256']:raise IntegrityError('AI details PDF changed after build')
         from .packaging import package_workspace
         package=package_workspace(self.root,built,claims,protocol,confirm,records,ai,contest=self.config['mode']=='contest',human=human)
+        from .submission_manifest import seal_deliverables
+        submission=seal_deliverables(self.root,package,self.config['mode'])
         status='DEMO_COMPLETE_NOT_LIVE_VALIDATED' if self.demo else ('CONTEST_REVIEWED_LOCAL_PACKAGE' if self.config['mode']=='contest' else 'PRACTICE_COMPLETE_HUMAN_REVIEW_REQUIRED')
-        result={'status':status,'live_llm_calls':not self.demo,'plan_digest':digest(plan),'verifier_digest':digest(verifier),
+        result={'status':status,'materials_workflow':bool(self.materials),'submission_manifest':submission,'live_llm_calls':not self.demo,'plan_digest':digest(plan),'verifier_digest':digest(verifier),
                 'development_cells':len(development),'confirmation_cells':len(confirm),'selection':selection,'inference':inference,
                 'paper':built,'package':package,'world_best_claim':'NOT_ESTABLISHED','auto_submission':False,
                 'review_failovers':[__import__('json').loads(e['payload']) for e in self.store.events() if e['kind']=='PROVIDER_FAILOVER'],

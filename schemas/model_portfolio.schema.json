@@ -1,0 +1,122 @@
+{
+  "type": "object",
+  "properties": {
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+                },
+                "kind": {
+                  "enum": [
+                    "baseline",
+                    "challenger"
+                  ]
+                },
+                "method_card_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "principle": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "fit_reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "limitations": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "validation": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "single_change": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "implementation_status": {
+                  "enum": [
+                    "AVAILABLE_LOCAL",
+                    "RESEARCH_ONLY_NOT_RUN"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "method_card_id",
+                "principle",
+                "fit_reason",
+                "limitations",
+                "validation",
+                "single_change",
+                "implementation_status"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "recommendation": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "decision_basis": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "question_id",
+          "options",
+          "recommendation",
+          "decision_basis"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "shared_computation": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "rejected_innovations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "stopping_rule": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "questions",
+    "shared_computation",
+    "rejected_innovations",
+    "stopping_rule"
+  ],
+  "additionalProperties": false
+}

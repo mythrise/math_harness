@@ -51,3 +51,19 @@ with configs/exa-modeling-compatible.json. Do not retrofit old workspaces.
 Use exa-status to inspect all attempts before recover-exa; unknown inflight work
 must be reconciled, not automatically repeated. Dynamic/deep remain opt-in.
 R2 citations require source snapshot and original-text offsets plus semantic review.
+
+
+## 0.4 materials contracts
+
+Read `docs/MATERIALS_V040_INTEGRATION_CN.md` and `docs/materials-upgrade/SOURCE_ANALYSIS_CN.md`.
+Use `configs/materials-practice.json` with a new frozen R2 sidecar for the explicit
+materials workflow. Keep raw source anchors, development-only data audits,
+reference-only catalog status, baseline feasibility and body-to-abstract evidence.
+Role skills are first-party prompt inputs bound to the runtime and call digest;
+never edit them during a run or use changed skills to replay an old fingerprint.
+Use `scripts/validate_materials_pipeline.py` in Docker mode and `--r2` for combined
+R2 acceptance, then `--replay`; this remains fixture model/HTTP evidence.
+`scripts/validate_materials_live.py` uses real services on a fixed public synthetic
+problem and must preserve typed failures and actual receipts. No fixture fallback.
+The local submission manifest records MD5 and SHA-256 only; it never uploads or signs.
+Keep release `0.4.0-rc1` distinct from a validated stable/contest release.

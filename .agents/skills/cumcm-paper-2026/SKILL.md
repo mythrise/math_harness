@@ -1,16 +1,12 @@
 ---
 name: cumcm-paper-2026
-description: Write evidence-grounded Chinese CUMCM papers using the self-developed 2026-compliant LaTeX profile and actual builds.
+description: Body-first evidence-grounded CUMCM writing and native PaperKit typesetting
 ---
 
-# 论文手与2026格式
-
-先读 `cumcm_harness/paper.py` 中 RULES 的官方来源，以及 docs/RESEARCH_REVIEW_CN.md。这是按官方规则自行实现的profile，不称作组委会官方LaTeX类。
-
-输入只能使用被冻结的主张表、方法合同、实际图表和核验过的文献。输出 `schemas/paper.schema.json`。数值用 `{{claim:ID}}`，文献用 `{{cite:ID}}`，引用集合要与正文一致。没有证据不猜实验结果；正文结果不得从模型自由填写小数。
-
-电子论文从摘要开始，不含承诺/编号页/目录；A4四边至少25mm，摘要一页，正文不超过30页，页脚中部连续编号。附录列出所有支撑文件与完整可运行源码；引用处有标注，匿名检查覆盖正文/附录/支撑包。正式提交还须确认赛区补充要求。
-
-参考文献前设置AI工具使用声明，支撑包有 `AI工具使用详情.pdf`：名称版本、目的环节、主要提示方式、采纳/修改/核验。不得伪造“未使用AI”或“人工已核验”。
-
-实际运行XeLaTeX至少两次，禁止shell-escape；缺字、未定义引用、超页或文件超限则BLOCKED。论文和支撑包分别≤20MB，不用开发仓库ZIP替代支撑包。通用库本身无需逐行附录，定制代码及其必要资源必须能在独立支撑包中复现。所有正文渲染及完整附录需人类检查；自动模型只检查声明的页范围。
+# 论文手：从实际证据到可核验正文
+仅使用确认结果、逐问模型合同、已核验文献、原始图表数据。输出paper schema，正文首节问题重述；涵盖问题分析、假设、符号、实际各问建模求解结果检验和局限，可按题型合并章节。
+为每问建立paper_map：analysis/assumptions/symbols/derivation/algorithm/execution/results/validation的内容位置和理由。映射存在不代表语义正确。定量答案使用该Q的{{claim:ID}}，定性答案使用实际hash绑定论证；不填零凑数。所有摘要/图表/结论数值与同一证据一致。
+正文先写、摘要后提炼；不硬凑800字、八个数字或三个创新。全局符号、单位与plan一致；局部符号在首次出现解释。结果给出物理/业务意义、边界、异常和局限，没实现的改进明确未来工作。
+采用当前原生PaperKit/XeLaTeX容器，不能退回宿主编译。电子稿从摘要开始，无承诺/编号页、无目录；A4≥25mm，摘要含标题关键词原则一页，正文不超过30页，页脚中间从1连续。没有全国统一最低25页、固定字号、公式/图表/参考文献数额要求。
+参考文献前有真实AI声明，支撑包有AI工具使用详情.pdf。附录完整源代码和支撑清单；论文与支撑分别≤20MB并匿名。未检索文献不编造，未人工核验不声称核验。保持原文引用，不以改写逃避署名。
+编译缺字/未定义引用/超框/页码不符必须返工。视觉否决进入新稿、新PDF摘要的修复闭环，不能重复给同稿投票。布局建议不是科学结论。

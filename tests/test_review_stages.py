@@ -12,7 +12,7 @@ def controller(tmp_path,response=responder):
     c=Controller.__new__(Controller);c.root=tmp_path;c.problem='Synthetic scope test'
     c.base={'experiment_contract':{'development_seeds':[101,202,303]},'source_registry':[{'id':'synthetic-source'}]}
     c.config={**DEFAULT_CONFIG,'repair_attempts':0,'review_backoff_seconds':0}
-    c.store=Store(tmp_path);c.demo=True;c.literature=None;c.review_cycle=0
+    c.store=Store(tmp_path);c.demo=True;c.literature=None;c.materials=None;c.review_cycle=0
     fp=FixtureProvider(response);c.providers={'claude':fp,'codex':fp};packets=[]
     def call(key,role,schema,packet,**kw):
         packets.append((role,packet));return fp.invoke(role,schema,packet,tmp_path/'calls'/str(len(packets)))

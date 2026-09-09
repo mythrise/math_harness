@@ -1,0 +1,218 @@
+{
+  "acceptance_scope": {
+    "claude_outage": "INJECTED_NOT_REAL_OUTAGE",
+    "exa": "REPLAYED_SOURCE_FIXTURE_NOT_LIVE_HTTP",
+    "llm": "FIXTURE_NOT_LLM",
+    "numerics": "ACTUALLY_EXECUTED",
+    "pdf": "ACTUALLY_COMPILED",
+    "user_api_key_validation": "NOT_RUN"
+  },
+  "after": {
+    "exa_calls": 5,
+    "jobs": [
+      {
+        "id": "022897b76e4cf75dbad231eed6d5f54921612bee77cd4f230ce9b9286185ef1a",
+        "status": "DONE"
+      },
+      {
+        "id": "14c9d79e7d805ad8c56d44162d2ef87a2ff5f8f353a5d5268b17cf16180cf690",
+        "status": "DONE"
+      },
+      {
+        "id": "4981b4444310b452e0b57ac868857c316d22a04e058c710077c6ac36375e45e4",
+        "status": "DONE"
+      },
+      {
+        "id": "57e68b39356e2ed3a2f5a7390e835f76cf55f55234a246f3717eb1a166fc4359",
+        "status": "DONE"
+      },
+      {
+        "id": "5fd8386d4cd22b6dfe1dd212863db66f43cea51f34f6ef344174d0fd37502cbb",
+        "status": "DONE"
+      },
+      {
+        "id": "7623c3fa730755a43fd4adcb85454af11b6d748fe98198f12feeeecde6b38f6d",
+        "status": "DONE"
+      },
+      {
+        "id": "82a7a42ea1a11823558c30a448cfcb4de848e1829698de7af2f83208f7d6d7c3",
+        "status": "DONE"
+      },
+      {
+        "id": "85969617999bb498b3b0460082748056b1eeead0d211be9915c9cf108d24b3f9",
+        "status": "DONE"
+      },
+      {
+        "id": "989c8754a8df05c1efa0ea4000486fa6ca274f2bedd5a0906b6cb7673ea9ab59",
+        "status": "DONE"
+      },
+      {
+        "id": "a0de3bad5e7572c1160cc5d31b82610d3ccc2438f727c2da05918769e96f091a",
+        "status": "DONE"
+      },
+      {
+        "id": "ab9bd22b18ba3815e1e78dd0dd54482492053d868678f8af871525dd66e11105",
+        "status": "DONE"
+      },
+      {
+        "id": "b41c508e423ceca2138b3897ae2c62b1130e1e03b93db4c86a2dadcadeea2254",
+        "status": "DONE"
+      },
+      {
+        "id": "b458ddea30fc42a8f431c987389bc4fed0395ebfff2dcb5a518642570f1777e3",
+        "status": "DONE"
+      },
+      {
+        "id": "ba4050bba3a38723b347e8afeaf8384c8c595442e294b3c0472a3285de0686f5",
+        "status": "DONE"
+      },
+      {
+        "id": "c1f1435cb35677c9a099f815a74f64f8dc0ccc68dd87c08adbb2aaa34ad1afc4",
+        "status": "DONE"
+      },
+      {
+        "id": "d17c7de7aa8982274024c3334122770a0559f83c61ebf5dc293abe5ded3d6623",
+        "status": "DONE"
+      },
+      {
+        "id": "d7da7ebb6a4e6cb40c2b9f475f000f20579216f9b6cd201b2cb1e7682d739700",
+        "status": "DONE"
+      },
+      {
+        "id": "da5205628541400323c52609a681b8b1cb88a7bb1ab07126ec9d252fb7c222c4",
+        "status": "DONE"
+      },
+      {
+        "id": "de33e378e77da869dc8ad1e5bbca781227d4edc57ac6dd80cfaa8a0dc8f31cd6",
+        "status": "DONE"
+      },
+      {
+        "id": "ee6c121831f338b69ee5faa035310dbffa7ad48b285f26a23a01d36f9da6c1ba",
+        "status": "DONE"
+      },
+      {
+        "id": "f129d97e21eef82b3c652876340330660cb8dde2804dc5045b4f6b1d4243dcfc",
+        "status": "DONE"
+      },
+      {
+        "id": "f9a4f1191bcd857b668464392acdb370de2a7bd96404dd568580a4d0d4c40b41",
+        "status": "DONE"
+      }
+    ],
+    "model_calls": 48,
+    "pdf": "c84d358cfb30ff0311a34f138c7cfb6485e819abb1d668e1f23d90678f327dfa",
+    "zip": "fb699a2d6ff2d0a67ffac82b53dff04f812ac9398c5b182060f3e5724b14ff40"
+  },
+  "before": {
+    "exa_calls": 5,
+    "jobs": [
+      {
+        "id": "022897b76e4cf75dbad231eed6d5f54921612bee77cd4f230ce9b9286185ef1a",
+        "status": "DONE"
+      },
+      {
+        "id": "14c9d79e7d805ad8c56d44162d2ef87a2ff5f8f353a5d5268b17cf16180cf690",
+        "status": "DONE"
+      },
+      {
+        "id": "4981b4444310b452e0b57ac868857c316d22a04e058c710077c6ac36375e45e4",
+        "status": "DONE"
+      },
+      {
+        "id": "57e68b39356e2ed3a2f5a7390e835f76cf55f55234a246f3717eb1a166fc4359",
+        "status": "DONE"
+      },
+      {
+        "id": "5fd8386d4cd22b6dfe1dd212863db66f43cea51f34f6ef344174d0fd37502cbb",
+        "status": "DONE"
+      },
+      {
+        "id": "7623c3fa730755a43fd4adcb85454af11b6d748fe98198f12feeeecde6b38f6d",
+        "status": "DONE"
+      },
+      {
+        "id": "82a7a42ea1a11823558c30a448cfcb4de848e1829698de7af2f83208f7d6d7c3",
+        "status": "DONE"
+      },
+      {
+        "id": "85969617999bb498b3b0460082748056b1eeead0d211be9915c9cf108d24b3f9",
+        "status": "DONE"
+      },
+      {
+        "id": "989c8754a8df05c1efa0ea4000486fa6ca274f2bedd5a0906b6cb7673ea9ab59",
+        "status": "DONE"
+      },
+      {
+        "id": "a0de3bad5e7572c1160cc5d31b82610d3ccc2438f727c2da05918769e96f091a",
+        "status": "DONE"
+      },
+      {
+        "id": "ab9bd22b18ba3815e1e78dd0dd54482492053d868678f8af871525dd66e11105",
+        "status": "DONE"
+      },
+      {
+        "id": "b41c508e423ceca2138b3897ae2c62b1130e1e03b93db4c86a2dadcadeea2254",
+        "status": "DONE"
+      },
+      {
+        "id": "b458ddea30fc42a8f431c987389bc4fed0395ebfff2dcb5a518642570f1777e3",
+        "status": "DONE"
+      },
+      {
+        "id": "ba4050bba3a38723b347e8afeaf8384c8c595442e294b3c0472a3285de0686f5",
+        "status": "DONE"
+      },
+      {
+        "id": "c1f1435cb35677c9a099f815a74f64f8dc0ccc68dd87c08adbb2aaa34ad1afc4",
+        "status": "DONE"
+      },
+      {
+        "id": "d17c7de7aa8982274024c3334122770a0559f83c61ebf5dc293abe5ded3d6623",
+        "status": "DONE"
+      },
+      {
+        "id": "d7da7ebb6a4e6cb40c2b9f475f000f20579216f9b6cd201b2cb1e7682d739700",
+        "status": "DONE"
+      },
+      {
+        "id": "da5205628541400323c52609a681b8b1cb88a7bb1ab07126ec9d252fb7c222c4",
+        "status": "DONE"
+      },
+      {
+        "id": "de33e378e77da869dc8ad1e5bbca781227d4edc57ac6dd80cfaa8a0dc8f31cd6",
+        "status": "DONE"
+      },
+      {
+        "id": "ee6c121831f338b69ee5faa035310dbffa7ad48b285f26a23a01d36f9da6c1ba",
+        "status": "DONE"
+      },
+      {
+        "id": "f129d97e21eef82b3c652876340330660cb8dde2804dc5045b4f6b1d4243dcfc",
+        "status": "DONE"
+      },
+      {
+        "id": "f9a4f1191bcd857b668464392acdb370de2a7bd96404dd568580a4d0d4c40b41",
+        "status": "DONE"
+      }
+    ],
+    "model_calls": 48,
+    "pdf": "c84d358cfb30ff0311a34f138c7cfb6485e819abb1d668e1f23d90678f327dfa",
+    "zip": "fb699a2d6ff2d0a67ffac82b53dff04f812ac9398c5b182060f3e5724b14ff40"
+  },
+  "figures_before_declaration_and_references": true,
+  "numerical_jobs": 22,
+  "scope": "SYNTHETIC_MODEL_EXA_WITH_REAL_DOCKER_NUMERICS_AND_TEX",
+  "status": "PASS",
+  "valid_negative_preserved": true,
+  "variant_selftests": 4,
+  "versions": [
+    {
+      "draft": "9b5eb6f110fc649d9b571c9b1cbd187e5bbafe21b8feec728f8787540619f937",
+      "pdf_sha256": "c84d358cfb30ff0311a34f138c7cfb6485e819abb1d668e1f23d90678f327dfa"
+    },
+    {
+      "draft": "b20d47bf3abdf318e81b868ac2e36b2f667066a90a956641bb78ff5965672a91",
+      "pdf_sha256": "34d885b8f8399541a7f4c8e7d49cd3dc4bd44849526e7452d4f794386a24fc6d"
+    }
+  ]
+}

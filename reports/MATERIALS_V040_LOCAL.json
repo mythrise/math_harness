@@ -1,0 +1,56 @@
+{
+  "version": "0.4.0-rc1",
+  "scope": "SOURCE_UPGRADE_AND_ENGINEERING_VALIDATION",
+  "engineering_status": "PASS",
+  "full_live_chain": "BLOCKED",
+  "contest_historical_blind_evaluation": "NOT_RUN",
+  "human_approval": "NOT_SIGNED",
+  "submitted": false,
+  "base_commit": "f1ff48beebf7084ada6f16fc135801f484605a52",
+  "archive_sha256": "50505e5a6b98a56dd1be95f617aad1365c4b1098cf4879f433b150b192116ad8",
+  "tests": {
+    "infrastructure.xml": {
+      "tests": 483,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "docker-tests.xml": {
+      "tests": 574,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "upstream-tools.xml": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "live_valid_codex_responses": 6,
+  "live_claude_responses": 0,
+  "live_exa_http_attempts": 3,
+  "live_numeric_jobs": 0,
+  "remaining_inflight_steps": 0,
+  "ci": "PENDING_AFTER_PUSH",
+  "evidence_files": {
+    "docker-tests.xml": "30c05f530ac1a65cda6f7c14fbf587d381060b621d75aedafe32443296e33aa5",
+    "infrastructure.xml": "ef18627f8ab69044838b87eaaa3bf4cb3bd428e4999e23fc4867e01b8d877ac8",
+    "isolation.json": "196c233c56c292180ecd953a2d327aea71cd4d3c039e0f3ab3a5df6d96e1ff2d",
+    "legacy-replay.json": "15c687c4080b68b7e177ff589608810bad0927d477bc9695aae92ecf1c83b3c9",
+    "legacy-validation.json": "0476f10d9dd798846166b885bb1428e37c5d2f8c3f084014084b53d13a0b7082",
+    "live-01.json": "a0e7b6d66e3d359bcdaffe3d75063148e700aa4b65a106323a7f8188967bf4a1",
+    "live-02.json": "cd3442d785611267564c7446ad2678da3c73497fdde6e55fd849ff70b4e63c46",
+    "numerics.json": "920a8fc69307de72074dee388afea6fbfdd21cca531e51f4e97ba750731c423f",
+    "paper-repair.json": "0d7dd6e0b73151661b995f64a9fd31f0a226ff55e62770bfad32fbd309f1f1d0",
+    "paperkit.json": "1c3bf6f7eaeef8ea8a93c5c19bd06147cafc0d5640a9ccdf653c8f3860455e1c",
+    "r2-replay.json": "a5d8cb7819a9539e803e3edb8b192d132942b737abdabcf226dcbbc74b3beaaf",
+    "r2-validation.json": "94bb8f60fd4c1cbea04850a441f20cf7b7e708b489dc301414f11db3c6888aa1",
+    "runtime-parity.json": "a5696748572356f728dca60028eeac27dc6e92579d851827b604ddd18b35032e",
+    "support-reproduction.json": "f77314a36134c9ccaaf94b82a95c1d6e9cd5047c7adb4e13faca91032aba8bc4",
+    "upstream-tools.xml": "b05dffe326181f477067aa228248e84640f94c21dd71b0331c05ab4a80b24526",
+    "visual-contact.png": "31eeace7822d699f853c965863c77422425d5ce9a843d586d3ac35a62edfc96d",
+    "visual.json": "ee6631429c7d2228d511d8ce5bbe4b3467a237a7646c7e63668a70aa790b9a51"
+  }
+}

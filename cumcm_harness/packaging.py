@@ -7,7 +7,7 @@ from .common import *
 BASIC=['README.md','reproduce.py','config.json','protocol.json','claims.json','input_manifest.json',
        'results/confirmation.json','results/development.json','ai_usage.json','AI工具使用详情.pdf',
        'source_inventory.json','support_inventory.json','manifest.json']
-RESEARCH_FILES=['literature/accepted.json','literature/execution.json']
+RESEARCH_FILES=['literature/accepted.json','literature/execution.json','materials/preparation.json','materials/paper-map.json']
 FIGURES=['ourwork.svg','ourwork.pdf','ourwork.png','ourwork.provenance.json',
          'confirmation.svg','confirmation.pdf','confirmation.png','confirmation.data.json','confirmation.provenance.json']
 
@@ -53,6 +53,10 @@ def scan_release(folder:Path,denylist):
 def package_workspace(root:Path,built,claims,protocol,rows,records,ai,*,contest=False,human=None):
     if contest and human is None:raise Blocked('No contest package without digest-bound human approval')
     cfg=read_json(root/'config.json');dest=root/'deliverables';dest.mkdir(exist_ok=True)
+    if cfg.get('materials_workflow'):
+        material_map=read_json(root/'materials/paper-map.json')
+        if digest(material_map)!=built.get('materials_digest'):raise IntegrityError('Paper coverage changed after acceptance')
+        if digest(read_json(root/'materials/preparation.json'))!=material_map['preparation_digest']:raise IntegrityError('Preparation changed after acceptance')
     support=root/'support'
     if support.exists():shutil.rmtree(support)
     support.mkdir();source_files=read_json(root/'paper/source_inventory.json')
@@ -78,7 +82,7 @@ def package_workspace(root:Path,built,claims,protocol,rows,records,ai,*,contest=
         for area in ('solver','evaluation'):shutil.copytree(root/'jobs'/job/area,support/'jobs'/job/area)
         write_json(support/'jobs'/job/'receipt.json',sanitize(receipt,root))
     write_json(support/'results/development.json',dev)
-    public_fields=('provider','transport','role','invocation_id','cli_version','model_requested','model_reported','response_digest','prompt_sha256','packet_digest','usage','cost_usd','model_execution_status','call_index')
+    public_fields=('provider','transport','role','invocation_id','cli_version','model_requested','model_reported','response_digest','prompt_sha256','packet_digest','usage','cost_usd','model_execution_status','call_index','skill_digest','skills','usage_disclosure')
     write_json(support/'ai_usage.json',[{k:r[k] for k in public_fields if k in r} for r in records])
     atomic_write(support/'AI工具使用详情.pdf',(root/'paper/AI工具使用详情.pdf').read_bytes())
     write_json(support/'source_inventory.json',source_files)

@@ -1,6 +1,6 @@
 # Isolated validation of the unmodified user-supplied PaperKit reference.
 # Matching Python 3.11 base images; TeX never runs on the host.
-FROM cumcm-egoharness:0.3.0-test AS validation_python
+FROM cumcm-egoharness:0.4.0-rc1-test AS validation_python
 FROM cumcm-egoharness-tex:0.3.1
 COPY --from=validation_python /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 ENTRYPOINT ["python", "-I", "-B"]

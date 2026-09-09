@@ -47,8 +47,8 @@ def numeric_content(value):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--out',type=Path,required=True)
-    p.add_argument('--image',default='cumcm-egoharness:0.3.0')
-    p.add_argument('--test-image',default='cumcm-egoharness:0.3.0-test')
+    p.add_argument('--image',default='cumcm-egoharness:0.4.0-rc1')
+    p.add_argument('--test-image',default='cumcm-egoharness:0.4.0-rc1-test')
     p.add_argument('--seeds',type=int,default=12)
     p.add_argument('--seed-start',type=int,default=201)
     p.add_argument('--seconds',type=int,default=900)
@@ -59,7 +59,7 @@ def main():
     root.mkdir(parents=True,exist_ok=True)
     before=verify_vendor();code=root/'code';code.mkdir();data=root/'data';data.mkdir()
     labcode=root/'lab-code';labcode.mkdir()
-    for name in ('cumcm_harness','tests','vendor','configs','schemas','examples','templates','third_party'):
+    for name in ('cumcm_harness','tests','vendor','configs','schemas','examples','templates','third_party','.agents','docs'):
         shutil.copytree(ROOT/name,code/name,ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.nbc','*.nbi','.DS_Store'))
     shutil.copy2(ROOT/'pyproject.toml',code/'pyproject.toml')
     (code/'validate.py').write_text(ENTRY)

@@ -1,4 +1,6 @@
 # Validation tools only. Production trial images remain free of test dependencies.
-ARG RUNTIME_IMAGE=cumcm-egoharness:0.3.0
+ARG RUNTIME_IMAGE=cumcm-egoharness:0.4.0-rc1
 FROM ${RUNTIME_IMAGE}
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    inkscape fonts-noto-cjk && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir 'pytest>=8,<10' 'openpyxl>=3.1'

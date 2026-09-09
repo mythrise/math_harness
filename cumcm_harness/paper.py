@@ -181,7 +181,7 @@ def render_pages(pdf:Path,out:Path,*,page_indices=None):
     doc.close();return paths
 
 def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:list[dict],code_bundles:dict,
-                source_registry=(),demo=False,build_dir=None):
+                source_registry=(),demo=False,build_dir=None,materials=None):
     validate('paper',draft)
     known=validate_sources(source_registry)
     referenced={m.group(2) for text in [draft['abstract']]+[x['text'] for x in draft['sections']]+draft['limitations'] for m in TOKEN.finditer(text) if m.group(1)=='cite'}
@@ -190,7 +190,7 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
         if k not in known or not known[k].get('verified'):raise IntegrityError('Unverified citation: '+k)
     folder=Path(build_dir) if build_dir is not None else root/'paper';folder.mkdir(parents=True,exist_ok=True);figdir=folder/'figures';figdir.mkdir(exist_ok=True)
     from .figures import framework,score_plot
-    framework(figdir/'ourwork.svg');score_plot(rows,figdir/'confirmation')
+    framework(figdir/'ourwork.svg',questions=materials['brief']['questions'] if materials else None);score_plot(rows,figdir/'confirmation',plan=materials['plan'] if materials else None)
     # Appendix includes generated source and the actually loaded custom dependencies.
     files=[]
     for label,b in code_bundles.items():
@@ -217,21 +217,26 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
            bind_prose(draft['abstract'],claims,sources=known),r'\par\noindent\textbf{关键词：}'+esc('；'.join(draft['keywords']))]
     if demo:lines.append(r'\par\medskip\noindent\textbf{演示说明：} 本文是合成问题上的工程演示，不是当届国赛解答。模型调用与独立审查为显式测试夹具；数值计算为实际运行。')
     lines.append(r'\label{abstract-end}\clearpage')
-    for sec in draft['sections']:
+    for section_index,sec in enumerate(draft['sections']):
         for cid in sec['claim_ids']:
             if cid not in claims:raise IntegrityError('Section cites nonexistent evidence')
         lines += [r'\section{'+esc(sec['heading'])+'}',bind_prose(sec['text'],claims,sources=known)]
         for eq in sec['equations']:lines += [r'\begin{equation}',equation(eq),r'\end{equation}']
+        if materials and section_index==0:
+            from .materials_paper import symbols_latex
+            lines+=symbols_latex(materials)
     lines += [r'\section{经过计算的证据与结果}',r'\begin{longtable}{p{.42\linewidth}rp{.19\linewidth}}\toprule 证据标识 & 数值 & 单位\\\midrule\endhead']
-    for key,c in claims.items():lines.append(esc(key)+' & '+f'{c["value"]:.6g}'+' & '+esc(c['unit'])+r'\\')
+    for key,c in claims.items():
+        from .materials_paper import claim_display
+        label,unit=claim_display(key,c) if materials else (key,c['unit'])
+        lines.append(esc(label)+' & '+f'{c["value"]:.6g}'+' & '+esc(unit)+r'\\')
     lines += [r'\bottomrule\end{longtable}',
               r'\begin{figure}[htbp]\centering\includegraphics[width=.97\linewidth]{confirmation.pdf}\caption{确认阶段的实际得分。误差棒为样本标准差，不是置信区间。}\end{figure}',
               r'\begin{figure}[htbp]\centering\includegraphics[width=.98\linewidth]{ourwork.pdf}\caption{'+esc(draft['figure_caption'])+r'}\end{figure}',
               r'\section{适用范围与不足}']
     for t in draft['limitations']:lines.append(bind_prose(t,claims,sources=known)+r'\par')
     lines += [r'\FloatBarrier',r'\section*{AI工具使用声明}',
-        ('本工程演示由人工智能辅助构建；本次演示的 Codex 与 Claude 子进程没有实际调用，审查夹具不能代替独立模型审查或人工核验。实际使用情况与状态见支撑材料。' if demo else
-         '本参赛队在竞赛过程中使用了AI工具，主要用于问题分析、建模建议、代码生成与调试、实验审查、绘图和论文起草，详细使用情况见支撑材料。'),
+        __import__('cumcm_harness.materials_paper',fromlist=['usage_statement']).usage_statement(ai_records,demo),
         (r'\renewcommand{\refname}{参考文献}' if draft['citation_ids'] else r'\section*{参考文献}')]
     if draft['citation_ids']:
         lines.append(r'\begin{thebibliography}{99}')
@@ -265,7 +270,7 @@ def build_paper(root:Path,draft:dict,claims:dict,rows:list[dict], *, ai_records:
                  trusted_appendix_page=build['appendix_start_page'],demo=demo)
     write_json(folder/'build.json',build);write_json(folder/'preflight.json',qa)
     if qa['status']!='PASS':raise PaperCompilationFailure('Paper preflight failed: '+str(qa['failures']))
-    return {'paper_sha256':file_hash(folder/'main.pdf'),'build':build,'preflight':qa,'claims_digest':digest(claims),'source_inventory':source_files}
+    return {'paper_sha256':file_hash(folder/'main.pdf'),'build':build,'preflight':qa,'claims_digest':digest(claims),'source_inventory':source_files,'materials_digest':digest(materials) if materials else None}
 
 def build_ai_details(folder:Path,records:list[dict],human:dict|None,*,demo=False):
     lines=[PREAMBLE,r'\PaperKitTitle{AI工具使用详情}',
@@ -273,15 +278,14 @@ def build_ai_details(folder:Path,records:list[dict],human:dict|None,*,demo=False
         r'\section*{使用与核验状态}',
         ('工程测试模式：下列多角色回执来自预先编写的测试夹具，不是实际 Codex 或 Claude 调用。数值实验独立执行，但尚无正式参赛人工签核。' if demo else
          '实际工具调用见下列记录。人工核验仅按签核文件中的真实声明记录，不由智能体自动补签。')]
-    from .providers import ROLES
+    from .materials_paper import usage_lines
     adopted={i['id']:i for i in human.get('review',{}).get('items',[])} if human else {}
     for idx,r in enumerate(records,1):
         key=r.get('response_digest','');rev=adopted.get(key)
         lines += [r'\subsection*{'+esc(f'调用 {idx}：{r["role"]}')+'}',
            esc(f'工具：{r["provider"]}；运行方式：{r["transport"]}；版本：{r.get("cli_version","UNREPORTED")}。')+r'\par',
            esc(f'指定模型：{r.get("model_requested","UNREPORTED")}；回执报告模型：{r.get("model_reported","UNREPORTED")}。')+r'\par',
-           '主要提示方式与用途：'+esc(ROLES.get(r['role'],r['role']))+r'\par',
-           '输入由题目、当前阶段合同和冻结证据构成；输入与输出分别由摘要绑定。'+r'\par',
+           *usage_lines(r),
            r'\noindent{\footnotesize\nolinkurl{output_sha256='+key+r'}}\par']
         if rev:lines.append(esc(f'采纳：{rev["adopted"]}；人工修改：{rev["modification"]}；人工核验：{rev["verification"]}')+r'\par')
         else:lines.append('采纳、人工修改和核验：尚未取得对应的逐项人工签核；不能据此认定满足正式提交条件。'+r'\par')

@@ -1,0 +1,92 @@
+{
+  "actual_receipts": {
+    "codex:LIVE_CLI": 2
+  },
+  "audit": {
+    "authority": "LOCAL_SQLITE",
+    "events": 19,
+    "integrity": "PASS",
+    "root_hash": "4c441a3c6f228251af320e260eabc76e9985e545db620b54ab5a5bb4c675b4de"
+  },
+  "auto_submission": false,
+  "calls_reserved": 2,
+  "doctor": {
+    "auth_and_end_to_end_verified": false,
+    "claude_optional": "AVAILABLE_NOT_AUTH_VERIFIED",
+    "claude_probe": "2.1.266 (Claude Code)",
+    "codex_probe": "codex-cli 0.153.4",
+    "commands": {
+      "claude": "/Users/mythrise/.local/bin/claude",
+      "codex": "/opt/homebrew/bin/codex",
+      "docker": "/opt/homebrew/bin/docker",
+      "inkscape": "/opt/homebrew/bin/inkscape",
+      "xelatex": "/Users/mythrise/Library/TinyTeX/bin/universal-darwin/xelatex"
+    },
+    "docker_execution": "NOT_RUN",
+    "docker_probe": {
+      "backend": "DOCKER",
+      "image_id": "sha256:d3ad7b2c7795a15ee420cc4ade79e28fb6f77100ce41be56fa094899548b948c"
+    },
+    "environment": {
+      "cpu_count": 10,
+      "machine": "arm64",
+      "packages": {
+        "jsonschema": "4.26.0",
+        "matplotlib": "3.11.1",
+        "numba": "0.65.1",
+        "numpy": "2.3.5",
+        "pandas": "2.3.3",
+        "pytest": "9.1.1",
+        "scikit-learn": "1.8.0",
+        "scipy": "1.17.1"
+      },
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "python": "3.13.12"
+    },
+    "exa_key_configured": true,
+    "literature_enabled": true,
+    "live_model_calls": "NOT_RUN",
+    "network_policy": "EXA_ABSTRACT_QUERIES",
+    "ready_for_live": true,
+    "tex_container_probe": {
+      "backend": "DOCKER_TEX",
+      "image": "cumcm-egoharness-tex:0.3.1",
+      "image_id": "sha256:66cd6606c812977ca9b3da826c5fd8bfa0e1dfc65b40383e7e0ce4d020860a58"
+    }
+  },
+  "error_type": "IntegrityError",
+  "exa": {
+    "http_attempts_reserved": 0,
+    "known_cost_dollars": 0,
+    "max_http_attempts": 32,
+    "remote_exactly_once_billing": false,
+    "requests": [],
+    "stage_consumption": {
+      "adversary": 0,
+      "final_verification": 0,
+      "primary_source_fetch": 0,
+      "repair_reserve": 0,
+      "scouting": 0
+    },
+    "unknown_cost_attempts": 0
+  },
+  "exa_http_attempt_limit": 32,
+  "human_approval": "NOT_SIGNED",
+  "job_statuses": {},
+  "model_call_limit": 100,
+  "problem_digest": "0d625e17e3b07745cf5f3eb3554f29c97579aec21a136dab35d0b0c6a06080c0",
+  "real_historical_contest_problem": "NOT_RUN",
+  "reason": "Every hypothesis query needs explicit current H-IDs",
+  "receipt_digests": [
+    "2470bc4953c46a9892843613104d82edb6cff722a61463317892f544ed1ab7c2",
+    "c541904bcf5da582d2ce8e070effae3d9b88d77f8dadbe090eb144ee45e8d551"
+  ],
+  "scope": "REAL_SERVICES_AND_DOCKER_ON_FIXED_PUBLIC_SYNTHETIC_INPUT",
+  "skill_digests": [
+    "9e64cc0c5f7a55daae196fe83e0721398bdda73f86087f17cbe56f490d26c049",
+    "ed86c170a38553aaedb158c4ad42d994fe2fc69ad03f11be2664782783e283bf"
+  ],
+  "state": "BLOCKED",
+  "status": "BLOCKED",
+  "unfinished_steps": []
+}

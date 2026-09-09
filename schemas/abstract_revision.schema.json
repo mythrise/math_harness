@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "abstract": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+      },
+      "minItems": 0
+    },
+    "remaining_limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "abstract",
+    "keywords",
+    "claim_ids",
+    "remaining_limitations"
+  ],
+  "additionalProperties": false
+}

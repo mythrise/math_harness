@@ -58,12 +58,12 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
         if self.policy['opt_in']['dynamic'] and capability.get('live') and capability.get('status')=='SUPPORTED_RESPONSE':names.append('discovery_beta')
         return names
 
-    def retrieve(self, proposal, *, opponent=False, hypotheses=(), stage=None):
+    def _validate_queries(self, proposal, *, opponent=False, hypotheses=(), initial=False, seen=()):
         validate('research_queries_r2',proposal)
         if len(proposal['queries'])>self.policy['budget']['max_queries_per_model_proposal']:
             raise IntegrityError('Research proposal exceeds the frozen query limit')
         if len({digest(row) for row in proposal['queries']})!=len(proposal['queries']):raise IntegrityError('Duplicate research query mapping')
-        expected=set(hypotheses);covered=set();sources=[];links=[]
+        expected=set(hypotheses);covered=set()
         for row in proposal['queries']:
             if row['profile'] not in self.allowed_profiles(opponent):raise IntegrityError('Exa profile is outside this role/stage')
             if opponent and row['purpose'] not in ('counterexample','limitations'):raise IntegrityError('Adversary query requires counterexample/limitations purpose')
@@ -74,6 +74,13 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
         if covered!=expected:raise IntegrityError('Research query mapping does not cover every critical hypothesis')
         if opponent and not any(r['purpose']=='counterexample' for r in proposal['queries']):raise IntegrityError('Explicit counterexample query required')
         if not opponent and not any(r['purpose'] in ('background','support') for r in proposal['queries']):raise IntegrityError('Support/background query required')
+        if initial and not {'foundations','unfiltered_scholarly_fallback'}<=set(r['profile'] for r in proposal['queries']):
+            raise IntegrityError('Initial research needs foundations plus an unfiltered scholarly pass')
+        if any(r['query'] in seen for r in proposal['queries']):raise IntegrityError('EMPTY query must be reformulated, not repeated')
+
+    def retrieve(self, proposal, *, opponent=False, hypotheses=(), stage=None):
+        self._validate_queries(proposal,opponent=opponent,hypotheses=hypotheses)
+        sources=[];links=[]
         for row in proposal['queries']:
             found=self.client.search(row['query'],profile=row['profile'],stage=stage or ('repair_reserve' if getattr(self,'repairing',False) else 'adversary' if opponent else 'scouting'),
                                      additional_queries=row['additional_queries'])
@@ -96,20 +103,34 @@ class R2LiteratureWorkflow(LiteratureWorkflow):
                 'research_focus':pi['research_focus'] if pi else [],'plan':plan,
                 'sources':self.packet(self.initial),'allowed_profiles':self.allowed_profiles(opponent),
                 'allowed_purposes':['counterexample','limitations'] if opponent else ['background','support','limitations'],
+                'allowed_hypothesis_ids':[h['id'] for h in hypotheses],
                 'frozen_cutoff':self.snapshot['research_cutoff'],'earlier_queries':seen,'empty_rounds':history,
                 'approved_queries':self.c.config['exa_approved_queries'],
                 'requirements':'Return at most four generic method queries; no problem, data, filenames, identity or credentials. '
                     'Use only the listed allowed_profiles and allowed_purposes for this stage. '
                     'Use additional_queries=[] for auto profiles. Map each current hypothesis ID explicitly; a query can cover multiple. '
-                    'Cover every current H-ID. A missing counterexample is not proof. Propose a different angle after EMPTY. '+
+                    'Cover every current H-ID. Never invent H-IDs. If allowed_hypothesis_ids is empty, every query MUST have hypothesis_ids=[]; hypotheses have not been created yet. '
+                    'A missing counterexample is not proof. Propose a different angle after EMPTY. '+
                     ('Independently seek counterexamples; use only counterexamples profile; include counterexample purpose. No author PASS judgments are supplied.' if opponent else
                      'Include background/support. '+('Use both foundations and unfiltered_scholarly_fallback profiles.' if initial else 'Match the theory/recent-method lane to the claim; recency is not source quality.'))}
-            proposal=self.c.call(round_id,'hypothesis_critic' if opponent else 'literature_scout','research_queries_r2',packet)['result']
-            validate('research_queries_r2',proposal)
-            if initial and not {'foundations','unfiltered_scholarly_fallback'}<=set(r['profile'] for r in proposal['queries']):
-                raise IntegrityError('Initial research needs foundations plus an unfiltered scholarly pass')
-            if any(r['query'] in seen for r in proposal['queries']):raise IntegrityError('EMPTY query must be reformulated, not repeated')
             ids=[h['id'] for h in hypotheses]
+            repairs=[]
+            for repair in range(self.c.config['repair_attempts']+1):
+                call_key=round_id if repair==0 else round_id+':mapping-repair:'+str(repair)
+                proposal=self.c.call(call_key,'hypothesis_critic' if opponent else 'literature_scout',
+                    'research_queries_r2',{**packet,'query_mapping_repairs':copy.deepcopy(repairs)})['result']
+                # Only pre-HTTP proposal validation is repairable here. Provider
+                # failures, retrieval errors, unknown attempts and critic verdicts
+                # remain outside this catch and retain their original semantics.
+                try:
+                    self._validate_queries(proposal,opponent=opponent,hypotheses=ids,initial=initial,seen=seen)
+                    break
+                except IntegrityError as error:
+                    diagnostic={'error':str(error),'proposal_digest':digest(proposal),'proposal':proposal,
+                                'http_dispatched':False}
+                    repairs.append(diagnostic)
+                    self.c.store.event('EXA_QUERY_MAPPING_REJECTED',diagnostic)
+                    if repair==self.c.config['repair_attempts']:raise
             found,links=self.retrieve(proposal,opponent=opponent,hypotheses=ids)
             result=merge_sources(result,found);all_links+=links;seen += [r['query'] for r in proposal['queries']]
             covered={h for link in all_links if link['status']=='RETRIEVED' for h in link['hypothesis_ids']}

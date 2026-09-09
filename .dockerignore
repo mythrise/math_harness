@@ -2,6 +2,8 @@
 !Dockerfile
 !pyproject.toml
 !cumcm_harness/**
+!.agents/skills/**
+!docs/materials-upgrade/source-model-catalog.json
 !vendor/mosaic_v14/**
 !vendor/MANIFEST.json
 **/__pycache__

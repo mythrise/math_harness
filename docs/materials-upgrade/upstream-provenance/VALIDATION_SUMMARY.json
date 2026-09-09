@@ -1,0 +1,136 @@
+{
+  "version": "0.4.0-rc1",
+  "base_commit": "f1ff48beebf7084ada6f16fc135801f484605a52",
+  "date": "2026-09-09",
+  "new_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "100",
+    "time": "3.330",
+    "timestamp": "2026-09-09T10:21:45.507211+00:00",
+    "hostname": "localhost"
+  },
+  "mosaic_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "42",
+    "time": "4.343",
+    "timestamp": "2026-09-09T10:22:01.688314+00:00",
+    "hostname": "localhost"
+  },
+  "installer_builder_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "23",
+    "time": "0.280",
+    "timestamp": "2026-09-09T10:23:54.636454+00:00",
+    "hostname": "localhost"
+  },
+  "roles": [
+    "abstract_editor",
+    "coder",
+    "data_steward",
+    "experiment_reviewer",
+    "hypothesis_critic",
+    "literature_reviewer",
+    "literature_scout",
+    "math_reviewer",
+    "modeler",
+    "paper_reviewer",
+    "problem_analyst",
+    "supervisor",
+    "verifier_author",
+    "writer"
+  ],
+  "skill_file_count": 15,
+  "model_receipts": 58,
+  "successful_fixture_model_calls": 56,
+  "failover_events": 22,
+  "experiment_jobs": 22,
+  "development_jobs": 12,
+  "confirmation_jobs": 10,
+  "replay_new_model_calls": 0,
+  "identical_replay_package": true,
+  "identical_replay_submission": true,
+  "paper_pages": 125,
+  "body_pages": 3,
+  "preflight": {
+    "anonymity": "denylist/metadata checks do not prove complete anonymity",
+    "body_pages": 3,
+    "bytes": 613766,
+    "failures": [],
+    "pages": 125,
+    "paperkit_checks": {
+      "body_pages": 3,
+      "bytes": 613766,
+      "errors": [],
+      "margin_violations": [],
+      "pages": 125,
+      "pdf_sha256": "1dd14193c5ae0c9b70b2e217e7a824a074d30638b413d8abf4b9d30eb065fd38",
+      "release_ready": false,
+      "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+      "status": "PASS",
+      "warnings": [
+        "Example mode: not a contest submission, regardless of machine pass"
+      ]
+    },
+    "pdf_sha256": "1dd14193c5ae0c9b70b2e217e7a824a074d30638b413d8abf4b9d30eb065fd38",
+    "release_ready": false,
+    "status": "PASS",
+    "visual_check": "REQUIRED_SEPARATELY",
+    "warnings": [
+      "Example mode: not a contest submission, regardless of machine pass"
+    ]
+  },
+  "package": {
+    "contest_mode": false,
+    "file_count": 181,
+    "official_submission_sent": false,
+    "paper": "deliverables/paper.pdf",
+    "paper_bytes": 613766,
+    "paper_sha256": "1dd14193c5ae0c9b70b2e217e7a824a074d30638b413d8abf4b9d30eb065fd38",
+    "support": "deliverables/support.zip",
+    "support_bytes": 1010959,
+    "support_sha256": "471c7c39cbe8ed350b9f5af8a8ae3ad9e7d48256c69a76952671abbde62e7c39"
+  },
+  "submission": {
+    "path": "deliverables/submission-manifest.json",
+    "sha256": "73e85509c983063f5baf03563fc3088fe782f96db69de5a936e50e1a39187d4b",
+    "submitted": false
+  },
+  "pipeline_scope": {
+    "exa": "REPLAYED_NOT_LIVE_HTTP",
+    "live_semantic_skill_quality": "NOT_RUN",
+    "model_responses": "FIXTURE_NOT_LLM",
+    "new_model_fixture_calls": 56,
+    "numeric_execution": "TRUSTED_LOCAL_FIXED_FIXTURE",
+    "replay": false,
+    "tex_execution": "TRUSTED_LOCAL_FIXED_FIXTURE"
+  },
+  "not_run": [
+    "complete latest repository regression after patch",
+    "Docker solver and isolated TeX in this environment",
+    "real Codex/Claude calls",
+    "real Exa HTTP",
+    "new preparation with frozen R2 sidecar end-to-end",
+    "real historical full problem with blinded grading",
+    "Word and LaTeX content parity export",
+    "contest human approvals or upload"
+  ],
+  "github_write": "CREATE_BRANCH_403_NO_BRANCH_COMMIT_PR_OR_PUSH",
+  "upstream_CI_separate": {
+    "commit": "0f31a0604ed2afb01a07c121052257f0ee83d193",
+    "run_id": 34329234220,
+    "infrastructure": 373,
+    "docker": 464,
+    "paperkit_reference": 86,
+    "overlapping_not_added": true
+  },
+  "test_mirror": "Verified exact integration bases/current key modules reconstructed with older upload dependencies; not a complete current checkout"
+}

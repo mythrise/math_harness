@@ -1,0 +1,175 @@
+{
+  "type": "object",
+  "properties": {
+    "sampling_unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "split": {
+      "enum": [
+        "iid",
+        "group",
+        "time",
+        "group_time",
+        "not_applicable"
+      ]
+    },
+    "group_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "time_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1
+          },
+          "origin": {
+            "enum": [
+              "provided",
+              "researched",
+              "synthetic_scenario"
+            ]
+          },
+          "purpose": {
+            "enum": [
+              "observed_evidence",
+              "diagnostic_only"
+            ]
+          },
+          "source_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "file",
+          "origin",
+          "purpose",
+          "source_id"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "transforms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "enum": [
+              "none",
+              "impute",
+              "flag_outlier",
+              "transform",
+              "select_features",
+              "derive_features"
+            ]
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fit_scope": {
+            "enum": [
+              "none",
+              "training_fold_only"
+            ]
+          },
+          "time_causal": {
+            "type": "boolean"
+          },
+          "raw_immutable": {
+            "type": "boolean"
+          },
+          "output_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verification": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "file",
+          "operation",
+          "columns",
+          "reason",
+          "fit_scope",
+          "time_causal",
+          "raw_immutable",
+          "output_path",
+          "verification"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "required_data": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "optional_data": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "leakage_checks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "quality_checks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "sampling_unit",
+    "split",
+    "group_key",
+    "time_key",
+    "sources",
+    "transforms",
+    "required_data",
+    "optional_data",
+    "leakage_checks",
+    "quality_checks"
+  ],
+  "additionalProperties": false
+}

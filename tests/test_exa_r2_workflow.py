@@ -77,6 +77,50 @@ def test_narrower_proposal_limit_is_enforced_before_http(tmp_path):
     assert wf.client.ledger.summary()['http_attempts_reserved']==0
 
 
+def test_invented_initial_hypothesis_ids_are_repaired_before_http(tmp_path):
+    packets=[]
+    def responder(role,schema,packet):
+        packets.append(copy.deepcopy(packet))
+        assert packet['allowed_hypothesis_ids']==[]
+        assert c.literature.client.ledger.summary()['http_attempts_reserved']==0
+        result=r2_responder(role,schema,packet)
+        if len(packets)==1:
+            for query in result['queries']:query['hypothesis_ids']=['H_INVENTED']
+        return result
+    c,provider=controller(tmp_path,responder)
+    c.literature.collect_initial({'research_focus':[]})
+    assert provider.count==2 and len(packets[1]['query_mapping_repairs'])==1
+    assert packets[1]['query_mapping_repairs'][0]['http_dispatched'] is False
+    assert packets[1]['query_mapping_repairs'][0]['proposal']['queries'][0]['hypothesis_ids']==['H_INVENTED']
+    count=provider.count;attempts=c.literature.client.ledger.summary()['http_attempts_reserved']
+    from cumcm_harness.literature_r2 import R2LiteratureWorkflow
+    c.literature=R2LiteratureWorkflow(c,c.literature.client)
+    c.literature.collect_initial({'research_focus':[]})
+    assert provider.count==count and c.literature.client.ledger.summary()['http_attempts_reserved']==attempts
+
+
+def test_query_mapping_repairs_are_bounded_without_any_http(tmp_path):
+    def responder(role,schema,packet):
+        result=r2_responder(role,schema,packet)
+        for query in result['queries']:query['hypothesis_ids']=['H_INVENTED']
+        return result
+    c,provider=controller(tmp_path,responder);c.config['repair_attempts']=1
+    with pytest.raises(IntegrityError,match='current H-IDs'):
+        c.literature.collect_initial({'research_focus':[]})
+    assert provider.count==2
+    assert c.literature.client.ledger.summary()['http_attempts_reserved']==0
+
+
+def test_query_repair_does_not_retry_provider_failures(tmp_path):
+    from cumcm_harness.review_board import ProviderFailure
+    c,_=controller(tmp_path);calls=[]
+    def fail(*args,**kwargs):
+        calls.append(args);raise ProviderFailure('codex','TIMEOUT')
+    c.call=fail
+    with pytest.raises(ProviderFailure):c.literature.collect_initial({'research_focus':[]})
+    assert len(calls)==1 and c.literature.client.ledger.summary()['http_attempts_reserved']==0
+
+
 def test_critic_sees_limitations_from_support_lane_even_when_excluded(tmp_path):
     packets={}
     def responder(role,schema,packet):
