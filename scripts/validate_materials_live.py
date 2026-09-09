@@ -1,6 +1,8 @@
-"""Bounded real-provider acceptance on a fixed, public synthetic integer program.
+"""Bounded real-provider acceptance on public synthetic or explicitly selected inputs.
 
-Uses actual Codex/Claude CLI and frozen Exa R2, with all generated code and TeX
+Defaults to a fixed public integer program; optional problem/data/idea paths create
+a new native entry workspace. Uses actual Codex/Claude CLI and frozen Exa R2,
+with all generated code and TeX
 executed by the existing Docker boundaries. It never signs or submits a paper.
 An explicitly selected existing Exa credential is read by the original secure
 loader; its value is never copied to configuration, prompts, containers or reports.
@@ -31,7 +33,13 @@ def main():
     parser.add_argument('--report',type=Path,required=True)
     parser.add_argument('--exa-credential-file',type=Path)
     parser.add_argument('--exa-shared-ledger',type=Path)
+    parser.add_argument('--problem',type=Path)
+    parser.add_argument('--data',type=Path)
+    parser.add_argument('--prior-idea',action='append',type=Path,default=[])
+    parser.add_argument('--external-ai-records',type=Path)
     args=parser.parse_args();root=args.workspace.resolve()
+    if bool(args.problem)!=bool(args.data):parser.error('--problem and --data must be supplied together')
+    if args.prior_idea and not args.problem:parser.error('--prior-idea requires an explicit problem and data')
     if root.exists():raise Blocked('Use a new live validation workspace; reconcile prior work before any retry')
     if args.report.exists():raise Blocked('An existing validation report is immutable')
     if args.exa_credential_file:
@@ -56,11 +64,22 @@ def main():
     if not report['doctor']['ready_for_live']:
         report.update(status='BLOCKED',reason='Required live infrastructure is unavailable')
         write_json(args.report,report);return 2
-    inputs=root.parent/(root.name+'-inputs');inputs.mkdir(parents=True,exist_ok=False)
-    (inputs/'coefficients.csv').write_text(CSV)
-    problem=root.parent/(root.name+'-problem.md')
-    with problem.open('x',encoding='utf-8') as handle:handle.write(PROBLEM)
-    create_workspace(root,problem,inputs,config,exa_policy=DEFAULT_POLICY)
+    if args.problem:
+        from cumcm_harness.entry_inputs import initialize
+        problem=args.problem.resolve();inputs=args.data.resolve()
+        report.update(scope='REAL_SERVICES_AND_DOCKER_ON_OPERATOR_SELECTED_INPUT',
+            real_historical_contest_problem='ATTEMPTED_NOT_YET_COMPLETED',
+            problem_digest=file_hash(problem),input_mode='idea' if args.prior_idea else 'scratch',
+            genuine_web_draft='NOT_ATTESTED_BY_THIS_VALIDATOR')
+        write_json(args.report,report)
+        initialize(root,input_mode=report['input_mode'],problem=problem,data=inputs,
+            ideas=args.prior_idea,metadata=args.external_ai_records,config=config,exa_policy=DEFAULT_POLICY)
+    else:
+        inputs=root.parent/(root.name+'-inputs');inputs.mkdir(parents=True,exist_ok=False)
+        (inputs/'coefficients.csv').write_text(CSV)
+        problem=root.parent/(root.name+'-problem.md')
+        with problem.open('x',encoding='utf-8') as handle:handle.write(PROBLEM)
+        create_workspace(root,problem,inputs,config,exa_policy=DEFAULT_POLICY)
     store=Store(root)
     client=R2ExaClient(store,load_frozen(root),max_attempts=config['exa_max_requests'],
         shared_path=args.exa_shared_ledger,cross_cache=root/'literature/live-validation-cache')

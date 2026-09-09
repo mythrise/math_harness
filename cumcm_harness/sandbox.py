@@ -19,7 +19,7 @@ class Limits:
         if self.seconds<=0 or self.cpu_threads<1 or self.memory_mb<128 or self.output_bytes<1024:raise IntegrityError('Invalid resource limits')
 
 class Executor:
-    def __init__(self,kind='docker',image='cumcm-egoharness:0.4.0-rc1',trusted_hashes=None,*,test_scratch=False):
+    def __init__(self,kind='docker',image='cumcm-egoharness:0.5.0-rc1',trusted_hashes=None,*,test_scratch=False):
         if kind not in ('docker','trusted-local'):raise ValueError(kind)
         self.kind=kind;self.image=image;self.trusted_hashes=set(trusted_hashes or []);self.test_scratch=test_scratch
     def probe(self):

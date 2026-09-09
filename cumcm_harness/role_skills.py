@@ -21,6 +21,11 @@ ROLE_SKILLS={
  'writer':['cumcm-paper-2026','ourwork-svg-v16','ai-usage-disclosure'],
  'abstract_editor':['abstract-editor','cumcm-paper-2026'],
 }
+ROLE_SKILLS.update({
+ 'idea_curator':['external-idea-intake','modeling-contract'],
+ 'idea_adversary':['external-idea-intake','literature-adversary','independent-review-board'],
+ 'paper_editor':['existing-paper-revision','cumcm-paper-2026','ai-usage-disclosure'],
+})
 ROLE_PURPOSES={
  'supervisor':'任务优先级、预算和研究方向讨论','problem_analyst':'题意、条件与逐问交付物核对',
  'data_steward':'数据口径、预处理与防泄漏方案讨论','modeler':'候选模型比较与数学建模',
@@ -37,6 +42,13 @@ ROLE_STAGE={
  'literature_scout':'文献','hypothesis_critic':'文献与假设','literature_reviewer':'文献审查',
  'writer':'论文正文','abstract_editor':'摘要',
 }
+
+
+ROLE_PURPOSES.update({'idea_curator':'网页与人工初版思路的逐项映射',
+ 'idea_adversary':'初版思路的独立反方与适用性审查',
+ 'paper_editor':'已有论文的含义保持润色与研究缺口诊断',
+ 'external_idea':'用户报告的网页端AI初版建模讨论'})
+ROLE_STAGE.update({'idea_curator':'外部思路整理','idea_adversary':'外部思路审查','paper_editor':'已有论文修订'})
 
 
 def load_skills(role,root=None):

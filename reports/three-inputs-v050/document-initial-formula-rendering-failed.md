@@ -1,0 +1,1 @@
+初次渲染虽然 XML 保留检查通过，但逐页可视核验发现两份 DOCX 的公式均为空白。原因是渲染镜像仅有 LibreOffice Writer，缺少 Math。原失败 PDF/PNG 留在本机 reports/v050-documents-01；本次已补齐组件并在 v050-documents-02 重新生成和查看全部四页。初次 summary 的 PASS 仅代表当时对象和进程检查，不能代表版式验收通过。

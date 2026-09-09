@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "block_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "method",
+              "assumption",
+              "objective",
+              "constraint",
+              "claimed_result",
+              "reference",
+              "preference",
+              "open_question",
+              "instruction"
+            ]
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "block_id",
+          "start",
+          "end",
+          "quote",
+          "kind",
+          "summary"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 96
+    },
+    "excluded_blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 12
+          }
+        },
+        "required": [
+          "block_id",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 32
+    }
+  },
+  "required": [
+    "items",
+    "excluded_blocks"
+  ],
+  "additionalProperties": false
+}

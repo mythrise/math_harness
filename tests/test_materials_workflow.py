@@ -48,6 +48,20 @@ def test_stage_negative_not_waived(tmp_path):
     assert len(c.calls)==3
 
 
+def test_brief_receives_exact_source_offsets_without_weakening_the_checker(tmp_path):
+    data=tmp_path/'inputs/development';data.mkdir(parents=True);(data/'history.csv').write_text('t,y\n1,2\n2,3\n')
+    c=StubController(tmp_path)
+    def brief(packet):
+        assert packet['exact_anchor_candidates']
+        for anchor in packet['exact_anchor_candidates']:
+            assert c.problem[anchor['start']:anchor['end']]==anchor['quote']
+        value=copy.deepcopy(samples()[0]);value['requirements'][0]['anchor']['start']+=1
+        return {'result':value,'receipt':{'fixture':True}}
+    c.behavior['problem_brief']=brief
+    with pytest.raises(ScientificRejection):MaterialsWorkflow(c).prepare({'objective':'test'})
+    assert len(c.calls)==3
+
+
 def test_provider_outage_not_counted_as_model_repair(tmp_path):
     c=StubController(tmp_path);c.behavior['problem_brief']=lambda p:(_ for _ in ()).throw(ProviderFailure('codex','TIMEOUT'))
     with pytest.raises(ProviderFailure):MaterialsWorkflow(c)._stage('outage','problem_analyst','problem_brief',{},lambda x:x,('math_reviewer',))

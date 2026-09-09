@@ -1,19 +1,28 @@
-# CUMCM-EgoHarness 0.4.0-rc1
+# CUMCM-EgoHarness 0.5.0-rc1
 
-0.4.0-rc1 在现有 PaperKit、R2 文献对抗和确定性实验内核上接入资料合同层：题意原文锚点、只读数据审计、逐问模型方案、正文完成后的摘要编辑、逐问论文覆盖与提交文件哈希。14 个角色显式加载 15 份项目技能，技能正文和摘要绑定到实际模型调用。191 张资料卡仅供检索，未变成 191 个可执行算法。
+三个输入模式已接入原确定性内核。`idea` 分开冻结原题、官方数据和外部初版，先独立理解题意与基准，再逐条审查和映射建议，继续完整研究链；`scratch` 不要求初版；`revise` 诊断并修订已有论文的安全正文，科学修改转交新的研究工作区。
 
-新流程使用 `configs/materials-practice.json`；默认配置保留原流程，只有显式 `materials_workflow: true` 才启用资料准备阶段。Python 分发版本为 `0.4.0rc1`，镜像为 `cumcm-egoharness:0.4.0-rc1`；TeX 继续使用独立的 `cumcm-egoharness-tex:0.3.1`。保持 RC 状态，不把组件或合成问题测试等同于真实赛题能力、人工核验或稳定版认证。
+17 个角色绑定 17 份项目技能。Python 分发版本为 `0.5.0rc1`，运行镜像为 `cumcm-egoharness:0.5.0-rc1`，TeX 继续使用 `cumcm-egoharness-tex:0.3.1`。新 `init` 入口默认启用资料合同层；旧冻结工作区保持原配置。保留 RC 状态，完整工程测试不能替代真实历史题解答与人工审查。
 
-先读 [本机接入与验收](docs/MATERIALS_V040_INTEGRATION_CN.md)、[资料合同架构](docs/materials-upgrade/ARCHITECTURE_CN.md)和[本机测试报告](reports/MATERIALS_V040_LOCAL_CN.md)。旧工作区及其模型、镜像和输入保持冻结；升级后新建工作区。
+先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[本轮测试报告](reports/THREE_INPUT_V050_LOCAL_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/three-inputs-v050-worktree`，进入该目录再运行下列命令。
 
 ```bash
-./scripts/cumcm doctor --live --config configs/materials-practice.json --exa-policy configs/exa-policy-r2.json
-.venv/bin/python -m cumcm_harness.materials_cli skills
-.venv/bin/python -m cumcm_harness.materials_cli schema
-./scripts/cumcm init workspaces/materials-NEW --problem /absolute/problem.md --data /absolute/data \
-  --config configs/materials-practice.json --exa-policy configs/exa-policy-r2.json
-./scripts/cumcm run workspaces/materials-NEW
+./scripts/cumcm doctor --live --config configs/input-idea.json --exa-policy configs/exa-policy-r2.json
+./scripts/cumcm init workspaces/idea-NEW --input-mode idea \
+  --problem /absolute/problem.pdf --data /absolute/official-data \
+  --prior-idea /absolute/prior.md --config configs/input-idea.json \
+  --exa-policy configs/exa-policy-r2.json
+./scripts/cumcm init workspaces/scratch-NEW --input-mode scratch \
+  --problem /absolute/problem.md --config configs/input-scratch.json \
+  --exa-policy configs/exa-policy-r2.json
+./scripts/cumcm init workspaces/revise-NEW --input-mode revise \
+  --paper /absolute/paper.docx --config configs/input-revise.json
+./scripts/cumcm run workspaces/idea-NEW
 ```
+
+DOCX 中数学、图表和其他 ZIP 成员保留原字节；批注或修订跟踪会使正文整体受到保护，必要时停止并要求已核验的正文材料。TeX 含命令或公式的段落不自动编辑，也不自动展开子文件。PDF 仅作文本导入，不能保证恢复原布局。修订导出与科学复现是不同结果，格式保留必须另行编译或渲染验证。
+
+0.4 资料合同层与 191 张参考卡仍保留；参考卡只供检索，不是可执行算法。历史接入证据见 [0.4 报告](reports/MATERIALS_V040_LOCAL_CN.md)。
 
 论文模板已按 `CUMCM2026_PaperKit_Harness_v1.0.0` 接入修订版式、长标题换行、AI 声明和实际 PDF 边界/页码检查，并保留现有 Docker 隔离编译、源码附录、证据绑定和返工流程。参见 [PaperKit 接入说明](docs/PAPERKIT_2026_INTEGRATION_CN.md) 与 [本机验收报告](reports/PAPERKIT_2026_LOCAL_CN.md)。新工作区的 Claude 默认模型为 `claude-opus-5`，推理强度为 `max`。
 
@@ -24,14 +33,14 @@
 ### Docker 验证
 
 ```bash
-docker build -t cumcm-egoharness:0.4.0-rc1 .
+docker build -t cumcm-egoharness:0.5.0-rc1 .
 docker build -f Dockerfile.tex -t cumcm-egoharness-tex:0.3.1 .
-docker build -f Dockerfile.test -t cumcm-egoharness:0.4.0-rc1-test .
+docker build -f Dockerfile.test -t cumcm-egoharness:0.5.0-rc1-test .
 ./.venv/bin/python scripts/validate_algorithm_upgrade.py \
   --out workspaces/algorithm-validation-01 --seeds 12 --seed-start 201
 ```
 
-验证器在无网络、只读源码、单 CPU 和 2 GB 内存的 Docker 中运行全套测试与两次数值诊断，保留协议、输出和进程回执。使用新的空目录；结果是工程与算法诊断，不是实际赛题、真实 LLM 整题论文联跑或外部模型成绩。升级改变代码指纹，旧赛题工作区保留，新任务须重新 `init`。新工作区、示例配置与 Executor 默认使用 `cumcm-egoharness:0.4.0-rc1`；已冻结工作区的显式镜像配置不改。
+验证器在无网络、只读源码、单 CPU 和 2 GB 内存的 Docker 中运行全套测试与两次数值诊断，保留协议、输出和进程回执。使用新的空目录；结果是工程与算法诊断，不是实际赛题、真实 LLM 整题论文联跑或外部模型成绩。升级改变代码指纹，旧赛题工作区保留，新任务须重新 `init`。新工作区、示例配置与 Executor 默认使用 `cumcm-egoharness:0.5.0-rc1`；已冻结工作区的显式镜像配置不改。
 
 以下保留 0.2 的文献与审查使用说明。
 
@@ -67,7 +76,7 @@ Codex CLI 需要有效认证。Claude CLI 使用既有用户认证／服务地�
 ```bash
 ./scripts/cumcm set-exa-key
 
-docker build -t cumcm-egoharness:0.4.0-rc1 .
+docker build -t cumcm-egoharness:0.5.0-rc1 .
 python -m cumcm_harness doctor --live --config configs/exa-resilient.json
 python -m cumcm_harness init workspaces/exa-new \
   --problem /absolute/path/problem.md \

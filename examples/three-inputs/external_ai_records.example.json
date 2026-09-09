@@ -1,0 +1,14 @@
+[
+  {
+    "source_type": "mixed_human_ai",
+    "tool": "UNREPORTED",
+    "model": "UNREPORTED",
+    "used_at": "UNREPORTED",
+    "purpose": "用户与网页端AI讨论初版建模思路",
+    "prompt_summary": "USER_RECORD_NOT_PROVIDED",
+    "output_summary": "外部初版思路；尚未核验",
+    "adoption": "PENDING_REVIEW",
+    "human_modification": "NOT_REPORTED",
+    "human_verification": "NOT_ATTESTED"
+  }
+]

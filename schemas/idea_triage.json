@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "idea_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "question_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "disposition": {
+            "enum": [
+              "CANDIDATE",
+              "REJECT",
+              "DEFER",
+              "CONFLICT"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 12
+          },
+          "validation_plan": {
+            "type": "string",
+            "minLength": 12
+          }
+        },
+        "required": [
+          "idea_id",
+          "question_ids",
+          "disposition",
+          "reason",
+          "validation_plan"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "baseline_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "clarification_responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "signal_digest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 20
+          }
+        },
+        "required": [
+          "signal_digest",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "decisions",
+    "unresolved",
+    "baseline_policy"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,251 @@
+{
+  "auto_submission": false,
+  "ci": "PENDING_FIRST_PUSH",
+  "document_visual_review": {
+    "docx_pages_viewed": 4,
+    "initial_missing_formula": "PRESERVED_FAILURE_FIXED_BY_LIBREOFFICE_MATH",
+    "status": "PASS",
+    "tex_pages_viewed": 2,
+    "whole_tex": "EXPECTED_BLOCK_BEFORE_MODEL"
+  },
+  "evidence_files": {
+    "docker-tests.xml": "e42f5cbb195365da9092f64e0d232dd90c31e6b6db6e00b12297ce4f7cc0c2b8",
+    "document-initial-formula-rendering-failed.md": "ff8eb322cdb634a305bb7f823e2ac2c3aefcb61ca37ec7648a78fc1d556a2d26",
+    "document-initial-summary.json": "0aa7188f02068beda6f69530c221a9b80354e935d3461e3d18f83cee2a3f3996",
+    "documents-ci-path-summary.json": "03492e458254b679461ec265f4a55079568a71ec6953a6b5e45e9b67b6da04bd",
+    "documents-summary.json": "1c9dd0a1c2608c22592c43a48a9244f402b2e6f087d801e1bb8570daf7d71f33",
+    "documents-tex-summary.json": "38a93a90bb022c9a63bb7d11c703a79116b69aadd813ef43b6a49e8c62a65a76",
+    "docx-controlled-after.png": "c6c48b5cbdd9b9d4fc59649c5f1211fc212cd1ee52bffc006a2194bc5ea7889f",
+    "docx-controlled-before.png": "05f920f4b00c304576a42bf046b6c9408847c9a3c8a7be4dcee0faf8e71d21b3",
+    "docx-supplied-after.png": "4cfa4002736dc958ca6704c8f1dde842721e32dbe184151d571631629baedd77",
+    "docx-supplied-before.png": "05c01c80f6eae1c975cb98414a598886710affb23b134b2ae23535281c8063b2",
+    "exa-public-summary.json": "21a400ac18fc746a296c217d26513b88f26124836f6b39a0b643b92be7e612a7",
+    "idea-r2-replay.json": "8d60dddcc8dab33049670c46c3b1c4d82900de6c3b9e97475d37df92ecb5996d",
+    "idea-r2-validation.json": "839e511e2278966f8aa46413b84b2acecd910ae05c9dbe2f3d79cbafc047b333",
+    "ideas-public-summary.json": "e052e0e0aca080bb6293a3df1c55441b7170b5e13eae9491b04ed87d86fd7590",
+    "infrastructure.xml": "5c3e6adec12164df48608842cff549bf5cb481d47370bc788fd1adab24807fae",
+    "live-role-summary.json": "456ad1dc6c07071b81bd959a8dd0096e6d0b59627b74b9b3026a758f6dd6f8e9",
+    "materials-legacy-replay.json": "1abc501eaf9b6b0bca1cf865aeaf235f7390c3a452eaf4b97ea17f0d4f3332ec",
+    "materials-legacy-validation.json": "0244a4220b8d1d5253289f5892a451d0ff3888ee2f3adab7f3cf6a2a32ff1fa8",
+    "numerical-summary.json": "4627918db1b71370bb4b0f2d0496c91e39e4aa96837ecde4a286910a9034b363",
+    "paperkit-summary.json": "4b34cf14543605fdfeac315d717bda6b1aeffe590bb92919f2d4c421b5023bb3",
+    "r2-legacy-acceptance.json": "84b2fb990054b4f2f8876852dbbb3ba68c627664af0fb46436584cb12661a5de",
+    "revise-replay.json": "135c93fdc65e281c17e412e7130b9912486b8ddb9cfddda42697600a68dff9ad",
+    "revise-validation.json": "e4526abdadb6b35e77eb14313308963123c136379a27c1947d99e0d75850b666",
+    "revision-audit.json": "cfb40ae8a3bdc317822a3bc87b760a00532379aa240ee1c20c6198f123831e12",
+    "runtime-parity.json": "0d43c2e86f5c6d5c211d716881a8ecf4c17c51ac0c6ffe4b328cfe9ae89473a2",
+    "scratch-r2-replay.json": "d632fe3c6a1eae4a183629b51ec1325aedc455b13d0a5a4b529ff940144c9426",
+    "scratch-r2-validation.json": "4c42aecb576778ec3a3e0f8791ce20eac3f1a066369fe24c99d2d953a4a79f6d",
+    "source-provenance.json": "100558d203e9ffbcf10244158961e59bb1b7435c0e392530d41a8cf8d485986e",
+    "support-reproduction-summary.json": "bcee5509f293d4e5385abe8a36770855d6011f1bd520a4a6a3c7144b513bc11a",
+    "test-report-redactions.json": "07591e4a4d8841230a7e611b8fa3294537f5ee2c3679763cf2ba70d919fd088a",
+    "tex-after.png": "94e5f08beff4f00b4de1bbce89095312d9581736839a6650e4d807a76363ac59",
+    "tex-before.png": "6124334eeb335334afe9919d2b42b43fc75215821bf311b191f318815f2933f9",
+    "upstream-installer-tests.xml": "f200fceeb5ce4ec941c5f905fe95e69a092dfe38aab87b8e5edd56c5e18a803b",
+    "vendor.json": "3a169879e701560e361784a2011d02da089b877b07f5e155e736a40e0e076e8b"
+  },
+  "historical_2023A": {
+    "acceptance": "RUNNING",
+    "calls_reserved": 4,
+    "full_scientific_completion": "NOT_ESTABLISHED",
+    "job_statuses": {},
+    "pending": [
+      {
+        "key": "model:materials:brief:1",
+        "status": "RUNNING"
+      }
+    ],
+    "reason": null,
+    "repairs": [
+      {
+        "attempt": 0,
+        "diagnostic": {
+          "error": "Invalid constraint mapping",
+          "records": []
+        },
+        "stage": "brief"
+      }
+    ],
+    "report_sha256": "a56d8a5b439e8659a41136c2b49a381a313698b65236db39c250db2dcd1ce9cf",
+    "scope": "ORIGINAL_PUBLIC_PDF_AND_OFFICIAL_DATA_SEPARATE_FROM_EXISTING_METHOD_NOTES",
+    "state": "MATERIALS_PREPARATION",
+    "typed_failure": null,
+    "web_source": "UNREPORTED_LOCAL_PRIOR_NOT_WEB_ATTESTED"
+  },
+  "human_approval": "NOT_SIGNED",
+  "modes": {
+    "idea-r2": {
+      "calls_reserved": 73,
+      "job_statuses": {
+        "DONE": 22
+      },
+      "model_responses": "PREWRITTEN_FIXTURE_NOT_LIVE",
+      "numeric_and_tex": "DOCKER",
+      "replay_new_calls": 0,
+      "replay_unchanged": true,
+      "retrieval": "R2_FIXED_TRANSPORT",
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED"
+    },
+    "revise": {
+      "calls_reserved": 7,
+      "job_statuses": {},
+      "model_responses": "PREWRITTEN_FIXTURE_NOT_LIVE",
+      "numeric_and_tex": "NOT_APPLICABLE",
+      "replay_new_calls": 0,
+      "replay_unchanged": true,
+      "retrieval": "NOT_APPLICABLE",
+      "status": "REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED"
+    },
+    "scratch-r2": {
+      "calls_reserved": 60,
+      "job_statuses": {
+        "DONE": 22
+      },
+      "model_responses": "PREWRITTEN_FIXTURE_NOT_LIVE",
+      "numeric_and_tex": "DOCKER",
+      "replay_new_calls": 0,
+      "replay_unchanged": true,
+      "retrieval": "R2_FIXED_TRANSPORT",
+      "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED"
+    }
+  },
+  "numerical": {
+    "diagnostics_per_run": 9,
+    "external_candidates_run": 0,
+    "global_promotions": 0,
+    "numerical_runs": 2,
+    "protocol_digest": "a29483657c5aeb199e980cdb68382b58d6eea8a032df1ab41457154577de9eea",
+    "receipts": {
+      "lab-1": "be850c57055d5757ad84b890d05b31ff8d2acab03703f3ab231f86550b4812b2",
+      "lab-2": "7f6386374a3f3bc5321a1d027b433bdfaf3f3af041b463005ea544ce013f3e97",
+      "tests": "bf45fa0d22cbfbc05e452392900dc86025bdcd9c616ce381c74bd8223814db8a"
+    },
+    "reproducibility": {
+      "diagnostics.json": true,
+      "raw_results.json": true
+    },
+    "rows_per_run": 98,
+    "scope": "DOCKER_TESTS_AND_BOUNDED_NUMERICAL_DIAGNOSTICS_NOT_LLM_END_TO_END",
+    "status": "PASS"
+  },
+  "package": {
+    "base_commit": "8d9c59619edeb0928e7e24688e074fe1cff91250",
+    "installer_check_apply_tests": "PASS",
+    "installer_paths_applied": 36,
+    "manifest_files_verified": 97,
+    "name": "CUMCM_Harness_v0.5.0-rc1_三模式输入升级包.zip",
+    "sha256": "4acb9e7d2248faa2f8a7c6e5563ce080478f07488d93c0e856a5c1e9c199dad4"
+  },
+  "raw_web_draft_acceptance": "NOT_RUN_NO_AUTHENTICATED_WEB_DRAFT_SUPPLIED",
+  "real_cli": {
+    "calls": 6,
+    "scope": "NEW_ROLES_ON_FIXED_PUBLIC_INPUT_NOT_COMPLETE_SCIENTIFIC_RUN",
+    "status": "PASS",
+    "valid_structured_responses": 6
+  },
+  "real_exa": {
+    "http_attempts": 4,
+    "replay_new_http": 0,
+    "scope": "BOUNDED_PUBLIC_HTTP_COMPONENT_SMOKE",
+    "status": "LIVE_HTTP_SMOKE_COMPLETED"
+  },
+  "release_status": "RC_NOT_STABLE_OR_CONTEST_CERTIFICATION",
+  "runtime": {
+    "core_files": 61,
+    "images": {
+      "cumcm-egoharness-tex:0.3.1": "sha256:f3b3ed697c70c48b82f6d109499b55a608220902681fdcf452fa2c1467bc9d46",
+      "cumcm-egoharness:0.5.0-rc1": "sha256:547c78764a2b9fac7970801feb294e64280020aa98bd74ec9e41ee9fbdf0219d",
+      "cumcm-egoharness:0.5.0-rc1-documents": "sha256:29ad4d0fcd86a4ac53f163d4a5a3bd7c2cc29d2880857342d3720386bf320716",
+      "cumcm-egoharness:0.5.0-rc1-test": "sha256:c76774c2dba682a4d5bea1a1556068973e7443b09a0fd9855df6bb388f8f526e",
+      "cumcm-paperkit-validation:1.0.0-v050": "sha256:77f292c66b51d8fa964d8408a0cb8cb6e0d54ea9abbb94db996b9ad0ab7c7df1"
+    },
+    "source_hashes": {
+      "__init__.py": "b56f5132049b0ba8549db0778cd271d1179b0f38e3a6ccb6c71396d0b88c4597",
+      "__main__.py": "b975e64e34eb5b09ac685e595de4d04b96c87b9e817aa1d3be5b3dc3d52999cc",
+      "algdecision.py": "fcd7bed12b43b190496a17fc3694990804e817c0e7d62c6be3fd4a07b73ed1af",
+      "alggraph.py": "14bcc929e62e82095d6c81123d374a137e6a0ebff6ab5a58434b4ca19cd4d10e",
+      "algopt.py": "6810590a49de677d6bdc450399baea95f86e0e185b9083ba26742e351f8daf6b",
+      "algorithm_lab.py": "10e64ca1ff95b95b0cb2b8eea5e2fc18ca71a185e2c4684948305de605f4bf71",
+      "algorithm_library.py": "ddc103f069f9616a0e33733092556f8fa4eacb9e7438393cd87aef7f4b98e6b2",
+      "algorithms.py": "7e088cd5133549c9cedafd7648ac06f049c3f8edcdaa42129ed99d2adb58d29f",
+      "algpredict.py": "96dcb07abb31716d8bc52a32c84f2d4dc4596e3f13101e0669852cf13ec53965",
+      "algpromotion.py": "48c9229878a2b0cdbb3a59fb3f81a2f4c1d6fbf657e72586c5089aab1d0ff824",
+      "algscience.py": "542845c161e87a97aecb6d62fcec8deb37eec27e31d979bcc895135998301885",
+      "approval.py": "5cf436458902032f2a2dd9e4f4b134b56cb9dec42998cf716790434ce20e5e73",
+      "cli.py": "cb7400d7cc42da0ed0a7f94822a4150cbdff2c5f211508162ad0633d3026d216",
+      "common.py": "17c8052c98e593f29d2f5514ba3f96705c8c04a9aa5ff0571f595291f6712480",
+      "contracts.py": "3774f8797404748af1ebdd5b231346c2e1d1c611b65f90f2779512d610a2458a",
+      "controller.py": "a36e65769b13b1786ae5a3a83ff5c5f9e557c2970a690e99730bdb5ad75d5ea4",
+      "credentials.py": "94c40d09cc12dc78aea382895b3734e134b838147039cd60bffda4c22fe906a7",
+      "demo.py": "a9b549ce9497b410fcead2ffee223ce2d709737a1da710ce00bc04eb8c1efb99",
+      "ego_bridge.py": "d69cf97ef1f4e00f2d5602e2f4f4eaa554739e9b019614fd12dba2f3b46ae492",
+      "entry_cli.py": "7941bc90f35fd0b6e61d307ce49ce172063569a74c0ca2dccf43d17b1ab45f62",
+      "entry_documents.py": "440630a5d3f719e25db9e6d769e34238404815d913f66987ebcb40e7798a2575",
+      "entry_inputs.py": "f80eee740dd9197ff921ff3907f8e764a5c89e3a9b56044c5c9b972897191309",
+      "exa_authorization.py": "eb77256ffc210ffa3bae737ad6f043e0ee3df37c8cbfa57e8e2dfb10ed10f751",
+      "exa_contract.py": "163486f44e0fba27d2412f2dd089efd2d4706cca72619cc024267c7b1ea31598",
+      "exa_defaults.py": "e32f351e9ba8fe7d72c2d3041f4d0785b1f2b1e3a4a3ee4a55b196477204dab1",
+      "exa_evidence.py": "cbf913541dddc2981008028b99c6ff14ab5fa8cb990506f97c1f90f67a637e2d",
+      "exa_ledger.py": "a9c7fc7b844264f3ad7cd921c18714831d5970b410135db14cd66bbbee4b322b",
+      "exa_policy.py": "fc822ef06f2ea5cfd86d8ccbd65bb0a16ac2b9f6bab21b35d6818c100265cf37",
+      "exa_r2_demo.py": "1aa139f0ef76436c5fe8ed28512bb0d546bf48bac7e787384f8b66a39f1fbe03",
+      "exa_transport.py": "89ee2e0e34671138eaafe98ae330a82a8abe2c11f6ff2e1b28311f5c3b6bff02",
+      "figures.py": "c7065458ab157872e5da4573b7a2fde46188f67881175a30291fb3590a034216",
+      "idea_workflow.py": "853fac0d284a952586878dcffcee75730ec2392bbfdba3c8641dee75e0d0b070",
+      "intake.py": "c0505d54cdffbdc45589672b03cda159c0e4bf7e46082204b24c0ee859b1c8f7",
+      "literature.py": "ec103f4feb70f97cdf6a61bd4266c829bdc3dfac3b736e64497c84289c091375",
+      "literature_r2.py": "1f6b30546d28456917c8de7d2ecd40b0e25c886e675ec1006ea151b91e6ca443",
+      "materials_catalog.py": "6f8688d5f85ff51fcfd31ff0e478f48e14e9ace695ffc7d11786870ea3e8f6d9",
+      "materials_cli.py": "d499259b0f6eb659b81183d4956ebbcc4af8ffb6fa6e20807177a7906ec38421",
+      "materials_contracts.py": "999f40ceae57020fa54c6f63ca30d5e2e946cc87219ea8b8848a3ec49a637c82",
+      "materials_data.py": "e4e05dece20302c79dddd5b7fdb5ba9f32520dc45f968b27843e1cc767cb4ce5",
+      "materials_figures.py": "843d74e8b0fb66e87c084d5a80808723899fea9f04ef743999b2ffdb233c837a",
+      "materials_paper.py": "259855c8541742ab0c969f88f6ab33136d384d04de1127d1064ab2953562d161",
+      "materials_workflow.py": "a0d547f4c9f8ca6947dcd8d4e7a6bf677445424e33126bd66d6a1c7b65c49b1c",
+      "packaging.py": "20c647269191d31c828ec99f202f423ad7bbe1d9f41c05e400cc7de0c13cce01",
+      "paper.py": "46d07b19c1d2901a438d9d7d243fccff336bb3d9c54b0777b88cd2bcbcee47e7",
+      "paper_layout.py": "c4233a99938233f026e20b501d57284ff468859e336031fe67dc18259f163991",
+      "paper_profile.py": "b1dce6507a32d7a4f414438dee4c3fb4f035ace8f71167ad5c46b263f6d4901a",
+      "paper_revision.py": "46522b658d89e5c3f31b807a1ea184e86e8e81ae36f8c991bcf6876071b6a0df",
+      "process.py": "2d8c92b63492e5b7cafd0d55c0c80e2a2988040773fbbcffb34f8f0bbda139f0",
+      "provider_schema.py": "4efb53c70e6ca6e4f56d7eba32265c5bf45c6053e82e31fbf25d0b59b3a66333",
+      "providers.py": "2a8a309305ad10f6b26ae5a5710ca21af7e493dfbc5e31f30edd4d7f1e34d46f",
+      "research.py": "03f2c2dfe67654921fbecb92ecdbb993249f364ce2f3e577a50d777c7648c31e",
+      "resilience_demo.py": "b1c0be7b2564ec43419f2664b32d5832d47bb64c2c90db401d582c870a1ef2db",
+      "review_board.py": "5323e5065306cfab1af86f7b8a418f69f6691a68ab3a58f3b18a636c3e50e8b9",
+      "role_skills.py": "cd0a752d3b485253c3da0f7aaf07c6d20b6fd56a2e4ff463e12d6a5f7c52fe80",
+      "sandbox.py": "fe08579477356b3213bb102131851eaffa0dba020929ecd88dc96651d3838c86",
+      "store.py": "d5dfe90f79400922f1bfd8ad693a22dc692307d965961045e3171a25cce9b0d2",
+      "submission_manifest.py": "38313559bbefa561f82953360b133cb4f299f8fbdd92ca411e45b8898fb43b85",
+      "task_dag.py": "51e2a46f03dc77c536c1623a0a7f81cd54ac02e373b3731d03011b0517b29544",
+      "tex_sandbox.py": "3c2e1adc7a8390c28a03a7bd4d038b24150cc690b4604df10c49f6605e1660fa",
+      "verifier_preflight.py": "13a260130b2124acb3252649970d84463e657309c08d23d2bdc3d8f490d272d8",
+      "worker.py": "2e3423ae7553a0dc078a84d83409f2fc9b09e44518038e5b9681c295a4b20e66"
+    },
+    "status": "PASS"
+  },
+  "tests": {
+    "docker_full": {
+      "failed": 0,
+      "skipped": 0,
+      "total": 739
+    },
+    "host_infrastructure": {
+      "failed": 0,
+      "skipped": 0,
+      "total": 648
+    },
+    "upstream_tools": {
+      "failed": 0,
+      "skipped": 0,
+      "total": 20
+    }
+  },
+  "upgrade_status": "IMPLEMENTED_LOCAL_ENGINEERING_PASS",
+  "vendor": {
+    "files": 408,
+    "manifest_sha256": "4d5d665f6511cc5c345c936194512a43a3e821d50afb14b634e9c9438c059034",
+    "status": "PASS"
+  },
+  "version": "0.5.0-rc1"
+}

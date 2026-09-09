@@ -22,7 +22,7 @@ DEFAULT_CONFIG={
  'trial_timeout':120,'fe_budget':192,'development_seeds':[101,202,303],
  'confirmation_seeds':[701,702,703,704,705],'bootstrap_seed':41821,
  'max_candidates':2,'repair_attempts':2,'max_model_calls':180,'model_timeout':600,'claude_call_budget_usd':None,
- 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.4.0-rc1',
+ 'codex_model':None,'claude_model':'claude-opus-5','claude_effort':'max','docker_image':'cumcm-egoharness:0.5.0-rc1',
  'allow_research_algorithms':False,'deadline_iso':None,'paper_reserve_seconds':7200,
  'identity_denylist':[],'input_data_origin':'include-in-support','network_policy':'LOCAL_EVIDENCE_ONLY',
  'review_members_per_role':2,'review_attempts_per_provider':2,'review_cooldown_seconds':60,
@@ -114,6 +114,17 @@ class Controller:
             self.literature=R2LiteratureWorkflow(self,exa_client)
         else:self.literature=LiteratureWorkflow(self,exa_client) if self.config['literature_enabled'] else None
         self.review_cycle=0
+        from .entry_inputs import load_entry
+        self.entry=load_entry(self.root)
+        if self.entry and self.entry['input_mode']=='revise':
+            raise Blocked('Existing paper must use the dedicated revision dispatcher, not the research controller')
+        self.ideas=None
+        if self.entry and self.entry['input_mode']=='idea':
+            if not self.materials:raise Blocked('Idea mode requires complete materials preparation')
+            from .idea_workflow import IdeaWorkflow
+            self.ideas=IdeaWorkflow(self)
+            if not self.demo and not self.literature:
+                raise Blocked('Idea mode requires the complete literature pathway; use the online materials profile and frozen Exa policy, not a silent research bypass')
     def status(self,label):self.store.set('status',label)
     def check_deadline(self,*,research=False):
         if not self.config['deadline_iso']:return
@@ -124,7 +135,7 @@ class Controller:
         if remaining<=0:raise DeadlineReached('Configured deadline has passed; no new live operations')
         if research and remaining<=self.config['paper_reserve_seconds']:raise PaperReserveReached('Paper time reserve reached; freeze research scope')
     def call(self,key,role,schema,packet,*,images=()):
-        if role in ('verifier_author','hypothesis_critic'):
+        if role in ('verifier_author','hypothesis_critic','idea_adversary'):
             return self.review_board.invoke(key,role,schema,packet,primary='claude',images=images)
         return self._call_one(key,role,schema,packet,provider_kind='codex',images=images)
     def _call_one(self,key,role,schema,packet,*,provider_kind,images=(),managed_failure=False):
@@ -197,6 +208,7 @@ class Controller:
                 if entry and entry not in [f['path'] for f in artifact['files']]:raise IntegrityError('Required entrypoint missing: '+entry)
                 if role=='modeler':
                     resource_gate(artifact,self.config)
+                    if getattr(self,'ideas',None):self.ideas.align_plan(artifact)
                     if self.materials:
                         from .materials_contracts import check_plan_alignment
                         check_plan_alignment(artifact,self.base['materials_preparation'])
@@ -278,7 +290,8 @@ class Controller:
         if self.literature:self.literature.require_tests(result['unit_tests'])
         return result
     def all_ai_records(self):
-        records=[]
+        from .entry_inputs import public_external_records
+        records=public_external_records(self.root)
         for directory in sorted((self.root/'model_calls').glob('*')):
             if not directory.is_dir():continue
             if (directory/'receipt.json').exists():records.append(read_json(directory/'receipt.json'))

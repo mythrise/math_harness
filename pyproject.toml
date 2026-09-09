@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "cumcm-egoharness"
-version = "0.4.0rc1"
+version = "0.5.0rc1"
 description = "Evidence-gated Codex + Claude mathematical modeling harness"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.3,<2.4", "scipy>=1.17,<1.18", "jsonschema>=4.23,<5", "PyYAML>=6,<7", "matplotlib>=3.10,<4", "pypdf>=5", "Pillow>=11", "numba>=0.65,<0.66", "scikit-learn>=1.8,<1.9", "pandas>=2.2,<3", "lxml>=5", "PyMuPDF>=1.26,<2"]
@@ -11,7 +11,7 @@ dependencies = ["numpy>=2.3,<2.4", "scipy>=1.17,<1.18", "jsonschema>=4.23,<5", "
 dev = ["pytest>=8,<10"]
 excel = ["openpyxl>=3.1"]
 [project.scripts]
-cumcm = "cumcm_harness.cli:main"
+cumcm = "cumcm_harness.entry_cli:main"
 [tool.setuptools]
 packages = ["cumcm_harness"]
 [tool.pytest.ini_options]

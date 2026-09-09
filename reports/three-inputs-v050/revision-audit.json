@@ -1,0 +1,9 @@
+{
+  "events": 71,
+  "root_hash": "16cf259dd6cd7a8e806a039bb01f2d215648998c9d0c998dab99cf2ae34ed7a4",
+  "integrity": "PASS",
+  "authority": "LOCAL_SQLITE",
+  "input_mode": "revise",
+  "verified_export_count": 1,
+  "scientific_revalidation": "NOT_RUN"
+}

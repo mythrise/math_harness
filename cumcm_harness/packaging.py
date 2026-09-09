@@ -8,6 +8,7 @@ BASIC=['README.md','reproduce.py','config.json','protocol.json','claims.json','i
        'results/confirmation.json','results/development.json','ai_usage.json','AI工具使用详情.pdf',
        'source_inventory.json','support_inventory.json','manifest.json']
 RESEARCH_FILES=['literature/accepted.json','literature/execution.json','materials/preparation.json','materials/paper-map.json']
+RESEARCH_FILES += ['input_provenance.json','ideas/public_summary.json']
 FIGURES=['ourwork.svg','ourwork.pdf','ourwork.png','ourwork.provenance.json',
          'confirmation.svg','confirmation.pdf','confirmation.png','confirmation.data.json','confirmation.provenance.json']
 

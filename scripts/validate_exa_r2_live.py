@@ -15,7 +15,13 @@ from cumcm_harness.exa_transport import R2ExaClient
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True)
-    p.add_argument('--report',type=Path,required=True);a=p.parse_args();root=a.workspace.resolve()
+    p.add_argument('--report',type=Path,required=True)
+    p.add_argument('--exa-credential-file',type=Path)
+    p.add_argument('--exa-shared-ledger',type=Path)
+    a=p.parse_args();root=a.workspace.resolve()
+    if a.exa_credential_file:
+        from cumcm_harness import credentials
+        credentials.EXA_KEY_FILE=a.exa_credential_file.resolve()
     if root.exists():raise Blocked('Use a new live smoke workspace; inspect prior attempts before retry')
     report={'status':'NOT_RUN','authentication_configured':bool(get_exa_api_key()),'max_http_attempts':8,
         'scope':'PUBLIC_METHOD_QUERIES_AND_PRIMARY_READS_ONLY','live_llm':'NOT_RUN','dynamic':'NOT_RUN_DISABLED',
@@ -27,7 +33,8 @@ def main():
     problem=root.parent/(root.name+'-problem.md');problem.write_text('Public mathematical method API smoke. No current competition problem.')
     config={**DEFAULT_CONFIG,**read_json(ROOT/'configs/exa-modeling-compatible.json'),'exa_max_requests':8}
     create_workspace(root,problem,inputs,config,exa_policy=DEFAULT_POLICY)
-    c=R2ExaClient(Store(root),load_frozen(root),max_attempts=8,cross_cache=root/'literature/live-smoke-cache')
+    c=R2ExaClient(Store(root),load_frozen(root),max_attempts=8,shared_path=a.exa_shared_ledger,
+                  cross_cache=root/'literature/live-smoke-cache')
     selected=[]
     def run(label,fn):
         try:

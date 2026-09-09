@@ -1,0 +1,491 @@
+{
+  "authentication_configured": true,
+  "calls": [
+    {
+      "label": "foundation_publication",
+      "sources": [
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 1580,
+          "id": "exa_9aef0e1fc65bac82907e3c8b",
+          "request_id": "a993eb707c5234d7accd40f20e6d1fbd",
+          "snapshot_id": "9aef0e1fc65bac82907e3c8ba1ae704c03dacfcada60673ee77c549e0729311b",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "Scheduling Jobs with Linear Delay Penalties and Sequence Dependent Setup Costs",
+          "url": "https://doi.org/10.1287/opre.29.1.146"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 1760,
+          "id": "exa_61554b4afeb91cc626b1ff8c",
+          "request_id": "a993eb707c5234d7accd40f20e6d1fbd",
+          "snapshot_id": "61554b4afeb91cc626b1ff8cfd42e89a41c72b678a080fec328a34f6fe4ec263",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "Sequencing single-machine tardiness problems with sequence dependent setup times using an iterated greedy heuristic",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0957417408005873"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 1928,
+          "id": "exa_aa5608285069881b9f572b97",
+          "request_id": "a993eb707c5234d7accd40f20e6d1fbd",
+          "snapshot_id": "aa5608285069881b9f572b97d5ca3834933efbde75e0bb02b495196162c22c7f",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "Beam search algorithms for the single machine total weighted tardiness scheduling problem with sequence-dependent setups - ScienceDirect",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0305054806002966"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 1989,
+          "id": "exa_87cdcef414cccbf8121ad520",
+          "request_id": "a993eb707c5234d7accd40f20e6d1fbd",
+          "snapshot_id": "87cdcef414cccbf8121ad5201be521fee22b8dbaf80fba2d7b5c091cd170a1c6",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "An ant colony optimization for single-machine tardiness scheduling with sequence-dependent setups",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0305054805002467"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 1540,
+          "id": "exa_b47014303591857d83f55a19",
+          "request_id": "a993eb707c5234d7accd40f20e6d1fbd",
+          "snapshot_id": "b47014303591857d83f55a19fc9cf62f4bc9ea6d71a186c3cfa7e82a4f0253b5",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "Minimizing total weighted tardiness for the single machine scheduling problem with dependent setup time and precedence constraints",
+          "url": "https://doi.org/10.5267/j.msl.2011.12.020"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 1983,
+          "id": "exa_a12323853904f6648ec2f323",
+          "request_id": "a993eb707c5234d7accd40f20e6d1fbd",
+          "snapshot_id": "a12323853904f6648ec2f3239e344375592e87d148d085b30d0323b87079b5c3",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "A discrete differential evolution algorithm for single machine total weighted tardiness problem with sequence dependent setup times",
+          "url": "https://doi.org/10.1109/cec.2008.4631149"
+        }
+      ],
+      "status": "OK"
+    },
+    {
+      "label": "counterexample_publication",
+      "sources": [
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2080,
+          "id": "exa_864ea8cd853e3bec97f5529d",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "864ea8cd853e3bec97f5529dbaee5870015fa7db03f21f1632d4e96cf2250a3d",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "A note ‘On a single machine-scheduling problem with separated position and resource effects’",
+          "url": "https://doi.org/10.1080/02331934.2014.994630"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2995,
+          "id": "exa_17c33f8fa264619bc4842d12",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "17c33f8fa264619bc4842d12308b305872cd8d6d78d0e42fa42fdd0bb961733d",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "Machine scheduling problems with a position-dependent deterioration",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0307904X14005344"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2995,
+          "id": "exa_bfd44c870812e3a5b0183a4e",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "bfd44c870812e3a5b0183a4e26ae13a0bbfd71fd424506dc6cea4cf9d070783a",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "Minmax scheduling and due-window assignment with position-dependent processing times and job rejection | 4OR | Springer Nature Link",
+          "url": "https://link.springer.com/article/10.1007/s10288-019-00418-w"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2981,
+          "id": "exa_259c34c710ccb8b77ec41a33",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "259c34c710ccb8b77ec41a33ed154cbe8e4da1c5ef080c14ee267fde6de00b3c",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "Multi-machine scheduling with general position-based deterioration to minimize total load revisited",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0020019014000337"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2976,
+          "id": "exa_7b9a26cc2f733ec0cc38f613",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "7b9a26cc2f733ec0cc38f613d05c3d0af52af61a1a9d5501f64d9f88742b22a6",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "Single machine scheduling with general positional deterioration and rate-modifying maintenance",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0305048311001794"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2056,
+          "id": "exa_1f0a6543b14ec92fde07bfe9",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "1f0a6543b14ec92fde07bfe9a435d855d4fd29f27c4f36cc91496423babf35e4",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "Flow shop scheduling with effects of learning and deterioration | Journal of Applied Mathematics and Computing | Springer Nature Link",
+          "url": "https://link.springer.com/article/10.1007/s12190-007-0033-0"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2808,
+          "id": "exa_f729306ac8eb5daf06f79f3a",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "f729306ac8eb5daf06f79f3a37e28a27779535e61ae166131e3c3d2a57b16833",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "Minimizing Makespan Scheduling on a Single Machine with General Positional Deterioration Effects",
+          "url": "https://doi.org/10.3390/axioms14040290"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": null,
+            "returned_text_characters": 0,
+            "stored_text_characters": 0,
+            "text_offsets": [
+              0,
+              0
+            ]
+          },
+          "evidence_kind": "EXTRACTED_HIGHLIGHT",
+          "generated_output_present": false,
+          "highlight_characters": 2986,
+          "id": "exa_4b1bf89a93c12eab5bb16958",
+          "request_id": "57607106dca5e411c8bde68652e3768d",
+          "snapshot_id": "4b1bf89a93c12eab5bb169586232fae3e8d37089482ae5598ceb855a943222ce",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "Due-date assignment and single-machine scheduling with generalised position-dependent deteriorating jobs and deteriorating multi-maintenance activities",
+          "url": "https://doi.org/10.1080/00207543.2013.855833"
+        }
+      ],
+      "status": "OK"
+    },
+    {
+      "label": "primary_text_up_to_four_urls",
+      "sources": [
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": 24000,
+            "returned_text_characters": 4404,
+            "stored_text_characters": 4404,
+            "text_offsets": [
+              0,
+              4404
+            ]
+          },
+          "evidence_kind": "SOURCE_TEXT",
+          "generated_output_present": false,
+          "highlight_characters": 0,
+          "id": "exa_9d8928c1d2b01fc5b023ba7f",
+          "request_id": "4fd7363a75b002059c4b4d4c7cb83d2a",
+          "snapshot_id": "9d8928c1d2b01fc5b023ba7ff6553fb4f76a237fac6d9206e3f54dec8b2fd97e",
+          "temporal_status": "ESTIMATED_DATE_VERSION_UNVERIFIED",
+          "title": "Scheduling Jobs with Linear Delay Penalties and Sequence Dependent Setup Costs",
+          "url": "https://doi.org/10.1287/opre.29.1.146"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": true,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": 24000,
+            "returned_text_characters": 24000,
+            "stored_text_characters": 24000,
+            "text_offsets": [
+              0,
+              24000
+            ]
+          },
+          "evidence_kind": "SOURCE_TEXT",
+          "generated_output_present": false,
+          "highlight_characters": 0,
+          "id": "exa_ebab7a04e9803358c0deea1d",
+          "request_id": "4fd7363a75b002059c4b4d4c7cb83d2a",
+          "snapshot_id": "ebab7a04e9803358c0deea1d10524ea3ed56167889f1063af7cf1b59b18ae9f5",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "Sequencing single-machine tardiness problems with sequence dependent setup times using an iterated greedy heuristic",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0957417408005873"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": false,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": 24000,
+            "returned_text_characters": 11663,
+            "stored_text_characters": 11663,
+            "text_offsets": [
+              0,
+              11663
+            ]
+          },
+          "evidence_kind": "SOURCE_TEXT",
+          "generated_output_present": false,
+          "highlight_characters": 0,
+          "id": "exa_fa192a3d500116b1afc90bae",
+          "request_id": "4fd7363a75b002059c4b4d4c7cb83d2a",
+          "snapshot_id": "fa192a3d500116b1afc90bae1c382b451a81500242d6ea2af1a17855e293c7d9",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "Beam search algorithms for the single machine total weighted tardiness scheduling problem with sequence-dependent setups - ScienceDirect",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0305054806002966"
+        },
+        {
+          "coverage": {
+            "full_source_read": false,
+            "limit_hit": true,
+            "provider_may_have_omitted_tables_figures_or_other_sections": true,
+            "requested_text_limit": 24000,
+            "returned_text_characters": 24000,
+            "stored_text_characters": 24000,
+            "text_offsets": [
+              0,
+              24000
+            ]
+          },
+          "evidence_kind": "SOURCE_TEXT",
+          "generated_output_present": false,
+          "highlight_characters": 0,
+          "id": "exa_27fb8e8fded0081e60d6e4c2",
+          "request_id": "4fd7363a75b002059c4b4d4c7cb83d2a",
+          "snapshot_id": "27fb8e8fded0081e60d6e4c2eae559a4424ab840a483b03910dddebcac2f5d69",
+          "temporal_status": "UNKNOWN_DATE",
+          "title": "An ant colony optimization for single-machine tardiness scheduling with sequence-dependent setups",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0305054805002467"
+        }
+      ],
+      "status": "OK"
+    },
+    {
+      "generated_output_is_not_quote_evidence": true,
+      "label": "auto_output_schema_capability",
+      "provider_output_present": true,
+      "status": "OK"
+    }
+  ],
+  "deep": "NOT_RUN_DISABLED",
+  "dynamic": "NOT_RUN_DISABLED",
+  "ledger": {
+    "http_attempts_reserved": 4,
+    "known_cost_dollars": 0.025,
+    "max_http_attempts": 8,
+    "remote_exactly_once_billing": false,
+    "requests": [
+      {
+        "attempts": 1,
+        "id": "cd0cdf723e8098268aa96bc719e2f78faeeb69dd668afc5ee94512f584264037",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "fe5e7a61aa2ddbc2895f558e18585c4c95e2bba5196fc1c09fb6bdb2011691f4",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "7ac716ac31f5240676c30595e22ba497a99f74fecdf08621ea6710b0a0f06376",
+        "status": "DONE"
+      },
+      {
+        "attempts": 1,
+        "id": "f4ca5ad7a713d9dbf484725af13b2c210bd4dc66bfbb23a93fb2544c74384155",
+        "status": "DONE"
+      }
+    ],
+    "stage_consumption": {
+      "adversary": 1,
+      "final_verification": 0,
+      "primary_source_fetch": 1,
+      "repair_reserve": 0,
+      "scouting": 2
+    },
+    "unknown_cost_attempts": 0
+  },
+  "live_llm": "NOT_RUN",
+  "max_http_attempts": 8,
+  "policy_digest": "3e5ca896369cf56cf129ef735d1b44663fb523c9a144f7485966c6d41c59295e",
+  "research_cutoff": "2026-09-09T13:51:13Z",
+  "same_run_replay": {
+    "extra_http_attempts": 0,
+    "same_snapshots": true
+  },
+  "scope": "PUBLIC_METHOD_QUERIES_AND_PRIMARY_READS_ONLY",
+  "status": "LIVE_HTTP_SMOKE_COMPLETED"
+}

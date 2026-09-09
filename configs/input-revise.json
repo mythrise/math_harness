@@ -1,0 +1,6 @@
+{
+  "mode": "practice",
+  "materials_workflow": true,
+  "network_policy": "LOCAL_EVIDENCE_ONLY",
+  "literature_enabled": false
+}

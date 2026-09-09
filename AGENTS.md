@@ -66,4 +66,18 @@ R2 acceptance, then `--replay`; this remains fixture model/HTTP evidence.
 `scripts/validate_materials_live.py` uses real services on a fixed public synthetic
 problem and must preserve typed failures and actual receipts. No fixture fallback.
 The local submission manifest records MD5 and SHA-256 only; it never uploads or signs.
-Keep release `0.4.0-rc1` distinct from a validated stable/contest release.
+Keep release `0.5.0-rc1` distinct from a validated stable/contest release.
+
+## 0.5 three input modes
+
+Read `docs/THREE_INPUT_V050_INTEGRATION_CN.md` and `docs/THREE_INPUT_MODES_CN.md`.
+Use the native `init --input-mode idea|scratch|revise` entry; mode is frozen and
+separate from practice/contest. New init enables materials contracts by default.
+Keep official inputs separate from external suggestions and claimed results.
+Use `external-idea-intake` and `existing-paper-revision` skills for their lanes.
+Unknown web provenance is UNREPORTED, never a fabricated LIVE_CLI receipt.
+Idea/scratch require the original complete research gates; scientific revision
+requires a new idea workspace. Editorial audit verifies exports against CAS.
+DOCX review markup protects the whole prose; TeX command/math blocks are immutable.
+Validate actual formatting with the separate Docker document/TeX validators.
+Keep original upstream package evidence distinct from local tests and real calls.

@@ -1,0 +1,137 @@
+{
+  "type": "object",
+  "properties": {
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "diagnosis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "minLength": 1
+          },
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "enum": [
+              "LANGUAGE",
+              "STRUCTURE",
+              "SUBSTANTIVE",
+              "UNREADABLE"
+            ]
+          }
+        },
+        "required": [
+          "location",
+          "issue",
+          "scope"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "edits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "before_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "replacement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 12
+          }
+        },
+        "required": [
+          "block_id",
+          "before_sha256",
+          "replacement",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "research_requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_evidence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "suggested_action": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "issue",
+          "required_evidence",
+          "suggested_action"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "clarification_responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "signal_digest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 20
+          }
+        },
+        "required": [
+          "signal_digest",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "source_sha256",
+    "diagnosis",
+    "edits",
+    "research_requests",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

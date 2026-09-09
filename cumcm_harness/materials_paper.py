@@ -49,7 +49,7 @@ def usage_lines(record):
             '实际输入类别：'+fields+r'\par',
             esc('主要提示方式：'+item['prompt_method'])+r'\par',
             esc('输出与过程：'+item['output_summary'])+r'\par',
-            esc('本次是否产生可用模型回复：'+record.get('model_execution_status','返回已校验结构化结果'))+r'\par']
+            esc('本次是否产生可用模型回复：'+record.get('model_execution_status','返回已校验结构化结果')).replace(r'\_',r'\_\allowbreak{}')+r'\par']
 
 
 def claim_display(key,claim):

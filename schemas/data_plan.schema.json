@@ -57,7 +57,7 @@
         ],
         "additionalProperties": false
       },
-      "minItems": 1
+      "minItems": 0
     },
     "transforms": {
       "type": "array",

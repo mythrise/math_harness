@@ -1,0 +1,91 @@
+{
+  "type": "object",
+  "properties": {
+    "plan_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "idea_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+          },
+          "disposition": {
+            "enum": [
+              "ADOPT",
+              "MODIFY",
+              "REJECT",
+              "DEFER"
+            ]
+          },
+          "question_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "task_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+            },
+            "minItems": 0
+          },
+          "assumption_indices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 0
+          },
+          "constraint_indices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 12
+          },
+          "test_plan": {
+            "type": "string",
+            "minLength": 12
+          }
+        },
+        "required": [
+          "idea_id",
+          "disposition",
+          "question_ids",
+          "task_ids",
+          "assumption_indices",
+          "constraint_indices",
+          "reason",
+          "test_plan"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "baseline_preservation": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "plan_digest",
+    "decisions",
+    "baseline_preservation"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,10 @@
+{
+  "reports/three-inputs-v050/docker-tests.xml": {
+    "original_sha256": "607ae940f5ea1874a77dccc6ea8ce660e2512be96afc64e1823b85f205f54e0d",
+    "reason": "Sensitive-looking synthetic parameter IDs removed; testcase counts and verdicts retained"
+  },
+  "reports/three-inputs-v050/infrastructure.xml": {
+    "original_sha256": "ae0bf76c5e56e3050b972fdd44e69677b36d013ff2c98ffbc02466ecb6846031",
+    "reason": "Sensitive-looking synthetic parameter IDs removed; testcase counts and verdicts retained"
+  }
+}

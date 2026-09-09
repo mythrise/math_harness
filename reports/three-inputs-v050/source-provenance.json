@@ -1,0 +1,7 @@
+{
+  "base_commit": "8d9c59619edeb0928e7e24688e074fe1cff91250",
+  "install_log_sha256": "dbb5688ab1a8b1425338dc55c54109feba79f9ae26e2ae3deb322dfb1c46b448",
+  "original_worktree": "PRESERVED_NOT_OVERWRITTEN",
+  "package_sha256": "4acb9e7d2248faa2f8a7c6e5563ce080478f07488d93c0e856a5c1e9c199dad4",
+  "upstream_evidence": "docs/three-input-upgrade"
+}

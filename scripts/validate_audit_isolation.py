@@ -12,7 +12,7 @@ from cumcm_harness.tex_sandbox import compile_isolated,TEX_IMAGE
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out',type=Path,required=True)
-    parser.add_argument('--image',default='cumcm-egoharness:0.4.0-rc1')
+    parser.add_argument('--image',default='cumcm-egoharness:0.5.0-rc1')
     parser.add_argument('--tex-image',default=TEX_IMAGE)
     args=parser.parse_args();root=args.out.resolve()
     if root.exists() and any(root.iterdir()):raise IntegrityError('Use a new empty validation directory')

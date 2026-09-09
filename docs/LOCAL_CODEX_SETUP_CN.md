@@ -1,3 +1,9 @@
+# 0.5.0-rc1 当前接入
+
+本轮在 `.runtime/three-inputs-v050-worktree` 完成隔离升级，使用该目录的 `.venv` 和 `./scripts/cumcm`。原主目录未提交文件未被覆盖，之前的 0.4 检出与旧工作区保持原状。当前生产/测试镜像为 `cumcm-egoharness:0.5.0-rc1` / `0.5.0-rc1-test`；TeX 为 `cumcm-egoharness-tex:0.3.1`；DOCX 渲染专用镜像为 `0.5.0-rc1-documents`，包含 LibreOffice Writer **及 Math**。
+
+模型认证、Claude Opus 5/max 与原 Exa 私有文件继续沿用。未复制凭证；只通过已有安全加载器读取显式选择的路径。见 [0.5 接入说明](THREE_INPUT_V050_INTEGRATION_CN.md) 与 [本轮报告](../reports/THREE_INPUT_V050_LOCAL_CN.md)。以下均为历史部署记录。
+
 # 0.4.0-rc1 当前接入
 
 本轮在 `.runtime/materials-v040-worktree` 新建隔离检出与独立 `.venv`，原主工作目录缺失的 `cumcm_harness/` 未被覆盖。请进入该检出后使用 `./scripts/cumcm` 或 `.venv/bin/python`。Python 包规范化版本为 `0.4.0rc1`，新运行镜像为 `cumcm-egoharness:0.4.0-rc1`；旧镜像与旧工作区不改。

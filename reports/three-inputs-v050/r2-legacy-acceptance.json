@@ -1,0 +1,540 @@
+{
+  "acceptance_scope": {
+    "claude_outage": "INJECTED_NOT_REAL_OUTAGE",
+    "exa": "REPLAYED_SOURCE_FIXTURE_NOT_LIVE_HTTP",
+    "llm": "FIXTURE_NOT_LLM",
+    "numerics": "ACTUALLY_EXECUTED",
+    "pdf": "ACTUALLY_COMPILED",
+    "user_api_key_validation": "NOT_RUN"
+  },
+  "auto_submission": false,
+  "confirmation_cells": 10,
+  "development_cells": 12,
+  "inference": {
+    "ci95": [
+      0.03707035445757254,
+      0.08476100966702467
+    ],
+    "decision": "KEEP_CANDIDATE",
+    "mean_improvement": 0.06703813104189041,
+    "n": 5,
+    "reason": "percentile paired bootstrap; applies only to declared replication unit, not a universal claim",
+    "scope": "SEED_REPLICATION_SAME_INSTANCE",
+    "winner_selected_before_confirmation": "c0"
+  },
+  "literature_status": "FIXTURE_EXA_TRANSPORT",
+  "live_llm_calls": false,
+  "materials_workflow": false,
+  "package": {
+    "contest_mode": false,
+    "file_count": 177,
+    "official_submission_sent": false,
+    "paper": "deliverables/paper.pdf",
+    "paper_bytes": 601195,
+    "paper_sha256": "961e8022f5052d232e849c145f23bfbeccf6f5c49f3fe9d0035d213836784dce",
+    "support": "deliverables/support.zip",
+    "support_bytes": 1019867,
+    "support_sha256": "276ac0c5029a108c8a7cb2a1b23ad6458712968f991dfcabe9e3a5529b42b564"
+  },
+  "paper": {
+    "build": {
+      "appendix_start_page": 5,
+      "compiler_version": "This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022/Debian) (preloaded format=xelatex 2026.9.8)  8 SEP 2026 00:00",
+      "engine": "XeLaTeX",
+      "overfull_boxes": 0,
+      "paperkit_profile": "cumcm2026-paperkit/1.0.0-native",
+      "paperkit_profile_digest": "1602df263ed810eff28dcef28b3de87db140ca9a486004b3429cb0082a9f62bf",
+      "passes": 2,
+      "pdf_sha256": "961e8022f5052d232e849c145f23bfbeccf6f5c49f3fe9d0035d213836784dce",
+      "sandbox": {
+        "backend": "DOCKER_TEX",
+        "host_mounts": "STAGED_INPUTS_AND_OUTPUT_ONLY",
+        "image": "cumcm-egoharness-tex:0.3.1",
+        "image_id": "sha256:f3b3ed697c70c48b82f6d109499b55a608220902681fdcf452fa2c1467bc9d46",
+        "network": "NONE",
+        "output_manifest": {
+          "main.aux": "50c0c0e4a37d582cba8c4e6964162dd17b137c559f3af49cea03d8b1f0665f2f",
+          "main.log": "f17d25db967c42902bbb4e36e4be098b83d5ac2bf0ba48f761555cd1eee5cf50",
+          "main.out": "42fee75f06d747f024bf901fe9b3456832774f386d7e17f0c22994fac69a8bfd",
+          "main.pdf": "961e8022f5052d232e849c145f23bfbeccf6f5c49f3fe9d0035d213836784dce"
+        },
+        "receipts": [
+          {
+            "argv": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "cumcm-tex-b62802388fc8d3c1e4c4",
+              "--network",
+              "none",
+              "--read-only",
+              "--cap-drop",
+              "ALL",
+              "--security-opt",
+              "no-new-privileges",
+              "--pids-limit",
+              "128",
+              "--cpus",
+              "1",
+              "--memory",
+              "1024m",
+              "--memory-swap",
+              "1024m",
+              "--user",
+              "501:20",
+              "--tmpfs",
+              "/tmp:rw,noexec,nosuid,size=128m",
+              "--ulimit",
+              "fsize=30000000:30000000",
+              "--mount",
+              "type=bind,src=/Users/mythrise/数学建模国赛/.runtime/three-inputs-v050-worktree/workspaces/v050-r2-legacy-01/paper_versions/4ad859d14aafdf09ea7d009ec7e359ca56dc56bf616f09760b0dd2c6b4b29e1e/_tex_builds/bba71fa6bd324916519e4bb9f0458b880a27c26e0ce8842224a4eaafb4293bfd/inputs,dst=/inputs,readonly",
+              "--mount",
+              "type=bind,src=/Users/mythrise/数学建模国赛/.runtime/three-inputs-v050-worktree/workspaces/v050-r2-legacy-01/paper_versions/4ad859d14aafdf09ea7d009ec7e359ca56dc56bf616f09760b0dd2c6b4b29e1e/_tex_builds/bba71fa6bd324916519e4bb9f0458b880a27c26e0ce8842224a4eaafb4293bfd/out,dst=/out",
+              "-e",
+              "HOME=/tmp",
+              "-e",
+              "TEXMFVAR=/tmp/texmf-var",
+              "-e",
+              "TEXMFCONFIG=/tmp/texmf-config",
+              "-e",
+              "TEXMFOUTPUT=/out",
+              "--workdir",
+              "/inputs",
+              "sha256:f3b3ed697c70c48b82f6d109499b55a608220902681fdcf452fa2c1467bc9d46",
+              "-output-directory=/out",
+              "main.tex"
+            ],
+            "returncode": 0,
+            "seconds": 3.1107105409973883,
+            "status": "EXITED",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "d85ac05534ac0d4dd2dd9bb81f3c64c1a1b7fed1a25fcb6d55b356ed4f819eec"
+          },
+          {
+            "argv": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "cumcm-tex-b62802388fc8d3c1e4c4",
+              "--network",
+              "none",
+              "--read-only",
+              "--cap-drop",
+              "ALL",
+              "--security-opt",
+              "no-new-privileges",
+              "--pids-limit",
+              "128",
+              "--cpus",
+              "1",
+              "--memory",
+              "1024m",
+              "--memory-swap",
+              "1024m",
+              "--user",
+              "501:20",
+              "--tmpfs",
+              "/tmp:rw,noexec,nosuid,size=128m",
+              "--ulimit",
+              "fsize=30000000:30000000",
+              "--mount",
+              "type=bind,src=/Users/mythrise/数学建模国赛/.runtime/three-inputs-v050-worktree/workspaces/v050-r2-legacy-01/paper_versions/4ad859d14aafdf09ea7d009ec7e359ca56dc56bf616f09760b0dd2c6b4b29e1e/_tex_builds/bba71fa6bd324916519e4bb9f0458b880a27c26e0ce8842224a4eaafb4293bfd/inputs,dst=/inputs,readonly",
+              "--mount",
+              "type=bind,src=/Users/mythrise/数学建模国赛/.runtime/three-inputs-v050-worktree/workspaces/v050-r2-legacy-01/paper_versions/4ad859d14aafdf09ea7d009ec7e359ca56dc56bf616f09760b0dd2c6b4b29e1e/_tex_builds/bba71fa6bd324916519e4bb9f0458b880a27c26e0ce8842224a4eaafb4293bfd/out,dst=/out",
+              "-e",
+              "HOME=/tmp",
+              "-e",
+              "TEXMFVAR=/tmp/texmf-var",
+              "-e",
+              "TEXMFCONFIG=/tmp/texmf-config",
+              "-e",
+              "TEXMFOUTPUT=/out",
+              "--workdir",
+              "/inputs",
+              "sha256:f3b3ed697c70c48b82f6d109499b55a608220902681fdcf452fa2c1467bc9d46",
+              "-output-directory=/out",
+              "main.tex"
+            ],
+            "returncode": 0,
+            "seconds": 3.1447045000022626,
+            "status": "EXITED",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "403de716c704e2cf7980337fa99dd67d42e4a33b16a8784c421a2e2632a3c22e"
+          }
+        ],
+        "shell_escape": false,
+        "source_manifest": {
+          "code/baseline/main.py": "b1d64663f4fc75cdae7f08e5a1a04324e3ef3d74abab6221ce5a96af49fe1657",
+          "code/c0/main.py": "b1d64663f4fc75cdae7f08e5a1a04324e3ef3d74abab6221ce5a96af49fe1657",
+          "code/dependencies/cumcm_harness/__init__.py": "b56f5132049b0ba8549db0778cd271d1179b0f38e3a6ccb6c71396d0b88c4597",
+          "code/dependencies/cumcm_harness/algorithms.py": "7e088cd5133549c9cedafd7648ac06f049c3f8edcdaa42129ed99d2adb58d29f",
+          "code/dependencies/cumcm_harness/common.py": "17c8052c98e593f29d2f5514ba3f96705c8c04a9aa5ff0571f595291f6712480",
+          "code/dependencies/cumcm_harness/worker.py": "2e3423ae7553a0dc078a84d83409f2fc9b09e44518038e5b9681c295a4b20e66",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/__init__.py": "a98e0580a35cc67c13e26bece800e931e99c7eabd5537dc944c5fe2fbbc67524",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/bootstrap.py": "001b0cc1431a1c42ef21c841be2edcd7dc4dd29b32211b66f4e6c284add3d3e6",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/engine.py": "6040f00bc1a572bbf27f10e350ae6138770b349899e26a7ca793b6d0292dd373",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/fast.py": "674e4cb96173126b3f962ff0edc0dcb03bc78fbd3a89ec33ca390373580b725c",
+          "code/dependencies/vendor/mosaic_v14/mosaic14/variants.py": "324bd1617cbd3b501a875efe9b08b04548ab3e393b5252bb42902505b7cbde06",
+          "code/dependencies/vendor/mosaic_v14/mosaic_solve.py": "c84b35d33035d2e267e2153507a67d3ac507fdd61284a34c1ac8ee4f5e81f9d7",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/__init__.py": "798ba60251bb57f33ac6df032710a38797ceff9025ba6b2f6bb3b348f381e46f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/api.py": "9254cc1eba9a6fb1d4dc063db5cd0ccdf420c8b6d5e44b761b7e95a402500661",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/bootstrap.py": "4c04a86867d46c602a346684179e11951aaea59825bcaaa52df3b7155886f607",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient.py": "2bb03289c8533438cafaf5954462116871e10a1dc2fd99e00582505cb221f496",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient_engine.py": "e91f4f7f6daf53fd4c940cd52e82a1af0d7f6c60c3f512cd1ef4c01e20ff52c2",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/metrics.py": "cc2ea2ca6f6cf011483fec902d57bfbf8a70f5e389bae15851355e4ea8691b89",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/model.py": "f7313839bfc496a59fe7c6cda90abd60163348d9c947191e41583f353764212f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/problems.py": "d43170245c5e0b0a6929e052de5c40aa89e96d1641a8f8ac03af685d17c25448",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/residual.py": "c058dcd9ee013f55661e325c514f2335ec13fa85c9cf8e245803c69ee109fbd7",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/data/rgv2018_parameters.json": "d85a6198c435284efbe515bcc70afb0d4a4e7bba87de6bd3b740a801a8a1870c",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/moo_core.py": "e4d0e73524822f1d3ea3a80cf8daee83c761fe3a69675be5c6f66c462de27c2e",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_lqmoe.py": "6e1f769385ac0ef6f894963b928b09aa52d2281c85dff3dc1bff41e8bbbd2e4b",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_sqmoe_v9.py": "53b711dbd949335466ccc6af09f6b57dbd7eb6cdb2593fb5b383eccb6ec96b84",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/__init__.py": "cf4386e7f00f7517b6e928c6bc0b4b8c0e3e39bc39177d93f8fa3f0dc42b6978",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/api.py": "da0c98c69ea60b2d02edd21e36e7fa63ac3d80373f22077dba985cf780f461d6",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extended_core.py": "9f4bb7bec1e8102fb23a8be2b98b7f00c1fee7351da3c1d5b9618e7fcbf03ae0",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extensions.py": "1b4f9918ea8c37c6ccacf25d49b340be44b1f618c1d90fc162c55731d11963ef",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/final.py": "0fb647dd289a1293e7cba18548b8483984246c438f99e529252bfba8fe215262",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/graph_search.py": "37dc28811e8b1cfa570f7a81f28d500faadb3ea03cd99bac60247a9b11ebb6d2",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/rgv.py": "f78beb2fba81c6308c15313871dc3de0143cbed68923e3d9ffa3d59673c3281e",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/typed_baseline.py": "0423a8341733d8dec8d8835096951d6a11995db282dea7f720419148c8a50bf6",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/bootstrap.py": "91f299e169a69569436299f7e898d5cd439e75d127f43e63bdf8f101127e5b9f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_api.py": "5130d24f94367c226a09f136fb8221ce882f4435e6bdb8d767ece78713ddaf3f",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_v10.py": "de37e4e02772be758ca02544c8eea12a3e3cb7158ff35c63b4d6afbd21fec545",
+          "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/problems.py": "c9c46df4bf4133ed584c01d0db809f8a49477e5adeda1f97cc56f2dcfc4c7c59",
+          "code/reproduce.py": "184455ad8334cf1558ecb67c863d1930c1acc817b60bee41c20af9677c1944e9",
+          "code/verifier/evaluate.py": "99f583f524d46ed4e2b2b7f71ea9c2ae26f6855f4e789fffc2a65b0af4b9d9de",
+          "code/verifier/test_solver.py": "09f3fe6df78bae89705d5d3696b4df7268f6dad6433a6856e4247002ca887fb2",
+          "figures/confirmation.pdf": "b6a1cd182accbc1f693e7644286693baf59689c446b3a7da387f6fd27afbe2c8",
+          "figures/confirmation.png": "9d1279a1515f93cd36fca1fff71ad4f7c17b491aff92f0f8fe674b03aec3406d",
+          "figures/confirmation.svg": "11b89fe94af99bee5ee8ec6aebf7733ee264629dd1dcd6e9eb4a0405f368e47a",
+          "figures/ourwork.pdf": "75ff94ecfbd783c462b43990d68ad1ff2f56a9e9a2d13cbd1627880824835830",
+          "figures/ourwork.png": "74bf3d7682f593a3bf6f60c812592a1562240ba0c92e82ffb1f7fa76aa6bd29b",
+          "figures/ourwork.svg": "85a24931b9ffd72d44e714212b6fa4de2e5f90401bd1be7c92acd84a592a2160",
+          "main.tex": "f9a6aa47d94a5c553a13c955adc776c64463ce75e582594c9f31f0071e3b418a",
+          "paperkit-cumcm2026.sty": "b3fe0e4ceb99e9962a098350596bce0042befed0e76c09c4a9be7a72c93ad5d7"
+        }
+      },
+      "shell_escape": false,
+      "source_sha256": "f9a6aa47d94a5c553a13c955adc776c64463ce75e582594c9f31f0071e3b418a"
+    },
+    "claims_digest": "36bd25b2a3ed4846783c1b51837ff63a02a9538bb4166bc1c3df9c31c273fa41",
+    "materials_digest": null,
+    "paper_sha256": "961e8022f5052d232e849c145f23bfbeccf6f5c49f3fe9d0035d213836784dce",
+    "preflight": {
+      "anonymity": "denylist/metadata checks do not prove complete anonymity",
+      "body_pages": 3,
+      "bytes": 601195,
+      "failures": [],
+      "pages": 127,
+      "paperkit_checks": {
+        "body_pages": 3,
+        "bytes": 601195,
+        "errors": [],
+        "margin_violations": [],
+        "pages": 127,
+        "pdf_sha256": "961e8022f5052d232e849c145f23bfbeccf6f5c49f3fe9d0035d213836784dce",
+        "release_ready": false,
+        "scope": "Machine formatting checks only; full visual, scientific, local-rule and anonymity review remain human responsibilities.",
+        "status": "PASS",
+        "warnings": [
+          "Example mode: not a contest submission, regardless of machine pass"
+        ]
+      },
+      "pdf_sha256": "961e8022f5052d232e849c145f23bfbeccf6f5c49f3fe9d0035d213836784dce",
+      "release_ready": false,
+      "status": "PASS",
+      "visual_check": "REQUIRED_SEPARATELY",
+      "warnings": [
+        "Example mode: not a contest submission, regardless of machine pass"
+      ]
+    },
+    "source_inventory": [
+      "code/baseline/main.py",
+      "code/c0/main.py",
+      "code/dependencies/cumcm_harness/__init__.py",
+      "code/dependencies/cumcm_harness/algorithms.py",
+      "code/dependencies/cumcm_harness/common.py",
+      "code/dependencies/cumcm_harness/worker.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/engine.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/fast.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic14/variants.py",
+      "code/dependencies/vendor/mosaic_v14/mosaic_solve.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/efficient_engine.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/metrics.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/model.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/problems.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/harnesslab/residual.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/data/rgv2018_parameters.json",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/moo_core.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_lqmoe.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/legacy/mosaic_sqmoe_v9.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extended_core.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/extensions.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/final.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/graph_search.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/rgv.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/baseline_v10/mosaic/typed_baseline.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/__init__.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/bootstrap.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_api.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/fast_v10.py",
+      "code/dependencies/vendor/mosaic_v14/vendor/v13/vendor/src/problems.py",
+      "code/reproduce.py",
+      "code/verifier/evaluate.py",
+      "code/verifier/test_solver.py"
+    ]
+  },
+  "plan_digest": "f5e251626e11821e3cca61992fec5a9a01de47ad12cff0abfd3b993a92514338",
+  "review_failovers": [
+    {
+      "failures": [
+        {
+          "attempt": 0,
+          "code": "TIMEOUT",
+          "provider": "claude"
+        },
+        {
+          "attempt": 1,
+          "code": "TIMEOUT",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "counter:r2:14d7cbaff12912449630739e3756b6977a63dc982278f16ed1fc86431b37bf10:0",
+      "role": "hypothesis_critic",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "hypothesis-audit:r2:14d7cbaff12912449630739e3756b6977a63dc982278f16ed1fc86431b37bf10",
+      "role": "hypothesis_critic",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "literature:r2:14d7cbaff12912449630739e3756b6977a63dc982278f16ed1fc86431b37bf10:literature_reviewer:seat0",
+      "role": "literature_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "plan:r0:review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "plan:r0:review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "verifier:r0",
+      "role": "verifier_author",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "verifier:r0:review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "verifier:r0:review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "candidate:c0:r0:review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "candidate:c0:r0:review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "algorithm:c0:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "algorithm:c0:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "smoke-review:a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "smoke-review:a19263a1d5a2b2deea7500aee31f22f143b3c8f54f564d02286b12bd704c6f72:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "development:c0:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "development:c0:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "confirmation-review:math_reviewer:seat0",
+      "role": "math_reviewer",
+      "to": "codex"
+    },
+    {
+      "failures": [
+        {
+          "code": "CIRCUIT_OPEN",
+          "provider": "claude"
+        }
+      ],
+      "from": "claude",
+      "key": "confirmation-review:experiment_reviewer:seat0",
+      "role": "experiment_reviewer",
+      "to": "codex"
+    }
+  ],
+  "selection": {
+    "confirmation_seen": false,
+    "development_means": {
+      "baseline": 0.9332706766917295,
+      "c0": 0.9997762262799856
+    },
+    "protocol_digest": "c81a46dddc26f34e1ef85c15ffd48245434e0749ccd0186e639ff129305fab28",
+    "winner": "c0"
+  },
+  "status": "DEMO_COMPLETE_NOT_LIVE_VALIDATED",
+  "submission_manifest": {
+    "path": "deliverables/submission-manifest.json",
+    "sha256": "0382d3644b1c6c0759df47e0d0d91020b801bde409f9dd4c4bdb8256d3e5b794",
+    "submitted": false
+  },
+  "verifier_digest": "588f9f2657858e1a9488e060cb74519bf89f80f399a63d0fe66492557b8c25c4",
+  "world_best_claim": "NOT_ESTABLISHED"
+}

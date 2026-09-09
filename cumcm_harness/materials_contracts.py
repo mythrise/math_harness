@@ -27,7 +27,7 @@ SCHEMAS['data_plan']=obj(sampling_unit=S,
     split={'enum':['iid','group','time','group_time','not_applicable']},
     group_key=S,time_key=S,
     sources=arr(obj(file=S,origin={'enum':['provided','researched','synthetic_scenario']},
-        purpose={'enum':['observed_evidence','diagnostic_only']},source_id=S),1),
+        purpose={'enum':['observed_evidence','diagnostic_only']},source_id=S),0),
     transforms=arr(TRANSFORM),required_data=arr(S),optional_data=arr(S),
     leakage_checks=arr(S,1),quality_checks=arr(S,1))
 METHOD = obj(id=ID,kind={'enum':['baseline','challenger']},method_card_id=S,

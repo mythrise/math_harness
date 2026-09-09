@@ -5,6 +5,7 @@ Proposals are schema checked, tied to source hashes and reviewed before use.
 """
 from __future__ import annotations
 import copy
+import re
 from .common import (Blocked, IntegrityError, ScientificRejection, InfrastructureUnavailable,
     UnknownExternalState, BudgetExhausted, DeadlineReached, digest, write_json, tree_manifest)
 from .review_board import ReviewUnavailable, ProviderFailure, NeedsClarification
@@ -51,8 +52,12 @@ class MaterialsWorkflow:
         if manifest!=audit['manifest'] or tree_manifest(root)!=manifest:
             raise IntegrityError('Audited development input has changed')
         packet={'problem':c.problem,'problem_sha256':digest(c.problem),'data_audit':audit,
+                'exact_anchor_candidates':[{'start':m.start(),'end':m.end(),'quote':m.group()}
+                    for m in re.finditer(r'[^\n]+',c.problem) if m.group().strip()],
                 'method_cards':c.base['methods'],'pi_priorities':pi,
                 'requirements':'Extract all actual questions, exact original-text spans and constraints. '
+                    'Prefer relevant exact_anchor_candidates and copy start/end/quote together verbatim; '
+                    'these are Python Unicode character offsets, not bytes. Never guess offsets. '
                     'Never impose three/four questions from a tutorial. Inferred goals are distinct from explicit requirements. '
                     'No results have been computed at this stage.'}
         brief=self._stage('brief','problem_analyst','problem_brief',packet,
@@ -78,6 +83,11 @@ class MaterialsWorkflow:
         preparation={'schema_version':'materials-preparation/1','brief':brief,'data_plan':data,
             'portfolio':portfolio,'reference_catalog_sha256':references['catalog_sha256'],'data_audit':audit,'empirical_validation':'NOT_RUN',
             'reading_limits_are_explicit':True}
+        if getattr(c,'ideas',None):
+            # The independent brief/data/baseline were already produced without imported ideas.
+            external=c.ideas.prepare(copy.deepcopy(preparation))
+            preparation['external_idea_contract']={'digest':digest(external),'entry_digest':external['entry_digest'],
+                'proposal_count':len(external['items']),'raw_chat_included':False,'full_pipeline_required':True}
         c.store.step('materials:freeze-preparation',preparation,lambda:preparation)
         write_json(c.root/'materials/preparation.json',preparation)
         c.base['materials_preparation']=preparation
@@ -143,4 +153,6 @@ class MaterialsWorkflow:
 
 def plan_attestation_target(plan,base):
     preparation=base.get('materials_preparation')
+    external=base.get('external_idea_alignment')
+    if external:return digest({'plan':plan,'preparation':preparation,'external_idea_alignment':external})
     return digest({'plan':plan,'preparation':preparation}) if preparation else digest(plan)

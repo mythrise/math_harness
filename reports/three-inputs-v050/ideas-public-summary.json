@@ -1,0 +1,64 @@
+{
+  "decisions": [
+    {
+      "assumption_indices": [],
+      "constraint_indices": [],
+      "disposition": "MODIFY",
+      "idea_id": "idea_14591cd8c74910a096a03a1c",
+      "question_ids": [
+        "q1",
+        "q2"
+      ],
+      "task_ids": [
+        "validate"
+      ]
+    },
+    {
+      "assumption_indices": [
+        0
+      ],
+      "constraint_indices": [],
+      "disposition": "MODIFY",
+      "idea_id": "idea_befb081ad25d4e16ceff7071",
+      "question_ids": [
+        "q1",
+        "q2"
+      ],
+      "task_ids": [
+        "validate"
+      ]
+    },
+    {
+      "assumption_indices": [],
+      "constraint_indices": [],
+      "disposition": "REJECT",
+      "idea_id": "idea_79381aeaec962596c5933c53",
+      "question_ids": [
+        "q1",
+        "q2"
+      ],
+      "task_ids": []
+    },
+    {
+      "assumption_indices": [],
+      "constraint_indices": [],
+      "disposition": "REJECT",
+      "idea_id": "idea_222fda4843212aa69cbab3a9",
+      "question_ids": [
+        "q1",
+        "q2"
+      ],
+      "task_ids": []
+    }
+  ],
+  "empirical_evidence": "SEE_ACTUAL_JOB_AND_CONFIRMATION_RECEIPTS",
+  "entry_digest": "ac5e03b128ecdc5e362374b22d731c83d434f28ffcd87ccf71a21057450e05b7",
+  "plan_digest": "7605efdb55e1df628b5df3762be9f98b911d5cb3b50ffb4c4e8865299c07cb5f",
+  "raw_external_chats_included": false,
+  "sources": [
+    {
+      "id": "idea_01",
+      "source_sha256": "ddbf4039cd384a3a08848f08213cc13a1e0d156060fc4ea2fedc8b07ba781426"
+    }
+  ]
+}

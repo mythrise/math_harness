@@ -1,0 +1,198 @@
+{
+  "version": "0.5.0-rc1",
+  "base_repository": "mythrise/math_harness",
+  "base_commit": "8d9c59619edeb0928e7e24688e074fe1cff91250",
+  "distribution": "HASH_VERIFIED_SOURCE_OVERLAY_NOT_FULL_CHECKOUT",
+  "files": [
+    {
+      "path": ".agents/skills/existing-paper-revision/SKILL.md",
+      "sha256": "f492b829d76bd6b1169eb7f3f9e2d019b4e6b1177b8a055153cb81ba41bd2c62",
+      "old_git_blob": null
+    },
+    {
+      "path": ".agents/skills/external-idea-intake/SKILL.md",
+      "sha256": "7ad4b51efb7f362b87579b5ab484b17e130f05b5cf0817ff3f59c8a0398c0232",
+      "old_git_blob": null
+    },
+    {
+      "path": ".github/workflows/three-inputs.yml",
+      "sha256": "4553378ca33f2c29dd3841c72b3dcef633c310fdebb4e664393247fb2e89d1f3",
+      "old_git_blob": null
+    },
+    {
+      "path": "configs/input-idea.json",
+      "sha256": "dc63671ecfa0383d4fdfeed6f5c04d90468fc36f143a2049f8359fea7df49543",
+      "old_git_blob": null
+    },
+    {
+      "path": "configs/input-revise.json",
+      "sha256": "eac2336860fddff12a02834181c6c729969661962a2734c215fab3f3830e1a55",
+      "old_git_blob": null
+    },
+    {
+      "path": "configs/input-scratch.json",
+      "sha256": "dc63671ecfa0383d4fdfeed6f5c04d90468fc36f143a2049f8359fea7df49543",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/__init__.py",
+      "sha256": "b56f5132049b0ba8549db0778cd271d1179b0f38e3a6ccb6c71396d0b88c4597",
+      "old_git_blob": "9b3d0963fca97ecd205c64cabc557bc2483ec546"
+    },
+    {
+      "path": "cumcm_harness/__main__.py",
+      "sha256": "b975e64e34eb5b09ac685e595de4d04b96c87b9e817aa1d3be5b3dc3d52999cc",
+      "old_git_blob": "13be635566e79adccc98892cc67a44e636908b35"
+    },
+    {
+      "path": "cumcm_harness/controller.py",
+      "sha256": "a5c317c191539f6ce6a8fe449c0678a117e26f48656e6428720afd5c82918a4a",
+      "old_git_blob": "a24a277af69531049650093349be50eaa86143bc"
+    },
+    {
+      "path": "cumcm_harness/entry_cli.py",
+      "sha256": "2508e857c40b9b42d5a7bffc4857c12b3e5bc580ef646a1e70045f676fca141f",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/entry_documents.py",
+      "sha256": "f3dcbbf81f8857db2c348cccc45ead7992c6dc6b954ef86e9e2f9563718a69cf",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/entry_inputs.py",
+      "sha256": "f80eee740dd9197ff921ff3907f8e764a5c89e3a9b56044c5c9b972897191309",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/idea_workflow.py",
+      "sha256": "853fac0d284a952586878dcffcee75730ec2392bbfdba3c8641dee75e0d0b070",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/materials_contracts.py",
+      "sha256": "999f40ceae57020fa54c6f63ca30d5e2e946cc87219ea8b8848a3ec49a637c82",
+      "old_git_blob": "509657df6aa4d07123599b54d0a83650809d867a"
+    },
+    {
+      "path": "cumcm_harness/materials_paper.py",
+      "sha256": "259855c8541742ab0c969f88f6ab33136d384d04de1127d1064ab2953562d161",
+      "old_git_blob": "42db20f643d69d1ebf31fc9adcaf169a878b9cec"
+    },
+    {
+      "path": "cumcm_harness/materials_workflow.py",
+      "sha256": "c93c8d28f8c9dfe51833a16f1b4bcd66cf40cb980e014b5988ec77b8e827008e",
+      "old_git_blob": "d66aebca9b6a7de2beb60ce76237370193924935"
+    },
+    {
+      "path": "cumcm_harness/packaging.py",
+      "sha256": "20c647269191d31c828ec99f202f423ad7bbe1d9f41c05e400cc7de0c13cce01",
+      "old_git_blob": "77104ba503fe32187a144affe370b1ea14e94617"
+    },
+    {
+      "path": "cumcm_harness/paper_revision.py",
+      "sha256": "5ea3970b76582d1c749a2377ae31aba186cf136b42535b930589999ddd1a48d7",
+      "old_git_blob": null
+    },
+    {
+      "path": "cumcm_harness/providers.py",
+      "sha256": "2a8a309305ad10f6b26ae5a5710ca21af7e493dfbc5e31f30edd4d7f1e34d46f",
+      "old_git_blob": "58457a88dcd7ff5cc54cbd200a19bda91d3a62f7"
+    },
+    {
+      "path": "cumcm_harness/role_skills.py",
+      "sha256": "cd0a752d3b485253c3da0f7aaf07c6d20b6fd56a2e4ff463e12d6a5f7c52fe80",
+      "old_git_blob": "66077cc6f6a09c4e6287f03941ecb8423c16180f"
+    },
+    {
+      "path": "docs/THREE_INPUT_MODES_CN.md",
+      "sha256": "39236451d9c9c5f4281c43f01f4e362e4086dc7061e48e52551942d9d04a7620",
+      "old_git_blob": null
+    },
+    {
+      "path": "examples/three-inputs/existing_paper.md",
+      "sha256": "3508777b73d517e9df9bb0f9c4081ad00249d5afcc24db21b1e83fc8d7ed61d2",
+      "old_git_blob": null
+    },
+    {
+      "path": "examples/three-inputs/external_ai_records.example.json",
+      "sha256": "5cdbcabe78c7b5aedf5feee723b6c54d55c0f995a5d60166cb9eb3c82cfe0376",
+      "old_git_blob": null
+    },
+    {
+      "path": "examples/three-inputs/prior_idea.md",
+      "sha256": "41523239a3d4c77c5f9ee152d6a451d84f2d754efa94f23415dafdb779e78412",
+      "old_git_blob": null
+    },
+    {
+      "path": "examples/three-inputs/web_handoff_prompt.md",
+      "sha256": "b0ce987346724c906711a7ca911da5af12adb42ea2ec0fdc823e8ce3b2c8ccde",
+      "old_git_blob": null
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "b2f855e482396c0ed5d92a37a0cd0c99bb099db052c84c3c31aaf51c589c5e25",
+      "old_git_blob": "240250c43c91b397fdd49c72f8c35f1b513eed4a"
+    },
+    {
+      "path": "schemas/idea_catalog.json",
+      "sha256": "26ca3db5e9214575ab338694ad5020bb2c3c6e4be335478e54dcad515e5a775b",
+      "old_git_blob": null
+    },
+    {
+      "path": "schemas/idea_plan_alignment.json",
+      "sha256": "f5be4e9083b6ce1f0d6c0028b96bea839cf1552ff0552a7867fc86f2c0e33714",
+      "old_git_blob": null
+    },
+    {
+      "path": "schemas/idea_triage.json",
+      "sha256": "c8e7d3f72e9cf948aec8f4552a783dfc3da89542b1aa172b399126b332f94fcc",
+      "old_git_blob": null
+    },
+    {
+      "path": "schemas/revision_patch.json",
+      "sha256": "cbd11c96ee73ba93fdb3f17e10d1c2e56516204cff4c9a7bf175aefea66a0f2f",
+      "old_git_blob": null
+    },
+    {
+      "path": "scripts/validate_three_inputs.py",
+      "sha256": "4a74ac34d335b29cfb938cdb28d991b71f296b0543d3479cae2ae0bc3ac1b5cf",
+      "old_git_blob": null
+    },
+    {
+      "path": "tests/test_three_inputs_documents.py",
+      "sha256": "3a671b284413fb7002952e22d91c9f9964e7edabb83fb8c03d56711f8efd890a",
+      "old_git_blob": null
+    },
+    {
+      "path": "tests/test_three_inputs_entry.py",
+      "sha256": "17f0cbcbb24922b66530f25441aa1f33c06b27c916f0f161908e60c9efe5f7d5",
+      "old_git_blob": null
+    },
+    {
+      "path": "tests/test_three_inputs_ideas.py",
+      "sha256": "62ccd9303d1769fd8d5ea043264c7733d3d0d38402813237fdf6db5d67770b80",
+      "old_git_blob": null
+    },
+    {
+      "path": "tests/test_three_inputs_revision.py",
+      "sha256": "58c200be9684e55f2bf1f535e1faa7a0ab44dd5f421048ee64860dc911e4b382",
+      "old_git_blob": null
+    },
+    {
+      "path": "tests/test_three_inputs_runtime.py",
+      "sha256": "d4527053fe761a46c61708e10c91c3d47704a50a15a39fa2a72636a1b32926b6",
+      "old_git_blob": null
+    }
+  ],
+  "test_files": [
+    "tests/test_three_inputs_documents.py",
+    "tests/test_three_inputs_entry.py",
+    "tests/test_three_inputs_ideas.py",
+    "tests/test_three_inputs_revision.py",
+    "tests/test_three_inputs_runtime.py"
+  ],
+  "unchanged_vendor": "Original MOSAIC/OurWork unchanged; existing full checkout required",
+  "live_validation": "NOT_RUN",
+  "full_latest_repository_regression": "NOT_RUN"
+}

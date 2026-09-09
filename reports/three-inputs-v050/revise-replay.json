@@ -1,0 +1,53 @@
+{
+  "contest_ready": false,
+  "full_research_run": false,
+  "input_mode": "revise",
+  "live_llm_calls": false,
+  "patches": 1,
+  "pdf_only_reflow": false,
+  "remaining_gate": "Review original science, original layout and local rules; follow research_handoff.md for substantive issues.",
+  "research_requests": 0,
+  "result": {
+    "edited": {
+      "edits": 1,
+      "path": "revised.md",
+      "pdf_layout_preserved": "SOURCE_FORMAT_PRESERVED_NOT_RENDER_VERIFIED",
+      "scientific_revalidation": "NOT_RUN",
+      "semantic_equivalence": "INDEPENDENT_REVIEW_REQUIRED",
+      "sha256": "97392855713558387be689934696e419bccdb9d8177f9f5a6f8a0796bab730f8"
+    },
+    "output_manifest": {
+      "AI工具使用详情.md": "929b0fa34150bb58ce859e36b7eb93a11d842707a83025e9317e697eb3c8de23",
+      "ai_usage.json": "91e2c989a3a2141fb9f09312eddc119b897dc029178690044a8b6a4b38d78f81",
+      "research_handoff.md": "258802dd8fe7a3a704402187f7e926fcb5ff187d130e853a01e4b883c4b80f61",
+      "revised.md": "97392855713558387be689934696e419bccdb9d8177f9f5a6f8a0796bab730f8",
+      "revision-report.json": "fb96c210ddf9fe225f6453dbffa7726410e74ad23dcced2c0a604b39226d42bd"
+    }
+  },
+  "source_sha256": "147a89c04e48054b752e1ef53fbe991d444887b88feb27198bb2b26c7458b656",
+  "status": "REVISION_FIXTURE_COMPLETE_NOT_LIVE_VALIDATED",
+  "three_input_validation": {
+    "full_original_research_path": false,
+    "identity": {
+      "calls": 7,
+      "deliverables": {
+        "AI工具使用详情.md": "929b0fa34150bb58ce859e36b7eb93a11d842707a83025e9317e697eb3c8de23",
+        "ai_usage.json": "91e2c989a3a2141fb9f09312eddc119b897dc029178690044a8b6a4b38d78f81",
+        "research_handoff.md": "258802dd8fe7a3a704402187f7e926fcb5ff187d130e853a01e4b883c4b80f61",
+        "revised.md": "97392855713558387be689934696e419bccdb9d8177f9f5a6f8a0796bab730f8",
+        "revision-report.json": "fb96c210ddf9fe225f6453dbffa7726410e74ad23dcced2c0a604b39226d42bd"
+      },
+      "exa": null,
+      "jobs": []
+    },
+    "input_mode": "revise",
+    "model_responses": "PREWRITTEN_FIXTURE_NOT_LIVE",
+    "new_fixture_calls": 0,
+    "numeric_and_tex": "NOT_APPLICABLE",
+    "real_exa_http": "NOT_RUN",
+    "replay": true,
+    "replay_unchanged": true,
+    "retrieval": "NOT_APPLICABLE",
+    "world_best_or_award_claim": "NOT_ESTABLISHED"
+  }
+}

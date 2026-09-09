@@ -1,0 +1,228 @@
+{
+  "attempted_calls": 6,
+  "model_generated_code_executed": false,
+  "results": [
+    {
+      "packet_digest": "7dd6d387ed8ea745b69e29e402433a4663849fbca1b79bf51f004cc601f31e73",
+      "provider": "codex",
+      "receipt": {
+        "model_reported": "UNREPORTED",
+        "model_requested": "CLI_DEFAULT",
+        "prompt_sha256": "bb9cdc7720680567c4615ec353b567fe449565ae76aa6ad592387bd77e55eda6",
+        "response_digest": "3ee580bb2c149c89a4257ca241d3b58f0dcdb62eef29d122f19bb62c70a02c15",
+        "skill_digest": "94003cd08b76fd30fb8b87b901856d84ebfa2e56785e0a737611b093120eaa3e",
+        "transport": "LIVE_CLI",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 16025,
+          "output_tokens": 112,
+          "reasoning_output_tokens": 0
+        }
+      },
+      "role": "idea_curator",
+      "schema": "idea_catalog",
+      "status": "PASS",
+      "valid_structured_response": true
+    },
+    {
+      "packet_digest": "69dd7fae9c017df4606c3126d75ccc54836df17b421171539dd018f5826e9920",
+      "provider": "codex",
+      "receipt": {
+        "model_reported": "UNREPORTED",
+        "model_requested": "CLI_DEFAULT",
+        "prompt_sha256": "9b3c9aed0c9772521f9d1dc4edfa72dd37875f5826ff2f67e697a04072f15b75",
+        "response_digest": "d012b6873fdeab8e16909707bf6d93610df5f148dff52b769cd046a3256c1ffe",
+        "skill_digest": "8715ae5e02d6670f28adb242c478f975e4699d46e105cea125d043b36cc76dd1",
+        "transport": "LIVE_CLI",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 16258,
+          "output_tokens": 512,
+          "reasoning_output_tokens": 0
+        }
+      },
+      "role": "idea_adversary",
+      "schema": "idea_triage",
+      "status": "PASS",
+      "valid_structured_response": true
+    },
+    {
+      "packet_digest": "87397e900e68210d749ddcf607d03e8711ab916c61785432468a5640589c33c5",
+      "provider": "codex",
+      "receipt": {
+        "model_reported": "UNREPORTED",
+        "model_requested": "CLI_DEFAULT",
+        "prompt_sha256": "8b1bc23e6ad3f969d7df1d2dca77af82144544dff2d7f7ea7c64cc397c506078",
+        "response_digest": "7eb19044bda74cfd19436204dd4db657a95ea65d9987ab5bc056026b0fd894e3",
+        "skill_digest": "1fa69311c82c807585b5638d030ae54e603c8f0a41616ceea2152d45213c2ddf",
+        "transport": "LIVE_CLI",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 16401,
+          "output_tokens": 356,
+          "reasoning_output_tokens": 44
+        }
+      },
+      "role": "paper_editor",
+      "schema": "revision_patch",
+      "status": "PASS",
+      "valid_structured_response": true
+    },
+    {
+      "packet_digest": "7dd6d387ed8ea745b69e29e402433a4663849fbca1b79bf51f004cc601f31e73",
+      "provider": "claude",
+      "receipt": {
+        "cost_usd": 0.14735600000000001,
+        "model_reported": "UNREPORTED",
+        "model_requested": "claude-opus-5",
+        "prompt_sha256": "bb9cdc7720680567c4615ec353b567fe449565ae76aa6ad592387bd77e55eda6",
+        "response_digest": "118b455d6ae49755abd188d321eae720a2c315342367379d97b27c13adc1709a",
+        "skill_digest": "94003cd08b76fd30fb8b87b901856d84ebfa2e56785e0a737611b093120eaa3e",
+        "transport": "LIVE_CLI",
+        "usage": {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 6178,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 6178,
+          "cache_read_input_tokens": 0,
+          "inference_geo": "not_available",
+          "input_tokens": 2,
+          "iterations": [
+            {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 6178,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 6178,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 2,
+              "output_tokens": 3308,
+              "type": "message"
+            }
+          ],
+          "output_tokens": 3308,
+          "output_tokens_details": {
+            "thinking_tokens": 2677
+          },
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          },
+          "service_tier": "standard",
+          "speed": "standard"
+        }
+      },
+      "role": "idea_curator",
+      "schema": "idea_catalog",
+      "status": "PASS",
+      "valid_structured_response": true
+    },
+    {
+      "packet_digest": "69dd7fae9c017df4606c3126d75ccc54836df17b421171539dd018f5826e9920",
+      "provider": "claude",
+      "receipt": {
+        "cost_usd": 0.198637,
+        "model_reported": "UNREPORTED",
+        "model_requested": "claude-opus-5",
+        "prompt_sha256": "9b3c9aed0c9772521f9d1dc4edfa72dd37875f5826ff2f67e697a04072f15b75",
+        "response_digest": "6c12d60df6005f980918bdb270873d799d86eac6eadff832c395dc50e765d787",
+        "skill_digest": "8715ae5e02d6670f28adb242c478f975e4699d46e105cea125d043b36cc76dd1",
+        "transport": "LIVE_CLI",
+        "usage": {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 6575,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 6575,
+          "cache_read_input_tokens": 0,
+          "inference_geo": "not_available",
+          "input_tokens": 2,
+          "iterations": [
+            {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 6575,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 6575,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 2,
+              "output_tokens": 5187,
+              "type": "message"
+            }
+          ],
+          "output_tokens": 5187,
+          "output_tokens_details": {
+            "thinking_tokens": 3203
+          },
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          },
+          "service_tier": "standard",
+          "speed": "standard"
+        }
+      },
+      "role": "idea_adversary",
+      "schema": "idea_triage",
+      "status": "PASS",
+      "valid_structured_response": true
+    },
+    {
+      "packet_digest": "87397e900e68210d749ddcf607d03e8711ab916c61785432468a5640589c33c5",
+      "provider": "claude",
+      "receipt": {
+        "cost_usd": 0.21128800000000003,
+        "model_reported": "UNREPORTED",
+        "model_requested": "claude-opus-5",
+        "prompt_sha256": "8b1bc23e6ad3f969d7df1d2dca77af82144544dff2d7f7ea7c64cc397c506078",
+        "response_digest": "d7a6699240eb1ec9baea7ef5c8329669ada41a74d216b150ff3240609f805884",
+        "skill_digest": "1fa69311c82c807585b5638d030ae54e603c8f0a41616ceea2152d45213c2ddf",
+        "transport": "LIVE_CLI",
+        "usage": {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 6924,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 6924,
+          "cache_read_input_tokens": 0,
+          "inference_geo": "not_available",
+          "input_tokens": 2,
+          "iterations": [
+            {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 6924,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 6924,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 2,
+              "output_tokens": 5549,
+              "type": "message"
+            }
+          ],
+          "output_tokens": 5549,
+          "output_tokens_details": {
+            "thinking_tokens": 3593
+          },
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          },
+          "service_tier": "standard",
+          "speed": "standard"
+        }
+      },
+      "role": "paper_editor",
+      "schema": "revision_patch",
+      "status": "PASS",
+      "valid_structured_response": true
+    }
+  ],
+  "scope": "LIVE_CLI_NEW_ROLE_SCHEMA_AND_BOUNDED_SEMANTIC_CHECKS_NOT_FULL_MODELING",
+  "status": "PASS",
+  "valid_responses": 6
+}
