@@ -11,7 +11,7 @@ from .common import (Blocked,IntegrityError,ScientificRejection,UnknownExternalS
 from .brief_sources import (load_snapshot,paragraph_units,make_batches,NeedsSourceInput,source_packet_units)
 from .brief_contracts import (check_outline,check_facts,assemble,check_complete,
     check_ambiguities,apply_local_patch,MAX_FACTS_PER_CALL)
-from .brief_validation import BriefContractError,definition_conflicts
+from .brief_validation import BriefContractError,SourceContractFailure,definition_conflicts
 
 # This is source work, not a request to derive a complete model before the brief.
 SCOPE=('Check only faithful extraction of the original problem. Preserve all given '
@@ -35,7 +35,9 @@ class BriefWorkflow:
         # Original review records stay immutable in CAS. Provide the complete
         # substantive verdicts, not repeated prompts/receipt blobs in every retry.
         records=list(getattr(exc,'records',()))
-        ref=self.c.store.put({'error':str(exc),'records':records,
+        category=('SCIENTIFIC_REVIEW' if isinstance(exc,ScientificRejection) else
+                  'SOURCE_CONTRACT' if isinstance(exc,(IntegrityError,SourceContractFailure)) else 'BLOCKED')
+        ref=self.c.store.put({'error':str(exc),'error_type':type(exc).__name__,'category':category,'records':records,
                               'latest_artifact':latest,'findings':getattr(exc,'findings',[])})
         objections=[]
         def extract(value):
@@ -48,7 +50,8 @@ class BriefWorkflow:
             elif isinstance(value,list):
                 for child in value:extract(child)
         extract(records)
-        return {'error':str(exc),'findings':getattr(exc,'findings',[]),
+        return {'error':str(exc),'error_type':type(exc).__name__,'category':category,
+                'findings':getattr(exc,'findings',[]),
                 'review_objections':objections,'full_diagnostic_ref':ref}
 
     def _produce(self,key,schema,packet,checker,*,images=(),review=True,visual=False,stage=None):
@@ -79,8 +82,16 @@ class BriefWorkflow:
             except (Blocked,IntegrityError) as exc:
                 diagnostic=self._diagnostic(exc,latest);feedback.append(diagnostic)
                 self.c.store.event('BRIEF_CHUNK_REPAIR',{'key':key,'attempt':attempt,**diagnostic})
-        raise ScientificRejection('Brief source chunk exhausted bounded repairs: '+key,
-                                  records=[{'diagnostic':d} for d in feedback])
+        # An invalid field/quote is not an independent scientific verdict. A real
+        # negative review remains a negative even if a later repair is malformed.
+        message='Brief source chunk exhausted bounded repairs: '+key
+        records=[{'diagnostic':d} for d in feedback]
+        if any(d['category']=='SCIENTIFIC_REVIEW' for d in feedback):
+            raise ScientificRejection(message,records=records)
+        if all(d['category']=='SOURCE_CONTRACT' for d in feedback):
+            raise SourceContractFailure(message,records=records)
+        failure=Blocked(message);failure.records=records
+        raise failure
 
     def _source_units(self,snapshot):
         units=[];page_receipts=[]
@@ -134,7 +145,10 @@ class BriefWorkflow:
                 'Select whole source_unit_ids supplied here; do not invent offsets '
                 'or regenerate references. question_ids refer to the given real questions; constraint_ids are computed later by the controller. '
                 'Preserve table fields/units/months, complete ratio numerator AND denominator, physical meanings/units and axis-control relations. '
-                'For explicitly defined symbols fill declarations with the subject and exact source quote, also present in statement. '
+                'For explicitly defined symbols fill declarations with a literal subject from its own definition quote. '
+                'Prefer the exact source spelling without outer math delimiters; do not turn TeX symbols into Unicode aliases or renamed IDs. '
+                'One balanced outer math-delimiter pair is presentation only. Keep the quote exactly as supplied, including whitespace and LaTeX, '
+                'and include that same complete quote verbatim in statement. A subject must occur in its own quote, not just elsewhere in the source. '
                 'A stated convention is a given, not an open interpretation. Exclusions need explicit reasons and independent review. '
                 'Return NEEDS_SPLIT with empty facts/exclusions if this packet cannot fit; never truncate or claim COMPLETE on partial output. '
                 'Return NEEDS_SOURCE with exact unreadable spans when source material is insufficient; do not use Exa to reconstruct this problem.')}
@@ -171,7 +185,7 @@ class BriefWorkflow:
             except (Blocked,IntegrityError) as exc:
                 d=self._diagnostic(exc,latest);feedback.append(d)
                 self.c.store.event('BRIEF_CHUNK_REPAIR',{'key':key,'attempt':attempt,**d})
-        raise ScientificRejection('Source fact chunk rejected after bounded local repairs: '+key)
+        raise ScientificRejection('Source fact chunk rejected after bounded local repairs: '+key,records=feedback)
 
     def _review_complete(self,brief,units,key,exclusions=()):
         # Per-question packets bound complete evidence without repeating unrelated

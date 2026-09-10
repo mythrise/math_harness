@@ -6,13 +6,15 @@ from .common import IntegrityError,digest
 from .contracts import SCHEMAS,obj,arr,S,I,B,ID,validate,topo
 from .materials_contracts import BRIEF_QUESTION,SPAN,check_brief
 from .brief_validation import (MAX_REQUIREMENTS,BriefContractError,check_standalone,
-    assign_typed_links,definition_conflicts,check_reference_graph,typed_links)
+    assign_typed_links,definition_conflicts,check_reference_graph,typed_links,declaration_subject_key)
 
 MAX_FACTS_PER_CALL=24
 HASH={'type':'string','pattern':'^[0-9a-f]{64}$'}
 STRING={'type':'string'}
 STATUS={'enum':['COMPLETE','NEEDS_SPLIT','NEEDS_SOURCE']}
-DECLARATION=obj(subject=S,quote=S)
+DECLARATION=obj(
+    subject={**S, 'description':'Exact symbol/name in its definition quote. Prefer the literal source spelling without outer math delimiters. One balanced outer $...$, $$...$$, \\(...\\) or \\[...\\] pair is presentation only; no symbol aliases are inferred.'},
+    quote={**S, 'description':'Verbatim continuous source quotation, also present verbatim in this fact statement. Do not normalize whitespace, LaTeX, numbers or units.'})
 FACT=obj(kind={'enum':['background','given','constraint','deliverable']},
     category={'enum':['prose','formula','definition','table','geometry','time']},
     statement={'type':'string','minLength':1,'maxLength':2400},
@@ -57,7 +59,7 @@ def check_outline(value,units):
     return value
 
 
-def check_fact(fact,units,question_ids):
+def check_fact(fact,units,question_ids,*,location='fact'):
     # Use the registered parent validator for shape, below for referential integrity.
     sources={u['id']:u for u in units}
     ids=_unique(fact['source_unit_ids'],'fact source')
@@ -83,10 +85,27 @@ def check_fact(fact,units,question_ids):
     declarations=fact['declarations']
     if fact['category']=='definition' and not declarations:
         raise IntegrityError('A definition fact needs an explicit source-grounded subject/meaning declaration')
-    if len(declarations)!=len({d['subject'] for d in declarations}):raise IntegrityError('Duplicate declaration subject in fact')
-    for d in declarations:
-        if d['subject'] not in text or d['quote'] not in text or d['quote'] not in fact['statement']:
-            raise IntegrityError('Declared meaning must quote the source and be present in the self-contained statement')
+    keys=[declaration_subject_key(d['subject']) for d in declarations]
+    findings=[]
+    if len(keys)!=len(set(keys)):
+        findings.append({'code':'DUPLICATE_DECLARATION_SUBJECT','location':location+'.declarations',
+            'detail':'The same source subject appears more than once, including presentation-wrapper variants.',
+            'required_fix':'Keep one complete source-grounded declaration for each subject in this fact.'})
+    for i,(d,subject) in enumerate(zip(declarations,keys)):
+        checks=[('DECLARATION_SUBJECT_NOT_IN_SOURCE','subject',bool(subject) and subject in text,
+                 'Use the literal symbol/name in the cited source. Outer math delimiters are optional; do not invent aliases or alter subscripts.'),
+                ('DECLARATION_SUBJECT_NOT_IN_QUOTE','subject',bool(subject) and subject in d['quote'],
+                 'Bind this subject to its own exact definition quote; a different definition elsewhere in the paragraph is insufficient.'),
+                ('DECLARATION_QUOTE_NOT_IN_SOURCE','quote',d['quote'] in text,
+                 'Copy a continuous quotation exactly from the cited source, preserving all characters, notation, numbers and units.'),
+                ('DECLARATION_QUOTE_NOT_IN_STATEMENT','quote',d['quote'] in fact['statement'],
+                 'Include the exact definition quotation in this self-contained statement; do not replace it with a cross-reference.')]
+        for code,field,ok,fix in checks:
+            if not ok:
+                findings.append({'code':code,'location':f'{location}.declarations[{i}].{field}',
+                    'detail':d[field][:240],'source_unit_ids':list(fact['source_unit_ids']),
+                    'required_fix':fix})
+    if findings:raise BriefContractError(findings)
     return fact
 
 
@@ -98,10 +117,13 @@ def check_facts(value,units,questions,*,context_units=()):
     if value['unreadable']:raise IntegrityError('COMPLETE may not contain unreadable source parts')
     known={u['id'] for u in units};covered=set()
     available=list({u['id']:u for u in [*units,*context_units]}.values())
-    for f in value['facts']:
-        check_fact(f,available,questions)
+    findings=[]
+    for i,f in enumerate(value['facts']):
+        try:check_fact(f,available,questions,location=f'facts[{i}]')
+        except BriefContractError as exc:findings.extend(exc.findings)
         if f['source_unit_ids'][0] not in known:raise IntegrityError('Fact owner must be in the assigned batch, not only its context')
         covered.update(set(f['source_unit_ids']) & known)
+    if findings:raise BriefContractError(findings)
     excluded=_unique([e['source_unit_id'] for e in value['exclusions']],'excluded unit')
     if not excluded<=known or covered&excluded or covered|excluded!=known:
         raise IntegrityError('Every source unit needs facts OR a reviewed exclusion; missing/overlapping/foreign source coverage')
@@ -144,7 +166,7 @@ def check_complete(value,units,problem):
     qids={q['id'] for q in value['questions']};seen=set()
     for r in value['requirements']:
         f={k:r[k] for k in ('kind','category','statement','source_unit_ids','question_ids','declarations')}
-        check_fact(f,units,qids)
+        check_fact(f,units,qids,location=f'requirements[{r["id"]}]')
         expected=fact_to_requirement(f,units,requirement_id=r['id'])
         if r!=expected:raise IntegrityError('Source anchors or typed requirement projection modified')
         seen.update(r['source_unit_ids'])
@@ -155,8 +177,8 @@ def check_ambiguities(value,brief):
     validate('brief_ambiguities',value)
     declared={}
     for r in brief['requirements']:
-        for d in r['declarations']:declared.setdefault(d['subject'],[]).append(r['id'])
-    found={x['subject']:x['requirement_ids'] for x in value['accepted_definitions']}
+        for d in r['declarations']:declared.setdefault(declaration_subject_key(d['subject']),[]).append(r['id'])
+    found={declaration_subject_key(x['subject']):x['requirement_ids'] for x in value['accepted_definitions']}
     if len(found)!=len(value['accepted_definitions']) or set(found)!=set(declared):
         raise IntegrityError('Consistency pass must explicitly acknowledge every source declaration')
     for key,ids in declared.items():
@@ -170,19 +192,19 @@ def apply_local_patch(brief,patch,units,problem):
     if patch['base_digest']!=digest(brief):raise IntegrityError('Stale global brief patch')
     updated=deepcopy(brief);by_id={r['id']:i for i,r in enumerate(updated['requirements'])};touched=set()
     qids={q['id'] for q in brief['questions']}
-    for op in patch['updates']:
+    for i,op in enumerate(patch['updates']):
         rid=op['requirement_id']
         if rid not in by_id or rid in touched:raise IntegrityError('Unknown/duplicate patch target')
         touched.add(rid);old=updated['requirements'][by_id[rid]]
         if op['before_digest']!=digest(old):raise IntegrityError('Patch does not bind the original requirement')
-        check_fact(op['fact'],units,qids)
+        check_fact(op['fact'],units,qids,location=f'updates[{i}].fact')
         new=fact_to_requirement(op['fact'],units,requirement_id=rid)
         # Repairing wording cannot silently delete a hard constraint/deliverable.
         if old['kind'] in ('constraint','deliverable') and new['kind']!=old['kind']:
             raise IntegrityError('Patch may not weaken a hard constraint/deliverable; re-extract in a new source version')
         updated['requirements'][by_id[rid]]=new
-    for fact in patch['additions']:
-        check_fact(fact,units,qids);r=fact_to_requirement(fact,units)
+    for i,fact in enumerate(patch['additions']):
+        check_fact(fact,units,qids,location=f'additions[{i}]');r=fact_to_requirement(fact,units)
         if r['id'] in by_id:raise IntegrityError('Duplicate addition')
         by_id[r['id']]=len(updated['requirements']);updated['requirements'].append(r)
     updated['questions']=assign_typed_links(updated['questions'],updated['requirements'])

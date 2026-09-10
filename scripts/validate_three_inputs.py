@@ -78,7 +78,7 @@ def identity(root):
             'deliverables':tree_manifest(root/'deliverables'),'exa':exa}
 
 
-def run(root,mode,*,local=False,replay=False,r2=False,source_brief=False):
+def run(root,mode,*,local=False,replay=False,r2=False,source_brief=False,image=None):
     root=Path(root).resolve()
     if mode=='revise' and r2:raise Blocked('Editorial validation does not execute R2 research')
     if mode=='revise' and source_brief:raise Blocked('Editorial validation does not extract a problem brief')
@@ -95,6 +95,7 @@ def run(root,mode,*,local=False,replay=False,r2=False,source_brief=False):
         paper=source/'existing.md';atomic_write(paper,'# 合成编辑样例\n\n本文模型的误差为 0.25，原有结论仍需根据真实证据核验。\n\n这里不对原始实验进行重新验证。\n\n约束为 $x \\ge 0$。')
         cfg={**DEFAULT_CONFIG,'materials_workflow':True,'max_candidates':1,'fe_budget':192,
              'review_backoff_seconds':0,'review_cooldown_seconds':3600,'allow_research_algorithms':True}
+        if image is not None:cfg['docker_image']=image
         if source_brief:cfg.update(brief_pipeline='source-ledger-v1',max_model_calls=240)
         policy=None
         if mode!='revise':cfg.update(network_policy='EXA_ABSTRACT_QUERIES',literature_enabled=True,exa_max_requests=80)
@@ -109,6 +110,9 @@ def run(root,mode,*,local=False,replay=False,r2=False,source_brief=False):
     if (root/'exa-policy.json').exists()!=r2:raise IntegrityError('Requested R2 mode differs from the frozen validation workspace')
     if (read_json(root/'config.json').get('brief_pipeline')=='source-ledger-v1')!=source_brief:
         raise IntegrityError('Requested source lane differs from the frozen validation workspace')
+    frozen_image=read_json(root/'config.json')['docker_image']
+    if image is not None and image!=frozen_image:
+        raise IntegrityError('Requested Docker image differs from the frozen validation workspace')
     before=identity(root) if replay else None
     def never(*a,**k):raise AssertionError('Replay attempted new work')
     def response(role,schema,packet):
@@ -125,7 +129,7 @@ def run(root,mode,*,local=False,replay=False,r2=False,source_brief=False):
             from cumcm_harness.exa_policy import load_frozen
             client=R2ExaClient(Store(root),load_frozen(root),transport=never if replay else r2_transport)
         else:client=ExaClient(root/'literature/exa-cache',transport=never if replay else replay_exa)
-        executor=Executor('trusted-local' if local else 'docker',image=DEFAULT_CONFIG['docker_image'])
+        executor=Executor('trusted-local' if local else 'docker',image=frozen_image)
         if replay:executor.execute=never
         c=Controller(root,fixture_provider=provider,executor=executor,exa_client=client)
     c.providers['claude']=OutageProvider()
@@ -154,5 +158,6 @@ if __name__=='__main__':
     parser.add_argument('--input-mode',choices=['idea','scratch','revise'],required=True)
     parser.add_argument('--r2',action='store_true');parser.add_argument('--local-fixture-components',action='store_true');parser.add_argument('--replay',action='store_true')
     parser.add_argument('--source-brief',action='store_true')
-    a=parser.parse_args();r=run(a.out,a.input_mode,local=a.local_fixture_components,replay=a.replay,r2=a.r2,source_brief=a.source_brief)
+    parser.add_argument('--image',help='Explicit runtime image for a new workspace; replay must retain its frozen image.')
+    a=parser.parse_args();r=run(a.out,a.input_mode,local=a.local_fixture_components,replay=a.replay,r2=a.r2,source_brief=a.source_brief,image=a.image)
     print(json.dumps({'status':r['status'],'validation':r['three_input_validation']},ensure_ascii=False,indent=2))

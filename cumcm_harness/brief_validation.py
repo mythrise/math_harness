@@ -7,7 +7,7 @@ from __future__ import annotations
 from collections import Counter
 import re
 import unicodedata
-from .common import IntegrityError, digest
+from .common import Blocked, IntegrityError, digest
 
 MAX_REQUIREMENTS = 512
 # Explicit in-document cross references, not arbitrary scientific symbols.
@@ -22,6 +22,37 @@ class BriefContractError(IntegrityError):
         first = findings[0] if findings else {'code':'UNKNOWN','location':'brief'}
         super().__init__(f"BRIEF_CONTRACT[{first['code']}] {first['location']}: "
                          f"{first.get('detail','')} ({len(findings)} finding(s))")
+
+
+class SourceContractFailure(Blocked):
+    """Bounded source-author repairs ended without a contract-valid artifact.
+
+    This is neither a provider outage nor an independent scientific verdict.
+    The original diagnostics and any earlier review objections remain evidence.
+    """
+    def __init__(self, message, records=()):
+        super().__init__(message)
+        self.records = list(records)
+
+
+def declaration_subject_key(subject):
+    """Compare one presentation wrapper without rewriting source or artifacts.
+
+    Only paired outer math delimiters and their surrounding whitespace are
+    ignored. TeX commands, case, subscripts and inner whitespace stay literal;
+    no Unicode/TeX aliasing or mathematical equivalence is inferred.
+    """
+    value = subject.strip()
+    for left, right in (('$$', '$$'), (r'\(', r'\)'), (r'\[', r'\]'), ('$', '$')):
+        if value.startswith(left) and value.endswith(right) and len(value) >= len(left)+len(right):
+            body=value[len(left):-len(right)].strip()
+            if any(mark in body for mark in ('$', r'\(', r'\)', r'\[', r'\]')):
+                return ''  # Nested/unbalanced wrappers cannot name a source symbol.
+            return body
+    if any(value.startswith(left) or value.endswith(right)
+           for left,right in (('$','$'),(r'\(',r'\)'),(r'\[',r'\]'))):
+        return ''
+    return value
 
 
 def _expanded(a, b):
@@ -130,10 +161,14 @@ def definition_conflicts(brief):
             if comparable(m[0]) in comparable(anchor) and not any(d['subject']==m[1] for d in declared):
                 declared.append({'subject':m[1],'quote':m[0]})
         for d in declared:
-            declarations.setdefault(d['subject'].strip(),[]).append((r['id'],d['quote'].strip()))
+            subject=declaration_subject_key(d['subject'])
+            if not subject:
+                raise BriefContractError([{'code':'INVALID_DECLARATION_SUBJECT','location':r['id']+'.declarations',
+                    'detail':d['subject'][:240],'required_fix':'Use a nonempty source symbol/name with either no math wrapper or one complete matching pair.'}])
+            declarations.setdefault(subject,[]).append((r['id'],d['quote'].strip()))
     findings=[]
     for a in brief.get('ambiguities',[]):
-        subject=a.get('subject','').strip()
+        subject=declaration_subject_key(a.get('subject',''))
         linked=a.get('related_requirement_ids',[])
         known={r['id'] for r in brief['requirements']}
         if any(ref not in known for ref in linked):

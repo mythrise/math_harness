@@ -56,3 +56,20 @@ def test_published_schemas_match_runtime_contracts(name):
     from cumcm_harness import materials_contracts
     path=ROOT/'schemas'/(name+('.schema.json' if name=='data_plan' else '.json'))
     assert json.loads(path.read_text())==SCHEMAS[name]
+
+
+def test_validation_replay_keeps_its_explicit_image_and_rejects_a_different_one(tmp_path):
+    import runpy
+    from cumcm_harness.common import IntegrityError,read_json
+    from cumcm_harness.store import Store
+    run=runpy.run_path(str(ROOT/'scripts/validate_three_inputs.py'))['run']
+    root=tmp_path/'editorial-image-fixture'
+    run(root,'revise',image='fixture-runtime:explicit')
+    assert read_json(root/'config.json')['docker_image']=='fixture-runtime:explicit'
+    before=Store(root).get('model_calls_reserved')
+    result=run(root,'revise',replay=True)
+    assert result['three_input_validation']['new_fixture_calls']==0
+    assert result['three_input_validation']['replay_unchanged'] is True
+    with pytest.raises(IntegrityError,match='Docker image differs'):
+        run(root,'revise',replay=True,image='fixture-runtime:changed')
+    assert Store(root).get('model_calls_reserved')==before
