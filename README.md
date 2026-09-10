@@ -6,9 +6,13 @@
 
 本次 rc3 增加原页保留与视觉转录、来源分批、类型化引用和局部补丁，审查分别限定为原页、概览、事实批次、定义一致性、单问与全局核对。见 [rc3 来源通道](docs/BRIEF_RC3_CN.md)和[本机验收](reports/BRIEF_RC3_LOCAL_CN.md)。
 
+后续声明修复允许符号的一层外部数学排版标记，仍要求定义引文逐字匹配，并将格式修复耗尽与有效科学否决分别记录。见 [修复说明](docs/BRIEF_DECLARATIONS_FIX_CN.md)与[本轮验收](reports/BRIEF_DECLARATIONS_FIX_CN.md)。
+
+正式比赛材料只存本地仓库外的 `/Users/mythrise/CUMCM_2026_PRIVATE`。本次源码推送后，本机通过 `.githooks/pre-push` 锁定后续 Git 推送；题目、数据、调用日志、实验结果、生成论文和支撑包禁止进入 GitHub。详见 [比赛本地隔离规则](docs/CONTEST_LOCAL_ONLY_CN.md)。
+
 此前 rc2 整改增加阶段审查范围、逐句初稿覆盖账本、独立基线到实验的摘要绑定、实体与数值关联保护，以及实际修改稿的隔离渲染。缺版式证据只输出待核验编辑副本。细节见 [rc2 整改说明](docs/V050RC2_REMEDIATION_CN.md)。
 
-先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[历史 rc2 测试报告](reports/V050RC2_REMEDIATION_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/source-brief-rc3-worktree`，进入该目录再运行下列命令。
+先读 [三模式说明](docs/THREE_INPUT_MODES_CN.md)、[本机接入](docs/THREE_INPUT_V050_INTEGRATION_CN.md)和[历史 rc2 测试报告](reports/V050RC2_REMEDIATION_CN.md)。原目录的未提交变动已保留；本机当前可用检出是 `.runtime/brief-declaration-worktree`，进入该目录并按下文重建当前运行镜像后再运行下列命令。
 
 ```bash
 ./scripts/cumcm doctor --live --config configs/input-idea-brief-rc3.json --exa-policy configs/exa-policy-r2.json

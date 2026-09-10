@@ -1,0 +1,9 @@
+#!/bin/sh
+# Installed locally after the final authorized harness source push.
+# Deliberately fail closed for every subsequent push during the competition.
+cat >&2 <<'EOF'
+Push blocked: this repository is locked for the competition.
+Keep real questions, data, model calls, experiments and generated papers local.
+Do not disable this lock to publish competition content.
+EOF
+exit 1

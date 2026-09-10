@@ -1,5 +1,21 @@
 # Codex entrypoint: CUMCM-EgoHarness
 
+## Competition privacy: explicit operator instruction (2026-09-10)
+
+The final harness source push is authorized. After it, do not commit, push,
+upload, publish, or attach real competition questions, data, private suggestions,
+model-call logs, workspaces, experimental results, generated papers or support
+bundles to GitHub, PRs, issues, CI artifacts, or other public destinations.
+Keep actual competition work under `/Users/mythrise/CUMCM_2026_PRIVATE`, outside
+all Git checkouts. Never use `git add -f` for these materials. Engineering source
+and fixed synthetic test evidence are distinct from private competition output.
+The local repository has a fail-closed `.githooks/pre-push` lock enabled after
+the final source push. Do not disable or bypass it for competition content.
+A later explicit request to push harness source requires a fresh source-only
+diff review and may not be interpreted as permission to publish contest output.
+The old heliostat run was stopped and its dedicated inputs/workspaces deleted
+at the operator's request; do not restart or reconstruct it automatically.
+
 ## Local deployment
 
 This project is installed at its root with an editable Python environment in `.venv/`.
@@ -61,8 +77,9 @@ source units, batch objections and bounded repair outcomes. Stage scopes come fr
 the controller; complete fact coverage remains mandatory at batch and final gates.
 Declarations require literal source subjects and quotes; inspect the failed fields
 before diagnosing a generic declaration error. Do not rewrite frozen output to pass.
-Claude retains no local deadline. The current real historical run stopped at batch
-11; engineering fixture completion is not a successful real problem solution.
+Claude retains no local deadline. See `docs/BRIEF_DECLARATIONS_FIX_CN.md` for the
+literal quote and presentation-wrapper rule. The historical test was stopped by
+the operator; engineering completion is not a successful real problem solution.
 
 
 ## 0.4 materials contracts

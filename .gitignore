@@ -24,6 +24,17 @@ node_modules/
 /math_modeling_official_pack_2015_2026/
 /math_harness_exa_review_update*/
 
+# Real competition material must remain local and must never be force-added.
+/contest-private/
+/competition-private/
+/private-runs/
+/定日镜场真实测试/
+/正式比赛/
+/赛题/
+/比赛数据/
+/比赛论文/
+/生成论文/
+
 # Raw CLI logs may contain private prompts or provider diagnostics.
 /reports/**
 !/reports/TEST_REPORT_CN.md
